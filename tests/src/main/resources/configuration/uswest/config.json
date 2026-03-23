@@ -1,0 +1,11 @@
+{
+  "url": "https://uswest.edcastqa.com",
+  "apiKey": "574b5cf0191698e1c9a658aebab2ced8",
+  "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im10dXRrYUBjc29kLmNvbSJ9.x3UKPSyDuIoLAa0uaLelagv7HBgJTlaebZMVhuPHpcU",
+  "locationId": "",
+  "roleFamilyId": "",
+  "roleInternalId": "",
+  "roleExternalId": "",
+  "gardenerRoleId": "",
+  "ThinkContentURL": "https://thinkcontent.csod.com/"
+}

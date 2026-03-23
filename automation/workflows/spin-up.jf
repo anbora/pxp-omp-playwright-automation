@@ -1,0 +1,5 @@
+awsPipeline {
+    stage('Sample Stage') {
+        log.info('Logging from Sample Stage of consumer Jenkinsfile')
+    }
+}

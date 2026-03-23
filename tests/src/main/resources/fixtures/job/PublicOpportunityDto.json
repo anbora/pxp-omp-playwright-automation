@@ -1,0 +1,41 @@
+{
+    "id": "id_template",
+    "referenceNumber": "REF:0000001",
+    "jobDescriptions": [
+        {
+            "title": "Job title",
+            "description": "TestDescription",
+            "jobDetailsURL": "https://fake.job.details.csod.com",
+            "applyURL": "https://fake.apply.csod.com",
+            "referralURL": "https://fake.referral.csod.com",
+            "languageCode": "en",
+            "default": true
+        }
+    ],
+    "status": "OPEN",
+    "company": "CompanyName",
+    "startDateTime": "2022-01-01T00:00:00.00Z",
+    "endDateTime": "2024-12-09T10:15:30.00Z",
+    "location": [
+        {
+            "locationId": "10101",
+            "primary": true
+        }
+    ],
+    "remote": "HYBRID",
+    "organization": [],
+    "level": "ASSOCIATE",
+    "contractType": "INTERNSHIP",
+    "scheduleType": "FULL_TIME",
+    "salary": {
+        "from": 1000.0,
+        "to": 1500.0,
+        "currency": "USD",
+        "period": "WEEK"
+    },
+    "linkedRoles": [],
+    "hiringManagers": [],
+    "recruiters": [],
+    "source": "testSource",
+    "careerTrack": "MANAGEMENT"
+}

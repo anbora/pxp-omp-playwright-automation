@@ -1,0 +1,13 @@
+# PipelineKit automation specfic configurations
+#
+# Know more about available `config.yaml` configurations,
+# Go to wiki - 
+# https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+config.yaml
+
+General:
+  # Provide slack name for Jenkins build notifications
+  SlackChannel:  playwright-automation-results
+  DevelopSlackChannel:  playwright-automation-results
+  # Provide comma separated email address(s) for Jenkins build notifications
+  MailAddresses:  tskrzypek@csod.com
+  DevelopMailAddresses:  tskrzypek@csod.com

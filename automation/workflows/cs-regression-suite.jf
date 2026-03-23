@@ -1,0 +1,37 @@
+awsParameters([
+        choice(name: 'CONFIG', choices: ['qaAws', 'previewEu', 'prodUs', 'prodEu']),
+        choice(name: 'SUITE', choices: ['csRegression'])
+])
+
+awsPipeline {
+    stage('Automation Tests') {
+
+        def jobNumber = jobMetadata.buildNumber
+        def environmentName = awsEnv().alias
+        def regionName = "us-west-1"
+        def shortAccountName = "micro-int"
+        def config = params.CONFIG
+        def suite = params.SUITE
+        def resultDashboardName = 'regression'
+
+        log.info("All Tests for jobNumber: ${jobNumber}")
+        dir ('mnt') {
+            writeFile file:'__', text:''
+        }
+
+        automationTestImageName = "pxp-omp-playwright-automation"
+        runResult = dockr.buildFile(
+            'docker/CS.Dockerfile',
+            '.',
+            [
+                'tag'   : automationTestImageName,
+                'target': 'automation',
+                'buildargs': [
+                    "CONFIG=${config}".toString(),
+                    "SUITE=${suite}".toString(),
+                    "RESULT_DASHBOARD_NAME=${resultDashboardName}".toString()
+                ]
+            ]
+        )
+    }
+}

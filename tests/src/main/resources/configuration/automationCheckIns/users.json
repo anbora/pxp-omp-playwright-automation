@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "name": "GSSO User",
+      "email": "gssouser",
+      "password": "Popeye1234",
+      "encryptedPassword": "v9mLRDBAyiNsCcxA+SX53l10vGmv3tUIGdkHSPJUUlmxQ62J1t0/T/gD48uqtCnGsiLl4Vm0Tr7R1QXX3mNczlYWlIVekk+qWGaQ2ujEIzhpUhtwZFCOxcJigss6eeohEpjiD165SVpazBU0z1cDtYw47PnVdPgc+kTnJ6ENbHI=",
+      "id": "3482447"
+    },
+    {
+      "name": "Rajendran Sridhar",
+      "email": "rsridhar@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Samuel Smith",
+      "email": "ariescsod1@gmail.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Smokey Bear",
+      "email": "sbear-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Bobby Benjamin",
+      "email": "bbee-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Steven Smith",
+      "email": "ssmith-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    }
+  ]
+}

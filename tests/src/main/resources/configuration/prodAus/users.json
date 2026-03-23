@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "name": "Cypress",
+      "email": "selenium@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096658"
+    },
+    {
+      "name": "Cypress2",
+      "email": "selenium2@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096660"
+    },
+    {
+      "name": "Cypress3",
+      "email": "selenium3@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096661"
+    },
+    {
+      "name": "Rajendran Sridhar",
+      "email": "rsridhar@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Samuel Smith",
+      "email": "ariescsod1@gmail.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Smokey Bear",
+      "email": "sbear-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Bobby Benjamin",
+      "email": "bbee-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Steven Smith",
+      "email": "ssmith-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    }
+  ]
+}

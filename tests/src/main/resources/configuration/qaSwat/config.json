@@ -1,0 +1,34 @@
+{
+  "portal": [
+    {
+      "name": "tmpswat",
+      "url": "https://tmpswat.edcastqa.in",
+      "v5apiKey": "e35a6a67a073ff095d1e4493a284ac01",
+      "v5token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbGVuaXVtQHNtYXJ0Y2FsZW5kYXIudGxrLmhyIn0.rcd3eaeOBH7gH7OPL9PxesgjlnfJJzFNUwoD98jZ-C0",
+      "v6CurrentUser": "EMAIL-selenium@smartcalendar.tlk.hr",
+      "v6token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdIb3N0TmFtZSI6InRtcHN3YXQifQ.Tn7c3BxzUPnqqXR7Nsv16R32VTxFNEFdUA8gNGvsAA4",
+      "accountId": "7066",
+      "adminRoles": "1028, 1029",
+      "locationId": "10101",
+      "roleFamilyId": "3771782040293632469",
+      "gardenerRoleId": "5505302209539173612",
+      "skilledGardenerRoleId": "1851599856393825144",
+      "userId": "22001",
+      "loginSettings": {
+        "loginUsingCredentialButton": false,
+        "userTermsCheckBox": false,
+        "onBoardingTermsCheckBox": false,
+        "onBoardingInterestForm": false,
+        "onBoardingSkillsForm": false
+      }
+    }
+  ],
+  "organizationIDs": ["2646410414090587847"],
+  "talentMarketplaceServiceApiURL": "https://lcs-pxp.qa-p.services.us-west-1.micro-int.csodaws",
+  "thinkContentURL": "https://thinkcontent.csod.com/",
+  "edCastURL": "https://csodteam.edcastpreview.com/",
+  "skillStudioURL": "https://ss2.edcastqa.io/",
+  "sbxurl": "https://dq3qa002.sabacloud.com/",
+  "edcastQAURL": "https://skills.cmnetwork.co/",
+  "proficiencyURL": "https://proficiency.cmnetwork.co/"
+}

@@ -1,0 +1,261 @@
+# PipelineKit provides configuration driven workflow definition
+#   - Each workflow would result as respective PipelineKit Job on Jenkins
+#
+# Know more about available `workflows.yaml` configurations,
+# Go to wiki -
+# https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+workflows.yaml
+
+Workflows:
+  - Name: Refresh Procedure
+    Jenkinsfile: refresh-procedure.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Delete all users and jobs for qaAws portal
+    Schedule:
+      Config:
+        - '0 20 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        GIT_TAG=master '
+        - '15 20 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=previewEu;
+        GIT_TAG=v24.5.1 '
+      AdUsername: tskrzypek
+      DisableDevelop: true
+
+  - Name: Singe Test
+    Jenkinsfile: single-test.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Single test run
+
+  - Name: Area Suite
+    Jenkinsfile: area-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      All tests from particular area
+
+  - Name: Manual Rerun
+    Jenkinsfile: manual-rerun.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Manual Rerun for any suite
+
+  - Name: Translation Suite
+    Jenkinsfile: translation-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Job for translation check in TM project
+
+  - Name: Smoke Suite
+    Jenkinsfile: smoke-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Smoke tests suite
+    Schedule:
+      Config:
+        - '0 9,21 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=ompSmoke;
+        GIT_TAG=master '
+        - '10 15 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=ssSmoke;
+        GIT_TAG=master '
+        - '30 9,21 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=lxpSmoke;
+        GIT_TAG=master '
+        - '20 9,21 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=previewEu;
+        SUITE=ompSmoke;
+        GIT_TAG=v24.5.1 '
+        - '40 9,21 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=prodUs;
+        SUITE=ompSmoke;
+        GIT_TAG=v24.5.1 '
+        - '0 10,22 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=prodEu;
+        SUITE=ompSmoke;
+        GIT_TAG=v24.5.1 '
+      AdUsername: tskrzypek
+      DisableDevelop: true
+
+  - Name: Feature Suite
+    Jenkinsfile: feature-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Feature tests suite
+    Schedule:
+      Config:
+        - '10 8 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=ompFeature;
+        GIT_TAG=master '
+        - '30 8 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=previewEu;
+        SUITE=ompFeature;
+        GIT_TAG=v24.5.1 '
+        - '50 8 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=lxpFeature;
+        GIT_TAG=master '
+      AdUsername: tskrzypek
+      DisableDevelop: true
+      
+  - Name: Regression Suite
+    Jenkinsfile: regression-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Regression tests suite
+    Schedule:
+      Config:
+        - '30 21 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=ompAutomationOnly,ompRegression,ompSmoke;
+        GIT_TAG=master '
+        - '0 22 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=previewEu;
+        SUITE=ompRegression,ompSmoke;
+        GIT_TAG=v24.5.1 '
+        - '30 22 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=lxpRegression;
+        GIT_TAG=master '
+        - '10 15 * * * % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=qaAws;
+        SUITE=csRegression;
+        GIT_TAG=master '
+      AdUsername: tskrzypek
+      DisableDevelop: true
+
+  - Name: ZAP All Tests Suite
+    Jenkinsfile: zap-with-suite.jf
+    Environment: true
+    Branch: master
+    Description: |+
+      Run all tests with ZAP as proxy and save reports.
+    Schedule:
+      Config:
+        - '0 0 * * 0 % 
+        AWS_ACCOUNT=437677490818; 
+        AWS_REGIONS=us-west-1; 
+        AWS_ENVIRONMENTS=dev-int; 
+        JIRA_ID=TM-4608; 
+        CONFIG=previewEu;
+        SUITE=ompSmoke;
+        GIT_TAG=v24.5.1 '
+      AdUsername: tskrzypek
+      DisableDevelop: true
+
+  - Name: Spin Up Regional
+    Jenkinsfile: spin-up.jf
+    Description: |+
+      Workflow Description:
+
+      This spin-up workflow needs to be implemented. This is where you should enter the workflow's description. 
+
+      You can target an AWS account as well as a set of regions for that account. For more information, please see the below wikis:
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+Templates
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit%3A+Deployment+Policy
+
+  - Name: Tear Down Regional
+    Jenkinsfile: tear-down.jf
+    Description: |+
+      Workflow Description:
+
+      This tear-down workflow needs to be implemented. This is where you should enter the workflow's description. 
+      
+      You can target an AWS account as well as a set of regions for that account. For more information, please see the below wikis:
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+Templates
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit%3A+Deployment+Policy
+  - Name: Spin Up Environment
+    Jenkinsfile: spin-up.jf
+    Environment: true
+    Description: |+
+      Workflow Description:
+
+      This spin-up workflow needs to be implemented. This is where you should enter the workflow's description. 
+
+      You can target an AWS account as well as a set of regions & environments for that account. For more information, please see the below wikis:
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+Templates
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit%3A+Deployment+Policy
+
+  - Name: Tear Down Environment
+    Jenkinsfile: tear-down.jf
+    Environment: true
+    Description: |+
+      Workflow Description:
+
+      This tear-down workflow needs to be implemented. This is where you should enter the workflow's description. 
+      
+      You can target an AWS account as well as a set of regions & environments for that account. For more information, please see the below wikis:
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+Templates
+      https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit%3A+Deployment+Policy

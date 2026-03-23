@@ -1,0 +1,22 @@
+awsParameters([
+        string(description: 'Branch name', name: 'BRANCH', defaultValue: ''),
+        choice(name: 'CONFIG', choices: ['qaAws', 'previewEu', 'prodUs', 'prodEu']),
+        string(description: 'Name of te test class', name: 'TEST', defaultValue: ''),
+        string(name: 'JIRA_ID', defaultValue: 'TM-5687')
+])
+
+awsPipeline {
+    def baseArgs = params.findAll { it.key != 'JIRA_ID' }.collect { string(name: it.key, value: it.value) }
+    stage('Run single test') {
+        build(job: './single-test', parameters:[
+            baseArgs,
+            string(name: 'AWS_ACCOUNT', value: '437677490818'),
+            string(name: 'AWS_REGIONS', value: 'us-west-1'),
+            string(name: 'AWS_ENVIRONMENTS', value: 'dev-int'),
+            string(name: 'JIRA_ID', value: params.JIRA_ID),
+            string(name: 'BRANCH', value: params.BRANCH),
+            string(name: 'CONFIG', value: params.CONFIG),
+            string(name: 'TEST', value: params.TEST),
+        ].flatten())
+    }
+}

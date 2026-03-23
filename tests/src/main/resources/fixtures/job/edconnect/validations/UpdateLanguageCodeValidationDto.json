@@ -1,0 +1,13 @@
+{
+  "job_descriptions": [
+    {
+      "title": "Job title",
+      "description": "TestDescription",
+      "job_details_url": "https://fake.job.details.csod.com",
+      "apply_url": "https://fake.apply.csod.com",
+      "referral_url": "https://fake.referral.csod.com",
+      "language_code": "erer",
+      "default": true
+    }
+  ]
+}

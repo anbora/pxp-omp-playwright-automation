@@ -1,0 +1,10 @@
+{
+  "resolveParent": true,
+  "ids": [
+    "string"
+  ],
+  "filterInActive": true,
+  "visibilityContext": "projects_filter",
+  "cardContext": "project_card",
+  "resolveAllParents": true
+}

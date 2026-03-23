@@ -1,0 +1,3 @@
+EXTERNAL_ID,TITLE,STATUS,STREETADDRESS,CITY,STATE,COUNTRY,POSTAL_CODE,TIMEZONE,TITLE_FR,STREETADDRESS_FR,CITY_FR,STATE_FR,ACTION,SKIP
+10101,TestingQA,ACTIVE,Kalyani nagar,Nagpur,MH,IN,440001,Asia/Kolkata,TestingQA,Kalyani nagar,Nagpur,IN,insert,false
+08f7de1d-ecae-400e-984b-bcc419a95eb0,Santa Monica HQ,ACTIVE,1601a Cloverfield Blvd,Santa Monica,California,US,90404,America/Los_Angeles,Santa Monica HQ,1601a Cloverfield Blvd,Santa Monica,California,insert,false

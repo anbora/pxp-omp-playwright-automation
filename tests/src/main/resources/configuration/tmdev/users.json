@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "name": "Cypress",
+      "email": "selenium@smartcalendar.tlk.hr",
+      "password": "Talentlink.1",
+      "encryptedPassword": "we6MXyYeEpzpTCDFRvx0+K2W3j4kSzeoWsKi0tG14pDZAEpG+0D4aWfUPxQYuzjY/UKYLM00FefFtMp8EtLMKQxY8JQG/BL/77/yExcaorEUanrlsfqwH62cTT3shksPFg9pxfjBv59B40iX3TTOx7jvv2Hr0ovIXP71Buio0Cg=",
+      "id": "985124"
+    },
+    {
+      "name": "Mateusz Tutka",
+      "email": "mtutka@csod.com",
+      "password": "Talentlink.1",
+      "encryptedPassword": "",
+      "id": ""
+    }
+
+  ]
+}

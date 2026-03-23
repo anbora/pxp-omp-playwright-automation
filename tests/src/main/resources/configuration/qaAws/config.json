@@ -1,0 +1,56 @@
+{
+  "portal": [
+    {
+      "name": "ompautomationv1",
+      "url": "https://ompautomationv1.cmnetwork.co",
+      "v5apiKey": "176ad915202c4fadefd411e6f47c2574",
+      "v5token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbGVuaXVtQHNtYXJ0Y2FsZW5kYXIudGxrLmhyIn0.IqdFsVD85qbnp5oVdpAhWDvSNOqqRT0Y9KWchk7Sl1o",
+      "v6CurrentUser": "EMAIL-selenium@smartcalendar.tlk.hr",
+      "v6token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdIb3N0TmFtZSI6Im9tcGF1dG9tYXRpb252MSJ9.hbS2U5lcC5VuIJa677RCtNknLJ0nYMy9N31DgKALOvI",
+      "accountId": "7066",
+      "adminRoles": "11321, 11320",
+      "locationId": "10101",
+      "roleFamilyId": "3771782040293632469",
+      "gardenerRoleId": "5505302209539173612",
+      "skilledGardenerRoleId": "1851599856393825144",
+      "userId": "3096660",
+      "loginSettings": {
+        "loginUsingCredentialButton": false,
+        "userTermsCheckBox": false,
+        "onBoardingTermsCheckBox": false,
+        "onBoardingInterestForm": false,
+        "onBoardingSkillsForm": false
+      }
+    },
+    {
+      "name": "ompautomationv3",
+      "url": "https://ompautomationv3.cmnetwork.co",
+      "v5apiKey": "e7bccaec7ffa2311da30390251f56bda",
+      "v5token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbGVuaXVtQHNtYXJ0Y2FsZW5kYXIudGxrLmhyIn0._H4LMZ_LrRk1yfyjhk4nRjYuFIFFPj_Y7t4otYA5IM0",
+      "v6CurrentUser": "EMAIL-selenium@smartcalendar.tlk.hr",
+      "v6token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdIb3N0TmFtZSI6Im9tcGF1dG9tYXRpb252MyJ9.uJgEmdP0sU6wuH_qNi7ynbfYbEuRi-c5GWE9OJTxtX4",
+      "accountId": "7069",
+      "adminRoles": "11338, 11339",
+      "locationId": "10101",
+      "roleFamilyId": "3771782040293632469",
+      "gardenerRoleId": "5505302209539173612",
+      "skilledGardenerRoleId": "1851599856393825144",
+      "userId": "3578203",
+      "loginSettings": {
+        "loginUsingCredentialButton": false,
+        "userTermsCheckBox": false,
+        "onBoardingTermsCheckBox": false,
+        "onBoardingInterestForm": false,
+        "onBoardingSkillsForm": false
+      }
+    }
+  ],
+  "organizationIDs": ["2646410414090587847"],
+  "talentMarketplaceServiceApiURL": "https://lcs-pxp.qa-p.services.us-west-1.micro-int.csodaws",
+  "thinkContentURL": "https://thinkcontent.csod.com/",
+  "edCastURL": "https://csodteam.edcastpreview.com/",
+  "skillStudioURL": "https://ss2.edcastqa.io/",
+  "sbxurl": "https://dq3qa002.sabacloud.com/",
+  "edcastQAURL": "https://skills.cmnetwork.co/",
+  "proficiencyURL": "https://proficiency.cmnetwork.co/"
+}

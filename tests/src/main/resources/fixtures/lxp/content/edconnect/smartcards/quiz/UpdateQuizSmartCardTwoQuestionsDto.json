@@ -1,0 +1,201 @@
+{
+  "content": {
+    "id": "ECL-1",
+    "languages": [
+      {
+        "id": 1,
+        "title": "Question1Title_EN",
+        "language_code": "en",
+        "resource": {
+          "url": "http://goo.go"
+        }
+      },
+      {
+        "id": 1,
+        "title": "Question1Title_PL",
+        "language_code": "pl",
+        "resource": {
+          "url": "http://goo.go"
+        }
+      }
+
+    ],
+    "readableContentType": "quiz",
+    "externalId": "ecl_1",
+    "tags": [],
+    "provider": "User Generated Content",
+    "duration": null,
+    "author": null,
+    "isPrivate": false,
+    "isPaid": false,
+    "prices": [],
+    "plan": "free",
+    "level": null,
+    "slug": "en_api_adf-bfd-ebca",
+    "shareUrl": "https://ompautomationv1.cmnetwork.co/insights/1",
+    "publishedAt": "2024-06-06T05:30:58.000Z",
+    "metadata": {
+      "promotion": false,
+      "discount": false,
+      "allow_enrollment": false
+    },
+    "createdAt": "2024-06-06T05:30:58.000Z",
+    "sourceId": "1",
+    "sourceDisplayName": "User Generated Content",
+    "sourceTypeName": "ugc",
+    "channels": [],
+    "teams": [],
+    "user_taxonomy_topics": [],
+    "state": "active",
+    "expirationDate": null,
+    "contributors": [],
+    "quiz": {
+      "id": 1,
+      "cardId": 1,
+      "reanswerable": true,
+      "mandatory": true,
+      "passingCriteria": 1,
+      "quiz_questions_attributes": [
+        {
+          "id": 1,
+          "_destroy": false,
+          "question_options_attributes": [
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option1en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option1pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            },
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option2en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option2pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            },
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option3en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option3pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            },
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option4en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option4pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            }
+          ],
+          "passed": null,
+          "questionAttempts": null,
+          "isSingleChoice": false,
+          "languages": [
+            {
+              "question": "question1Title_EN",
+              "language_code": "en"
+
+            },
+            {
+              "question": "question1Title_PL",
+              "language_code": "pl"
+
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "_destroy": false,
+          "question_options_attributes": [
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option1en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option1pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            },
+            {
+              "id": 1,
+              "_destroy": false,
+              "languages": [
+                {
+                  "option": "option2en-edited",
+                  "language_code": "en"
+
+                },
+                {
+                  "option": "option2pl-edited",
+                  "language_code": "pl"
+
+                }
+              ]
+            }
+          ],
+          "passed": null,
+          "questionAttempts": null,
+          "isSingleChoice": false,
+          "languages": [
+            {
+              "question": "question2Title_EN",
+              "language_code": "en"
+
+
+            },
+            {
+              "question": "question2Title_PL",
+              "language_code": "pl"
+
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

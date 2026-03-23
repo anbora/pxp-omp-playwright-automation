@@ -1,0 +1,17 @@
+{
+  "url": "https://sparkload.edcastperf.com",
+  "apiKey": "84028f0d99e2779fb3c9f1dfac825fd6",
+  "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRza3J6eXBla0Bjc29kLmNvbSJ9.rmzkV6kaIpqqEFYLDgIf5o9_HRyP85Wnrxp88R-6PMA",
+  "locationId": "10101",
+  "roleFamilyId": "3771782040293632469",
+  "roleInternalId": "",
+  "roleExternalId": "",
+  "gardenerRoleId": "5505302209539173612",
+  "skilledGardenerRoleId": "1851599856393825144",
+  "ThinkContentURL": "https://thinkcontent.csod.com/",
+  "EdCastURL": "https://csodteam.edcastpreview.com/",
+  "accountId": "500001",
+  "talentMarketplaceServiceApiURL": "https://lcs-pxp.qa-p.services.us-west-1.micro-int.csodaws",
+  "userId": "360",
+  "adminRoles": "11321, 11320"
+}

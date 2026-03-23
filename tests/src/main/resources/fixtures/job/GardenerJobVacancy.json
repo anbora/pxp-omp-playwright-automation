@@ -1,0 +1,40 @@
+{
+  "id": "id_template2",
+  "referenceNumber": "REF:0000001",
+  "jobDescriptions": [
+    {
+      "title": "Job title",
+      "description": "A successful Gardener enjoys working outdoors and has a strong understanding of plant care. They’re responsible for keeping gardened areas healthy and beautiful, with common Gardener job duties and responsibilities including: Planting all types of plants, including flowers, shrubs and trees\\\\n Maintaining plants by watering, fertilizing and trimming them\\\\n Using and maintaining gardening tools and light gardening machinery\\\\n Identifying and treating diseases, pest infestations and other issues with garden plants\\\\n     Cleaning up garden areas\\\\nProviding recommendations for gardens\\\\nHandling edging, mulching and other garden tasks\\\\nFollowing safety guidelines for applying chemicals and using equipment.Gardener skills and qualifications:Strong knowledge of plant care and an understanding of various plants’ needs\\\\nInterpersonal skills to communicate plant care information to others\\\\nKnowledge of health and safety regulations regarding landscaping and gardening\\\\nMath skills to calculate fertilizer and pesticide application rates and chemical dilutions.",
+      "jobDetailsURL": "https://fake.job.details.csod.com",
+      "applyURL": "https://fake.apply.csod.com",
+      "referralURL": "https://fake.referral.csod.com",
+      "languageCode": "en",
+      "default": true
+    }
+  ],
+  "status": "OPEN",
+  "company": "CompanyName",
+  "startDateTime": "2022-01-01T00:00:00.00Z",
+  "endDateTime": "2024-12-09T10:15:30.00Z",
+  "location": [
+    {
+      "locationId": "10101",
+      "primary": true
+    }
+  ],
+  "remote": "HYBRID",
+  "organization": [],
+  "level": "ASSOCIATE",
+  "contractType": "INTERNSHIP",
+  "scheduleType": "FULL_TIME",
+  "salary": {
+    "from": 1000.0,
+    "to": 1500.0,
+    "currency": "USD",
+    "period": "WEEK"
+  },
+  "hiringManagers": [],
+  "recruiters": [],
+  "source": "testSource",
+  "careerTrack": "MANAGEMENT"
+}

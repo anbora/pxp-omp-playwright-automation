@@ -1,0 +1,43 @@
+{
+  "content": {
+    "content_type": "text",
+    "readable_content_type": "text",
+    "plan": "paid",
+    "level": "advanced",
+    "is_private": false,
+    "duration": 50,
+    "tags": [
+      {
+        "name": "TagV6"
+      }
+    ],
+    "prices": [
+      {
+        "amount": 100,
+        "currency": "INR"
+      }
+    ],
+    "languages": [
+      {
+        "title": "CardV6-auxiliary_992",
+        "language_code": "en",
+        "resource": {
+          "title": "CardV6-utilize_565",
+          "description": "DescriptionV6_Officer",
+          "url": "https://www.yahoo.com"
+        }
+      }
+    ],
+    "contributor_ids": [
+
+    ],
+
+    "metadata": {
+      "extra": "value"
+    },
+    "user_taxonomy_topics": [
+
+    ],
+    "expiration_date": ""
+  }
+}

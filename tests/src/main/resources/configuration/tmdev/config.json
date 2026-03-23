@@ -1,0 +1,11 @@
+{
+  "url": "https://tmdev.edcastqa.com",
+  "apiKey": "9191c776fe2ecad62d87de195f1f9c9f",
+  "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im10dXRrYUBjc29kLmNvbSJ9.avWFWWK_z2ocTTBCx9Ah73gjkxWTqnFP9rm5ux10wik",
+  "locationId": "",
+  "roleFamilyId": "",
+  "roleInternalId": "",
+  "roleExternalId": "",
+  "gardenerRoleId": "734196431694265995",
+  "ThinkContentURL": "https://thinkcontent.csod.com/"
+}

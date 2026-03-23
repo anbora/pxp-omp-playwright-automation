@@ -1,0 +1,20 @@
+{"languages": [
+  {
+    "title": "title poll2 ",
+    "description": "message",
+    "language_code": "en",
+    "resource": {
+      "title": "test",
+      "url": "http://goo.go"
+    }
+  }
+],
+  "readable_content_type": "poll",
+  "is_public": true,
+  "poll": {
+    "questions": [
+
+    ]
+  }
+}
+

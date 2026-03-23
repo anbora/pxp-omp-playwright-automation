@@ -1,0 +1,43 @@
+{
+  "content": {
+    "readable_content_type": "text",
+    "plan": "paid",
+    "level": "advanced",
+    "published_at": "22/12/2023 01:00:00",
+    "is_private": false,
+    "duration": 50,
+    "root_id": "1",
+    "lms_created_at": "",
+
+    "tags": [
+      {
+        "name": "TagV6"
+      }
+    ],
+    "prices": [
+      {
+        "amount": 100,
+        "currency": "INR"
+      }
+    ],
+    "languages": [
+      {
+        "title": "CardV6-attitude-oriented_869",
+        "language_code": "un",
+        "resource": {
+          "title": "CardV6-Metal_288",
+          "description": "DescriptionV6_Pines",
+          "url": "https://www.yahoo.com"
+        }
+      }
+    ],
+    "user_taxonomy_topics": [
+
+    ],
+    "contributor_ids": [
+
+    ],
+    "user_identifier_type": "",
+    "expiration_date": ""
+  }
+}

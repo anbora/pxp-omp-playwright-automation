@@ -1,0 +1,28 @@
+# Product Spec Defintion
+#   - All the values from product-spec.yaml would in result AWS Resource Tags via PipelineKit.
+#   - SRE Team have roadmap based on this data for Cloud Monitoring and Management.
+#   - More.
+#
+# Know more about available `product-spec.yaml`,
+# Go to wiki -
+# https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+AWS+Tagging+Conventions+and+Strategy
+
+# Metadata Section is used to describe about the project 
+Metadata:
+  ProjectName: OmpPlaywrightAutomation
+  ProjectRole: Project description. 
+  Stateless: true
+  Ephemeral: true 
+  Monitored: true
+  Alertable: true
+  Confidentiality: Client
+
+# GoLive Section is self explanatory
+GoLive:
+  OwnerDL:  tskrzypek@csod.com
+  OwnerSlackChannel:  pxp-tm-integration-tests
+  SREDL:  tskrzypek@csod.com
+  SRESlackChannel:   pxp-tm-integration-tests
+
+# OptionalTags Section used to provide all additional tags.
+OptionalTags:

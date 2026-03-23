@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "name": "Cypress",
+      "email": "tskrzypek@csod.com",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "360"
+    }
+  ]
+}

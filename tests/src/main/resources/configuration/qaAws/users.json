@@ -1,0 +1,340 @@
+{
+  "users": [
+    {
+      "name": "Cypress",
+      "email": "selenium@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096658"
+    },
+    {
+      "name": "Cypress2",
+      "email": "selenium2@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096660"
+    },
+    {
+      "name": "Cypress3",
+      "email": "selenium3@smartcalendar.tlk.hr",
+      "password": "T@lentlink.1",
+      "encryptedPassword": "kKCYGRQ9egjp8MD5U9Cbbe0w+lVGcle1NWbRMLNJZaZ3vRObzLAy6i9odoLscZdCP7nSw3UZt5yHNVfz+ef4itxUzUmtRvuppNPcxkfw6Toy+/t2FLKwOziKBygN02tOxPmdA5cIlLpbAs7jJPCU7zHooAoh+2ptwqZFM5uB3sc=",
+      "id": "3096661"
+    },
+    {
+      "name": "Rajendran Sridhar",
+      "email": "rsridhar@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Samuel Smith",
+      "email": "ariescsod1@gmail.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Smokey Bear",
+      "email": "sbear-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Bobby Benjamin",
+      "email": "bbee-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Steven Smith",
+      "email": "ssmith-qa@csod.com",
+      "password": "Popeye@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "play_AutoOneF",
+      "email": "Testone@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "play_AutoTwoF",
+      "email": "Testtwo@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "play_AutoThreeF",
+      "email": "Testthree@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "play_AutoFourF",
+      "email": "Testfour@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "play_AutoFiveF",
+      "email": "Testfive@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "play_AutoSixF",
+      "email": "Testsix@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "play_AutoSevenF",
+      "email": "Testseven@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYONEF",
+      "email": "EDTRYONE",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYTWOF",
+      "email": "EDTRYTWO",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYTHREEF",
+      "email": "EDTRYTHREE",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYFOURF",
+      "email": "EDTRYFOUR",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYFIVEF",
+      "email": "EDTRYFIVE",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwSuperadminUser1",
+      "email": "pwSuperadminUser1@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwAdminUser1",
+      "email": "pwAdminUser1@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwAdminUser2",
+      "email": "pwAdminUser2@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwEditorUser1",
+      "email": "pwEditorUser1@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwEditorUser2",
+      "email": "pwEditorUser2@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "pwViewUser1",
+      "email": "pwViewUser1@csod.com",
+      "password": "Welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "CSUSERONE",
+      "email": "pwViewUser1@csod.com",
+      "password": "welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "CSUSERTWO",
+      "email": "pwViewUser1@csod.com",
+      "password": "welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "CSUSERTHREE",
+      "email": "pwViewUser1@csod.com",
+      "password": "welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "CSUSERFOUR",
+      "email": "pwViewUser1@csod.com",
+      "password": "welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "CSUSERFIVE",
+      "email": "pwViewUser1@csod.com",
+      "password": "welcome",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "play_AutoEightF",
+      "email": "Testeight@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "Testten",
+      "email": "Testten@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "Testnine",
+      "email": "Testnine@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "TestEleven",
+      "email": "Testel@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "user1",
+      "email": "navneet.pannu+1@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "user2",
+      "email": "navneet.pannu+2@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "user3",
+      "email": "navneet.pannu+3@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "user4",
+      "email": "navneet.pannu+4@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "user5",
+      "email": "navneet.pannu+5@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "user6",
+      "email": "navneet.pannu+6@edcast.com",
+      "password": "Mar@1234",
+      "encryptedPassword": "yA2UUXMojbt79fNQWsmTTCrLkhluMsVEaTv3ls40Vdjh8T1vg9yA8CvVJzwWsxx5WM+Bo/3YypfvbgLzuPGUfF++C9660wSEi1S3yDwyN033n76GGBhSfKCSFtTao4kpHCuHkmbIFzavHji8dBZL6e3ndd7PojasYZAKD1bFPUk=",
+      "id": "3096658"
+    },
+    {
+      "name": "edcastQAAdminUser",
+      "email": "suchandrajadhav@csod.com",
+      "password": "Welcome@123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "TestTwelve",
+      "email": "Testtw@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "TestTherteen",
+      "email": "testtherteen@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "TestFourteen",
+      "email": "testfourteen@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "TestFifteen",
+      "email": "testfifteen@csod.com",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+	{
+      "name": "EDTRYSIXF",
+      "email": "EDTRYSEVEN",
+      "password": "Popeye123",
+      "encryptedPassword": "",
+      "id": ""
+    },
+    {
+      "name": "Vibha Parashar",
+      "email": "vparashar@csod.com",
+      "password": "Vibha@123",
+      "encryptedPassword": "",
+      "id": ""
+    }
+  ]
+}

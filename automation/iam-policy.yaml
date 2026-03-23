@@ -1,0 +1,24 @@
+# PipelineKit AWS IAM policy definition
+#
+# Learn more about `iam-policy.yaml` definition,
+# Go to wiki -
+# https://wiki.cornerstoneondemand.com/display/PLK/PipelineKit+-+iam-policy.yaml
+
+# https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+Statement:
+  # CloudFormation
+  - Effect: Allow
+    Action:
+      - cloudformation:Get*
+      - cloudformation:Describe*
+      - cloudformation:List*
+    Resource: '*'
+  - Effect: Allow
+    Action:
+      - cloudformation:CreateStack
+      - cloudformation:UpdateStack
+      - cloudformation:DeleteStack
+    Resource:
+      - !Sub 'arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*pxp-omp-playwright-automation*'
+      - !Sub 'arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stackset/*pxp-omp-playwright-automation*'
+      - !Sub 'arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:changeSet/*pxp-omp-playwright-automation*'

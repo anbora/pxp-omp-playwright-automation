@@ -1,0 +1,41 @@
+{
+  "content": {
+    "id": "ECL-1",
+    "createdAt": "2024-06-06T05:30:58.000Z",
+    "sourceId": "1",
+    "externalId": "ecl_1",
+    "slug": "en_api_adf-bfd-ebca",
+    "plan": "paid",
+    "level": "advanced",
+    "is_private": false,
+    "duration": 50,
+    "auto_complete": true,
+    "tags": [
+      {
+        "name": "TagV6"
+      }
+    ],
+    "prices": [
+      {
+        "amount": 100,
+        "currency": "INR"
+      }
+    ],
+    "languages": [
+      {
+        "title": "CardV6-neutral_840",
+        "language_code": "en",
+        "resource": {
+          "title": "CardV6-Agent_700",
+          "description": "DescriptionV6_connecting",
+          "url": "https://www.yahoo.com"
+        }
+      }
+    ],
+    "metadata": {
+      "extra": "value"
+    },
+    "user_taxonomy_topics": [
+    ]
+  }
+}

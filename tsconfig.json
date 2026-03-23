@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "assertions/*": [
+        "tests/src/main/ts/assertions/*"
+      ],
+      "common/*": [
+        "tests/src/main/ts/common/*"
+      ],
+      "cs/*": [
+        "tests/src/main/ts/cs/*"
+      ],
+      "models/*": [
+        "tests/src/main/ts/models/*"
+      ],
+      "pages/*": [
+        "tests/src/main/ts/pages/*"
+      ],
+      "scenarios/*": [
+        "tests/src/main/ts/scenarios/*"
+      ],
+      "skillstudio/*": [
+        "tests/src/main/ts/skillstudio/*"
+      ],
+      "com/*": [
+        "tests/src/test/ts/com/*"
+      ]
+    },
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "tests/src/main/ts/**/*.ts",
+    "tests/src/main/ts/**/*.d.ts",
+    "tests/src/test/ts/**/*.ts"
+  ]
+}

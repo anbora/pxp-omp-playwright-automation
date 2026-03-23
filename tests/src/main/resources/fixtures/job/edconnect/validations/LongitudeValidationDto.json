@@ -1,0 +1,53 @@
+{
+  "id": "id_template",
+  "reference_number": "REF:0000001",
+  "job_descriptions": [
+    {
+      "title": "Job title",
+      "description": "TestDescription",
+      "job_details_url": "https://fake.job.details.csod.com",
+      "apply_url": "https://fake.apply.csod.com",
+      "referral_url": "https://fake.referral.csod.com",
+      "language_code": "en",
+      "default": true
+    }
+  ],
+  "status": "OPEN",
+  "company": "CompanyName",
+  "start_date_time": "2022-01-01T00:00:00.00Z",
+  "end_date_time": "2024-12-09T10:15:30.00Z",
+  "locations": [
+    {
+      "name": "London office",
+      "city": "seattle",
+      "country_code": "GB",
+      "region": "City",
+      "post_code": "13465",
+      "latitude": 51.50122074389548,
+      "longitude": -500.12450950893568037,
+      "primary": true
+    }
+  ],
+  "remote": "HYBRID",
+  "organizations": [],
+  "level": "ASSOCIATE",
+  "contract_type": "INTERNSHIP",
+  "schedule_type": "FULL_TIME",
+  "salary": {
+    "from": 1000.0,
+    "to": 1500.0,
+    "currency": "USD",
+    "period": "WEEK"
+  },
+  "linked_roles": [
+    {
+      "internal_id": "8398247843568302738",
+      "external_id": "1041b8b4-3f26-4827-af34-21105a8f6229",
+      "linked_role_status": "DECLARED"
+    }
+  ],
+  "hiring_managers": [],
+  "recruiters": [],
+  "source": "testSource",
+  "career_track": "MANAGEMENT"
+}

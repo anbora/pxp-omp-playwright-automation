@@ -1,0 +1,2 @@
+Please do not remove this file.
+It is needed for file upload/ download tests.

@@ -1,0 +1,33 @@
+awsParameters([
+        choice(name: 'CONFIG', choices: ['qaAws', 'qaSwat', 'previewEu', 'prodUs', 'prodEu']),
+        string(description: 'Name of te test class', name: 'TEST', defaultValue: '')
+])
+
+awsPipeline {
+    stage('Automation Tests') {
+        def jobNumber = jobMetadata.buildNumber
+        def config = params.CONFIG
+        def test = params.TEST
+        def resultDashboardName = 'test'
+
+        log.info("All Tests for jobNumber: ${jobNumber}")
+        dir ('mnt') {
+            writeFile file:'__', text:''
+        }
+
+        automationTestImageName = "pxp-omp-playwright-automation"
+        runResult = dockr.buildFile(
+            'docker/TEST.Dockerfile',
+            '.',
+            [
+                'tag'   : automationTestImageName,
+                'target': 'automation',
+                'buildargs': [
+                    "CONFIG=${config}".toString(),
+                    "TEST=${test}".toString(),
+                    "RESULT_DASHBOARD_NAME=${resultDashboardName}".toString()
+                ]
+            ]
+        )
+    }
+}

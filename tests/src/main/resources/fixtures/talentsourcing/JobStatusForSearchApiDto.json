@@ -1,0 +1,10 @@
+{
+  "pageSize": 5,
+  "sortType": "BOOKMARKED",
+  "sortOrder": "DESC",
+  "jobStatus": "MY_PUBLISHED_VACANCIES",
+  "language": "en",
+  "type": "job",
+  "keyword": "",
+  "pageNumber": 1
+}

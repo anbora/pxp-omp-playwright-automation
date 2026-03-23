@@ -1,0 +1,20 @@
+export enum ElementType {
+    BUTTON("<button>"),
+    INPUT("<input>"),
+    A("<a>"),
+    DIV("<DIV>"),
+    H1("<h1>"),
+    H2("<h2>"),
+    H3("<h3>"),
+    H4("<h4>"),
+    H5("<h5>"),
+    H6("<h6>");
+
+    private readonly type: string;
+
+  ElementType(locator: string):  {
+
+    this.type = locator;
+
+  }
+}

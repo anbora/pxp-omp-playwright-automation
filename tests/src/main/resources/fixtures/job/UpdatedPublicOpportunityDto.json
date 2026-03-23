@@ -1,0 +1,40 @@
+{
+    "jobDescriptions": [
+        {
+            "title": "Updated job title",
+            "description": "UpdatedDesctription",
+            "jobDetailsURL": "https://fake.job.details.csod.com",
+            "applyURL": "https://fake.apply.csod.com",
+            "referralURL": "https://fake.referral.csod.com",
+            "languageCode": "ru",
+            "default": true
+        }
+    ],
+    "status": "CLOSED",
+    "company": "UpdatedCompanyName",
+    "startDateTime": "2022-01-01T00:00:00.00Z",
+    "endDateTime": "2024-12-09T10:15:30.00Z",
+    "location": [
+        {
+            "name": "London office",
+            "city": "seattle",
+            "countryCode": "GB",
+            "region": "City",
+            "postCode": "13465",
+            "latitude": 51.50122074389548,
+            "longitude": -0.12450950893568037,
+            "primary": true
+        }
+    ],
+    "remote": "REMOTE",
+    "contractType": "PERMANENT",
+    "scheduleType": "FULL_TIME",
+    "salary": {
+        "from": 1000.0,
+        "to": 1500.0,
+        "currency": "USD",
+        "period": "WEEK"
+    },
+    "linkedRoles": [],
+    "careerTrack": "MANAGEMENT"
+}

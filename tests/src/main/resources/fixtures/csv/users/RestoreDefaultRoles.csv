@@ -1,0 +1,21 @@
+EXTERNAL_ID,TITLE,DESCRIPTION,FAMILY_EXTERNAL_ID,JOB_DESCRIPTION,OTHER_DESCRIPTION,STATUS,ORGANIZATION_LIST,LOCATION_LIST,JOB_LEVEL,CAREER_TRACK,NEXT_ROLES_LIST,BEGINNER_SKILLS,INTERMEDIATE_SKILLS,ADVANCED_SKILLS,VISIBILITY,SKILL_DETECTION
+unusualsrole,Unusuals,Unusuals,unusualsfamily,Job Unusuals,Other Unusuals,ACTIVE,,,ENTRY_LEVEL,,,,,,TRUE,TRUE
+c92c2d43-c893-4ac5-a65c-731e800de3c7,Unusual role,Unusual role,7da7891f-46e1-4a47-b211-b92ec1209a3c,Unusual role,Unusual role,ACTIVE,,,ASSOCIATE,,,,,"5,943,634,961,356,320,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000",TRUE,TRUE
+1660d269-9360-49c8-9a0e-3a50b7a34d0b,Football player trainee,Football player trainee,7da7891f-46e1-4a47-b211-b92ec1209a3c,Football player trainee,Football player trainee,ACTIVE,,,INTERNSHIP,,5f927912-7d34-45db-9a4f-e4766491d00d,,"5,943,579,016,808,350,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000",,TRUE,TRUE
+5f927912-7d34-45db-9a4f-e4766491d00d,Football player junior,Football player junior,7da7891f-46e1-4a47-b211-b92ec1209a3c,Football player junior,Football player junior,ACTIVE,,,ENTRY_LEVEL,,4572f285-a505-45ef-b7c4-d0f61d5c8791,,",5943623563734260700,5943564211554743333,5943610966883594215",,TRUE,TRUE
+4572f285-a505-45ef-b7c4-d0f61d5c8791,Football player star,Football player star,7da7891f-46e1-4a47-b211-b92ec1209a3c,Football player star,Football player star,ACTIVE,,,ASSOCIATE,,,,5.94E+18,"5,943,625,870,556,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000",TRUE,TRUE
+8b93caed-0d42-4d3a-82c4-2d3750fefd3b,Java developer,"Java, programming",7da7891f-46e1-4a47-b211-b92ec1209a3c,Java developer,Java developer,ACTIVE,,,ENTRY_LEVEL,,,,5.94E+18,5.94E+18,TRUE,TRUE
+careerpathsmoketest3,Current role for Smoke Test,Current role for Smoke Test,eee8cfe5-18a9-4a92-908f-8c76733e1564,Current role for Smoke Test,Current role for Smoke Test,ACTIVE,,,INTERNSHIP,,careerpathsmoketest4,,,,TRUE,TRUE
+careerpathsmoketest4,End role for Smoke Test,End role for Smoke Test,eee8cfe5-18a9-4a92-908f-8c76733e1564,End role for Smoke Test,End role for Smoke Test,ACTIVE,,,ENTRY_LEVEL,,,5.94E+18,,,TRUE,TRUE
+7951242c-3dd9-4aba-b254-bc304aaff970,Software Engineer in Tests,Software Engineer in Tests,b6cf20cd-eda5-456e-9fb6-bff446c4f806,Software Engineer in Tests,Software Engineer in Tests,ACTIVE,,,MID_SENIOR,,,,,,TRUE,TRUE
+c37a3d9f-b85f-42ce-9128-d0c9c60df6ba,Gardener,Gardener,7da7891f-46e1-4a47-b211-b92ec1209a3c,Gardener,Gardener,ACTIVE,,,ENTRY_LEVEL,,,,,,TRUE,TRUE
+nopolitan0,Nopolitan0,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,"nopolitan1,nopolitan2",,,,TRUE,TRUE
+nopolitan1,Nopolitan1,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan3,,,,TRUE,TRUE
+napolitan2,Nopolitan2,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,"nopolitan4,nopolitan5b,nopolitan5",,5.94359E+18,,TRUE,TRUE
+nopolitan3,Nopolitan3,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan7,,,,TRUE,TRUE
+nopolitan4,Nopolitan4,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan6,,,,TRUE,TRUE
+nopolitan5,Nopolitan5,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan6,,,,TRUE,TRUE
+nopolitan5b,Nopolitan5b,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan6,,,,TRUE,TRUE
+nopolitan6,Nopolitan6,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,nopolitan7,,,,TRUE,TRUE
+nopolitan7,Nopolitan7,summary,subway,description,other descrition,ACTIVE,,,INTERNSHIP,,,,,,TRUE,TRUE
+c37a3d9f-b85f-42ce-9128-d0c9c60df6ba,Gardener,Gardener,7da7891f-46e1-4a47-b211-b92ec1209a3c,Gardener,Gardener,ACTIVE,,,ENTRY_LEVEL,,,,,,TRUE,TRUE

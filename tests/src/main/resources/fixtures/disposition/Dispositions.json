@@ -1,0 +1,11 @@
+{
+  "dispositions": [
+    {
+      "source": "sampleSource",
+      "user_id": "sampleUserId",
+      "opportunity_id": "sampleOpportunityId",
+      "application_status": "sampleStatus",
+      "status_update_date_time": "sampleUpdateDateTime"
+    }
+  ]
+}

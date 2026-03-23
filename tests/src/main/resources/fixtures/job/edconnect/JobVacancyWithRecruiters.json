@@ -1,0 +1,46 @@
+{
+  "id": "3338999",
+  "reference_number": "REF:0000001",
+  "job_descriptions": [
+    {
+      "title": "QA Engineer",
+      "description": "TestDescription",
+      "job_details_url": "https://fake.job.details.csod.com",
+      "apply_url": "https://fake.apply.csod.com",
+      "referral_url": "https://fake.referral.csod.com",
+      "language_code": "en",
+      "default": true
+    }
+  ],
+  "status": "OPEN",
+  "company": "CompanyName",
+  "start_date_time": "2022-01-01T00:00:00.00Z",
+  "end_date_time": "2024-12-09T10:15:30.00Z",
+  "locations": [
+    {
+      "location_id": "10101",
+      "primary": true
+    }
+  ],
+  "remote": "HYBRID",
+  "organizations": [],
+  "level": null,
+  "contract_type": "INTERNSHIP",
+  "schedule_type": "FULL_TIME",
+  "salary": {
+    "from": 1000.0,
+    "to": 1500.0,
+    "currency": "USD",
+    "period": "WEEK"
+  },
+  "career_track": null,
+  "linked_roles": [],
+  "hiring_managers": [],
+  "recruiters": [
+    {
+      "external_id": "testExternalId",
+      "visible": true
+    }
+  ],
+  "source": "testSource"
+}

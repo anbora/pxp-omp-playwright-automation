@@ -1,0 +1,8 @@
+{
+  "type": "job",
+  "pageSize": 5,
+  "pageNumber": 1,
+  "language": "en",
+  "sortType": "APPLIED",
+  "sortOrder": "ASC"
+}

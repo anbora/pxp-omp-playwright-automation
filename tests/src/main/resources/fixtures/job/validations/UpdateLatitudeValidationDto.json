@@ -1,0 +1,14 @@
+{
+    "location": [
+        {
+            "name": "Paris office",
+            "city": "Paris",
+            "countryCode": "GB",
+            "region": "City",
+            "postCode": "13465",
+            "latitude": -671.5,
+            "longitude": 45.1,
+            "primary": true
+        }
+    ]
+}

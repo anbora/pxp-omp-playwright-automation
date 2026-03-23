@@ -1,0 +1,49 @@
+{"languages": [
+  {
+    "title": "title poll2 ",
+    "description": "message",
+    "language_code": "en",
+    "resource": {
+      "title": "test",
+      "url": "http://goo.go"
+    }
+  }
+],
+  "readable_content_type": "poll",
+  "is_public": true,
+  "poll": {
+    "questions": [
+      {
+        "mandatory": true,
+        "languages": [{ "language_code": "en", "question": "question 11" }],
+        "options": [
+          {
+            "languages": [{ "language_code": "en", "option": "option 1" }]
+          },
+          {
+            "languages": [{ "language_code": "en", "option": "option 2" }]
+          },
+          {
+            "languages": [{ "language_code": "en", "option": "option 3" }]
+          }
+        ]
+      },
+      {
+        "mandatory": true,
+        "languages": [{ "language_code": "en", "question": "question 22" }],
+        "options": [
+          {
+            "languages": [{ "language_code": "en", "option": "option 1" }]
+          },
+          {
+            "languages": [{ "language_code": "en", "option": "option 2" }]
+          },
+          {
+            "languages": [{ "language_code": "en", "option": "option 3" }]
+          }
+        ]
+      }
+    ]
+  }
+}
+
