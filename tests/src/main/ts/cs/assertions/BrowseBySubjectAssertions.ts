@@ -1,81 +1,82 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { BrowseBySubjectPage } from "cs/pages/BrowseBySubjectPage";
+import { expect } from "common/testing/playwright";
 
 export class BrowseBySubjectAssertions extends BaseAssertion<BrowseBySubjectPage> {
 
     public assertThatComplianceEmploymentLawIsVisible(): BrowseBySubjectAssertions {
-        this.assertThat(this.page.complianceEmploymentLaw.first()).isVisible(this.isVisibleOptions);
+        expect(this.page.complianceEmploymentLaw.first()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatCoursePresentationVisible(): BrowseBySubjectAssertions {
-        this.assertThat(this.page.quick_Course_Presentation_Opened).isVisible(this.isVisibleOptions);
+        expect(this.page.quick_Course_Presentation_Opened).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatTitleDisplayed(courseTitle: string): BrowseBySubjectAssertions {
-        this.assertThat(this.page.QV_COURSE_TITLE_VERIFICATION(courseTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.QV_COURSE_TITLE_VERIFICATION(courseTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatTopicIsChecked(topic: string): BrowseBySubjectAssertions {
-        this.assertThat(this.page.select_Topic(topic)).isChecked();
+        expect(this.page.select_Topic(topic)).toBeChecked();
         return this;
     }
 
     public assertThatButtonIsVisible(buttonText: string): BrowseBySubjectAssertions {
-        this.assertThat(this.page.browseSubjectButton(buttonText)).isVisible(this.isVisibleOptions);
+        expect(this.page.browseSubjectButton(buttonText)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatButtonIsDisabled(buttonText: string): BrowseBySubjectAssertions {
-    	this.assertThat(this.page.browseSubjectButton(buttonText)).isDisabled();
+    	expect(this.page.browseSubjectButton(buttonText)).toBeDisabled();
         return this;
     }
 
     public assertThatTopicIsNotChecked(topic: string): BrowseBySubjectAssertions {
-    	this.assertThat(this.page.selectTopic_Unchecked(topic)).isVisible(this.isVisibleOptions);
+    	expect(this.page.selectTopic_Unchecked(topic)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatAppliedFilterIsVisible(name: string, value: string): BrowseBySubjectAssertions {
-    	this.assertThat(this.page.verifyAppliedFilter(name,value)).isVisible(this.isVisibleOptions);
+    	expect(this.page.verifyAppliedFilter(name,value)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatAppliedFilterCountIsVisible(topic: string, topicCount: string): BrowseBySubjectAssertions {
-    	this.assertThat(this.page.gsFilterCount(topic,topicCount)).isVisible(this.isVisibleOptions);
+    	expect(this.page.gsFilterCount(topic,topicCount)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatSortingOptionVisible(option: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.sortingOption(option)).isVisible(this.extendedIsVisibleOptions);
+		expect(this.page.sortingOption(option)).toBeVisible(this.extendedIsVisibleOptions);
         return this;
     }
 
 	public assertThatSortingOptionNotVisible(option: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.sortingOption(option)).not().isVisible(this.extendedIsVisibleOptions);
+		expect(this.page.sortingOption(option)).not.toBeVisible(this.extendedIsVisibleOptions);
         return this;
     }
 
 	public assertThatYourLearnerTextVisible(pattern: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.yourLearnerText).hasText(Pattern.compile(pattern));
+		expect(this.page.yourLearnerText).toHaveText(Pattern.compile(pattern));
         return this;
     }
 
 	public assertThatTotalLearnerMetricTextVisible(pattern: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.totalLernerText).hasText(Pattern.compile(pattern));
+		expect(this.page.totalLernerText).toHaveText(Pattern.compile(pattern));
         return this;
     }
 
 	public assertThatBadgeIsVisible(courseName: string, label: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.card_label(courseName,label)).isVisible(this.extendedIsVisibleOptions);
+		expect(this.page.card_label(courseName,label)).toBeVisible(this.extendedIsVisibleOptions);
         return this;
     }
 
 	public assertThatHelpLinkIsVisible(text: string): BrowseBySubjectAssertions {
-		this.assertThat(this.page.badge_check(text)).isVisible(this.extendedIsVisibleOptions);
+		expect(this.page.badge_check(text)).toBeVisible(this.extendedIsVisibleOptions);
         return this;
     }
 }

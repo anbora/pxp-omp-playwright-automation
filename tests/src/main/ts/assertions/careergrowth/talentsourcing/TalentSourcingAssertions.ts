@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { Locator } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { Locator, expect } from "common/testing/playwright";
 import { Assert } from "common/testing/runtime";
 import { TalentSourcingPage } from "pages/careergrowth/talentsourcing/TalentSourcingPage";
 
@@ -12,50 +12,50 @@ export class TalentSourcingAssertions extends BaseAssertion<TalentSourcingPage> 
     }
 
     public assertThatTalentSourcingText(message: string): TalentSourcingAssertions {
-        this.assertThat(this.page.talentSourcingText).containsText(message, this.containsTextOptions);
+        expect(this.page.talentSourcingText).toContainText(message, this.containsTextOptions);
         return this;
     }
 
     public assertThatJobTitleName(title: string, message: string): TalentSourcingAssertions {
-        this.assertThat(this.page.jobName(title)).containsText(message, this.containsTextOptions);
+        expect(this.page.jobName(title)).toContainText(message, this.containsTextOptions);
         this.page.logger.info("Verified Job title " + title);
         return this;
     }
 
     public assertThatOptionsDisplayed(): TalentSourcingAssertions {
-        this.assertThat(this.page.viewDetails).isVisible();
-        this.assertThat(this.page.manageJobVacancy).isVisible();
+        expect(this.page.viewDetails).toBeVisible();
+        expect(this.page.manageJobVacancy).toBeVisible();
         return this;
     }
 
     public assertThatBookmarkAndAppliedTextIsDisplayed(title: string): TalentSourcingAssertions {
-        this.assertThat(this.page.bookMarksText(title)).isVisible();
-        this.assertThat(this.page.appliedText(title)).isVisible();
+        expect(this.page.bookMarksText(title)).toBeVisible();
+        expect(this.page.appliedText(title)).toBeVisible();
         return this;
     }
 
     public assertThatFirstJobVacancyIsDisplayedOnTalentSourcing(): TalentSourcingAssertions {
         //this.page.firstItemOnAllTalentSourcingJobList.count()>0
         let list: Array<Locator> = Collections.singletonList(this.page.firstItemOnAllTalentSourcingJobList);
-        //assertThat(list.length>0).isVisible(this.isVisibleOptions.);
-        //assertThat(this.page.firstItemOnAllTalentSourcingJobList).isEmpty();
+        //expect(list.length>0).toBeVisible(this.isVisibleOptions.);
+        //expect(this.page.firstItemOnAllTalentSourcingJobList).toBeEmpty();
         let value: number = this.page.firstItemOnAllTalentSourcingJobList.count();
         Assert.assertTrue(value>0);
         return this;
     }
 
     public assertThatJobVacancyTitleIsDisplayed(): TalentSourcingAssertions {
-        this.assertThat(this.page.jobVacancyTitle).isVisible(this.isVisibleOptions);
+        expect(this.page.jobVacancyTitle).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatGenericTitle(value: string): TalentSourcingAssertions {
-        this.assertThat(this.page.genericTitleHeader(value)).isVisible(this.isVisibleOptions);
+        expect(this.page.genericTitleHeader(value)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSuggestedTalentTitle(expectedString: string): TalentSourcingAssertions {
-        this.assertThat(this.page.peopleTitle).containsText(expectedString, this.containsTextOptions);
+        expect(this.page.peopleTitle).toContainText(expectedString, this.containsTextOptions);
         return this;
     }
 
@@ -66,22 +66,22 @@ export class TalentSourcingAssertions extends BaseAssertion<TalentSourcingPage> 
     }
 
     public assertThatTitlesForCandidateViewDetails(value: string): TalentSourcingAssertions {
-        this.assertThat(this.page.genericTitleForCandidate(value).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.genericTitleForCandidate(value).first()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatValidationMessageIfNoResultFound(message: string, expectedMessage: string): TalentSourcingAssertions {
-        this.assertThat(this.page.resultNotFoundMessage(message)).containsText(expectedMessage, this.containsTextOptions);
+        expect(this.page.resultNotFoundMessage(message)).toContainText(expectedMessage, this.containsTextOptions);
         return this;
     }
 
     public assertThatTitleForViewDetails(value: string): TalentSourcingAssertions {
-        this.assertThat(this.page.genericTitleHeaders(value)).isVisible(this.isVisibleOptions);
+        expect(this.page.genericTitleHeaders(value)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatDisplayFilterForJobsIsDisplayed(value: string): TalentSourcingAssertions {
-        this.assertThat(this.page.displayVacancyFilterValues(value)).isVisible(this.isVisibleOptions);
+        expect(this.page.displayVacancyFilterValues(value)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -92,7 +92,7 @@ export class TalentSourcingAssertions extends BaseAssertion<TalentSourcingPage> 
     }
 
     public assertThatSuggestedTalentDisplayedForFilter(candidateName: string): TalentSourcingAssertions {
-        this.assertThat(this.page.suggestedCandidateName(candidateName)).containsText(candidateName, this.containsTextOptions);
+        expect(this.page.suggestedCandidateName(candidateName)).toContainText(candidateName, this.containsTextOptions);
         return this;
     }
 }

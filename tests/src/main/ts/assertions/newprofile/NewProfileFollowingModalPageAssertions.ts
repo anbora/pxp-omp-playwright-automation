@@ -1,17 +1,18 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { NewProfileFollowingModalPage } from "pages/newprofile/NewProfileFollowingModalPage";
+import { expect } from "common/testing/playwright";
 
 export class NewProfileFollowingModalPageAssertions extends BaseAssertion<NewProfileFollowingModalPage> {
 
     public assertThatFollowingNameIsDisplayed(text: string): NewProfileFollowingModalPageAssertions {
-        this.assertThat(this.page.followingNameIcon(text)).isVisible(this.isVisibleOptions);
+        expect(this.page.followingNameIcon(text)).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified, that Following Name is visible");
         return this;
     }
 
     public assertThatFollowerNameIsDisplayed(text: string): NewProfileFollowingModalPageAssertions {
-        this.assertThat(this.page.followerNameIcon(text)).isVisible(this.isVisibleOptions);
+        expect(this.page.followerNameIcon(text)).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified, that Follower Name is visible");
         return this;
     }

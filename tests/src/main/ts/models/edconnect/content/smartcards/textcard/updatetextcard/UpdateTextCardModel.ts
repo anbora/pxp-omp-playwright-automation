@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { UpdateTextCardContent } from "models/edconnect/content/smartcards/textcard/updatetextcard/UpdateTextCardContent";
 

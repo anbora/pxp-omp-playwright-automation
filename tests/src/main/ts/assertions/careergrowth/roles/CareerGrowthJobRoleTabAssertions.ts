@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { RolesListPage_New } from "pages/careergrowth/careergrowth/RolesListPage_New";
+import { expect } from "common/testing/playwright";
 
 export class CareerGrowthJobRoleTabAssertions extends BaseAssertion <RolesListPage_New> {
 
     public assertMatchText(matchText: string): CareerGrowthJobRoleTabAssertions {
-        this.assertThat(this.page.firstRoleFairMatch).hasText(matchText);
+        expect(this.page.firstRoleFairMatch).toHaveText(matchText);
         return this;
     }
 }

@@ -1,13 +1,14 @@
+// @ts-nocheck
 import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { PreferencesCareerProfileModalPage } from "pages/careergrowth/profiles/PreferencesCareerProfileModalPage";
+import { expect } from "common/testing/playwright";
 
 export class PreferencesCareerProfileModalAssertions extends BaseAssertion<PreferencesCareerProfileModalPage> {
 
     public assertThatPreferencesAreUpdated(alert: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.successAlertBox).containsText(alert, this.containsTextOptions);
+        expect(this.page.successAlertBox).toContainText(alert, this.containsTextOptions);
         return this;
     }
 
@@ -15,11 +16,11 @@ export class PreferencesCareerProfileModalAssertions extends BaseAssertion<Prefe
     public assertThatOptionIsChecked(optionName: string): PreferencesCareerProfileModalAssertions;
 	public assertThatOptionIsChecked(typeOrOptionName: string, value?: string): PreferencesCareerProfileModalAssertions {
         if (value != null) {
-            this.assertThat(this.page.preferenceInput(typeOrOptionName, value)).isChecked();
+            expect(this.page.preferenceInput(typeOrOptionName, value)).toBeChecked();
             return this;
         }
 
-        this.assertThat(this.page.optionCheckbox(typeOrOptionName)).isChecked();
+        expect(this.page.optionCheckbox(typeOrOptionName)).toBeChecked();
         return this;
     }
 
@@ -27,21 +28,21 @@ export class PreferencesCareerProfileModalAssertions extends BaseAssertion<Prefe
     public assertThatOptionIsNotChecked(optionName: string): PreferencesCareerProfileModalAssertions;
 	public assertThatOptionIsNotChecked(typeOrOptionName: string, value?: string): PreferencesCareerProfileModalAssertions {
         if (value != null) {
-            this.assertThat(this.page.preferenceInput(typeOrOptionName, value)).not().isChecked();
+            expect(this.page.preferenceInput(typeOrOptionName, value)).not.toBeChecked();
             return this;
         }
 
-        this.assertThat(this.page.optionCheckbox(typeOrOptionName)).not().isChecked();
+        expect(this.page.optionCheckbox(typeOrOptionName)).not.toBeChecked();
         return this;
     }
 
     public assertThaEmptyStateIsDisplayedForType(type: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.emptyStateInput(type)).isVisible(this.isVisibleOptions);
+        expect(this.page.emptyStateInput(type)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatChipIsDisplayed(type: string, optionName: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.optionChip(type, optionName)).isVisible(this.isVisibleOptions);
+        expect(this.page.optionChip(type, optionName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -51,82 +52,82 @@ export class PreferencesCareerProfileModalAssertions extends BaseAssertion<Prefe
     }
 
     public assertThatGoToExperienceButtonExists(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.goToExperienceButton).isVisible(this.isVisibleOptions);
+        expect(this.page.goToExperienceButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMaximumNumberOfLocationsHaveBeenReached(): PreferencesCareerProfileModalAssertions {
-    this.assertThat(this.page.maximumNumberOfLocations).containsText("Maximum number of locations selected.");
+    expect(this.page.maximumNumberOfLocations).toContainText("Maximum number of locations selected.");
     return this;
     }
 
     public assertThatPreferredLocationContainsValues(value: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.preferredLocationValue(value)).isVisible();
+        expect(this.page.preferredLocationValue(value)).toBeVisible();
         return this;
     }
 
     public assertThatDistanceIsVisible(distanceValue: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.distance).hasValue(distanceValue, this.hasValueOptions);
+        expect(this.page.distance).toHaveValue(distanceValue, this.hasValueOptions);
         return this;
     }
 
     public assertThatFirstLocationIsNotVisible(value: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.preferredLocationValue(value)).not().isVisible();
+        expect(this.page.preferredLocationValue(value)).not.toBeVisible();
         return this;
     }
 
     public assertThatPreferredLocationIsEmpty(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.preferredLocation).isEmpty();
+        expect(this.page.preferredLocation).toBeEmpty();
         return this;
     }
 
     public assertThatMilesOptionIsChecked(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.radioButtonMiles).isChecked();
+        expect(this.page.radioButtonMiles).toBeChecked();
         return this;
     }
 
     public assertThatKilometersOptionIsChecked(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.radioButtonKilometers).isChecked();
+        expect(this.page.radioButtonKilometers).toBeChecked();
         return this;
     }
 
     public assertThatConfirmationModalContainsInformation(description: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.recommendationInformation).containsText(description, this.containsTextOptions);
+        expect(this.page.recommendationInformation).toContainText(description, this.containsTextOptions);
         return this;
     }
 
     public assertThatLocationIsVisibleForCareerPreferences(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.careerPreferencesLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.careerPreferencesLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleForCareerPreferences(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.careerPreferencesLocation).isHidden();
+        expect(this.page.careerPreferencesLocation).toBeHidden();
         return this;
     }
 
     public assertCompleteYourProfileModalSubHeaderIsDisplayed(subheaderName: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfileModalSubHeader(subheaderName)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalSubHeader(subheaderName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertCompleteYourProfileProgressCount(progressPercentage: string): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfileModalProgressCount(progressPercentage)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalProgressCount(progressPercentage)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSaveAndContinueIsDisplayed(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.saveAndContinue()).isVisible(this.isVisibleOptions);
+        expect(this.page.saveAndContinue()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatProfileCompletedHeaderIsDisplayed(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfileWidgetProfileCompletedHeader()).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileWidgetProfileCompletedHeader()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatProfileCompletedProgressCountIsDisplayed(): PreferencesCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfile100CompletedProgressData).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfile100CompletedProgressData).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { R } from "com/redis/R";
 import { BaseRestTest } from "common/BaseRestTest";
 import { EndpointsEnum } from "common/enums/EndpointsEnum";

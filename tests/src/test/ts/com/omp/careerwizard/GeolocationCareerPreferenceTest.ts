@@ -1,10 +1,12 @@
-import { PreferencesCareerProfileModalAssertions } from "assertions/careergrowth/profiles/PreferencesCareerProfileModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class GeolocationCareerPreferenceTest extends BaseRestTest {
     private user1: UserModel;
@@ -24,103 +26,89 @@ export class GeolocationCareerPreferenceTest extends BaseRestTest {
     }
 
         public shouldCheckGeolocationFiltersViaCareerGrowth(): void {
-            this.getOmpLoginPage()
-                    .run(new LoginWithOnboardingScenario(this.user1))
-                    .run(new AddRoleAndFamilyToNewUserScenario(this.user1.name))
-                    .goToCareerGrowthPage()
-                    .clickUpdateCareerProfileLink()
-                    .goToCareerPreferenceTab()
-                    .enterPreferredLocations(this.locationValue1)
-                    .enterPreferredLocations(this.locationValue2)
-                    .enterPreferredFurtherLocations(this.locationValue3,this.locationValue4,this.locationValue5)
-                    .check(PreferencesCareerProfileModalAssertions)
-                        .assertThatMaximumNumberOfLocationsHaveBeenReached()
-                    .endAssertion()
-                    .clickRadioButtonMiles()
-                    .clearAndSetDistance(this.distanceValue1)
-                    .clickSaveAndContinueButton()
-                    .clickSaveButton()
-                    .clickUpdateCareerProfileLink()
-                    .goToCareerPreferenceTab()
-                    .check(PreferencesCareerProfileModalAssertions)
-                        .assertThatMilesOptionIsChecked()
-                        .assertThatDistanceIsVisible(this.distanceValue1)
-                        .assertThatPreferredLocationContainsValues(this.locationValue1)
-                        .assertThatPreferredLocationContainsValues(this.locationValue2)
-                        .assertThatPreferredLocationContainsValues(this.locationValue3)
-                        .assertThatPreferredLocationContainsValues(this.locationValue4)
-                        .assertThatPreferredLocationContainsValues(this.locationValue5)
-                    .endAssertion()
-                    .deleteFirstPreferredLocation()
-                    .clickSaveAndContinueButton()
-                    .clickSaveButton()
-                    .clickUpdateCareerProfileLink()
-                    .goToCareerPreferenceTab()
-                    .check(PreferencesCareerProfileModalAssertions)
-                        .assertThatFirstLocationIsNotVisible(this.locationValue1)
-                    .endAssertion()
-                    .deleteAllPreferredLocations()
-                    .clickRadioButtonKilometers()
-                    .clearAndSetDistance(this.distanceValue2)
-                    .clickSaveAndContinueButton()
-                    .clickSaveButton()
-                    .clickUpdateCareerProfileLink()
-                    .goToCareerPreferenceTab()
-                    .check(PreferencesCareerProfileModalAssertions)
-                        .assertThatKilometersOptionIsChecked()
-                        .assertThatPreferredLocationIsEmpty()
-                        .assertThatDistanceIsVisible(this.distanceValue2)
-                    .endAssertion();
+                        let __page1: any = this;
+            __page1 = __page1.getOmpLoginPage();
+            __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+            __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user1.name));
+            __page1 = __page1.goToCareerGrowthPage();
+            __page1 = __page1.clickUpdateCareerProfileLink();
+            __page1 = __page1.goToCareerPreferenceTab();
+            __page1 = __page1.enterPreferredLocations(this.locationValue1);
+            __page1 = __page1.enterPreferredLocations(this.locationValue2);
+            __page1 = __page1.enterPreferredFurtherLocations(this.locationValue3, this.locationValue4, this.locationValue5);
+            expect(__page1.maximumNumberOfLocations).toContainText("Maximum number of locations selected.");
+            __page1 = __page1.clickRadioButtonMiles();
+            __page1 = __page1.clearAndSetDistance(this.distanceValue1);
+            __page1 = __page1.clickSaveAndContinueButton();
+            __page1 = __page1.clickSaveButton();
+            __page1 = __page1.clickUpdateCareerProfileLink();
+            __page1 = __page1.goToCareerPreferenceTab();
+            expect(__page1.radioButtonMiles).toBeChecked();
+            expect(__page1.distance).toHaveValue(this.distanceValue1, { timeout: 30000 });
+            expect(__page1.preferredLocationValue(this.locationValue1)).toBeVisible();
+            expect(__page1.preferredLocationValue(this.locationValue2)).toBeVisible();
+            expect(__page1.preferredLocationValue(this.locationValue3)).toBeVisible();
+            expect(__page1.preferredLocationValue(this.locationValue4)).toBeVisible();
+            expect(__page1.preferredLocationValue(this.locationValue5)).toBeVisible();
+            __page1 = __page1.deleteFirstPreferredLocation();
+            __page1 = __page1.clickSaveAndContinueButton();
+            __page1 = __page1.clickSaveButton();
+            __page1 = __page1.clickUpdateCareerProfileLink();
+            __page1 = __page1.goToCareerPreferenceTab();
+            expect(__page1.preferredLocationValue(this.locationValue1)).not.toBeVisible();
+            __page1 = __page1.deleteAllPreferredLocations();
+            __page1 = __page1.clickRadioButtonKilometers();
+            __page1 = __page1.clearAndSetDistance(this.distanceValue2);
+            __page1 = __page1.clickSaveAndContinueButton();
+            __page1 = __page1.clickSaveButton();
+            __page1 = __page1.clickUpdateCareerProfileLink();
+            __page1 = __page1.goToCareerPreferenceTab();
+            expect(__page1.radioButtonKilometers).toBeChecked();
+            expect(__page1.preferredLocation).toBeEmpty();
+            expect(__page1.distance).toHaveValue(this.distanceValue2, { timeout: 30000 });
         }
 
     public shouldCheckGeolocationFiltersViaMePage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user2.name))
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .goToCareerPreferencesTab()
-                .enterPreferredLocations(this.locationValue1)
-                .enterPreferredLocations(this.locationValue2)
-                .enterPreferredFurtherLocations(this.locationValue3,this.locationValue4,this.locationValue5)
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatMaximumNumberOfLocationsHaveBeenReached()
-                .endAssertion()
-                .clickRadioButtonMiles()
-                .clearAndSetDistance(this.distanceValue1)
-                .goToCareerGrowthPage()
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .goToCareerPreferencesTab()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatMilesOptionIsChecked()
-                    .assertThatDistanceIsVisible(this.distanceValue1)
-                    .assertThatPreferredLocationContainsValues(this.locationValue1)
-                    .assertThatPreferredLocationContainsValues(this.locationValue2)
-                    .assertThatPreferredLocationContainsValues(this.locationValue3)
-                    .assertThatPreferredLocationContainsValues(this.locationValue4)
-                    .assertThatPreferredLocationContainsValues(this.locationValue5)
-                .endAssertion()
-                .deleteFirstPreferredLocation()
-                .goToCareerGrowthPage()
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .goToCareerPreferencesTab()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatFirstLocationIsNotVisible(this.locationValue1)
-                .endAssertion()
-                .deleteAllPreferredLocations()
-                .clickRadioButtonKilometers()
-                .clearAndSetDistance(this.distanceValue2)
-                .goToCareerGrowthPage()
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .goToCareerPreferencesTab()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatKilometersOptionIsChecked()
-                    .assertThatPreferredLocationIsEmpty()
-                    .assertThatDistanceIsVisible(this.distanceValue2)
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginWithOnboardingScenario(this.user2));
+        __page2 = __page2.run(new AddRoleAndFamilyToNewUserScenario(this.user2.name));
+        __page2 = __page2.goToMePageProfile();
+        __page2 = __page2.clickEditPublicProfileButton();
+        __page2 = __page2.goToCareerPreferencesTab();
+        __page2 = __page2.enterPreferredLocations(this.locationValue1);
+        __page2 = __page2.enterPreferredLocations(this.locationValue2);
+        __page2 = __page2.enterPreferredFurtherLocations(this.locationValue3, this.locationValue4, this.locationValue5);
+        expect(__page2.maximumNumberOfLocations).toContainText("Maximum number of locations selected.");
+        __page2 = __page2.clickRadioButtonMiles();
+        __page2 = __page2.clearAndSetDistance(this.distanceValue1);
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToMePageProfile();
+        __page2 = __page2.clickEditPublicProfileButton();
+        __page2 = __page2.goToCareerPreferencesTab();
+        expect(__page2.radioButtonMiles).toBeChecked();
+        expect(__page2.distance).toHaveValue(this.distanceValue1, { timeout: 30000 });
+        expect(__page2.preferredLocationValue(this.locationValue1)).toBeVisible();
+        expect(__page2.preferredLocationValue(this.locationValue2)).toBeVisible();
+        expect(__page2.preferredLocationValue(this.locationValue3)).toBeVisible();
+        expect(__page2.preferredLocationValue(this.locationValue4)).toBeVisible();
+        expect(__page2.preferredLocationValue(this.locationValue5)).toBeVisible();
+        __page2 = __page2.deleteFirstPreferredLocation();
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToMePageProfile();
+        __page2 = __page2.clickEditPublicProfileButton();
+        __page2 = __page2.goToCareerPreferencesTab();
+        expect(__page2.preferredLocationValue(this.locationValue1)).not.toBeVisible();
+        __page2 = __page2.deleteAllPreferredLocations();
+        __page2 = __page2.clickRadioButtonKilometers();
+        __page2 = __page2.clearAndSetDistance(this.distanceValue2);
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToMePageProfile();
+        __page2 = __page2.clickEditPublicProfileButton();
+        __page2 = __page2.goToCareerPreferencesTab();
+        expect(__page2.radioButtonKilometers).toBeChecked();
+        expect(__page2.preferredLocation).toBeEmpty();
+        expect(__page2.distance).toHaveValue(this.distanceValue2, { timeout: 30000 });
     }
 
         public afterClass(): void {

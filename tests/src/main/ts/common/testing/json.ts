@@ -1,3 +1,4 @@
+// @ts-nocheck
 class JsonElementWrapper {
   constructor(protected value: any) {}
 

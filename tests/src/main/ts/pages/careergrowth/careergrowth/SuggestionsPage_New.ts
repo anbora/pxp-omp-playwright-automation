@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -26,13 +27,13 @@ export class SuggestionsPage_New extends BasePage implements CareerGrowthTopPane
     public jobVacancyIdBookmark(jobId: string): Locator {
       return this.getLocatorWithParam("//div[contains(@class, 'job-card ed-ui')][@data-testid='%s']/descendant::i[@class='icon-bookmark']", jobId);
     }
-    public hoverShare: Locator = locator("//li[@class='footer-icon-wrapper']/button/div").build();
-    public hoverOverDismiss: Locator = locator("//button/i[@class='icon-ban']").build();
-    public hoverBookmark: Locator = locator("//li[2]/div/button/i").build();
-    public threeDotMenuButtonForRole: Locator = locator("i.icon-ellipsis-h").build();
-    public rolesThreeDots: Locator = locator("//div[@class='role-card-dropdown']/button").build();
-    public markAsAspirationalFromCard: Locator = locator("//ul[@role='menu']/li[1]").build();
-    public hoverMadeAspirational: Locator = locator("//div[@class='role-menu']/div/i").build();
+    public hoverShare: Locator = this.locator("//li[@class='footer-icon-wrapper']/button/div");
+    public hoverOverDismiss: Locator = this.locator("//button/i[@class='icon-ban']");
+    public hoverBookmark: Locator = this.locator("//li[2]/div/button/i");
+    public threeDotMenuButtonForRole: Locator = this.locator("i.icon-ellipsis-h");
+    public rolesThreeDots: Locator = this.locator("//div[@class='role-card-dropdown']/button");
+    public markAsAspirationalFromCard: Locator = this.locator("//ul[@role='menu']/li[1]");
+    public hoverMadeAspirational: Locator = this.locator("//div[@class='role-menu']/div/i");
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {
 

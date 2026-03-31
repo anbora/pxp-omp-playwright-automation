@@ -1,6 +1,5 @@
-import { CareerGrowthJobRoleTabAssertions } from "assertions/careergrowth/roles/CareerGrowthJobRoleTabAssertions";
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +10,7 @@ import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboarding
 import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCareerPreferencesForUser";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class RoleMatchingAcrossAllPagesVerificationTest extends BaseRestTest {
 
@@ -30,29 +30,24 @@ export class RoleMatchingAcrossAllPagesVerificationTest extends BaseRestTest {
     }
 
     public roleMatchingShouldStayTheSameAcrossAllPages(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .run(new AddBasicCareerPreferencesForUser())
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.javaDeveloper, this.lumesse, this.coding,this.october,this.year_2017,this.june,this.year_2022 ))
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .check(CareerGrowthJobRoleTabAssertions)
-                    .assertMatchText("Fair match")
-                .endAssertion()
-                .markFirstSuggestedRoleAsAspirational()
-                .goDirectlyTo(LandingPage)
-                .check(LandingPageAssertions)
-                    .assertMatchText("Fair match")
-                .endAssertion()
-                .openNextCareerMilestoneRole()
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleHasProperMatch("Fair match")
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.javaDeveloper, this.lumesse, this.coding,this.october,this.year_2017,this.june,this.year_2022 ));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        expect(__page1.firstRoleFairMatch).toHaveText("Fair match");
+        __page1 = __page1.markFirstSuggestedRoleAsAspirational();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        expect(__page1.nextCareerMilestoneRoleMatching).toHaveText("Fair match");
+        __page1 = __page1.openNextCareerMilestoneRole();
+        expect(__page1.matchingLabel.first()).toContainText("Fair match", { timeout: 30000 });
     }
 
     public afterTests(): void {

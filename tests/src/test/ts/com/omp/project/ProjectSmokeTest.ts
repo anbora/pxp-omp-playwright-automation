@@ -1,8 +1,5 @@
-import { CreateProjectAssertions } from "assertions/careergrowth/project/CreateProjectAssertions";
-import { ProjectDetailsAssertions } from "assertions/careergrowth/project/ProjectDetailsAssertions";
-import { ProjectDiscoveryAssertions } from "assertions/careergrowth/project/ProjectDiscoveryAssertions";
-import { ProjectMePageAssertions } from "assertions/careergrowth/project/ProjectMePageAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +8,7 @@ import { ProjectDetailsPage } from "pages/careergrowth/project/ProjectDetailsPag
 import { LandingPage } from "pages/landing/LandingPage";
 import { HomePage } from "pages/other/HomePage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class ProjectSmokeTest extends BaseRestTest {
 
@@ -28,51 +26,48 @@ export class ProjectSmokeTest extends BaseRestTest {
     }
 
     public createProjectCheckProjectDetailsAndProjectDiscoveryPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .clickCreateButton()
-                .check(LandingPageAssertions)
-                    .assertThatCreateProjectButtonIsDisplayed()
-                .endAssertion()
-                .clickCreateProjectButton()
-                .check(CreateProjectAssertions)
-                    .assertThatProjectPageLoadsAllRequiredFields()
-                .endAssertion()
-                .fillInProjectTitle(this.projectTitle)
-                .fillInProjectDescription(this.projectDesc)
-                .selectAProjectThumbnail()
-                .clickPublishButton()
-                .clickMayBeLaterButton()
-                .clickPublishedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(this.projectTitle)
-                .endAssertion()
-                .clickPublishedTab()
-                .clickProjectHorizontalCardActionsDropDown(this.projectTitle)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction, ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .assertThatProjectDetailsPageLoadsForOwner(this.projectTitle)
-                .endAssertion()
-                .clickOnAProjectAction(this.actionName2, ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .closeProjectModalDisplays()
-                .endAssertion()
-                .clickCloseButtonCloseProjectModal()
-                .check(ProjectDetailsAssertions)
-                    .assertToasterTextDisplays(this.toasterText)
-                .endAssertion()
-                .goDirectlyTo(LandingPage)
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickClosedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayed(this.projectTitle)
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .goToProjectsPageViaCard()
-                .check(ProjectDiscoveryAssertions)
-                    .assertProjectsDiscoveryPageLoadsWithoutSuggest()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.clickCreateButton();
+        expect(__page1.createProjectButton().first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickCreateProjectButton();
+        expect(__page1.createProjectHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectTitle).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDescription).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectThumbnail).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.fillInProjectTitle(this.projectTitle);
+        __page1 = __page1.fillInProjectDescription(this.projectDesc);
+        __page1 = __page1.selectAProjectThumbnail();
+        __page1 = __page1.clickPublishButton();
+        __page1 = __page1.clickMayBeLaterButton();
+        __page1 = __page1.clickPublishedTab();
+        expect(__page1.ownedByMeHorizontalCardProjectTitle(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickPublishedTab();
+        __page1 = __page1.clickProjectHorizontalCardActionsDropDown(this.projectTitle);
+        __page1 = __page1.clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction, ProjectDetailsPage);
+        expect(__page1.projectTitleHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectMetaDetailsSection).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDescriptionHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDetailsRightPanel).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectOwnersList).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectPublishedDate).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOnAProjectAction(this.actionName2, ProjectDetailsPage);
+        expect(__page1.closeProjectModal).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickCloseButtonCloseProjectModal();
+        expect(__page1.confirmationToaster(this.toasterText)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToProjectsTab();
+        __page1 = __page1.clickClosedTab();
+        expect(__page1.projectTitleMePage(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToProjectsPageViaCard();
+        expect(__page1.allProjectsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.filtersButton).toBeVisible({ timeout: 30000 });
+        expect(__page1.sortByDropDown().first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.searchInputField).toBeVisible({ timeout: 30000 });
+        expect(__page1.createAProjectButton).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

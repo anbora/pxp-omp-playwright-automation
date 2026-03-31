@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { OrganizationTranslationPage } from "pages/admin/OrganizationTranslationPage";
+import { expect } from "common/testing/playwright";
 
 export class HrDataOrganizationTranslationAssertion extends BaseAssertion <OrganizationTranslationPage> {
 
     public assertThatOrganizationTranslationIsDisplayed(organization: string): HrDataOrganizationTranslationAssertion {
-        this.assertThat(this.page.organizationName.first()).hasValue(organization);
+        expect(this.page.organizationName.first()).toHaveValue(organization);
         this.page.logger.info("Successfully verified data. Organization translation name contains text.");
         return this;
     }

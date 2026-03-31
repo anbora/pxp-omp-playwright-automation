@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EdConnectRestService } from "common/api/EdConnectRestService";
 import { EndpointsEnum } from "common/enums/EndpointsEnum";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";

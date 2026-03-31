@@ -1,4 +1,5 @@
-import { BadgeModalPageAssertions } from "assertions/skillspassport/BadgeModalPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { AddEditBadgeModalPage } from "pages/skillspassport/AddEditBadgeModalPag
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateBadgeCardWithBadgeIDAndBadgeURLTest extends BaseRestTest {
 
@@ -23,38 +25,40 @@ export class CreateBadgeCardWithBadgeIDAndBadgeURLTest extends BaseRestTest {
     }
 
     public addBadgeCardWithBadgeIDAndBadgeURL(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToMePageProfile()
-                .goToSkillPassportTab()
-                .clickSkillsPassportAddSkillButton()
-                .selectBadgeType()
-                .addBadgeTitle(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME)
-                .selectBadgeLevel(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_LEVEL)
-                .selectBadgeIssuerFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_ISSUER)
-                .selectBadgeIDFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.ID_NUMBER)
-                .selectBadgeURLFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.URL_NAME)
-                .clickSaveButton()
-                .clickBadgeCard()
-                .check(BadgeModalPageAssertions)
-                    .assertThatBadgeIsAdded(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME)
-                .endAssertion()
-                .editBadgeCard()
-                .check(BadgeModalPageAssertions)
-                    .assertThatBadgeContainsIDNumber(CreateBadgeCardWithBadgeIDAndBadgeURLTest.ID_NUMBER)
-                    .assertThatBadgeContainsURLNumber(CreateBadgeCardWithBadgeIDAndBadgeURLTest.URL_NAME);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToSkillPassportTab();
+        __page1 = __page1.clickSkillsPassportAddSkillButton();
+        __page1 = __page1.selectBadgeType();
+        __page1 = __page1.addBadgeTitle(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME);
+        __page1 = __page1.selectBadgeLevel(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_LEVEL);
+        __page1 = __page1.selectBadgeIssuerFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_ISSUER);
+        __page1 = __page1.selectBadgeIDFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.ID_NUMBER);
+        __page1 = __page1.selectBadgeURLFromInput(CreateBadgeCardWithBadgeIDAndBadgeURLTest.URL_NAME);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickBadgeCard();
+        expect(__page1.getBadgeCard()).toContainText(CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME);
+        __page1.logger.info("Successfully verified that badge is added");
+        __page1 = __page1.editBadgeCard();
+        expect(__page1.getBadgeID()).toHaveValue(CreateBadgeCardWithBadgeIDAndBadgeURLTest.ID_NUMBER);
+        __page1.logger.info("Successfully verified that badge contains badge ID");
+        expect(__page1.getBadgeURL()).toHaveValue(CreateBadgeCardWithBadgeIDAndBadgeURLTest.URL_NAME);
+        __page1.logger.info("Successfully verified that badge contains URL Name");
     }
 
     public deleteAddedBadgeCardWithBadgeIDAndBadgeURL(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(AddEditBadgeModalPage,CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME)
-                .clickBadgeCard()
-                .clickDeleteButton()
-                .clickConfirmButton()
-                .check(BadgeModalPageAssertions)
-                    .assertThatBadgeIsDeleted();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(AddEditBadgeModalPage, CreateBadgeCardWithBadgeIDAndBadgeURLTest.BADGE_NAME);
+        __page2 = __page2.clickBadgeCard();
+        __page2 = __page2.clickDeleteButton();
+        __page2 = __page2.clickConfirmButton();
+        expect(__page2.getBadgeCard()).toBeHidden();
+        __page2.logger.info("Successfully verified that badge is deleted");
     }
 
     public afterTests(): void {

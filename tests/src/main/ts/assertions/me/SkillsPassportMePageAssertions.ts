@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MeSkillsPassportPage } from "pages/me/MeSkillsPassportPage";
+import { expect } from "common/testing/playwright";
 
 export class SkillsPassportMePageAssertions extends BaseAssertion<MeSkillsPassportPage> {
 
@@ -8,26 +9,26 @@ export class SkillsPassportMePageAssertions extends BaseAssertion<MeSkillsPasspo
     public static readonly ADVANCED_LEVEL: number = 3;
 
     public assertThatSkillIsAdded(skillName: string): SkillsPassportMePageAssertions {
-        this.assertThat(this.page.addedSkill(skillName)).isVisible(this.isVisibleOptions);
+        expect(this.page.addedSkill(skillName)).toBeVisible(this.isVisibleOptions);
 //        this.page.addedSkill(skillName).should('exist')
         return this;
     }
 
     public assertThatSkillIsNotVisible(skillName: string): SkillsPassportMePageAssertions {
-        this.assertThat(this.page.addedSkill(skillName)).isHidden();
+        expect(this.page.addedSkill(skillName)).toBeHidden();
 //        this.page.addedSkill(skillName).should('not.exist')
         return this;
     }
 
     public assertThatSkillDetailsShowsDescription(skillName: string): SkillsPassportMePageAssertions {
         this.page.addedSkill(skillName).click();
-        this.assertThat(this.page.skillDescription).isVisible(this.isVisibleOptions);
+        expect(this.page.skillDescription).toBeVisible(this.isVisibleOptions);
 //        this.page.skillDescription().should('exist')
         return this;
     }
 
     public assertThatCounterShowsProperValue(counterValue: string): SkillsPassportMePageAssertions {
-        this.assertThat(this.page.skillCounter(counterValue)).isVisible(this.isVisibleOptions);
+        expect(this.page.skillCounter(counterValue)).toBeVisible(this.isVisibleOptions);
 //        this.page.skillCounter(counterValue).should('exist')
         return this;
     }

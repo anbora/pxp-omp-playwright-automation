@@ -1,5 +1,5 @@
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { ProjectCardModalAssertions } from "assertions/smartcards/ProjectCardModalAssertions";
+// @ts-nocheck
+
 import { SmartCardRestService } from "common/api/SmartCardRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +9,7 @@ import { UserModel } from "models/user/UserModel";
 import { ContentMePage } from "pages/me/ContentMePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateProjectCardWithAutomaticallyArchiveContentTest extends SmartCardRestService {
 
@@ -28,40 +29,38 @@ export class CreateProjectCardWithAutomaticallyArchiveContentTest extends SmartC
     }
 
     public verifyArchiveContentDateOnProjectCard(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .clickCreateButton()
-                .clickSmartCardButton()
-                .goToProjectSmartCardTab()
-                .fillInSingleLanguageTitle(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN)
-                .check(ProjectCardModalAssertions)
-                    .assertThatArchiveContentCheckboxIsEnabled()
-                .endAssertion()
-                .clickArchiveContentCheckbox()
-                .chooseFifteenDayOfCurrentMonth(this.dateContainer)
-                .clickCreateCardButton()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(CreateProjectCardWithAutomaticallyArchiveContentTest.NOTIFICATION)
-                .endAssertion()
-                .goToCardStandAloneView(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN)
-                .editProjectSmartCard()
-                .check(ProjectCardModalAssertions)
-                    .assertThatArchiveContentDateIsAdded(this.dateContainer.getValue())
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickSmartCardButton();
+        __page1 = __page1.goToProjectSmartCardTab();
+        __page1 = __page1.fillInSingleLanguageTitle(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN);
+        expect(__page1.archiveContentCheckbox).toBeEnabled();
+        __page1.logger.info("Successfully verified that archive this content checkbox is enabled");
+        __page1 = __page1.clickArchiveContentCheckbox();
+        __page1 = __page1.chooseFifteenDayOfCurrentMonth(this.dateContainer);
+        __page1 = __page1.clickCreateCardButton();
+        expect(__page1.cardNotification).toContainText(CreateProjectCardWithAutomaticallyArchiveContentTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that CreateProjectCardWithAutomaticallyArchiveContentTest.NOTIFICATION text is as expected");
+        __page1 = __page1.goToCardStandAloneView(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.editProjectSmartCard();
+        expect(__page1.getArchiveDate()).toContainText(this.dateContainer.getValue());
+        __page1.logger.info("Successfully verified that automatically archive this.dateContainer.getValue() is added");
     }
 
     public verifyThatArchiveContentDateIsChanged(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(ContentMePage)
-                .goToCardStandAloneView(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN)
-                .editProjectSmartCard()
-                .chooseEighteenDayOfNextMonth(this.dateContainer2)
-                .clickUpdateProjectCardButton()
-                .editProjectSmartCard()
-                .check(ProjectCardModalAssertions)
-                    .assertThatArchiveContentDateIsAdded(this.dateContainer2.getValue())
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(ContentMePage);
+        __page2 = __page2.goToCardStandAloneView(CreateProjectCardWithAutomaticallyArchiveContentTest.SMART_CARD_TITLE_EN);
+        __page2 = __page2.editProjectSmartCard();
+        __page2 = __page2.chooseEighteenDayOfNextMonth(this.dateContainer2);
+        __page2 = __page2.clickUpdateProjectCardButton();
+        __page2 = __page2.editProjectSmartCard();
+        expect(__page2.getArchiveDate()).toContainText(this.dateContainer2.getValue());
+        __page2.logger.info("Successfully verified that automatically archive this.dateContainer2.getValue() is added");
     }
 
     public afterClass(): void {

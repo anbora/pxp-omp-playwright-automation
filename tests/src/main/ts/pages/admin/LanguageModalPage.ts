@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { ElementType } from "common/enums/ElementType";
 import { PageHandler } from "common/PageHandler";

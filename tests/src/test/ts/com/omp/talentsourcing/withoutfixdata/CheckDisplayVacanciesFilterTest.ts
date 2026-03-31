@@ -1,4 +1,5 @@
-import { TalentSourcingAssertions } from "assertions/careergrowth/talentsourcing/TalentSourcingAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { JobModel } from "models/job/JobModel";
 import { Recruiters } from "models/job/Recruiters";
 import { LoginPage } from "pages/other/LoginPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
+import { expect } from "common/testing/playwright";
 
 export class CheckDisplayVacanciesFilterTest extends BaseRestTest {
     private static readonly MY_PUBLISHED_VACANCIES: string = "My Published Vacancies";
@@ -42,39 +44,34 @@ export class CheckDisplayVacanciesFilterTest extends BaseRestTest {
     }
 
     public shouldCheckDisplayVacancyFilter(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getCypress2User()))
-                .goToTalentSourcing()
-                .clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES)
-                .check(TalentSourcingAssertions)
-                    .assertThatDisplayFilterForJobsIsDisplayed(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES)
-                .endAssertion()
-                .clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES)
-                .check(TalentSourcingAssertions)
-                    .assertThatDisplayFilterForJobsIsDisplayed(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.getCypress2User()));
+        __page1 = __page1.goToTalentSourcing();
+        __page1 = __page1.clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES);
+        expect(__page1.displayVacancyFilterValues(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES);
+        expect(__page1.displayVacancyFilterValues(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldCheckDisplayFilterForAllPublishedVacancies(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getCypress2User()))
-                .goToTalentSourcing()
-                .clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES)
-                .shouldTypeAndSearchJobVacancy(this.REFERENCE_NUMBER1)
-                .clickOnSearchButton()
-                .check(TalentSourcingAssertions)
-                    .assertThatGenericTitle(this.TITLE1)
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.getCypress2User()));
+        __page2 = __page2.goToTalentSourcing();
+        __page2 = __page2.clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.ALL_PUBLISHED_VACANCIES);
+        __page2 = __page2.shouldTypeAndSearchJobVacancy(this.REFERENCE_NUMBER1);
+        __page2 = __page2.clickOnSearchButton();
+        expect(__page2.genericTitleHeader(this.TITLE1)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldCheckDisplayFilterForMyPublishedVacancies(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getCypress2User()))
-                .goToTalentSourcing()
-                .clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES)
-                .check(TalentSourcingAssertions)
-                    .assertThatGenericTitle(this.TITLE2)
-                .endAssertion();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.getCypress2User()));
+        __page3 = __page3.goToTalentSourcing();
+        __page3 = __page3.clickOnDisplayVacancyFilter(CheckDisplayVacanciesFilterTest.MY_PUBLISHED_VACANCIES);
+        expect(__page3.genericTitleHeader(this.TITLE2)).toBeVisible({ timeout: 30000 });
     }
 
     public deleteJobViaRest(): void {

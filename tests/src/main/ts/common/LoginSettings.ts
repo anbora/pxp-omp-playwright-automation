@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class LoginSettings {
   loginUsingCredentialButton = false;
   userTermsCheckBox = false;

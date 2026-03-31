@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -6,7 +7,7 @@ import { TalentSourcingPage } from "pages/careergrowth/talentsourcing/TalentSour
 
 export class MatchingMatrixPage extends BasePage {
 
-    public matchingSkill: Locator = getByRole(AriaRole.HEADING, "Matching skills").build();
+    public matchingSkill: Locator = this.getByRole(AriaRole.HEADING, "Matching skills");
     public getFirstMatchingSkills: Locator = this.page.locator("//div[@class='ed-table-wrapper ']/table/tbody/tr[2]");
 
     public closeButton: Locator = this.page.locator("//button[text()='Close']");

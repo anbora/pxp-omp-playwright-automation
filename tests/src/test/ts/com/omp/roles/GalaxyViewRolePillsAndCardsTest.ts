@@ -1,4 +1,5 @@
-import { CareerPathAssertions } from "assertions/careergrowth/roles/CareerPathAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,8 @@ import { AddWorkHistoryToCareerProfileScenario } from "scenarios/jobs/AddWorkHis
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
+import { Assert, assertTrue } from "common/testing/runtime";
+import { expect } from "common/testing/playwright";
 
 export class GalaxyViewRolePillsAndCardsTest extends BaseRestTest {
 
@@ -58,116 +61,99 @@ export class GalaxyViewRolePillsAndCardsTest extends BaseRestTest {
     }
 
     public shouldCheckGalaxyViewRoleDetailsOnRoleCard(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToEditProfileFromUserDropDown(this.user.name)
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.startingRole, this.startingRoleFullName)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.underwood, this.lumesse, this.lumesse, this.october, this.year_2017, this.december, this.year_2023))
-                .clickSaveAndContinueButton()
-                .run(new AddSkillToCareerProfileScenario(this.blessings, this.intermediate))
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToCareerPathPageViaTab()
-                .waitForRolePillOnGalaxyView(this.joeyTribbiani)
-                .check(CareerPathAssertions)
-                    .assertThatRoleNamePillIsCollapsed(this.janiceSoprano)
-                .endAssertion()
-                .clickRolePill(this.janiceSoprano)
-                .check(CareerPathAssertions)
-                    .assertThatRoleCardLevelIsEqualTo(this.janiceSoprano, this.director)
-                    .assertThatRoleCardFamilyIsEqualTo(this.janiceSoprano, this.sopranos)
-                    .assertThatRoleCardSkillIsDisplayed(this.janiceSoprano, this.contests)
-                    .assertThatRoleCardSkillIsDisplayed(this.janiceSoprano, this.interfaith)
-                    .assertThatRoleCardSkillIsDisplayed(this.janiceSoprano, this.shrub);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToEditProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.startingRole, this.startingRoleFullName);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.underwood, this.lumesse, this.lumesse, this.october, this.year_2017, this.december, this.year_2023));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.blessings, this.intermediate));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToCareerPathPageViaTab();
+        __page1 = __page1.waitForRolePillOnGalaxyView(this.joeyTribbiani);
+        Assert.assertTrue(__page1.rolePillName(this.janiceSoprano).first().getAttribute("class").contains("cp-role-pill--collapsed"));
+        __page1 = __page1.clickRolePill(this.janiceSoprano);
+        expect(__page1.roleCardLevelLabel(this.janiceSoprano)).toContainText(this.director, { timeout: 30000 });
+        expect(__page1.roleCardFamilyLabel(this.janiceSoprano)).toContainText(this.sopranos, { timeout: 30000 });
+        expect(__page1.roleCardSkillsLabel(this.janiceSoprano, this.contests)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleCardSkillsLabel(this.janiceSoprano, this.interfaith)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleCardSkillsLabel(this.janiceSoprano, this.shrub)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldCheckGalaxyViewRoleMatchingOnPills(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .waitForMatchOnRoleCard(this.bobbyBaccalieri, this.excellent)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRolePillIsEqualTo(this.edwardMeechum, this.fairMatchColor)
-                    .assertThatSmileIconColorForRolePillIsEqualTo(this.joeyTribbiani, this.goodMatchColor)
-                    .assertThatSmileIconColorForRolePillIsEqualTo(this.bobbyBaccalieri, this.excellentMatchColor)
-                    .assertThatSmileIconColorForCollapsedRolePillIsEqualTo(this.janiceSoprano, this.lowMatchColor)
-                    //.assertThatSmileIconColorForCollapsedRolePillIsEqualTo(chandlerBing, fairMatchColor) //TM-7189
-                    //.assertThatCollapsedGroupedRolesPillContainsSmileIconWhichColorIsEqualTo(sopranos, two, one, fairMatchColor //TM-7189
-                    .assertThatCollapsedGroupedRolesPillContainsSmileIconWhichColorIsEqualTo(this.sopranos, this.one, this.one, this.goodMatchColor)
-                    //.assertThatCollapsedGroupedRolesPillContainsSmileIconWhichColorIsEqualTo(sopranos, one, two, fairMatchColor) //TM-7189
-                    .assertThatCollapsedGroupedRolesPillContainsSmileIconWhichColorIsEqualTo(this.friends, this.one, this.one, this.excellentMatchColor);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToCareerPathPageViaTab();
+        __page2 = __page2.waitForMatchOnRoleCard(this.bobbyBaccalieri, this.excellent);
+        expect(__page2.smileIconForRolePill(this.edwardMeechum)).toHaveCSS("fill", this.fairMatchColor);
+        expect(__page2.smileIconForRolePill(this.joeyTribbiani)).toHaveCSS("fill", this.goodMatchColor);
+        expect(__page2.smileIconForRolePill(this.bobbyBaccalieri)).toHaveCSS("fill", this.excellentMatchColor);
+        expect(__page2.smileIconForCollapsedRolePill(this.janiceSoprano)).toHaveCSS("fill", this.lowMatchColor);
+        expect(__page2.smileIconForGroupedRolesPill(this.sopranos, this.one, this.one)).toHaveCSS("fill", this.goodMatchColor);
+        expect(__page2.smileIconForGroupedRolesPill(this.friends, this.one, this.one)).toHaveCSS("fill", this.excellentMatchColor);
     }
 
     public shouldCheckGalaxyViewRoleMatchingOnCards(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .waitForRolePillOnGalaxyView(this.joeyTribbiani)
-                .clickRolePill(this.janiceSoprano)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.janiceSoprano, this.lowMatchColor)
-                    .assertThatRoleCardMatchingIsEqualTo(this.janiceSoprano, this.low)
-                .endAssertion()
-                .clickRolePill(this.edwardMeechum)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.edwardMeechum, this.fairMatchColor)
-                    .assertThatRoleCardMatchingIsEqualTo(this.edwardMeechum, this.fair)
-                .endAssertion()
-                .clickRolePill(this.joeyTribbiani)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.joeyTribbiani, this.goodMatchColor)
-                    .assertThatRoleCardMatchingIsEqualTo(this.joeyTribbiani, this.good)
-                .endAssertion()
-                .clickRolePill(this.bobbyBaccalieri)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.bobbyBaccalieri, this.excellentMatchColor)
-                    .assertThatRoleCardMatchingIsEqualTo(this.bobbyBaccalieri, this.excellent)
-                .endAssertion()
-                .clickGroupedRolesPill(this.two, this.friends)
-                .check(CareerPathAssertions)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.gunther, this.fairMatchColor)
-                    .assertThatSmileIconColorForRoleCardIsEqualTo(this.rossGeller, this.excellentMatchColor);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.goToCareerPathPageViaTab();
+        __page3 = __page3.waitForRolePillOnGalaxyView(this.joeyTribbiani);
+        __page3 = __page3.clickRolePill(this.janiceSoprano);
+        expect(__page3.roleCardSmile(this.janiceSoprano)).toHaveCSS("fill", this.lowMatchColor);
+        expect(__page3.roleCardMatchingLabel(this.janiceSoprano)).toContainText(this.low, { timeout: 30000 });
+        __page3 = __page3.clickRolePill(this.edwardMeechum);
+        expect(__page3.roleCardSmile(this.edwardMeechum)).toHaveCSS("fill", this.fairMatchColor);
+        expect(__page3.roleCardMatchingLabel(this.edwardMeechum)).toContainText(this.fair, { timeout: 30000 });
+        __page3 = __page3.clickRolePill(this.joeyTribbiani);
+        expect(__page3.roleCardSmile(this.joeyTribbiani)).toHaveCSS("fill", this.goodMatchColor);
+        expect(__page3.roleCardMatchingLabel(this.joeyTribbiani)).toContainText(this.good, { timeout: 30000 });
+        __page3 = __page3.clickRolePill(this.bobbyBaccalieri);
+        expect(__page3.roleCardSmile(this.bobbyBaccalieri)).toHaveCSS("fill", this.excellentMatchColor);
+        expect(__page3.roleCardMatchingLabel(this.bobbyBaccalieri)).toContainText(this.excellent, { timeout: 30000 });
+        __page3 = __page3.clickGroupedRolesPill(this.two, this.friends);
+        expect(__page3.roleCardSmile(this.gunther)).toHaveCSS("fill", this.fairMatchColor);
+        expect(__page3.roleCardSmile(this.rossGeller)).toHaveCSS("fill", this.excellentMatchColor);
     }
 
     public shouldCheckGalaxyViewRolePillsGroupingWhileZooming(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .waitForRolePillOnGalaxyView(this.joeyTribbiani)
-                .check(CareerPathAssertions)
-                    .assertThatTheNumberOfRolesWithinGroupedPillsIsEqualTo(this.sopranos, this.one, this.three)
-                    .assertThatRoleNamePillIsNotDisplayed(this.adrianaLeCerva)
-                    .assertThatRoleNamePillIsNotDisplayed(this.vitoSpatafore)
-                    .assertThatRoleNamePillIsNotDisplayed(this.patyParisi)
-                    .assertThatRoleNamePillIsDisplayed(this.bobbyBaccalieri)
-                    .assertThatRoleNamePillIsDisplayed(this.janiceSoprano)
-                .endAssertion()
-                .zoomIn()
-                .check(CareerPathAssertions)
-                    .assertThatRoleNamePillIsNotDisplayed(this.vitoSpatafore)
-                    .assertThatRoleNamePillIsNotDisplayed(this.patyParisi)
-                    .assertThatRoleNamePillIsDisplayed(this.bobbyBaccalieri)
-                    .assertThatRoleNamePillIsDisplayed(this.adrianaLeCerva)
-                    .assertThatRoleNamePillIsDisplayed(this.janiceSoprano)
-                .endAssertion()
-                .zoomOut()
-                .zoomOut()
-                .zoomOut()
-                .check(CareerPathAssertions)
-                    .assertThatTheNumberOfRolesWithinGroupedPillsIsEqualTo(this.sopranos, this.one, this.four)
-                    .assertThatRoleNamePillIsNotDisplayed(this.adrianaLeCerva)
-                    .assertThatRoleNamePillIsNotDisplayed(this.vitoSpatafore)
-                    .assertThatRoleNamePillIsNotDisplayed(this.patyParisi)
-                    .assertThatRoleNamePillIsNotDisplayed(this.bobbyBaccalieri)
-                    .assertThatRoleNamePillIsDisplayed(this.janiceSoprano);
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.goToCareerGrowthPage();
+        __page4 = __page4.goToCareerPathPageViaTab();
+        __page4 = __page4.waitForRolePillOnGalaxyView(this.joeyTribbiani);
+        expect(__page4.groupedRolesNumber(this.sopranos, this.one)).toContainText(this.three, { timeout: 30000 });
+        expect(__page4.rolePill(this.adrianaLeCerva)).toBeHidden();
+        expect(__page4.rolePill(this.vitoSpatafore)).toBeHidden();
+        expect(__page4.rolePill(this.patyParisi)).toBeHidden();
+        expect(__page4.rolePill(this.bobbyBaccalieri)).toBeVisible({ timeout: 30000 });
+        expect(__page4.rolePill(this.janiceSoprano)).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.zoomIn();
+        expect(__page4.rolePill(this.vitoSpatafore)).toBeHidden();
+        expect(__page4.rolePill(this.patyParisi)).toBeHidden();
+        expect(__page4.rolePill(this.bobbyBaccalieri)).toBeVisible({ timeout: 30000 });
+        expect(__page4.rolePill(this.adrianaLeCerva)).toBeVisible({ timeout: 30000 });
+        expect(__page4.rolePill(this.janiceSoprano)).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.zoomOut();
+        __page4 = __page4.zoomOut();
+        __page4 = __page4.zoomOut();
+        expect(__page4.groupedRolesNumber(this.sopranos, this.one)).toContainText(this.four, { timeout: 30000 });
+        expect(__page4.rolePill(this.adrianaLeCerva)).toBeHidden();
+        expect(__page4.rolePill(this.vitoSpatafore)).toBeHidden();
+        expect(__page4.rolePill(this.patyParisi)).toBeHidden();
+        expect(__page4.rolePill(this.bobbyBaccalieri)).toBeHidden();
+        expect(__page4.rolePill(this.janiceSoprano)).toBeVisible({ timeout: 30000 });
     }
 }

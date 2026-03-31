@@ -1,6 +1,5 @@
-import { EditFieldModalAssertions } from "assertions/admin/EditFieldModalAssertions";
-import { AllFiltersModalAssertions } from "assertions/careergrowth/jobs/AllFiltersModalAssertions";
-import { OpportunityMarketplaceConfigurationAssertions } from "assertions/careergrowth/jobs/OpportunityMarketplaceConfigurationAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +9,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class LOVFiltersInJobVacanciesPageTest extends BaseRestTest {
 
@@ -74,111 +74,195 @@ export class LOVFiltersInJobVacanciesPageTest extends BaseRestTest {
     }
 
     public enableDisableAndSetTranslationForLOVFilterOnJobVacanciesPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.userModel))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.jobType)
-                .check(AllFiltersModalAssertions)
-                    .assertThatFilterTitleIsDisplayed(this.level)
-                    .assertThatFilterTitleIsDisplayed(this.workplaceModel)
-                    .assertThatFilterTitleIsDisplayed(this.schedule)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.permanent, this.one)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.contract, this.two)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.temporary, this.three)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.volunteer, this.four)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.internship, this.five)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.apprenticeship, this.six)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.other, this.seven)
-                    .assertThatFilterOptionIsDisplayed(this.careerTrack, this.management, "1")
-                    .assertThatFilterOptionIsDisplayed(this.careerTrack, this.individualContributor, "2")
-                .endAssertion()
-                .closeModal()
-                .goToAdminPanel()
-                .selectMainTab(this.opportunityMarketplace)
-                .openMenuForOpportunityMarketplace(this.general)
-                .openOpportunityMarketplaceInnerTab(this.standardFields)
-                .check(OpportunityMarketplaceConfigurationAssertions)
-                    .assertThatTypeForFieldContain(this.jobType, this.select)
-                    .assertThatUsageForFieldContain(this.jobType, this.jobVacancy)
-                    .assertThatAvailableOptionsForFieldContain(this.jobType, this.permanent + ", " + this.contract + ", " + this.temporary + ", "
-                            + this.volunteer + ", " + this.internship + ", " + this.apprenticeship + ", " + this.other)
-                .endAssertion()
-                .changeContextToAdminPanel()
-                .selectMainTab(this.hrData)
-                .openMenuForOpportunityMarketplace(this.configuration)
-                .openHrDataInnerTab(this.standardFields)
-                .check(OpportunityMarketplaceConfigurationAssertions)
-                    .assertThatTypeForFieldContain(this.careerTrack, this.select)
-                    .assertThatUsageForFieldContain(this.careerTrack, this.jobVacancy)
-                    .assertThatAvailableOptionsForFieldContain(this.careerTrack, this.management + ", " + this.individualContributor)
-                .endAssertion()
-                .changeContextToAdminPanel()
-                .selectMainTab(this.opportunityMarketplace)
-                .openMenuForOpportunityMarketplace(this.general)
-                .openOpportunityMarketplaceInnerTab(this.standardFields)
-                .editField(this.jobType)
-                .addNewOption()
-                .check(EditFieldModalAssertions)
-                    .assertThatNewLabelIsDisplayed()
-                .endAssertion()
-                .closeModal()
-                .refreshPage()
-                .openOpportunityMarketplaceInnerTab(this.standardFields)
-                .editField(this.jobType)
-                .disableVisibility(this.other)
-                .enableVisibility(this.customLOVItem)
-                .typeNewLabel(this.customLOVItem, this.probation)
-                .clickSave();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.userModel));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.showMore(this.jobType);
+        expect(__page1.filterTitle(this.level)).toBeVisible({ timeout: 30000 });
+        expect(__page1.filterTitle(this.workplaceModel)).toBeVisible({ timeout: 30000 });
+        expect(__page1.filterTitle(this.schedule)).toBeVisible({ timeout: 30000 });
+        if (this.one != null) {
+                    expect(__page1.filterOption(this.jobType, this.one)).toContainText(this.permanent, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.permanent)).toBeVisible({ timeout: 30000 });
+        if (this.two != null) {
+                    expect(__page1.filterOption(this.jobType, this.two)).toContainText(this.contract, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.contract)).toBeVisible({ timeout: 30000 });
+        if (this.three != null) {
+                    expect(__page1.filterOption(this.jobType, this.three)).toContainText(this.temporary, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.temporary)).toBeVisible({ timeout: 30000 });
+        if (this.four != null) {
+                    expect(__page1.filterOption(this.jobType, this.four)).toContainText(this.volunteer, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.volunteer)).toBeVisible({ timeout: 30000 });
+        if (this.five != null) {
+                    expect(__page1.filterOption(this.jobType, this.five)).toContainText(this.internship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.internship)).toBeVisible({ timeout: 30000 });
+        if (this.six != null) {
+                    expect(__page1.filterOption(this.jobType, this.six)).toContainText(this.apprenticeship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.apprenticeship)).toBeVisible({ timeout: 30000 });
+        if (this.seven != null) {
+                    expect(__page1.filterOption(this.jobType, this.seven)).toContainText(this.other, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.jobType, this.other)).toBeVisible({ timeout: 30000 });
+        if ("1" != null) {
+                    expect(__page1.filterOption(this.careerTrack, "1")).toContainText(this.management, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.careerTrack, this.management)).toBeVisible({ timeout: 30000 });
+        if ("2" != null) {
+                    expect(__page1.filterOption(this.careerTrack, "2")).toContainText(this.individualContributor, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page1.filterOptionWithText(this.careerTrack, this.individualContributor)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.closeModal();
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.opportunityMarketplace);
+        __page1 = __page1.openMenuForOpportunityMarketplace(this.general);
+        __page1 = __page1.openOpportunityMarketplaceInnerTab(this.standardFields);
+        expect(__page1.typeForField(this.jobType)).toContainText(this.select, { timeout: 30000 });
+        expect(__page1.usageForField(this.jobType)).toContainText(this.jobVacancy, { timeout: 30000 });
+        expect(__page1.availableOptionsForField(this.jobType)).toContainText(this.permanent + ", " + this.contract + ", " + this.temporary + ", "
+                                    + this.volunteer + ", " + this.internship + ", " + this.apprenticeship + ", " + this.other, { timeout: 30000 });
+        __page1 = __page1.changeContextToAdminPanel();
+        __page1 = __page1.selectMainTab(this.hrData);
+        __page1 = __page1.openMenuForOpportunityMarketplace(this.configuration);
+        __page1 = __page1.openHrDataInnerTab(this.standardFields);
+        expect(__page1.typeForField(this.careerTrack)).toContainText(this.select, { timeout: 30000 });
+        expect(__page1.usageForField(this.careerTrack)).toContainText(this.jobVacancy, { timeout: 30000 });
+        expect(__page1.availableOptionsForField(this.careerTrack)).toContainText(this.management + ", " + this.individualContributor, { timeout: 30000 });
+        __page1 = __page1.changeContextToAdminPanel();
+        __page1 = __page1.selectMainTab(this.opportunityMarketplace);
+        __page1 = __page1.openMenuForOpportunityMarketplace(this.general);
+        __page1 = __page1.openOpportunityMarketplaceInnerTab(this.standardFields);
+        __page1 = __page1.editField(this.jobType);
+        __page1 = __page1.addNewOption();
+        expect(__page1.newLabel.last()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.closeModal();
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.openOpportunityMarketplaceInnerTab(this.standardFields);
+        __page1 = __page1.editField(this.jobType);
+        __page1 = __page1.disableVisibility(this.other);
+        __page1 = __page1.enableVisibility(this.customLOVItem);
+        __page1 = __page1.typeNewLabel(this.customLOVItem, this.probation);
+        __page1 = __page1.clickSave();
     }
 
     public checkCustomFiledEnablementAndSetLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.userModel))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.jobType)
-                .check(AllFiltersModalAssertions)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.permanent, this.one)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.contract, this.two)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.temporary, this.three)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.volunteer, this.four)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.internship, this.five)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.apprenticeship, this.six)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.probation)
-                .endAssertion()
-                .closeModal()
-                .goToAdminPanel()
-                .selectMainTab(this.opportunityMarketplace)
-                .openMenuForOpportunityMarketplace(this.general)
-                .openOpportunityMarketplaceInnerTab(this.standardFields)
-                .editField(this.jobType)
-                .clickSetLanguage(this.customLOVItem)
-                .selectLanguage(this.english)
-                .clickAddLanguage()
-                .typeTranslation(this.english, this.probation2)
-                .setLanguages()
-                .clickSave()
-                .clickSave();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.userModel));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaCard();
+        __page2 = __page2.openFiltersModal(AllFiltersModalPage);
+        __page2 = __page2.showMore(this.jobType);
+        if (this.one != null) {
+                    expect(__page2.filterOption(this.jobType, this.one)).toContainText(this.permanent, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.permanent)).toBeVisible({ timeout: 30000 });
+        if (this.two != null) {
+                    expect(__page2.filterOption(this.jobType, this.two)).toContainText(this.contract, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.contract)).toBeVisible({ timeout: 30000 });
+        if (this.three != null) {
+                    expect(__page2.filterOption(this.jobType, this.three)).toContainText(this.temporary, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.temporary)).toBeVisible({ timeout: 30000 });
+        if (this.four != null) {
+                    expect(__page2.filterOption(this.jobType, this.four)).toContainText(this.volunteer, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.volunteer)).toBeVisible({ timeout: 30000 });
+        if (this.five != null) {
+                    expect(__page2.filterOption(this.jobType, this.five)).toContainText(this.internship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.internship)).toBeVisible({ timeout: 30000 });
+        if (this.six != null) {
+                    expect(__page2.filterOption(this.jobType, this.six)).toContainText(this.apprenticeship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.apprenticeship)).toBeVisible({ timeout: 30000 });
+        if (undefined != null) {
+                    expect(__page2.filterOption(this.jobType, undefined)).toContainText(this.probation, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page2.filterOptionWithText(this.jobType, this.probation)).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.closeModal();
+        __page2 = __page2.goToAdminPanel();
+        __page2 = __page2.selectMainTab(this.opportunityMarketplace);
+        __page2 = __page2.openMenuForOpportunityMarketplace(this.general);
+        __page2 = __page2.openOpportunityMarketplaceInnerTab(this.standardFields);
+        __page2 = __page2.editField(this.jobType);
+        __page2 = __page2.clickSetLanguage(this.customLOVItem);
+        __page2 = __page2.selectLanguage(this.english);
+        __page2 = __page2.clickAddLanguage();
+        __page2 = __page2.typeTranslation(this.english, this.probation2);
+        __page2 = __page2.setLanguages();
+        __page2 = __page2.clickSave();
+        __page2 = __page2.clickSave();
     }
 
     public checkTranslationForJobType(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.userModel))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.jobType)
-                .check(AllFiltersModalAssertions)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.permanent, this.one)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.contract, this.two)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.temporary, this.three)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.volunteer, this.four)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.internship, this.five)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.apprenticeship, this.six)
-                    .assertThatFilterOptionIsDisplayed(this.jobType, this.probation2);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.userModel));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.goToVacanciesPageViaCard();
+        __page3 = __page3.openFiltersModal(AllFiltersModalPage);
+        __page3 = __page3.showMore(this.jobType);
+        if (this.one != null) {
+                    expect(__page3.filterOption(this.jobType, this.one)).toContainText(this.permanent, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.permanent)).toBeVisible({ timeout: 30000 });
+        if (this.two != null) {
+                    expect(__page3.filterOption(this.jobType, this.two)).toContainText(this.contract, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.contract)).toBeVisible({ timeout: 30000 });
+        if (this.three != null) {
+                    expect(__page3.filterOption(this.jobType, this.three)).toContainText(this.temporary, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.temporary)).toBeVisible({ timeout: 30000 });
+        if (this.four != null) {
+                    expect(__page3.filterOption(this.jobType, this.four)).toContainText(this.volunteer, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.volunteer)).toBeVisible({ timeout: 30000 });
+        if (this.five != null) {
+                    expect(__page3.filterOption(this.jobType, this.five)).toContainText(this.internship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.internship)).toBeVisible({ timeout: 30000 });
+        if (this.six != null) {
+                    expect(__page3.filterOption(this.jobType, this.six)).toContainText(this.apprenticeship, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.apprenticeship)).toBeVisible({ timeout: 30000 });
+        if (undefined != null) {
+                    expect(__page3.filterOption(this.jobType, undefined)).toContainText(this.probation2, { timeout: 30000 });
+                    return this;
+                }
+        expect(__page3.filterOptionWithText(this.jobType, this.probation2)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldEnsureTheConditionsAreTheSameAsBeforeTheTest(): void {

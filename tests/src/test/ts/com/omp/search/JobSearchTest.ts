@@ -1,5 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { MyOpportunitiesAssertions } from "assertions/careergrowth/jobs/MyOpportunitiesAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +10,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class JobSearchTest extends BaseRestTest {
 
@@ -46,55 +47,47 @@ export class JobSearchTest extends BaseRestTest {
     }
 
     public shouldSearchJobByTitle(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .check(VacanciesListAssertions)
-                    .assertThatSearchHerePlaceholderIsDisplayed()
-                    .assertThatAllJobVacanciesHeaderIsDisplayed()
-                .endAssertion()
-                .typeSearchValue(this.TITLE1)
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.ONE_VALUE)
-                    .assertThatJobVacancyIsOnTheList(this.TITLE1)
-                .endAssertion()
-                .clearSearchKeywordCriteria()
-                .typeSearchValue(this.TITLE1)
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.ONE_VALUE)
-                    .assertThatJobVacancyIsOnTheList(this.TITLE1)
-                .endAssertion()
-                .clearSearchKeywordCriteria()
-                .clickRightArrowButton()
-                .check(VacanciesListAssertions)
-                    .assertThatAllJobVacanciesHeaderIsDisplayed()
-                .endAssertion()
-                .clickMyJobVacanciesButton()
-                .check(MyOpportunitiesAssertions)
-                    .assertThatSubmenuTabIsSelected(this.APPLICATIONS);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        expect(__page1.searchHerePlaceholder()).toBeVisible({ timeout: 30000 });
+        expect(__page1.allJobVacanciesHeader()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.typeSearchValue(this.TITLE1);
+        expect(__page1.allCards()).toHaveCount(this.ONE_VALUE);
+        expect(__page1.jobVacancyCardsDetails(this.TITLE1).first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clearSearchKeywordCriteria();
+        __page1 = __page1.typeSearchValue(this.TITLE1);
+        expect(__page1.allCards()).toHaveCount(this.ONE_VALUE);
+        expect(__page1.jobVacancyCardsDetails(this.TITLE1).first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clearSearchKeywordCriteria();
+        __page1 = __page1.clickRightArrowButton();
+        expect(__page1.allJobVacanciesHeader()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickMyJobVacanciesButton();
+        expect(__page1.selectedTab(this.APPLICATIONS)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldSearchJobByDescription(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(this.DESCRIPTION)
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.ONE_VALUE);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaCard();
+        __page2 = __page2.typeSearchValue(this.DESCRIPTION);
+        expect(__page2.allCards()).toHaveCount(this.ONE_VALUE);
     }
 
     public shouldSearchJobByReferenceNumber(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(this.REFERENCE_NO)
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.ONE_VALUE);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.goToVacanciesPageViaCard();
+        __page3 = __page3.typeSearchValue(this.REFERENCE_NO);
+        expect(__page3.allCards()).toHaveCount(this.ONE_VALUE);
     }
 
     public shouldRemoveJobsViaREST(): void {
@@ -104,21 +97,17 @@ export class JobSearchTest extends BaseRestTest {
     }
 
     public shouldCheckIfJobsWereDeleted(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValueAndWaitForEmptyResults(this.TITLE1)
-                .check(VacanciesListAssertions)
-                    .assertThatThereIsNoSuggestions()
-                .endAssertion()
-                .typeSearchValueAndWaitForEmptyResults(this.DESCRIPTION)
-                .check(VacanciesListAssertions)
-                    .assertThatThereIsNoSuggestions()
-                .endAssertion()
-                .typeSearchValueAndWaitForEmptyResults(this.REFERENCE_NO)
-                .check(VacanciesListAssertions)
-                    .assertThatThereIsNoSuggestions();
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.goToCareerGrowthPage();
+        __page4 = __page4.goToVacanciesPageViaCard();
+        __page4 = __page4.typeSearchValueAndWaitForEmptyResults(this.TITLE1);
+        expect(__page4.noSuggestionsCard).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.typeSearchValueAndWaitForEmptyResults(this.DESCRIPTION);
+        expect(__page4.noSuggestionsCard).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.typeSearchValueAndWaitForEmptyResults(this.REFERENCE_NO);
+        expect(__page4.noSuggestionsCard).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

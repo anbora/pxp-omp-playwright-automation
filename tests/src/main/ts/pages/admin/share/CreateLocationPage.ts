@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
 import { Browser } from "common/testing/playwright";

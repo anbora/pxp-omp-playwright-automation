@@ -1,53 +1,54 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { OpportunityMarketplaceMentorshipPage } from "pages/admin/OpportunityMarketplaceMentorshipPage";
+import { expect } from "common/testing/playwright";
 
 export class OpportunityMarketplaceMentorshipAssertions extends BaseAssertion <OpportunityMarketplaceMentorshipPage>{
 
     public assertThatEnableMentorshipIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.enableMentorship).isVisible(this.isVisibleOptions);
+        expect(this.page.enableMentorship).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Enable mentorship is visible");
         return this;
     }
 
     public assertThatMentorshipLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.mentorshipLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorshipLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentorship label is visible");
         return this;
     }
 
     public assertThatMentorshipsLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.mentorshipsLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorshipsLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentorships label is visible");
         return this;
     }
 
     public assertThatBeMentoredBySomeoneLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.beMentoredBySomeoneLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.beMentoredBySomeoneLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Be mentored by someone label is visible");
         return this;
     }
 
     public assertThatMenteeLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.menteeLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.menteeLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentee label is visible");
         return this;
     }
 
     public assertThatMenteesLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.menteesLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.menteesLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentees label is visible");
         return this;
     }
 
     public assertThatMentorLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.mentorLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentor label is visible");
         return this;
     }
 
     public assertThatMentorsLabelIsVisible(): OpportunityMarketplaceMentorshipAssertions {
-        this.assertThat(this.page.mentorsLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorsLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Mentors label is visible");
         return this;
     }

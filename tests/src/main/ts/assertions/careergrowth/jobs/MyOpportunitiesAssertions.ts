@@ -1,19 +1,19 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { Locator, WaitForSelectorState } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { Locator, WaitForSelectorState, expect } from "common/testing/playwright";
 import { Assert } from "common/testing/runtime";
 import { MyOpportunitiesPage } from "pages/careergrowth/jobs/MyOpportunitiesPage";
 
 export class MyOpportunitiesAssertions extends BaseAssertion<MyOpportunitiesPage> {
 
     public assertThatSubmenuTabIsSelected(subMenuTab: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.selectedTab(subMenuTab)).isVisible(this.isVisibleOptions);
+        expect(this.page.selectedTab(subMenuTab)).toBeVisible(this.isVisibleOptions);
 //        this.page.selectedTab(subMenuTab).should('exist')
         return this;
     }
 
 	public assertThatSubmenuTabIsHighlighted(subMenuTab: string, rgbColor: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.selectedTab(subMenuTab)).hasCSS("background-color", rgbColor);
+        expect(this.page.selectedTab(subMenuTab)).toHaveCSS("background-color", rgbColor);
 //        this.page.selectedTab(subMenuTab).should('have.css', 'background-color').and('eq', rgbColor)
         return this;
     }
@@ -32,67 +32,67 @@ export class MyOpportunitiesAssertions extends BaseAssertion<MyOpportunitiesPage
     }
 
 	public assertThatJobTitleIsNotPresentOnTheList(vacancyTitle: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.jobCards).not().containsText(vacancyTitle, this.containsTextOptions);
+        expect(this.page.jobCards).not.toContainText(vacancyTitle, this.containsTextOptions);
         return this;
     }
 
 	public assertThatJobIdIsPresentOnTheList(jobId: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.jobCardById(jobId)).isVisible(this.isVisibleOptions);
+        expect(this.page.jobCardById(jobId)).toBeVisible(this.isVisibleOptions);
 //        this.page.jobCardById(jobId).should('exist')
         return this;
     }
 
 	public assertThatVacancyIsMarkedAsBookmarked(vacancyTitle: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.jobVacancyMarkedAsBookmarked(vacancyTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.jobVacancyMarkedAsBookmarked(vacancyTitle)).toBeVisible(this.isVisibleOptions);
 //        this.page.jobVacancyMarkedAsBookmarked(vacancyTitle).should('exist')
         return this;
     }
 
     public assertThatVacancyIdIsMarkedAsBookmarked(jobId: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.jobVacancyIdMarkedAsBookmarked(jobId)).isVisible();
+        expect(this.page.jobVacancyIdMarkedAsBookmarked(jobId)).toBeVisible();
 //        this.page.jobVacancyMarkedAsBookmarked(vacancyTitle).should('exist')
         return this;
     }
 
 	public assertThatVacancyIsMarkedAsDismissed(vacancyTitle: string): MyOpportunitiesAssertions {
         this.page.getPage().waitForLoadState();
-        this.assertThat(this.page.jobVacancyDismissButton(vacancyTitle)).hasAttribute("class", "ed-btn no-padding min-width-0 social-activity-btn--red social-activity-btn--red-active");
+        expect(this.page.jobVacancyDismissButton(vacancyTitle)).toHaveAttribute("class", "ed-btn no-padding min-width-0 social-activity-btn--red social-activity-btn--red-active");
 //        this.page.jobVacancyDismissButton(vacancyTitle).should('have', 'social-activity-btn--red-active')
         return this;
     }
 
 	public assertThatJobIdIsMarkedAsDismissed(jobId: string): MyOpportunitiesAssertions {
         this.page.getPage().waitForLoadState();
-        this.assertThat(this.page.jobIdDismissButton(jobId)).hasClass("ed-btn no-padding min-width-0 social-activity-btn--red social-activity-btn--red-active");
+        expect(this.page.jobIdDismissButton(jobId)).toHaveClass("ed-btn no-padding min-width-0 social-activity-btn--red social-activity-btn--red-active");
 //        this.page.jobIdDismissButton(jobId).should('have', 'social-activity-btn--red-active') toHaveText('Sign in', { timeout: 10000 });
         return this;
     }
 
 	public assertThatThereIsNoItemsToShow(information: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.noJobVacanciesToShowInfo).isVisible(this.isVisibleOptions);
+        expect(this.page.noJobVacanciesToShowInfo).toBeVisible(this.isVisibleOptions);
 //        this.page.noJobVacanciesToShowInfo(information).should('exist')
         return this;
     }
 
     public assertThatSkillChipIsDisplayedForFirstJob(skill: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.skillNameChip(skill)).isVisible();
+        expect(this.page.skillNameChip(skill)).toBeVisible();
         return this;
     }
 
 	public assertThatSkillChipIsDisplayedForTheJob(jobTitle: string, skill: string): MyOpportunitiesAssertions {
 //        cy.wait(3000)
-        this.assertThat(this.page.skillChip(jobTitle)).containsText(skill, this.containsTextOptions);
+        expect(this.page.skillChip(jobTitle)).toContainText(skill, this.containsTextOptions);
 //        this.page.skillChip(jobTitle).should('contain.text', skill)
         return this;
     }
 
     public assertThatSharedjobIsPresent(jobTitle: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.sharedJobByTitle(jobTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.sharedJobByTitle(jobTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMessageText(messageText: string): MyOpportunitiesAssertions {
-        this.assertThat(this.page.message).containsText(messageText, this.containsTextOptions);
+        expect(this.page.message).toContainText(messageText, this.containsTextOptions);
         return this;
     }
 }

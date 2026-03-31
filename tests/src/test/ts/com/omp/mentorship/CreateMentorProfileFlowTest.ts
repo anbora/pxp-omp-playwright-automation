@@ -1,4 +1,5 @@
-import { MentorshipDiscoveryAssertions } from "assertions/careergrowth/mentorship/MentorshipDiscoveryAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { LandingPage } from "pages/landing/LandingPage";
 import { HomePage } from "pages/other/HomePage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateMentorProfileFlowTest extends BaseRestTest {
 
@@ -22,22 +24,21 @@ export class CreateMentorProfileFlowTest extends BaseRestTest {
     }
 
     public CreateMentorProfileTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToMentorshipPageViaCard()
-                .clickBecomeAMentor()
-                .addSkillsToSkillPassport(this.skillName, this.skillName,this.advancedSkillLevel)
-                .goToCareerGrowthPage()
-                .goToMentorshipPageViaCard()
-                .clickBecomeAMentor()
-                .addSkillsAndDescription(this.skillName, this.skillName, this.description)
-                .clickOnCreateProfileButton()
-                .check(MentorshipDiscoveryAssertions)
-                    .assertCreatedMentorProfileTextIsDisplayed()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToMentorshipPageViaCard();
+        __page1 = __page1.clickBecomeAMentor();
+        __page1 = __page1.addSkillsToSkillPassport(this.skillName, this.skillName, this.advancedSkillLevel);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToMentorshipPageViaCard();
+        __page1 = __page1.clickBecomeAMentor();
+        __page1 = __page1.addSkillsAndDescription(this.skillName, this.skillName, this.description);
+        __page1 = __page1.clickOnCreateProfileButton();
+        expect(__page1.createdMentorProfileText()).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

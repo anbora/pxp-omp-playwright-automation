@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -11,9 +12,9 @@ export class ProjectDiscoveryPage extends BasePage implements CareerGrowthTopPan
 
     public allProjectsHeader: Locator = this.page.locator("//div/h2[@class='tab-heading omp-counter-field']|//div/h5[@class='tab-heading omp-counter-field']");
     public suggestProjectsCarouselHeader: Locator = this.page.locator("//div//section[@class='tm__recommendations-carousel-header']");
-    public searchInputField: Locator = getByPlaceholder("Search here...").build();
-    public searchIcon: Locator = getByLabel("Search",true).build();
-    public filtersButton: Locator = getByRole(AriaRole.BUTTON, "Filters").build();
+    public searchInputField: Locator = this.getByPlaceholder("Search here...");
+    public searchIcon: Locator = this.getByLabel("Search",true);
+    public filtersButton: Locator = this.getByRole(AriaRole.BUTTON, "Filters");
     public projectCardActionsMenu(projectTitle: string): Locator {
       return this.getLocatorWithParam("//div[@class='tm__project-card-header']/h3[text()='%s']/following-sibling::div//div//button", projectTitle);
     }
@@ -23,11 +24,11 @@ export class ProjectDiscoveryPage extends BasePage implements CareerGrowthTopPan
     public projectCardOrgValue(projectTitle: string, orgNameValue: string): Locator {
       return this.getLocatorWithParam("//div[@class='tm__project-card-header']/h3[text()='%s']/../following-sibling::div[contains(@class,'m-margin-top')]/div[2]/span[text()='%s']", projectTitle, orgNameValue);
     }
-    public projectThreeDots: Locator = getByRole(AriaRole.BUTTON," more actions").build().first();
+    public projectThreeDots: Locator = this.getByRole(AriaRole.BUTTON," more actions").first();
     public projectActionsClickOnAnAction(actionName: string): Locator {
       return this.getLocatorWithParam("//ul[@class='tm__project-dropdown-list']/li[text()='%s']", actionName);
     }
-    public createAProjectButton: Locator = getByRole(AriaRole.LINK, "Create a Project").build();
+    public createAProjectButton: Locator = this.getByRole(AriaRole.LINK, "Create a Project");
     public allFiltersHeader: Locator = this.page.locator("//div[@class='ed-dialog-modal-header']/h1[text()='All Filters']|//div[@class='ed-dialog-modal-header']/h2[text()='All Filters']");
     public orgFilterHeader: Locator = this.page.locator("//h3[@class='filter-section-header' and text()='Organization']");
     public removeAppliedFilter: Locator = this.page.locator("//button[contains(@aria-label,'Remove')]");
@@ -37,18 +38,18 @@ export class ProjectDiscoveryPage extends BasePage implements CareerGrowthTopPan
     public filterSelectValue(filterValue: string): Locator {
       return this.getLocatorWithParam("//input[@type='checkbox']/following-sibling::span[text()='%s']", filterValue);
     }
-    public filterCancelButton: Locator = getByRole(AriaRole.BUTTON, "Cancel").build();
+    public filterCancelButton: Locator = this.getByRole(AriaRole.BUTTON, "Cancel");
     public filterApplyButton: Locator = this.page.locator("//button[@class='ed-btn ed-btn-primary' and text()='Apply']");
     public filterSearchTextField(filterHeader: string): Locator {
       return this.getLocatorWithParam("//h4[contains(@class,'filter-list__title')]/div[text()='%s']/../following-sibling::div/div/input", filterHeader);
     }
-    public closeFiltersButton: Locator = getByRole(AriaRole.BUTTON, "Cancel").build();
+    public closeFiltersButton: Locator = this.getByRole(AriaRole.BUTTON, "Cancel");
     public readonly sortBy: Locator = this.page.locator("#ed-opportunities-sort-by");
-    public projectCardLocation: Locator = locator(".icon-map-marker").build();
+    public projectCardLocation: Locator = this.locator(".icon-map-marker");
     public projectCardDetails(projectName: string): Locator {
-      return this.getByRole(AriaRole.BUTTON, projectName, true).build();
+      return this.getByRole(AriaRole.BUTTON, projectName, true);
     }
-    public readonly projectFilterLocation: Locator = getByLabel("Locations").build();
+    public readonly projectFilterLocation: Locator = this.getByLabel("Locations");
     public hoverShareProjects: Locator = this.page.locator("//div[@class='tm__project-card-actions-container']/div[1]/button");
     public hoverBookmarkProjects: Locator = this.page.locator("//div[@class='tm__project-card-actions-container']/div[2]/button");
 

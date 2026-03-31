@@ -1,7 +1,5 @@
-import { BulkRemovalAssertions } from "assertions/groups/BulkRemovalAssertions";
-import { GroupDetailsAssertions } from "assertions/groups/GroupDetailsAssertions";
-import { MembersGroupAssertions } from "assertions/groups/MembersGroupAssertions";
-import { NotificationPageAssertions } from "assertions/other/NotificationPageAssertions";
+// @ts-nocheck
+
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -13,6 +11,8 @@ import { NotificationPage } from "pages/other/NotificationPage";
 import { SignOutPage } from "pages/other/SignOutPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertEquals } from "common/testing/runtime";
 
 export class CannotRemoveSelfUsingBulkRemovalTest extends GroupsRestService {
 
@@ -46,34 +46,36 @@ export class CannotRemoveSelfUsingBulkRemovalTest extends GroupsRestService {
                 .changeGroupMemberRole(this.user2.fullName, CannotRemoveSelfUsingBulkRemovalTest.GROUP_ADMIN)
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .goDirectlyTo(MembersGroupPage, CannotRemoveSelfUsingBulkRemovalTest.GROUP_NAME)
-                .clickBulkRemovalTab()
-                .uploadBulkRemovalCsvFile(generateCsvFileWithContent(this.user2.getEmail()))
-                .clickUploadButton()
-                .clickRemoveInBulkButton()
-                .check(GroupDetailsAssertions)
-                    .assertThatFileUploadNotificationTextIs(CannotRemoveSelfUsingBulkRemovalTest.NOTIFICATION);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user2));
+        __page1 = __page1.goDirectlyTo(MembersGroupPage, CannotRemoveSelfUsingBulkRemovalTest.GROUP_NAME);
+        __page1 = __page1.clickBulkRemovalTab();
+        __page1 = __page1.uploadBulkRemovalCsvFile(generateCsvFileWithContent(this.user2.getEmail()));
+        __page1 = __page1.clickUploadButton();
+        __page1 = __page1.clickRemoveInBulkButton();
+        expect(__page1.getUploadFileNotification()).toContainText(CannotRemoveSelfUsingBulkRemovalTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that upload file CannotRemoveSelfUsingBulkRemovalTest.NOTIFICATION text is as expected");
     }
 
     public verifyBulkRemovalReportStatusWhenTryingToRemoveSelfFromGroup(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user2))
-                .goDirectlyTo(MembersGroupPage, CannotRemoveSelfUsingBulkRemovalTest.GROUP_NAME)
-                .clickBulkRemovalTab()
-                .clickDownloadRemoveReportButton()
-                .convertFileToText(CannotRemoveSelfUsingBulkRemovalTest.FILE_NAME, this.content)
-                .check(BulkRemovalAssertions)
-                    .assertDownloadedFileContent(this.content.getValue(), expectedFileContent(this.user2.getEmail()));
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user2));
+        __page2 = __page2.goDirectlyTo(MembersGroupPage, CannotRemoveSelfUsingBulkRemovalTest.GROUP_NAME);
+        __page2 = __page2.clickBulkRemovalTab();
+        __page2 = __page2.clickDownloadRemoveReportButton();
+        __page2 = __page2.convertFileToText(CannotRemoveSelfUsingBulkRemovalTest.FILE_NAME, this.content);
+        assertEquals(expectedFileContent(this.user2.getEmail()), this.content.getValue());
+        __page2.logger.info("Successfully verified that downloaded sample file content is the same as expected file content");
     }
 
     public verifyCorrectBellNotificationForGroupAdmin(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user2))
-                .goDirectlyTo(NotificationPage)
-                .check(NotificationPageAssertions)
-                    .assertThatFirstNotificationContains(CannotRemoveSelfUsingBulkRemovalTest.BELL_NOTIFICATION_TEXT);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user2));
+        __page3 = __page3.goDirectlyTo(NotificationPage);
+        expect(__page3.notificationMessage.first()).toContainText(CannotRemoveSelfUsingBulkRemovalTest.BELL_NOTIFICATION_TEXT, { timeout: 30000 });
     }
 
     public afterTests(): void {

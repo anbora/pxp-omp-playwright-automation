@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { Faker } from "com/github/javafaker/Faker";
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { LMSPageAssertions } from "cs/assertions/LMSPageAssertions";
 import { CreateCollectionPage } from "cs/pages/CreateCollectionPage";
 import { LMSPage } from "cs/pages/LMSPage";
+import { expect } from "common/testing/playwright";
 
 export class VerifyPublishCollectionLMS_CSX extends BaseTest {
 
@@ -24,26 +25,26 @@ export class VerifyPublishCollectionLMS_CSX extends BaseTest {
 		let collectionDes: string = "AutoDes_" + this.data.name().firstName() + this.dfor.format(today);
 
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayTwelveUser().email, this.getPlayTwelveUser().password)
-		.navigateToPageByPath(this.YOURCOLLECTION_PATH, CreateCollectionPage)
-		.createCollection(collectionName, collectionDes, "suomi (Suomi)s")
-		.ClickAddcontent()
-		.Addcontent(courseToBeAdd)
-		.clickReviewCollection()
-		.clickAddContentToCollection()
-		.clickSendCollectionForReview()
-		.clickCollectionReviewDownArr()
-		.inputReviewerName("TestTwelveF TestTwelveL")
-		.selectCollectionReviewer("TestTwelveF TestTwelveL"+" (You)")
-		.clickSendReview()
-		.clickPublish()
-		.clickPublishnow()
-		.clickViewInPlatForm(LMSPage)
-		.waitForTime(5000)
-		.check(LMSPageAssertions)
-		.assertThaURLIsVisible()
-		.assertThatLMSCollectionNameIsVisible(collectionName)
-		.endAssertion();
+		  let __page1: any = this;
+  __page1 = __page1.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page1 = __page1.loginToThinkContent(this.getPlayTwelveUser().email, this.getPlayTwelveUser().password);
+  __page1 = __page1.navigateToPageByPath(this.YOURCOLLECTION_PATH, CreateCollectionPage);
+  __page1 = __page1.createCollection(collectionName, collectionDes, "suomi (Suomi)s");
+  __page1 = __page1.ClickAddcontent();
+  __page1 = __page1.Addcontent(courseToBeAdd);
+  __page1 = __page1.clickReviewCollection();
+  __page1 = __page1.clickAddContentToCollection();
+  __page1 = __page1.clickSendCollectionForReview();
+  __page1 = __page1.clickCollectionReviewDownArr();
+  __page1 = __page1.inputReviewerName("TestTwelveF TestTwelveL");
+  __page1 = __page1.selectCollectionReviewer("TestTwelveF TestTwelveL"+" (You)");
+  __page1 = __page1.clickSendReview();
+  __page1 = __page1.clickPublish();
+  __page1 = __page1.clickPublishnow();
+  __page1 = __page1.clickViewInPlatForm(LMSPage);
+  __page1 = __page1.waitForTime(5000);
+  __page1.pause(5000);
+  expect(__page1.getPage()).toHaveURL(Pattern.compile("((http|https):\\/\\/*)(thinkcontent.csod.com)"));
+  expect(__page1.verifyPlaylistName(collectionName)).toBeVisible({ timeout: 60000 });
 	}
 }

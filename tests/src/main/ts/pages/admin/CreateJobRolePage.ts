@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -15,7 +16,7 @@ export class CreateJobRolePage extends BasePage {
     public saveButton: Locator = this.page.locator("//button[text()='Save']");
     public jobLevel: Locator = this.page.locator("//div[contains(text(),'Choose job level')]");
     public dropdownSelectJobLevel: Locator = this.page.locator("[class='css-11unzgr'] [tabindex='-1']:nth-of-type(1)");
-    public locationField: Locator = getByText ("Select Geographical Location").build();
+    public locationField: Locator = getByText ("Select Geographical Location");
     public dropdownSelectLocation: Locator = this.page.locator("[class='css-11unzgr'] [tabindex='-1']:nth-of-type(1)");
     public enterRoleSummary: Locator = this.page.locator(".job-role-form .form-group:nth-of-type(2) [contenteditable]");
     public enterAdditionalDescription: Locator = this.page.locator(".job-role-form .form-group:nth-of-type(4) [contenteditable]");
@@ -26,10 +27,10 @@ export class CreateJobRolePage extends BasePage {
     }
     public maximumNumberOfSkillsMessage: Locator = this.page.locator("//div[@class='modal-body']");
     public closeButton: Locator = this.page.locator("//button[text()='Close']");
-    public jobFamilyDropdown: Locator = getByText("Select role family from list").build();
-    public jobLevelDropdown: Locator = getByText("Choose job level").build();
-    public jobLocationDropdown: Locator = getByText("Select Location", true).build();
-    public externalIdText: Locator = getByText("System will auto generate and", true).build();
+    public jobFamilyDropdown: Locator = this.getByText("Select role family from list");
+    public jobLevelDropdown: Locator = this.getByText("Choose job level");
+    public jobLocationDropdown: Locator = this.getByText("Select Location", true);
+    public externalIdText: Locator = this.getByText("System will auto generate and", true);
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {
 

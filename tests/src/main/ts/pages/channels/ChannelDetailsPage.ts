@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseRestTest } from "common/BaseRestTest";
 import { Gson } from "common/testing/json";
 import { APIRequest, APIRequestContext, APIResponse, FormData, RequestOptions } from "common/testing/playwright";

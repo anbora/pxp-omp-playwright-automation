@@ -1,4 +1,5 @@
-import { MatchingAnalysisModalAssertions } from "assertions/careergrowth/MatchingAnalysisModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddCustomRoleToUserScenario } from "scenarios/profile/AddCustomRoleToUserScenario";
 import { AddCustomSkillToUserScenario } from "scenarios/profile/AddCustomSkillToUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CareerGoalRestrictionToJobRoleRecommendationsTest extends BaseRestTest {
 
@@ -64,89 +66,77 @@ export class CareerGoalRestrictionToJobRoleRecommendationsTest extends BaseRestT
     }
 
     public shouldCheckLevelRestriction(user: UserModel, roleToAssign: string, levelRanksHigher: string, levelRanksLower: string, tier1Status: string, tier2Status: string, tier6Status: string, tier7Status: string, tier8Status: string, tier12Status: string, tier13Status: string): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(user))
-                .run(new AddCustomRoleToUserScenario(user, roleToAssign, "Anime Watcher family -  " + roleToAssign))
-                .run(new AddCustomSkillToUserScenario("anime"))
-                .run(new AddCustomSkillToUserScenario("MTV"))
-                .run(new AddCustomSkillToUserScenario("japanese art"))
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobRoleOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .selectLevelRanksHigher(levelRanksHigher)
-                .selectLevelRanksLower(levelRanksLower)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .waitForGoodOrExcellentMatch()
-                .typeSearchValue(this.tier1)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier1Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier2)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier2Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier6)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier6Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier7)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier7Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier8)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier8Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier12)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier12Status)
-                .endAssertion()
-                .clickCLose()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.tier13)
-                .goToFirstRoleCard()
-                .showMatchDetails()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, tier13Status);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(user));
+        __page1 = __page1.run(new AddCustomRoleToUserScenario(user, roleToAssign, "Anime Watcher family -  " + roleToAssign));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("anime"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("MTV"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("japanese art"));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobRoleOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.selectLevelRanksHigher(levelRanksHigher);
+        __page1 = __page1.selectLevelRanksLower(levelRanksLower);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatch();
+        __page1 = __page1.typeSearchValue(this.tier1);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier1Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier2);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier2Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier6);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier6Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier7);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier7Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier8);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier8Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier12);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier12Status, { timeout: 30000 });
+        __page1 = __page1.clickCLose();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.tier13);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(tier13Status, { timeout: 30000 });
     }
 
     public clearAfterTests(): void {

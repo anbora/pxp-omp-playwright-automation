@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert, assertTrue } from "common/testing/runtime";
 import { VacanciesListPage_New } from "pages/careergrowth/careergrowth/VacanciesListPage_New";
+import { expect } from "common/testing/playwright";
 
 export class VacanciesListAssertions extends BaseAssertion<VacanciesListPage_New> {
 
@@ -15,132 +16,132 @@ export class VacanciesListAssertions extends BaseAssertion<VacanciesListPage_New
     }
 
     public assertThatJobVacanciesListIsEmpty(): VacanciesListAssertions {
-        this.assertThat(this.page.noDataBriefCaseIcon).isVisible(this.isVisibleOptions);
+        expect(this.page.noDataBriefCaseIcon).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatEmptyJobVacanciesListHasDescription(description: string): VacanciesListAssertions {
-        this.assertThat(this.page.noDataDescription).containsText(description, this.containsTextOptions);
+        expect(this.page.noDataDescription).toContainText(description, this.containsTextOptions);
         return this;
     }
 
     public assertThatSearchHerePlaceholderIsDisplayed(): VacanciesListAssertions {
-        this.assertThat(this.page.searchHerePlaceholder()).isVisible(this.isVisibleOptions);
+        expect(this.page.searchHerePlaceholder()).toBeVisible(this.isVisibleOptions);
 //        this.page.searchHerePlaceholder().should("exist")
         return this;
     }
 
     public assertThatAllJobVacanciesHeaderIsDisplayed(): VacanciesListAssertions {
-        this.assertThat(this.page.allJobVacanciesHeader()).isVisible(this.isVisibleOptions);
+        expect(this.page.allJobVacanciesHeader()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatJobVacancyIsOnTheList(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobVacancyCardsDetails(jobTitle).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.jobVacancyCardsDetails(jobTitle).first()).toBeVisible(this.isVisibleOptions);
 //        this.page.jobVacancyCardsDetails(jobTitle).should("exist")
         return this;
     }
 
     public assertThatThereIsNoSuggestions(): VacanciesListAssertions {
-        this.assertThat(this.page.noSuggestionsCard).isVisible(this.isVisibleOptions);
+        expect(this.page.noSuggestionsCard).toBeVisible(this.isVisibleOptions);
 //        this.page.noSuggestionsCard().should("exist")
         return this;
     }
 
     public assertThatJobVacancyOnAllJobVacanciesListHasMatchEqualTo(jobVacancyTitle: string, jobVacancyMatch: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobVacancyMatch(jobVacancyTitle).first()).containsText(jobVacancyMatch, this.containsTextOptions);
+        expect(this.page.jobVacancyMatch(jobVacancyTitle).first()).toContainText(jobVacancyMatch, this.containsTextOptions);
         return this;
     }
 
 	public assertThatVacancyIsBookmarked(vacancyTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobVacancyBookmarked(vacancyTitle).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.jobVacancyBookmarked(vacancyTitle).first()).toBeVisible(this.isVisibleOptions);
 //        this.page.jobVacancyBookmarked(vacancyTitle).should("exist")
         return this;
     }
 
 	public assertThatVacancyIsNotBookmarked(vacancyTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.bookmarkButton(vacancyTitle).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.bookmarkButton(vacancyTitle).first()).toBeVisible(this.isVisibleOptions);
 //        this.page.jobVacancyBookmark(vacancyTitle).should("exist")
         return this;
     }
 
 	public assertThatVacancyCannotBeBookmarked(vacancyTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.bookmarkButton(vacancyTitle)).isDisabled();
+        expect(this.page.bookmarkButton(vacancyTitle)).toBeDisabled();
 //        this.page.jobVacancyBookmarkButton(vacancyTitle).should("be.disabled")
         return this;
     }
 
 	public assertThatVacancyIdIsDismissed(jobId: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobVacancyIdDismissButton(jobId)).hasClass(active);
+        expect(this.page.jobVacancyIdDismissButton(jobId)).toHaveClass(active);
 //        this.page.jobVacancyIdDismissButton(jobId).should("have", active)
         return this;
     }
 
 	public assertThatVacancyIdIsNotDismissed(jobId: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobVacancyIdDismissButton(jobId)).not().hasClass(active);
+        expect(this.page.jobVacancyIdDismissButton(jobId)).not.toHaveClass(active);
 //        this.page.jobVacancyIdDismissButton(jobId).should("not.have", active)
         return this;
     }
 
     public assertThatJobVacancyTitleSuggestionIsPresentOnTheList(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.firstCard().first()).containsText(jobTitle, this.containsTextOptions);
+        expect(this.page.firstCard().first()).toContainText(jobTitle, this.containsTextOptions);
         return this;
     }
 
     public assertThatSkillIsDisplayedForJob(title: string, skill: string): VacanciesListAssertions {
-        this.assertThat(this.page.skillChip(title, skill)).isVisible(this.isVisibleOptions);
+        expect(this.page.skillChip(title, skill)).toBeVisible(this.isVisibleOptions);
 //        this.page.skillChip(jobId, skill).should("exist")
         return this;
     }
 
 	public assertThatThereIsNoSkillsForJob(title: string): VacanciesListAssertions {
-        this.assertThat(this.page.noJobSkillsLabel(title)).isVisible(this.isVisibleOptions);
+        expect(this.page.noJobSkillsLabel(title)).toBeVisible(this.isVisibleOptions);
 //        this.page.noJobSkillsLabel(jobId).should("exist")
         return this;
     }
 
 	public assertThatThereIsNoSkillsForRole(roleId: string): VacanciesListAssertions {
-        this.assertThat(this.page.noRoleSkillsLabel(roleId)).isVisible(this.isVisibleOptions);
+        expect(this.page.noRoleSkillsLabel(roleId)).toBeVisible(this.isVisibleOptions);
 //        this.page.noRoleSkillsLabel(roleId).should("exist")
         return this;
     }
 
 	public assertThatNumberOfRemainingSkillsIsEqualTo(jobTitle: string, number: string): VacanciesListAssertions {
-        this.assertThat(this.page.moreSkillsOnJobCard(jobTitle)).containsText(number, this.containsTextOptions);
+        expect(this.page.moreSkillsOnJobCard(jobTitle)).toContainText(number, this.containsTextOptions);
         return this;
     }
 
 	public assertThatThereIsNoRemainingSkillsForJob(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.moreSkillsOnJobCard(jobTitle)).isHidden();
+        expect(this.page.moreSkillsOnJobCard(jobTitle)).toBeHidden();
         return this;
     }
 
     public assertThatFirstJobOnTheListIsNotEqualTo(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.firstItemOnAllVacanciesListLocator.first()).not().containsText(jobTitle, this.containsTextOptions);
+        expect(this.page.firstItemOnAllVacanciesListLocator.first()).not.toContainText(jobTitle, this.containsTextOptions);
 //        this.page.firstItemOnAllVacanciesList().should("not.contain.text", jobTitle)
         return this;
     }
 
 	public assertThatSkillsElementOnJobCardEqualTo(skillName: string): VacanciesListAssertions {
-        this.assertThat(this.page.skillsOnJobCard.last()).containsText(skillName, this.containsTextOptions);
+        expect(this.page.skillsOnJobCard.last()).toContainText(skillName, this.containsTextOptions);
 //        this.page.skillsOnJobCard().should("contain.text", skillName)
         return this;
     }
 
     public assertThatJobIdIsPresentOnAllJobsList(jobId: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobById(jobId)).isVisible(this.isVisibleOptions);
+        expect(this.page.jobById(jobId)).toBeVisible(this.isVisibleOptions);
 //        this.page.jobById(jobId).should("be.visible")
         return this;
     }
 
 	public assertThatJobVacancyIdIsNotOnTheList(jobId: string): VacanciesListAssertions {
-        this.assertThat(this.page.jobById(jobId)).isHidden();
+        expect(this.page.jobById(jobId)).toBeHidden();
 //        this.page.jobById(jobId).should("not.exist")
         return this;
     }
 
 	public assertThatFirstJobOnTheListIsEqualTo(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.firstItemOnAllVacanciesListLocator.first()).containsText(jobTitle, this.containsTextOptions);
+        expect(this.page.firstItemOnAllVacanciesListLocator.first()).toContainText(jobTitle, this.containsTextOptions);
 //        this.page.firstItemOnAllVacanciesList().should("contain.text", jobTitle)
         return this;
     }
@@ -153,23 +154,23 @@ export class VacanciesListAssertions extends BaseAssertion<VacanciesListPage_New
     }
 
     public assertThatJobVacancySuggestionIsPresentOnTheList(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.cardName(jobTitle).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.cardName(jobTitle).first()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatJobVacancySuggestionIsNotPresentOnTheList(jobTitle: string): VacanciesListAssertions {
-        this.assertThat(this.page.cardName(jobTitle)).isHidden();
+        expect(this.page.cardName(jobTitle)).toBeHidden();
         return this;
     }
 
     public assertThatActivePageIsEqualTo(pageNumber: string): VacanciesListAssertions {
-//        assertThat(this.page.)
+//        expect(this.page.)
 //        this.page.pageButton(pageNumber).should("have", "active")
         return this;
     }
 
     public assertThatPageIsNotClickable(pageNumber: string): VacanciesListAssertions {
-//        assertThat(this.page.)
+//        expect(this.page.)
 //        this.page.pageButton(pageNumber).should("have", "disable")
         return this;
     }
@@ -180,37 +181,37 @@ export class VacanciesListAssertions extends BaseAssertion<VacanciesListPage_New
     }
 
     public assertThatVacancyCardsDisplayProperNumberOfCards(cardsNumber: number): VacanciesListAssertions {
-        this.assertThat(this.page.allCards()).hasCount(cardsNumber);
+        expect(this.page.allCards()).toHaveCount(cardsNumber);
         return this;
     }
 
     public assertThatFilterIsApplied(filterValue: string): VacanciesListAssertions {
-        this.assertThat(this.page.removeFilterButton(filterValue)).isVisible(this.isVisibleOptions);
+        expect(this.page.removeFilterButton(filterValue)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsVisibleOnJobVacancyCard(): VacanciesListAssertions {
-        this.assertThat(this.page.jobCardLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.jobCardLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnJobVacancyCard(): VacanciesListAssertions {
-        this.assertThat(this.page.jobCardLocation).isHidden();
+        expect(this.page.jobCardLocation).toBeHidden();
         return this;
     }
 
     public assertThatLocationIsVisibleOnJobVacancyDetails(): VacanciesListAssertions {
-        this.assertThat(this.page.jobDetailsLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.jobDetailsLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnJobVacancyDetails(): VacanciesListAssertions {
-        this.assertThat(this.page.jobDetailsLocation).isHidden();
+        expect(this.page.jobDetailsLocation).toBeHidden();
         return this;
     }
 
     public assertThatZeroResultsForClosedVacancies(): VacanciesListAssertions {
-        this.assertThat(this.page.noResultsMessage).isVisible(this.isVisibleOptions);
+        expect(this.page.noResultsMessage).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

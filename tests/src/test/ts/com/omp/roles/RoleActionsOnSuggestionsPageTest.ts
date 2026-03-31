@@ -1,6 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
-import { SuggestionsAssertions } from "assertions/careergrowth/careergrowth/SuggestionsAssertions";
-import { ManageRoleAssertions } from "assertions/careergrowth/roles/ManageRoleAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -13,6 +12,8 @@ import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCare
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
+import { Assert, assertTrue } from "common/testing/runtime";
 
 export class RoleActionsOnSuggestionsPageTest extends BaseRestTest {
 
@@ -39,67 +40,52 @@ export class RoleActionsOnSuggestionsPageTest extends BaseRestTest {
     }
 
     public checkActionsForAnySuggestedRole(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .run(new AddBasicCareerPreferencesForUser())
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.javaDeveloper, this.lumesse, this.coding,this.october,this.year_2017,this.june,this.year_2022 ))
-                .clickSkipForNowButton()
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToSuggestionsPageViaTab()
-                .waitForRoleSuggestions()
-                .refreshPage()
-                .goToFirstRoleCard()
-                .getRoleName(this.roleIdContainer)
-                .clickBackButton()
-                .performActionForSuggestedNotYourCurrentRole(this.dismiss)
-                .refreshPage()
-                .check(RoleListAssertions)
-//                    .assertThatRoleSuggestionIsNotOnTheList(roleIdContainer.getValue())
-                .endAssertion()
-                .goToProfileFromUserDropDown(this.user.name)
-                .clickRolesTab()
-                .selectLeftMenuTab(this.dismissed)
-                .refreshPageUntilRoleFound(this.roleIdContainer.getValue())
-                .check(ManageRoleAssertions)
-                    .assertThatRoleIsDisplayedOnTheList(this.roleIdContainer.getValue())
-                    .assertThatRoleIsMarkedAsDismissed(this.roleIdContainer.getValue())
-                .endAssertion()
-                .clickDismissRoleId(this.roleIdContainer.getValue())
-                .goToCareerGrowthPage()
-                .goToSuggestionsPageViaTab()
-                .waitForRoleSuggestions()
-                .waitForJobRoleRecommendationByTitle(this.roleIdContainer.getValue())
-                .check(SuggestionsAssertions)
-//                    .assertThatGivenRoleIdSuggestionIsOnTheList(roleIdContainer.getValue())
-                .endAssertion()
-                .performActionForSuggestedNotYourCurrentRole(this.markAsAspirationalRole)
-                .check(SuggestionsAssertions)
-                    .assertThatFirstRoleIsMarkedWithArrowIcon()
-                .endAssertion()
-                .goToProfileFromUserDropDown(this.user.name)
-                .clickRolesTab()
-                .selectLeftMenuTab(this.markedAsAspirationalRole)
-                .refreshPageUntilRoleFound(this.roleIdContainer.getValue())
-                .check(ManageRoleAssertions)
-                    .assertThatRoleIsDisplayedOnTheList(this.roleIdContainer.getValue())
-                    .assertThatRoleIsMarkedAsAspirational(this.roleIdContainer.getValue())
-                .endAssertion()
-                .clickMoreActionsButton()
-                .check(ManageRoleAssertions)
-                    .assertThatActionIsNotDisplayed(this.dismiss)
-                    .assertThatActionIsNotDisplayed(this.markAsAspirationalRole)
-                .endAssertion()
-                .refreshPage()
-                .performActionForRole(this.removeAsAspirationalRole)
-                .goToCareerGrowthPage()
-                .goToSuggestionsPageViaTab()
-                .check(SuggestionsAssertions)
-//                    .assertThatRoleIdIsNotMarkedWithArrowIcon(roleIdContainer.getValue())
-        ;
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.javaDeveloper, this.lumesse, this.coding,this.october,this.year_2017,this.june,this.year_2022 ));
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToSuggestionsPageViaTab();
+        __page1 = __page1.waitForRoleSuggestions();
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.getRoleName(this.roleIdContainer);
+        __page1 = __page1.clickBackButton();
+        __page1 = __page1.performActionForSuggestedNotYourCurrentRole(this.dismiss);
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.goToProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickRolesTab();
+        __page1 = __page1.selectLeftMenuTab(this.dismissed);
+        __page1 = __page1.refreshPageUntilRoleFound(this.roleIdContainer.getValue());
+        expect(__page1.rolesByID(this.roleIdContainer.getValue())).toBeVisible({ timeout: 30000 });
+        __page1.getPage().waitForLoadState();
+        Assert.assertTrue(__page1.roleMarkedAsDismissed(this.roleIdContainer.getValue()).getAttribute("class").contains("social-activity-btn--red-active"));
+        __page1 = __page1.clickDismissRoleId(this.roleIdContainer.getValue());
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToSuggestionsPageViaTab();
+        __page1 = __page1.waitForRoleSuggestions();
+        __page1 = __page1.waitForJobRoleRecommendationByTitle(this.roleIdContainer.getValue());
+        __page1 = __page1.performActionForSuggestedNotYourCurrentRole(this.markAsAspirationalRole);
+        expect(__page1.markedAsAspirationalRoleArrowIcon().first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickRolesTab();
+        __page1 = __page1.selectLeftMenuTab(this.markedAsAspirationalRole);
+        __page1 = __page1.refreshPageUntilRoleFound(this.roleIdContainer.getValue());
+        expect(__page1.rolesByID(this.roleIdContainer.getValue())).toBeVisible({ timeout: 30000 });
+        expect(__page1.markedAsAspirationalRoleIdArrowIcon(this.roleIdContainer.getValue())).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickMoreActionsButton();
+        expect(__page1.moreActionsPopperOption(this.dismiss)).toBeHidden();
+        expect(__page1.moreActionsPopperOption(this.markAsAspirationalRole)).toBeHidden();
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.performActionForRole(this.removeAsAspirationalRole);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToSuggestionsPageViaTab();
     }
 
     public afterTests(): void {

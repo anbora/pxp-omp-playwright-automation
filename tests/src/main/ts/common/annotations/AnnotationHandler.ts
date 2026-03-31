@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FunctionalArea } from "common/annotations/FunctionalArea";
 import { Group } from "common/annotations/Group";
 

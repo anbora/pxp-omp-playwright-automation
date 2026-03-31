@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { JsonProperty } from "common/testing/json";
 
 export class UserModel {

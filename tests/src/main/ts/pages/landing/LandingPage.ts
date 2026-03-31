@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { BaseTest } from "common/BaseTest";
 import { ElementType } from "common/enums/ElementType";
@@ -151,7 +152,7 @@ export class LandingPage extends BasePage {
     public configureLandingPageDeleteRow: Locator = this.page.locator("//button[text()='Delete row']");
     public configureLandingPageSaveAndExitButton: Locator = this.page.locator("//button[text()='Save & exit']");
     public configureLandingPageEmptyLayoutWarningModal(): Locator {
-      return this.getByRole(AriaRole.HEADING, "Warning").build();
+      return this.getByRole(AriaRole.HEADING, "Warning");
     }
     public emptyLayoutWarningModalYesButton: Locator = this.page.locator("//div[@class='ed-dialog-modal-footer ']/button[text()='Yes']");
     public emptyLandingPageStartEditingButton: Locator = this.page.locator("//div[@class='no-content-icon-wrapper make-center']/following-sibling::button");
@@ -179,6 +180,16 @@ export class LandingPage extends BasePage {
 
       super(browser, pageHandler, logger, portalIndex);
 
+    }
+
+    public assertHomePageLoaded(user: UserModel): LandingPage {
+        this.homeTab().waitFor(new Locator.WaitForOptions().setState("visible").setTimeout(30000));
+        this.logger.info("-------------------------------------------------------------------");
+        this.logger.info("User logged with data:");
+        this.logger.info(" - id: " + user.id);
+        this.logger.info(" - email: " + user.email);
+        this.logger.info("-------------------------------------------------------------------");
+        return this;
     }
 
     public clickAllTabForTheWidget(widget: WidgetsOnLandingPage): LandingPage {

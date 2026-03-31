@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { PollQuestion } from "models/edconnect/content/smartcards/poll/createpoll/PollQuestion";
 

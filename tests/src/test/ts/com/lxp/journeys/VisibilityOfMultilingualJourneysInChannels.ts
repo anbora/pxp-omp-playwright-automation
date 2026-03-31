@@ -1,9 +1,8 @@
-import { ChannelDetailsPageAssertions } from "assertions/channels/ChannelDetailsPageAssertions";
-import { JourneyDetailsPageAssertions } from "assertions/journeys/JourneyDetailsPageAssertions";
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
+// @ts-nocheck
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
+import { expect } from "common/testing/playwright";
 import { randomAlphabetic } from "common/testing/javaCompat";
 import { UserModel } from "models/user/UserModel";
 import { ChannelDetailsPage } from "pages/channels/ChannelDetailsPage";
@@ -41,116 +40,104 @@ export class VisibilityOfMultilingualJourneysInChannels extends BaseRestTest {
     }
 
     public shouldCreateMultilingualChannel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(CreateChannelPage)
-                .fillInChannelName(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN)
-                .fillInChannelDescription(VisibilityOfMultilingualJourneysInChannels.CHANNEL_DESCRIPTION_EN)
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .clickSelectLanguageDropdown()
-                .openAccordion(VisibilityOfMultilingualJourneysInChannels.ACCORDION_LANGUAGE)
-                .fillInChannelNameInAccordion(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .fillInChannelDescriptionInAccordion(VisibilityOfMultilingualJourneysInChannels.CHANNEL_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickCreateChannelButton()
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatChannelNotificationIs(VisibilityOfMultilingualJourneysInChannels.CHANNEL_CREATION_NOTIFICATION);
+        let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(CreateChannelPage);
+        __page1 = __page1.fillInChannelName(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN);
+        __page1 = __page1.fillInChannelDescription(VisibilityOfMultilingualJourneysInChannels.CHANNEL_DESCRIPTION_EN);
+        __page1 = __page1.clickAddLanguagesButton();
+        __page1 = __page1.addLanguages(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page1 = __page1.clickSelectLanguageDropdown();
+        __page1 = __page1.openAccordion(VisibilityOfMultilingualJourneysInChannels.ACCORDION_LANGUAGE);
+        __page1 = __page1.fillInChannelNameInAccordion(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        __page1 = __page1.fillInChannelDescriptionInAccordion(VisibilityOfMultilingualJourneysInChannels.CHANNEL_DESCRIPTION_PL);
+        __page1 = __page1.changeDefaultLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page1 = __page1.clickAddLanguageInModal();
+        __page1 = __page1.clickCreateChannelButton();
+        expect(__page1.channelNotification).toContainText(VisibilityOfMultilingualJourneysInChannels.CHANNEL_CREATION_NOTIFICATION);
     }
 
     public shouldCreateMultilingualJourneyAndShareItToChannel(): void {
-        this.getOmpLoginPage()
-           .run(new LoginScenario(this.user))
-                .goDirectlyTo(CreateJourneyPage)
-                .fillInJourneyTitle(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN)
-                .fillInJourneyDescription(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DESCRIPTION_EN)
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .clickSelectLanguagesDropdown()
-                .openAccordion(VisibilityOfMultilingualJourneysInChannels.ACCORDION_LANGUAGE)
-                .fillInJourneyNameInAccordion(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL)
-                .fillInJourneyDescriptionInAccordion(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickContinueButton()
-                .enterSectionTitle(VisibilityOfMultilingualJourneysInChannels.SECTION_TITLE)
-                .clickAddNewSmartCardButton()
-                .goToTextSmartCardTab()
-                .fillInTitle(VisibilityOfMultilingualJourneysInChannels.SMARTCARD_TITLE_EN)
-                .clickCreateCardButtonInJourney()
-                .clickPublishJourneyButtonAndGoToJourneyDetailsPage()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN)
-                .endAssertion()
-                .clickThreeDotsMenu()
-                .clickPostToChannel()
-                .selectSpecificChannel(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN)
-                .clickPostButton()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyNotificationIs(VisibilityOfMultilingualJourneysInChannels.SHARE_TO_CHANNEL_NOTIFICATION);
+        let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(CreateJourneyPage);
+        __page2 = __page2.fillInJourneyTitle(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN);
+        __page2 = __page2.fillInJourneyDescription(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DESCRIPTION_EN);
+        __page2 = __page2.clickAddLanguagesButton();
+        __page2 = __page2.addLanguages(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page2 = __page2.clickSelectLanguagesDropdown();
+        __page2 = __page2.openAccordion(VisibilityOfMultilingualJourneysInChannels.ACCORDION_LANGUAGE);
+        __page2 = __page2.fillInJourneyNameInAccordion(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL);
+        __page2 = __page2.fillInJourneyDescriptionInAccordion(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DESCRIPTION_PL);
+        __page2 = __page2.changeDefaultLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page2 = __page2.clickAddLanguageInModal();
+        __page2 = __page2.clickContinueButton();
+        __page2 = __page2.enterSectionTitle(VisibilityOfMultilingualJourneysInChannels.SECTION_TITLE);
+        __page2 = __page2.clickAddNewSmartCardButton();
+        __page2 = __page2.goToTextSmartCardTab();
+        __page2 = __page2.fillInTitle(VisibilityOfMultilingualJourneysInChannels.SMARTCARD_TITLE_EN);
+        __page2 = __page2.clickCreateCardButtonInJourney();
+        __page2 = __page2.clickPublishJourneyButtonAndGoToJourneyDetailsPage();
+        expect(__page2.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN);
+        __page2 = __page2.clickThreeDotsMenu();
+        __page2 = __page2.clickPostToChannel();
+        __page2 = __page2.selectSpecificChannel(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN);
+        __page2 = __page2.clickPostButton();
+        expect(__page2.journeyNotification).toContainText(VisibilityOfMultilingualJourneysInChannels.SHARE_TO_CHANNEL_NOTIFICATION);
     }
 
     public shouldDisplayJourneyInChannelInUserPreferredLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatCardTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN)
-                    .assertThatChannelTitleIs(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
-
+        let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        expect(__page3.cardTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN);
+        expect(__page3.channelTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_EN);
+        __page3 = __page3.clickJourneyTitle();
+        expect(__page3.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN);
+        expect(__page3.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
     }
 
     public shouldDisplayJourneyInChannelInDefaultLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatCardTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL)
-                    .assertThatChannelTitleIs(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .endAssertion()
-                .changeUserDefinedLanguageInPolish(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
-
+        let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page4 = __page4.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        expect(__page4.cardTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL);
+        expect(__page4.channelTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        __page4 = __page4.clickJourneyTitle();
+        expect(__page4.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL);
+        expect(__page4.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page4 = __page4.changeUserDefinedLanguageInPolish(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
     }
 
     public shouldDisplayJourneyInDefaultLanguageWhenUserPreferredLanguageDoesNotMatchCardLanguages(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_SPANISH)
-                .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatCardTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL)
-                    .assertThatChannelTitleIs(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH)
-                .endAssertion()
-                .changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
+        let __page5: any = this;
+        __page5 = __page5.getOmpLoginPage();
+        __page5 = __page5.run(new LoginScenario(this.user));
+        __page5 = __page5.changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_SPANISH);
+        __page5 = __page5.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        expect(__page5.cardTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL);
+        expect(__page5.channelTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.CHANNEL_NAME_PL);
+        __page5 = __page5.clickJourneyTitle();
+        expect(__page5.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_PL);
+        expect(__page5.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_POLISH);
+        __page5 = __page5.changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualJourneysInChannels.LANG_CODE_ENGLISH);
     }
 
     public shouldDeleteJourney(): void {
-            this.getOmpLoginPage()
-                    .run(new LoginScenario(this.user))
-                    .goDirectlyTo(ContentMePage)
-                    .clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN)
-                    .clickDeleteCard()
-                    .confirmJourneyDeletion()
-                    .check(ContentMePageAssertions)
-                        .assertThatCardNotificationIs(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DELETION_NOTIFICATION);
-        }
+        let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.user));
+        __page6 = __page6.goDirectlyTo(ContentMePage);
+        __page6 = __page6.clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualJourneysInChannels.JOURNEY_NAME_EN);
+        __page6 = __page6.clickDeleteCard();
+        __page6 = __page6.confirmJourneyDeletion();
+        expect(__page6.cardNotification).toContainText(VisibilityOfMultilingualJourneysInChannels.JOURNEY_DELETION_NOTIFICATION);
+    }
 
     public afterTests(): void {
 

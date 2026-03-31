@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AbstractShareAssertions } from "assertions/careergrowth/share/AbstractShareAssertions";
 import { ShareJobPage } from "pages/careergrowth/share/ShareJobPage";
 

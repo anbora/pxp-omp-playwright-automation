@@ -1,70 +1,71 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { assertTrue } from "common/testing/runtime";
 import { WelcomePage_New } from "pages/careergrowth/careergrowth/WelcomePage_New";
+import { expect } from "common/testing/playwright";
 
 export class WelcomePageAssertions extends BaseAssertion<WelcomePage_New> {
 
     public assertThatWelcomeMessageIsEqualTo(message: string): WelcomePageAssertions {
-        this.assertThat(this.page.welcomeMessage).containsText(message, this.containsTextOptions);
+        expect(this.page.welcomeMessage).toContainText(message, this.containsTextOptions);
 //        this.page.welcomeMessage().should("contain.text", message)
         return this;
     }
 
     public assertThatSuggestionsMessageIsEqualTo(message: string): WelcomePageAssertions {
-        this.assertThat(this.page.suggestionsMessage()).containsText(message, this.containsTextOptions);
+        expect(this.page.suggestionsMessage()).toContainText(message, this.containsTextOptions);
 //        this.page.suggestionsMessage().should("contain.text", message)
         return this;
     }
 
     public assertThatIconIsDisplayedForTab(title: string, icon: string): WelcomePageAssertions {
-        this.assertThat(this.page.tabIcon(title)).hasClass(icon);
+        expect(this.page.tabIcon(title)).toHaveClass(icon);
 //        this.page.tabIcon(title).should("have", icon)
         return this;
     }
 
     public assertThatTabTipIsEqualTo(text: string): WelcomePageAssertions {
-        this.assertThat(this.page.tabTip.last()).containsText(text, this.containsTextOptions);
+        expect(this.page.tabTip.last()).toContainText(text, this.containsTextOptions);
 //        this.page.tabTip().should("contain.text", text)
         return this;
     }
 
     public assertThatCurrentRoleNameIsNotVisible(): WelcomePageAssertions {
-        this.assertThat(this.page.currentRoleName()).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.currentRoleName()).not.toBeVisible(this.isNotVisibleOptions);
 //        this.page.currentRoleName().should("contain.text", role)
         return this;
     }
 
 	public assertThatUpdateProfileLinkIsDisplayed(): WelcomePageAssertions {
-        this.assertThat(this.page.updateCareerProfileLink()).isVisible(this.isVisibleOptions);
+        expect(this.page.updateCareerProfileLink()).toBeVisible(this.isVisibleOptions);
 //        this.page.updateCareerProfileLink().should("exist")
         return this;
     }
 
 	public assertThatUpdateProfileLinkIsNotDisplayed(): WelcomePageAssertions {
-        this.assertThat(this.page.updateCareerProfileLink()).isHidden();
+        expect(this.page.updateCareerProfileLink()).toBeHidden();
 //        this.page.updateCareerProfileLink().should("not.exist")
         return this;
     }
 
     public assertThatUpdateCareerProfileLinkIsVisible(): WelcomePageAssertions {
-        this.assertThat(this.page.updateCareerProfileLink()).isVisible(this.isVisibleOptions);
+        expect(this.page.updateCareerProfileLink()).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified that Update Career Profile Link is visible.");
         return this;
     }
 
     public assertThatUpdateCareerProfileLinkIsNotVisible(): WelcomePageAssertions {
-        this.assertThat(this.page.updateCareerProfileLinkWithoutAI()).isHidden();
+        expect(this.page.updateCareerProfileLinkWithoutAI()).toBeHidden();
         return this;
     }
 
     public assertThatUserNameIsVisible(userName: string): WelcomePageAssertions {
-        this.assertThat(this.page.userName()).containsText(userName, this.containsTextOptions);
+        expect(this.page.userName()).toContainText(userName, this.containsTextOptions);
         return this;
     }
 
     public assertThatCurrentRoleNameIsEqualTo(role: string): WelcomePageAssertions {
-        this.assertThat(this.page.currentRoleName()).containsText(role, this.containsTextOptions);
+        expect(this.page.currentRoleName()).toContainText(role, this.containsTextOptions);
         return this;
     }
 
@@ -74,13 +75,13 @@ export class WelcomePageAssertions extends BaseAssertion<WelcomePage_New> {
     }
 
     public assertThatYourAspirationalRolesInformationTextIsDisplayed(text: string): WelcomePageAssertions {
-        this.assertThat(this.page.yourAspirationalRolesInformation()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.yourAspirationalRolesInformation()).containsText(text, this.containsTextOptions);
+        expect(this.page.yourAspirationalRolesInformation()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.yourAspirationalRolesInformation()).toContainText(text, this.containsTextOptions);
         return this;
     }
 
     public assertThatMentorshipTabIsNotVisible(): WelcomePageAssertions {
-        this.assertThat(this.page.mentorshipsCard).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.mentorshipsCard).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 }

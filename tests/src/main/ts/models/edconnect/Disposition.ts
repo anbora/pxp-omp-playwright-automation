@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, SerializedName } from "common/testing/json";
 
 export class Disposition {

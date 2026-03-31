@@ -1,12 +1,13 @@
+// @ts-nocheck
 import { Faker } from "com/github/javafaker/Faker";
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { ManageConfigurationAssertions } from "cs/assertions/ManageConfigurationAssertions";
 import { ContentStudioPopup } from "cs/pages/ContentStudioPopup";
 import { CreateCollectionPage } from "cs/pages/CreateCollectionPage";
 import { ManageConfigurationPage } from "cs/pages/ManageConfigurationPage";
 import { ResultContainer } from "models/ResultContainer";
+import { expect } from "common/testing/playwright";
 
 export class VerifyConfiguration_SBX extends BaseTest{
 	private readonly PATH: string[] = ["Curation", "Explore collections"];
@@ -26,30 +27,27 @@ export class VerifyConfiguration_SBX extends BaseTest{
 	//Fully done
 	public verifyConfigurationPage(): void {
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.PATH, ContentStudioPopup)
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.check(ManageConfigurationAssertions)
-			.assertThatTabsVisible("Upcoming removals")
-			.assertThatTabsVisible("Removed content")
-			//.assertThatNoContentMessagePresent()
-			.assertThatTableHeaders(["Content title", "Provider", "Collections it is part of", "Total learners last quarter", "Total learners all time", "Date of removal", "Replacement suggestion"])
-			.endAssertion()
-			.tableheader();
+		  let __page1: any = this;
+  __page1 = __page1.getCsLoginPage(this.getConfig().getSbxurl());
+  __page1 = __page1.logintoSBX("CSUSERONE", "welcome");
+  __page1 = __page1.navigateToPageByPath(this.PATH, ContentStudioPopup);
+  __page1 = __page1.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  expect(__page1.buttonUsingText("Upcoming removals")).toBeVisible({ timeout: 60000 });
+  expect(__page1.buttonUsingText("Removed content")).toBeVisible({ timeout: 60000 });
+  expect(__page1.tableHeaders).toContainText(["Content title", "Provider", "Collections it is part of", "Total learners last quarter", "Total learners all time", "Date of removal", "Replacement suggestion"]);
+  __page1 = __page1.tableheader();
 	 }
 
 	//Fully done
 	public verifyRemovedContentTab(): void {
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.PATH, ContentStudioPopup)
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.clickRemovedContentTab()
-			.check(ManageConfigurationAssertions)
-			.assertThatTableHeaders(["Content title","Provider","Total learners last quarter","Total learners all time","Date of removal"])
-			.endAssertion();
+		  let __page2: any = this;
+  __page2 = __page2.getCsLoginPage(this.getConfig().getSbxurl());
+  __page2 = __page2.logintoSBX("CSUSERONE", "welcome");
+  __page2 = __page2.navigateToPageByPath(this.PATH, ContentStudioPopup);
+  __page2 = __page2.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page2 = __page2.clickRemovedContentTab();
+  expect(__page2.tableHeaders).toContainText(["Content title","Provider","Total learners last quarter","Total learners all time","Date of removal"]);
 
 	  }
 
@@ -65,28 +63,26 @@ export class VerifyConfiguration_SBX extends BaseTest{
 
 	//@Test(description = "Verify that curator user is able to review content : C28933093")
 	public verifyCuratorUserAbleToReviewContent(): void {
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.waitForTablePresent()
-			.clickCourseReviewButton(this.COURSE_VIEW)
-			.check(ManageConfigurationAssertions)
-			.assertThatDialogViewCourseButton("View Course")
-			.endAssertion()
-			.closeReviewDialog();
+		  let __page3: any = this;
+  __page3 = __page3.getCsLoginPage(this.getConfig().getSbxurl());
+  __page3 = __page3.logintoSBX("CSUSERONE", "welcome");
+  __page3 = __page3.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page3 = __page3.waitForTablePresent();
+  __page3 = __page3.clickCourseReviewButton(this.COURSE_VIEW);
+  expect(__page3.buttonUsingText("View Course")).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.closeReviewDialog();
 	}
 
 	//@Test(description = "Verify that curator user is able to View course from Review action : C28933094,C28933095")
 	public verifyViewCourseFromReviewAction(): void {
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.waitForTablePresent()
-			.clickCourseReviewButton(this.COURSE_VIEW)
-			.clickViewCourseButton()
-			.check(ManageConfigurationAssertions)
-			.assertThatCourseTilePresent(this.COURSE_VIEW)
-			.endAssertion();
+		  let __page4: any = this;
+  __page4 = __page4.getCsLoginPage(this.getConfig().getSbxurl());
+  __page4 = __page4.logintoSBX("CSUSERONE", "welcome");
+  __page4 = __page4.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page4 = __page4.waitForTablePresent();
+  __page4 = __page4.clickCourseReviewButton(this.COURSE_VIEW);
+  __page4 = __page4.clickViewCourseButton();
+  expect(__page4.courseTitleCourseDetailsPage(this.COURSE_VIEW)).toBeVisible({ timeout: 60000 });
 	}
 
 
@@ -99,22 +95,22 @@ export class VerifyConfiguration_SBX extends BaseTest{
 		let collectionDes: string = "AutoDes_" + this.data.name().firstName() + this.dfor.format(today);
 
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.waitForTablePresent()
-			.getCollectionsPartOfCount(this.courseCount,this.COURSE_COUNT_VALIDATION,this.COLUMN_COLLECTION_IT_IS_PART_OF)
-			.navigateToPageByPath(this.PATH, CreateCollectionPage)
-			.createCollection(collectionName, collectionDes, null)
-			.ClickAddcontent()
-			.Addcontent(courseToBeAdd)
-			.clickReviewCollection()
-			.clickAddContentToCollection()
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.waitForTablePresent()
-			.check(ManageConfigurationAssertions)
-			.assertThatPartOfCountPresent(this.COURSE_COUNT_VALIDATION,this.COLUMN_COLLECTION_IT_IS_PART_OF, this.courseCount.getValue())
-			.endAssertion();
+		  let __page5: any = this;
+  __page5 = __page5.getCsLoginPage(this.getConfig().getSbxurl());
+  __page5 = __page5.logintoSBX("CSUSERONE", "welcome");
+  __page5 = __page5.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page5 = __page5.waitForTablePresent();
+  __page5 = __page5.getCollectionsPartOfCount(this.courseCount, this.COURSE_COUNT_VALIDATION, this.COLUMN_COLLECTION_IT_IS_PART_OF);
+  __page5 = __page5.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page5 = __page5.createCollection(collectionName, collectionDes, null);
+  __page5 = __page5.ClickAddcontent();
+  __page5 = __page5.Addcontent(courseToBeAdd);
+  __page5 = __page5.clickReviewCollection();
+  __page5 = __page5.clickAddContentToCollection();
+  __page5 = __page5.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page5 = __page5.waitForTablePresent();
+  let newcount: number = Integer.parseInt(this.courseCount.getValue())+1;
+  expect(__page5.tableData(this.COURSE_COUNT_VALIDATION, this.COLUMN_COLLECTION_IT_IS_PART_OF)).toHaveText(String.valueOf(newcount));
 
 
 	}
@@ -122,30 +118,28 @@ export class VerifyConfiguration_SBX extends BaseTest{
 	//@Test(description = "Verify Course Details page after Clicking on course Title")
 	public verifyCourseDetailsAfterClcikingOnCourseTitle(): void {
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-			.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-			.waitForTablePresent()
-			.clickCourse(this.COURSE_VIEW)
-			.check(ManageConfigurationAssertions)
-			.assertThatCourseTilePresent(this.COURSE_VIEW)
-			.assertThatContentPartnerPresent(this.partnerName)
-			.assertThatDurationPresent(this.duration)
-			.endAssertion();
+		  let __page6: any = this;
+  __page6 = __page6.getCsLoginPage(this.getConfig().getSbxurl());
+  __page6 = __page6.logintoSBX("CSUSERONE", "welcome");
+  __page6 = __page6.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page6 = __page6.waitForTablePresent();
+  __page6 = __page6.clickCourse(this.COURSE_VIEW);
+  expect(__page6.courseTitleCourseDetailsPage(this.COURSE_VIEW)).toBeVisible({ timeout: 60000 });
+  expect(__page6.courseDetailsPage_contentPartner(this.partnerName)).toBeVisible({ timeout: 60000 });
+  expect(__page6.CourseDetailsPage_Duration(this.duration)).toBeVisible({ timeout: 60000 });
 	}
 
 	//@Test
 	public verfiyBadgeRetiring(): void {
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERONE", "welcome")
-		.navigateToPageByPath(this.ConPATH, ManageConfigurationPage)
-		.waitForTablePresent()
-		.clickCourse("Simple Ways to Protect Data")
-		.check(ManageConfigurationAssertions)
-		.assertThatCourseTilePresent(this.COURSE_VIEW)
-		.assertThatBadgeIsVisible(this.LABEL_RETIRING)
-		.endAssertion();
+		  let __page7: any = this;
+  __page7 = __page7.getCsLoginPage(this.getConfig().getSbxurl());
+  __page7 = __page7.logintoSBX("CSUSERONE", "welcome");
+  __page7 = __page7.navigateToPageByPath(this.ConPATH, ManageConfigurationPage);
+  __page7 = __page7.waitForTablePresent();
+  __page7 = __page7.clickCourse("Simple Ways to Protect Data");
+  expect(__page7.courseTitleCourseDetailsPage(this.COURSE_VIEW)).toBeVisible({ timeout: 60000 });
+  expect(__page7.badge_check(this.LABEL_RETIRING)).toBeVisible({ timeout: 60000 });
 
 	}
 

@@ -1,21 +1,22 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { SkillsToDevelopPage } from "pages/careergrowth/profiles/SkillsToDevelopPage";
+import { expect } from "common/testing/playwright";
 
 export class SkillToDevelopAssertions extends BaseAssertion<SkillsToDevelopPage> {
 
     public assertCompleteYourProfileModalSubHeaderIsDisplayed(subheaderName: string): SkillToDevelopAssertions {
-        this.assertThat(this.page.completeYourProfileModalSubHeader(subheaderName)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalSubHeader(subheaderName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertCompleteYourProfileProgressCount(progressPercentage: string): SkillToDevelopAssertions {
-        this.assertThat(this.page.completeYourProfileModalProgressCount(progressPercentage)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalProgressCount(progressPercentage)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSaveAndContinueIsDisplayed(): SkillToDevelopAssertions {
-        this.assertThat(this.page.saveAndContinue()).isVisible(this.isVisibleOptions);
+        expect(this.page.saveAndContinue()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

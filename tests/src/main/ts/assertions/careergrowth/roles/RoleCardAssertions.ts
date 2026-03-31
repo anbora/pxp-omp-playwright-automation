@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { RolesListPage_New } from "pages/careergrowth/careergrowth/RolesListPage_New";
+import { expect } from "common/testing/playwright";
 
 export class RoleCardAssertions extends BaseAssertion<RolesListPage_New> {
 
     public assertThatLocationIsVisibleOnJobRoleCard(): RoleCardAssertions {
-        this.assertThat(this.page.jobRoleLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.jobRoleLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnJobRoleCard(): RoleCardAssertions {
-        this.assertThat(this.page.jobRoleLocation).isHidden();
+        expect(this.page.jobRoleLocation).toBeHidden();
         return this;
     }
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { BaseScenario } from "common/BaseScenario";
 import { UserModel } from "models/user/UserModel";

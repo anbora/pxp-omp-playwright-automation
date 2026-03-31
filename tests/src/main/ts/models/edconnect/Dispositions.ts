@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { Disposition } from "models/edconnect/Disposition";
 

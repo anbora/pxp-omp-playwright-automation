@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseScenario } from "common/BaseScenario";
 import { CreateProjectPage } from "pages/careergrowth/project/CreateProjectPage";
 import { ShareProjectPage } from "pages/careergrowth/share/ShareProjectPage";

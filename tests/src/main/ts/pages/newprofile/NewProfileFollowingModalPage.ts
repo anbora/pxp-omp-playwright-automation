@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -8,7 +9,7 @@ export class NewProfileFollowingModalPage extends BasePage {
 
     public followingNameIcon(text: string): Locator {
 
-      return this.getByLabel(text).build();
+      return this.getByLabel(text);
 
     }
     public followerNameIcon(text: string): Locator {

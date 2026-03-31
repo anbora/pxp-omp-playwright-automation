@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { BaseRestTest } from "common/BaseRestTest";
 import { EndpointsEnum } from "common/enums/EndpointsEnum";

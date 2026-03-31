@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { SkillsStudioLoginPage } from "skillstudio/pages/SkillsStudioLoginPage";
+import { expect } from "common/testing/playwright";
 
 export class SkillsStudioLoginPageAssertions extends BaseAssertion<SkillsStudioLoginPage> {
 
     public assertThatUserHaveAdminAccess(): SkillsStudioLoginPageAssertions {
-        this.assertThat(this.page.verification_admin_role).isVisible(this.isVisibleOptions);
+        expect(this.page.verification_admin_role).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatChangeSpaceButtonIsNotVisible(): SkillsStudioLoginPageAssertions {
-        this.assertThat(this.page.Change_Organization_Button_Loc).not().isVisible(this.isVisibleOptions);
+        expect(this.page.Change_Organization_Button_Loc).not.toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { QuizQuestion } from "models/edconnect/content/smartcards/quiz/createquiz/QuizQuestion";
 

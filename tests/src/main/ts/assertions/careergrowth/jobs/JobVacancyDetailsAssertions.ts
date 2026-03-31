@@ -1,8 +1,8 @@
+// @ts-nocheck
 import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
 import { BaseAssertion } from "common/BaseAssertion";
 import { BasePage } from "common/BasePage";
-import { Locator, WaitForSelectorState } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { Locator, WaitForSelectorState, expect } from "common/testing/playwright";
 import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
 import { ResultContainer } from "models/ResultContainer";
 import { JobVacancyDetailsPage } from "pages/careergrowth/jobs/JobVacancyDetailsPage";
@@ -16,128 +16,128 @@ export class JobVacancyDetailsAssertions extends BaseAssertion<JobVacancyDetails
     public static readonly DESIRED_SKILLS_BASED_ON_YOUR_PROFILE: string = "You have %d out of %d of the desired skills based on your profile";
 
     public assertThatMatchingIsEqualTo(matching: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.matchingLabel).containsText(matching, this.containsTextOptions);
+        expect(this.page.matchingLabel).toContainText(matching, this.containsTextOptions);
 //        this.page.matchingLabel().should('contain.text', matching)
         return this;
     }
 
     public assertThatDescriptionEqualTo(descriptionText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.description).containsText(descriptionText, this.containsTextOptions);
+        expect(this.page.description).toContainText(descriptionText, this.containsTextOptions);
 //        this.page.description().should('contain.text', descriptionText)
         return this;
     }
 
     public assertThatTitleEqualTo(title: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.jobTitle).containsText(title, this.containsTextOptions);
+        expect(this.page.jobTitle).toContainText(title, this.containsTextOptions);
 //        this.page.jobTitle().should('contain.text', title)
         return this;
     }
 
     public assertThatDescriptionHasPlainTextFormatting(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionPlainText).isVisible(this.isVisibleOptions);
+        expect(this.page.descriptionPlainText).toBeVisible(this.isVisibleOptions);
 //        this.page.descriptionPlainText().should('exist')
         return this;
     }
 
     public assertThatDescriptionHasHtmlFormatting(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionPlainText).isHidden();
+        expect(this.page.descriptionPlainText).toBeHidden();
 //        this.page.descriptionPlainText().should('not.exist')
         return this;
     }
 
     public assertThatDescriptionContainsHeader(descriptionHeaderText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionHeader(descriptionHeaderText)).isVisible(this.isVisibleOptions);
+        expect(this.page.descriptionHeader(descriptionHeaderText)).toBeVisible(this.isVisibleOptions);
 //        this.page.descriptionHeader(descriptionHeaderText).should('exist')
         return this;
     }
 
     public assertThatDescriptionContainsStrongText(descriptionStrongText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionStrongText(descriptionStrongText)).isVisible(this.isVisibleOptions);
+        expect(this.page.descriptionStrongText(descriptionStrongText)).toBeVisible(this.isVisibleOptions);
 //        this.page.descriptionStrongText(descriptionStrongText).should('exist')
         return this;
     }
 
     public assertThatDescriptionContainsListElement(listText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionList(listText)).isVisible(this.isVisibleOptions);
+        expect(this.page.descriptionList(listText)).toBeVisible(this.isVisibleOptions);
 //        this.page.descriptionList(listText).should('exist')
         return this;
     }
 
     public assertThatDescriptionNotContainsListElement(listText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.descriptionList(listText)).isHidden();
+        expect(this.page.descriptionList(listText)).toBeHidden();
 //        this.page.descriptionList(listText).should('not.be.visible')
         return this;
     }
 
     public assertThatJobHasTextInContext(text: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.context(text)).isVisible(this.isVisibleOptions);
+        expect(this.page.context(text)).toBeVisible(this.isVisibleOptions);
 //        this.page.context(text).should('exist')
         return this;
     }
 
     public assertThatSkillsMatchingDetailsIsVisible(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillsMatchDetails).isVisible(this.isVisibleOptions);
+        expect(this.page.skillsMatchDetails).toBeVisible(this.isVisibleOptions);
 //        this.page.skillsMatchDetails().should('exist')
         return this;
     }
 
     public assertThatSkillsMatchLevelOnMatchingDetailsIsEqualTo(title: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillsMatchDetailsTitle).hasAttribute("title", title);
+        expect(this.page.skillsMatchDetailsTitle).toHaveAttribute("title", title);
 //        this.page.skillsMatchDetailsTitle().should('have.attr', 'title').and('include', title)
         return this;
     }
 
     public assertThatExperienceMatchingDetailsIsVisible(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.experienceMatchDetails).isVisible(this.isVisibleOptions);
+        expect(this.page.experienceMatchDetails).toBeVisible(this.isVisibleOptions);
 //        this.page.experienceMatchDetails().should('exist')
         return this;
     }
 
     public assertThatExperienceMatchLevelOnMatchingDetailsIsEqualTo(title: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.experienceMatchDetailsTitle).hasAttribute("title", title);
+        expect(this.page.experienceMatchDetailsTitle).toHaveAttribute("title", title);
 //        this.page.experienceMatchDetailsTitle().should('have.attr', 'title').and('include', title)
         return this;
     }
 
     public assertThatThereIsGoodMatchIconFor(area: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.matchIcon(area)).hasClass("matching-good icon-check-circle-light");
+        expect(this.page.matchIcon(area)).toHaveClass("matching-good icon-check-circle-light");
 //        this.page.matchIcon(area).should('have', 'matching-good icon-check-circle-light')
         return this;
     }
 
     public assertThatThereIsBadMatchIconFor(area: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.matchIcon(area)).hasClass("matching-bad icon-cross-circle");
+        expect(this.page.matchIcon(area)).toHaveClass("matching-bad icon-cross-circle");
 //        this.page.matchIcon(area).should('have', 'matching-bad icon-cross-circle')
         return this;
     }
 
     public assertThatThereIsNeutralMatchIconFor(area: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.matchIcon(area)).hasClass("matching-neutral icon-minus-circle");
+        expect(this.page.matchIcon(area)).toHaveClass("matching-neutral icon-minus-circle");
 //        this.page.matchIcon(area).should('have', 'matching-neutral icon-minus-circle')
         return this;
     }
 
     public assertThatYourRecruiterEqualTo(yourRecruiter: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.yourRecruiter).containsText(yourRecruiter, this.containsTextOptions);
+        expect(this.page.yourRecruiter).toContainText(yourRecruiter, this.containsTextOptions);
 //        this.page.yourRecruiter().should('contain.text', yourRecruiter)
         return this;
     }
 
     public assertThatMatchingDetailFieldIsEqualTo(matchingDetailName: string, value: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.matchDetailValue(matchingDetailName)).containsText(value, this.containsTextOptions);
+        expect(this.page.matchDetailValue(matchingDetailName)).toContainText(value, this.containsTextOptions);
 //        this.page.matchDetailValue(matchingDetailName).should('contain.text', value)
         return this;
     }
 
     public assertThatVacancyDetailsContainsLocationWithInformationAboutWorkplaceModel(workplaceModel: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.workplaceModelLabel(workplaceModel)).isVisible(this.isVisibleOptions);
+        expect(this.page.workplaceModelLabel(workplaceModel)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatJobVacancyHasProperScoringValue(scoringName: string, scoringValue: string): JobVacancyDetailsAssertions {
         this.page.getPage().waitForLoadState();
-        this.assertThat(this.page.matchingLabel.first()).containsText(scoringName, this.containsTextOptions);
-//        assertThat(this.page.matchingValue).containsText(scoringValue, this.containsTextOptions);
+        expect(this.page.matchingLabel.first()).toContainText(scoringName, this.containsTextOptions);
+//        expect(this.page.matchingValue).toContainText(scoringValue, this.containsTextOptions);
 //        cy.get('@scoringName').then(scoringName => {
 //                this.page.matchingLabel().should('contain.text', scoringName)
 //        })
@@ -148,194 +148,194 @@ export class JobVacancyDetailsAssertions extends BaseAssertion<JobVacancyDetails
     }
 
     public assertThatUrlAttachedToButtonEqualTo(url: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.applyUrlButton(url)).isVisible(this.isVisibleOptions);
+        expect(this.page.applyUrlButton(url)).toBeVisible(this.isVisibleOptions);
 //        this.page.applyUrlButton(url).should('exist')
         return this;
     }
 
     public assertThatApplyButtonTextIsCorrect(buttonText: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.applyButtonText).containsText(buttonText, this.containsTextOptions);
+        expect(this.page.applyButtonText).toContainText(buttonText, this.containsTextOptions);
 //        this.page.applyButtonText().should('contain.text', buttonText)
         return this;
     }
 
     public assertJobAppliedInfoIsDisplayed(info: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.jobApplied).containsText(info, this.containsTextOptions);
+        expect(this.page.jobApplied).toContainText(info, this.containsTextOptions);
 //        this.page.jobApplied().should('contain.text', info)
         return this;
     }
 
     public assertJobAppliedInfoIsNotDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.jobApplied).isHidden();
+        expect(this.page.jobApplied).toBeHidden();
 //        this.page.jobApplied().should('not.exist')
         return this;
     }
 
     public assertThatTooltipTextIsEqualTo(text: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.toolTip).containsText(text, this.containsTextOptions);
+        expect(this.page.toolTip).toContainText(text, this.containsTextOptions);
 //        this.page.toolTip().should('contain.text', text)
         return this;
     }
 
     public assertThatSkillChipsIsVisibleOnJobVacancyDetails(skill: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillChips(skill).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.skillChips(skill).first()).toBeVisible(this.isVisibleOptions);
 //        this.page.skillChips(skill).should('exist')
         return this;
     }
 
     public assertThatEditJobIsNotVisibleOnJobDetails(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.threeDotsButton).isHidden();
+        expect(this.page.threeDotsButton).toBeHidden();
 //        this.page.threeDotsButton().should('not.exist')
         return this;
     }
 
     public assertThatBookmarkIsEnabled(): JobVacancyDetailsAssertions {
         this.page.jobVacancyHeader.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        this.assertThat(this.page.bookmarkButton).isEnabled();
+        expect(this.page.bookmarkButton).toBeEnabled();
 //        this.page.dismissButton().should('not.be.disabled')
         return this;
     }
 
     public assertThatBookmarkButtonIsNotDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.bookmarkButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.bookmarkButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertThatJobDescriptionFieldContainsHeader(jobDescriptionHeaderField: string): JobVacancyDetailsAssertions {
         this.page.jobDescriptionHeader.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        this.assertThat(this.page.jobDescriptionHeader).containsText(jobDescriptionHeaderField, this.containsTextOptions);
+        expect(this.page.jobDescriptionHeader).toContainText(jobDescriptionHeaderField, this.containsTextOptions);
         return this;
     }
 
     public assertThatJobVacancyFieldContainsHeader(jobVacancyFieldHeader: string): JobVacancyDetailsAssertions {
         this.page.jobVacancyHeader.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        this.assertThat(this.page.jobVacancyHeader).containsText(jobVacancyFieldHeader, this.containsTextOptions);
+        expect(this.page.jobVacancyHeader).toContainText(jobVacancyFieldHeader, this.containsTextOptions);
         return this;
     }
 
     public assertThatViewAndAddToSkillsPassportButtonIsVisible(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.addSkillsToPassportButton).isVisible(this.isVisibleOptions);
+        expect(this.page.addSkillsToPassportButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatAddSkillsToPassportButtonIsVisible(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.addSkillsToPassportButton).isVisible(this.isVisibleOptions);
+        expect(this.page.addSkillsToPassportButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatVacancyHasProperNumberOfSkillsInSkillsPassport(userSkills: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillsPassportNumberOfSkills(userSkills)).isVisible(this.isVisibleOptions);
+        expect(this.page.skillsPassportNumberOfSkills(userSkills)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatVacancyHasProperNumberOfSkillsInSkillsPassport_SkillLevel(userSkills: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillsPassportNumberOfSkills_SkillLevel(userSkills)).isVisible(this.isVisibleOptions);
+        expect(this.page.skillsPassportNumberOfSkills_SkillLevel(userSkills)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatCarouselCounterIsEqualTo(counter: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselCounter).containsText(counter, this.containsTextOptions);
+        expect(this.page.carouselCounter).toContainText(counter, this.containsTextOptions);
         return this;
     }
 
 	public assertThatTheNumberOfTheJobsOnCarouselIsEqualTo(number: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.jobsOnCarousel).hasCount(Integer.parseInt(number));
+        expect(this.page.jobsOnCarousel).toHaveCount(Integer.parseInt(number));
 //        this.page.jobsOnCarousel().should('have.length', number)
         return this;
     }
 
     public assertThatJobIsNotDisplayedOnCarousel(title: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselJobTitle(title)).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.carouselJobTitle(title)).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
 	public assertThatThereIsJobTitleOnCarousel(title: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselJobTitle(title)).isVisible(this.isVisibleOptions);
+        expect(this.page.carouselJobTitle(title)).toBeVisible(this.isVisibleOptions);
 //        this.page.carouselJobTitle(title).should('exist')
         return this;
     }
 
 	public assertThatLocationForGivenJobOnCarouselIsEqualTo(jobTitle: string, location: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselJobLocationLabel(jobTitle)).containsText(location, this.containsTextOptions);
+        expect(this.page.carouselJobLocationLabel(jobTitle)).toContainText(location, this.containsTextOptions);
 //        this.page.carouselJobLocationLabel(jobTitle).should('contain.text', location)
         return this;
     }
 
 	public assertThatTypeForGivenJobOnCarouselIsEqualTo(jobTitle: string, jobType: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselJobTypeLabel(jobTitle)).containsText(jobType, this.containsTextOptions);
+        expect(this.page.carouselJobTypeLabel(jobTitle)).toContainText(jobType, this.containsTextOptions);
 //        this.page.carouselJobTypeLabel(jobTitle).should('contain.text', jobType)
         return this;
     }
 
 	public assertThatMatchForGivenJobOnCarouselIsEqualTo(jobTitle: string, match: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselJobMatchLabel(jobTitle)).containsText(match, this.containsTextOptions);
+        expect(this.page.carouselJobMatchLabel(jobTitle)).toContainText(match, this.containsTextOptions);
 //        this.page.carouselJobMatchLabel(jobTitle).should('contain.text', match)
         return this;
     }
 
     public assertThatMatchIconForGivenJobOnCarouselIsEqualTo(jobTitle: string, rgbColor: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.smileIconForJobVacancy(jobTitle)).hasCSS("fill", rgbColor);
+        expect(this.page.smileIconForJobVacancy(jobTitle)).toHaveCSS("fill", rgbColor);
         return this;
     }
 
 	public assertThatSkillForGivenJobOnCarouselIsEqualTo(jobTitle: string, skill: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.carouselSkillLabel(jobTitle, skill)).isVisible(this.isVisibleOptions);
+        expect(this.page.carouselSkillLabel(jobTitle, skill)).toBeVisible(this.isVisibleOptions);
 //        this.page.carouselSkillLabel(jobTitle, skill).should('exist')
         return this;
     }
 
     public assertThatLeftCarouselControlButtonIsDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.leftCarouselControlButton).isVisible(this.isVisibleOptions);
+        expect(this.page.leftCarouselControlButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatLeftCarouselControlButtonIsNotDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.leftCarouselControlButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.leftCarouselControlButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
 	public assertThatRightCarouselControlButtonIsDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.rightCarouselControlButton).isVisible(this.isVisibleOptions);
+        expect(this.page.rightCarouselControlButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatRightCarouselControlButtonIsNotDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.rightCarouselControlButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.rightCarouselControlButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertThatAlertForSimilarJobsRadiobuttonExist(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.alertForSimilarJobsRadiobutton).isVisible(this.isVisibleOptions);
+        expect(this.page.alertForSimilarJobsRadiobutton).toBeVisible(this.isVisibleOptions);
 //        this.page.alertForSimilarJobsRadiobutton().should('exist')
         return this;
     }
 
     public assertThatSimilarJobIsMarkedAsBookmarked(jobTitle: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.bookmarkedButtonForSimilarJob(jobTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.bookmarkedButtonForSimilarJob(jobTitle)).toBeVisible(this.isVisibleOptions);
 //        this.page.bookmarkedButtonForSimilarJob(jobTitle).should('exist')
         return this;
     }
 
     public assertThatBookmarkSimilarJobButtonIsNotDisplayed(jobTitle: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.bookmarkButtonForSimilarJob(jobTitle)).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.bookmarkButtonForSimilarJob(jobTitle)).not.toBeVisible(this.isNotVisibleOptions);
 //        this.page.bookmarkButtonForSimilarJob(jobTitle).should('not.exist')
         return this;
     }
 
     public assertThatSimilarJobIsMarkedAsDismissed(jobTitle: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.dismissedButtonForSimilarJob(jobTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.dismissedButtonForSimilarJob(jobTitle)).toBeVisible(this.isVisibleOptions);
 //        this.page.dismissedButtonForSimilarJob(jobTitle).should('exist')
         return this;
     }
 
     public assertThatDismissSimilarJobButtonIsNotDisplayed(jobTitle: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.dismissButtonForSimilarJob(jobTitle)).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.dismissButtonForSimilarJob(jobTitle)).not.toBeVisible(this.isNotVisibleOptions);
 //        this.page.dismissButtonForSimilarJob(jobTitle).should('not.exist')
         return this;
     }
 
     public assertThatViewAllLinkIsNotDisplayed(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.viewAllLink).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.viewAllLink).not.toBeVisible(this.isNotVisibleOptions);
 //        this.page.viewAllLink().should('not.exist')
         return this;
     }
@@ -360,22 +360,22 @@ export class JobVacancyDetailsAssertions extends BaseAssertion<JobVacancyDetails
     }
 
     public assertThatSkillIsAddedAsBeginnerOne(skillValue: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillContainer(BEGINNER).locator(String.format(SKILL_XPATH, skillValue))).isVisible(this.isVisibleOptions);
+        expect(this.page.skillContainer(BEGINNER).locator(String.format(SKILL_XPATH, skillValue))).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSkillIsAddedAsIntermediateOne(skillValue: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillContainer(INTERMEDIATE).locator(String.format(SKILL_XPATH, skillValue))).isVisible(this.isVisibleOptions);
+        expect(this.page.skillContainer(INTERMEDIATE).locator(String.format(SKILL_XPATH, skillValue))).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSkillIsAddedAsAdvancedOne(skillValue: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillContainer(ADVANCED).locator(String.format(SKILL_XPATH, skillValue))).isVisible(this.isVisibleOptions);
+        expect(this.page.skillContainer(ADVANCED).locator(String.format(SKILL_XPATH, skillValue))).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSkillIsAddedToLevel(skillName: string, level: string): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.skillContainer(level).locator(String.format("//li[text()='%s']", skillName))).isVisible(this.isVisibleOptions);
+        expect(this.page.skillContainer(level).locator(String.format("//li[text()='%s']", skillName))).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -385,12 +385,12 @@ export class JobVacancyDetailsAssertions extends BaseAssertion<JobVacancyDetails
     }
 
     public assertNumberOfTheSkillsUserAlreadyHas(userExpectedSkillsNumber: number, totalSkillsNumberContainer: ResultContainer): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.relatedSkillsLink).containsText(String.format(DESIRED_SKILLS_BASED_ON_YOUR_PROFILE, userExpectedSkillsNumber, Integer.parseInt(totalSkillsNumberContainer.getValue())));
+        expect(this.page.relatedSkillsLink).toContainText(String.format(DESIRED_SKILLS_BASED_ON_YOUR_PROFILE, userExpectedSkillsNumber, Integer.parseInt(totalSkillsNumberContainer.getValue())));
         return this;
     }
 
     public assertThereAreNoLevels(): JobVacancyDetailsAssertions {
-        this.assertThat(this.page.proficiencyLevels).hasCount(0);
+        expect(this.page.proficiencyLevels).toHaveCount(0);
         return this;
     }
 

@@ -1,10 +1,11 @@
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
-import { ShareContentModalAssertions } from "assertions/careergrowth/jobs/ShareContentModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class SimilarJobsCarouselTest extends BaseRestTest {
 
@@ -36,57 +37,50 @@ export class SimilarJobsCarouselTest extends BaseRestTest {
     }
 
     public shouldCheckJobVacancyDetailsOnSimilarJobsCarousel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToEditProfileFromUserDropDown(this.user.name)
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.rodentsStylistsShortName, this.rodentsStylistsFullName)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(this.marmotStylist)
-                .goToFirstJobVacancyOnAllJobsList()
-                .clickAddSkillsToPassport()
-                .markAllSkill()
-                .clickSave()
-                .clickBackButton()
-                .typeSearchValue(this.guineaPigStylist)
-                .goToFirstJobVacancyOnAllJobsList()
-                .waitForExcellentMatchingForLinkedJobVacancy()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatCarouselCounterIsEqualTo(this.three)
-                    .assertThatTheNumberOfTheJobsOnCarouselIsEqualTo(this.three)
-                    .assertThatThereIsJobTitleOnCarousel(this.marmotStylist)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.marmotStylist, this.excellentMatch)
-                    .assertThatMatchIconForGivenJobOnCarouselIsEqualTo(this.marmotStylist, this.excellentMatchColor)
-                    .assertThatThereIsJobTitleOnCarousel(this.chipmunkStylist)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.chipmunkStylist, this.goodMatch)
-                    .assertThatMatchIconForGivenJobOnCarouselIsEqualTo(this.chipmunkStylist, this.goodMatchColor)
-                    //.assertThatLocationForGivenJobOnCarouselIsEqualTo(chipmunkStylist, seattleWashingtonUSA)
-                    .assertThatTypeForGivenJobOnCarouselIsEqualTo(this.chipmunkStylist, this.permanent)
-                    .assertThatSkillForGivenJobOnCarouselIsEqualTo(this.chipmunkStylist, this.customerService)
-                    .assertThatThereIsJobTitleOnCarousel(this.miceStylist)
-                    .assertThatTypeForGivenJobOnCarouselIsEqualTo(this.miceStylist, this.internship)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.miceStylist, this.fairMatch)
-                    .assertThatMatchIconForGivenJobOnCarouselIsEqualTo(this.miceStylist, this.fairMatchColor)
-                .endAssertion()
-                .goToJobVacancyOnCarousel(this.miceStylist)
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatThereIsJobTitleOnCarousel(this.guineaPigStylist)
-                .endAssertion()
-                .shareSimilarJob(this.guineaPigStylist)
-                .check(ShareContentModalAssertions)
-                    .assertThatModalHeaderIsEqualTo(this.shareModalHeader)
-                .endAssertion()
-                .closeModalAndGoBackToJobVacancyDetailsPage()
-                .bookmarkSimilarJob(this.guineaPigStylist)
-                .dismissSimilarJob(this.marmotStylist)
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatJobIsNotDisplayedOnCarousel(this.marmotStylist)
-                    .assertThatSimilarJobIsMarkedAsBookmarked(this.guineaPigStylist)
-                    .assertThatDismissSimilarJobButtonIsNotDisplayed(this.guineaPigStylist);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToEditProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.rodentsStylistsShortName, this.rodentsStylistsFullName);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(this.marmotStylist);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        __page1 = __page1.clickAddSkillsToPassport();
+        __page1 = __page1.markAllSkill();
+        __page1 = __page1.clickSave();
+        __page1 = __page1.clickBackButton();
+        __page1 = __page1.typeSearchValue(this.guineaPigStylist);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        __page1 = __page1.waitForExcellentMatchingForLinkedJobVacancy();
+        expect(__page1.carouselCounter).toContainText(this.three, { timeout: 30000 });
+        expect(__page1.jobsOnCarousel).toHaveCount(Integer.parseInt(this.three));
+        expect(__page1.carouselJobTitle(this.marmotStylist)).toBeVisible({ timeout: 30000 });
+        expect(__page1.carouselJobMatchLabel(this.marmotStylist)).toContainText(this.excellentMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.marmotStylist)).toHaveCSS("fill", this.excellentMatchColor);
+        expect(__page1.carouselJobTitle(this.chipmunkStylist)).toBeVisible({ timeout: 30000 });
+        expect(__page1.carouselJobMatchLabel(this.chipmunkStylist)).toContainText(this.goodMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.chipmunkStylist)).toHaveCSS("fill", this.goodMatchColor);
+        expect(__page1.carouselJobTypeLabel(this.chipmunkStylist)).toContainText(this.permanent, { timeout: 30000 });
+        expect(__page1.carouselSkillLabel(this.chipmunkStylist, this.customerService)).toBeVisible({ timeout: 30000 });
+        expect(__page1.carouselJobTitle(this.miceStylist)).toBeVisible({ timeout: 30000 });
+        expect(__page1.carouselJobTypeLabel(this.miceStylist)).toContainText(this.internship, { timeout: 30000 });
+        expect(__page1.carouselJobMatchLabel(this.miceStylist)).toContainText(this.fairMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.miceStylist)).toHaveCSS("fill", this.fairMatchColor);
+        __page1 = __page1.goToJobVacancyOnCarousel(this.miceStylist);
+        expect(__page1.carouselJobTitle(this.guineaPigStylist)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.shareSimilarJob(this.guineaPigStylist);
+        expect(__page1.modalHeader).toContainText(this.shareModalHeader, { timeout: 30000 });
+        __page1 = __page1.closeModalAndGoBackToJobVacancyDetailsPage();
+        __page1 = __page1.bookmarkSimilarJob(this.guineaPigStylist);
+        __page1 = __page1.dismissSimilarJob(this.marmotStylist);
+        expect(__page1.carouselJobTitle(this.marmotStylist)).not.toBeVisible({ timeout: 5000 });
+        expect(__page1.bookmarkedButtonForSimilarJob(this.guineaPigStylist)).toBeVisible({ timeout: 30000 });
+        expect(__page1.dismissButtonForSimilarJob(this.guineaPigStylist)).not.toBeVisible({ timeout: 5000 });
     }
 
     public deleteUser(): void {

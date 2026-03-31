@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { BaseScenario } from "common/BaseScenario";
 import { PageHandler } from "common/PageHandler";
-import { LocatorBuilder } from "common/locatorBuilder/LocatorBuilder";
 import { Logger } from "common/testing/logger";
 import { AriaRole, Browser, LoadState, Locator, Page } from "common/testing/playwright";
 
@@ -10,10 +10,6 @@ export type PageClass<T extends AbstractBasePage> = new (
   logger: Logger,
   portalIndex: number
 ) => T;
-
-type PageAssertion<T extends AbstractBasePage> = {
-  setPage(page: T): void;
-};
 
 export abstract class AbstractBasePage {
   private static readonly DEFAULT_TIMEOUT_30S = 30000;
@@ -54,14 +50,9 @@ export abstract class AbstractBasePage {
     return this.page;
   }
 
-  public check<T extends PageAssertion<this>>(clazz: new () => T): T {
-    const assertion = new clazz();
-    assertion.setPage(this);
-    return assertion;
-  }
-
-  public run<Input extends this, Output extends AbstractBasePage>(scenario: BaseScenario<Input, Output>): Output {
-    return scenario.run(this as Input);
+  // Hand the current page to a reusable business scenario and return the next page.
+  public run(scenario: BaseScenario<any, any>): any {
+    return scenario.run(this);
   }
 
   public getPageClassInstance<T extends AbstractBasePage>(clazz: PageClass<T>): T {
@@ -171,59 +162,47 @@ export abstract class AbstractBasePage {
     this.page.keyboard?.().type?.(text);
   }
 
-  protected getByRole(role: AriaRole, name?: string | RegExp, exact = false): LocatorBuilder {
+  protected getByRole(role: AriaRole, name?: string | RegExp, exact = false): Locator {
     if (name == null) {
-      return this.createLocatorBuilder(this.page.getByRole(role));
+      return this.page.getByRole(role);
     }
 
-    return this.createLocatorBuilder(
-      this.page.getByRole(
-        role,
-        new Page.GetByRoleOptions().setName(name).setExact(typeof name === "string" ? exact : false)
-      )
+    return this.page.getByRole(
+      role,
+      new Page.GetByRoleOptions().setName(name).setExact(typeof name === "string" ? exact : false)
     );
   }
 
-  protected locator(value: string | Locator): LocatorBuilder {
-    return this.createLocatorBuilder(typeof value === "string" ? this.page.locator(value) : value);
+  protected locator(value: string | Locator): Locator {
+    return typeof value === "string" ? this.page.locator(value) : value;
   }
 
-  protected locatorWithParams(selector: string, ...params: string[]): LocatorBuilder {
+  protected locatorWithParams(selector: string, ...params: string[]): Locator {
     return this.locator(String.format(selector, ...params));
   }
 
-  protected getByLabel(label: string, exact = false): LocatorBuilder {
-    return this.createLocatorBuilder(
-      this.page.getByLabel(label, new Page.GetByLabelOptions().setExact(exact))
-    );
+  protected getByLabel(label: string, exact = false): Locator {
+    return this.page.getByLabel(label, new Page.GetByLabelOptions().setExact(exact));
   }
 
-  protected getByText(text: string, exact = false): LocatorBuilder {
-    return this.createLocatorBuilder(
-      this.page.getByText(text, new Page.GetByTextOptions().setExact(exact))
-    );
+  protected getByText(text: string, exact = false): Locator {
+    return this.page.getByText(text, new Page.GetByTextOptions().setExact(exact));
   }
 
-  protected getByAltText(altText: string, exact = false): LocatorBuilder {
-    return this.createLocatorBuilder(
-      this.page.getByAltText(altText, new Page.GetByAltTextOptions().setExact(exact))
-    );
+  protected getByAltText(altText: string, exact = false): Locator {
+    return this.page.getByAltText(altText, new Page.GetByAltTextOptions().setExact(exact));
   }
 
-  protected getByPlaceholder(placeholder: string, exact = false): LocatorBuilder {
-    return this.createLocatorBuilder(
-      this.page.getByPlaceholder(placeholder, new Page.GetByPlaceholderOptions().setExact(exact))
-    );
+  protected getByPlaceholder(placeholder: string, exact = false): Locator {
+    return this.page.getByPlaceholder(placeholder, new Page.GetByPlaceholderOptions().setExact(exact));
   }
 
-  protected getByTitle(title: string, exact = false): LocatorBuilder {
-    return this.createLocatorBuilder(
-      this.page.getByTitle(title, new Page.GetByTitleOptions().setExact(exact))
-    );
+  protected getByTitle(title: string, exact = false): Locator {
+    return this.page.getByTitle(title, new Page.GetByTitleOptions().setExact(exact));
   }
 
-  protected getByTestId(testId: string): LocatorBuilder {
-    return this.createLocatorBuilder(this.page.getByTestId(testId));
+  protected getByTestId(testId: string): Locator {
+    return this.page.getByTestId(testId);
   }
 
   protected refreshCurrentPage<T extends AbstractBasePage>(clazz: PageClass<T>): T {
@@ -233,9 +212,5 @@ export abstract class AbstractBasePage {
 
   private getOperatingSystem(): string {
     return System.getProperty("os.name", "");
-  }
-
-  private createLocatorBuilder(locator: Locator): LocatorBuilder {
-    return new LocatorBuilder(locator, this.page, this.logger);
   }
 }

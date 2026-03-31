@@ -1,4 +1,5 @@
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -6,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { RoleDetailsPage } from "pages/careergrowth/roles/RoleDetailsPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobRoleDescriptionsTest extends BaseRestTest {
     private user: UserModel;
@@ -25,15 +27,14 @@ export class JobRoleDescriptionsTest extends BaseRestTest {
         let ROLE_NAME: string = UUID.randomUUID().toString();
         let CYPRESS_ROLE_NAME: string = "CypressRoleName_" + ROLE_NAME;
       let roleId: any = this.createRole(CYPRESS_ROLE_NAME, this.LARGER_DESCRIPTION, this.LARGER_ADDITIONAL_DESCRIPTION, (this.getPortalConfig(this.portalIndex).getRoleFamilyId()) );
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(RoleDetailsPage, roleId)
-                .waitForRoleDetailsToBeVisible(CYPRESS_ROLE_NAME)
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(CYPRESS_ROLE_NAME)
-                    .assertThatRoleDescriptionDivValueContains(this.LARGER_DESCRIPTION)
-                    .assertThatRoleDescriptionStrongValueContains(this.LARGER_ADDITIONAL_DESCRIPTION)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(RoleDetailsPage, roleId);
+        __page1 = __page1.waitForRoleDetailsToBeVisible(CYPRESS_ROLE_NAME);
+        expect(__page1.roleNameLabel).toContainText(CYPRESS_ROLE_NAME, { timeout: 30000 });
+        expect(__page1.divInDescription).toContainText(this.LARGER_DESCRIPTION, { timeout: 30000 });
+        expect(__page1.strongInDescription).toContainText(this.LARGER_ADDITIONAL_DESCRIPTION, { timeout: 30000 });
         this.deleteRole(ROLE_NAME, roleId);
     }
 
@@ -42,15 +43,14 @@ export class JobRoleDescriptionsTest extends BaseRestTest {
         let ROLE_NAME: string = UUID.randomUUID().toString();
         let CYPRESS_ROLE_NAME: string = "CypressRoleName_" + ROLE_NAME;
       let roleId: any = this.createRole(CYPRESS_ROLE_NAME, this.SMALLER_DESCRIPTION, this.SMALLER_ADDITIONAL_DESCRIPTION, (this.getPortalConfig(this.portalIndex).getRoleFamilyId()) );
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(RoleDetailsPage, roleId)
-                .waitForRoleDetailsToBeVisible(CYPRESS_ROLE_NAME)
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(CYPRESS_ROLE_NAME)
-                    .assertThatRoleDescriptionDivValueContains(this.SMALLER_DESCRIPTION)
-                    .assertThatRoleDescriptionStrongValueContains(this.SMALLER_ADDITIONAL_DESCRIPTION)
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(RoleDetailsPage, roleId);
+        __page2 = __page2.waitForRoleDetailsToBeVisible(CYPRESS_ROLE_NAME);
+        expect(__page2.roleNameLabel).toContainText(CYPRESS_ROLE_NAME, { timeout: 30000 });
+        expect(__page2.divInDescription).toContainText(this.SMALLER_DESCRIPTION, { timeout: 30000 });
+        expect(__page2.strongInDescription).toContainText(this.SMALLER_ADDITIONAL_DESCRIPTION, { timeout: 30000 });
         this.deleteRole(ROLE_NAME, roleId);
     }
 

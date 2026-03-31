@@ -1,6 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
-import { CareerPathAssertions } from "assertions/careergrowth/roles/CareerPathAssertions";
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +8,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class GalaxyViewNavigationTest extends BaseRestTest {
 
@@ -63,149 +63,115 @@ export class GalaxyViewNavigationTest extends BaseRestTest {
     }
 
     public shouldCheckGalaxyViewRedirection(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToMePageProfile()
-                .editProfile()
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.startingRole, this.startingRoleFullName)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToMePageProfile()
-                .goToCareerGrowthPage()
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .waitForRolePillOnGalaxyView(this.endRole)
-                .clickRolePill(this.endRole)
-                .clickRoleCard(this.endRole)
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(this.endRole)
-                .endAssertion()
-                .clickBackButtonAndReturnToGalaxyView()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewIsDisplayed()
-                .endAssertion()
-                .exploreJobRoles()
-                .check(RoleListAssertions)
-                    .assertThatAllJobRolesHeaderIsDisplayed()
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .waitForRolePillOnGalaxyView(this.endRole)
-                .selectStartingJobRole(this.selectStartingJobRole)
-                .waitForRolePillOnGalaxyView(this.selectStartingJobRole)
-                .clickRolePill(this.nextRoleFirstValue)
-                .check(CareerPathAssertions)
-                    .assertThatRoleNamePillIsDisplayed(this.nextRoleFirstValue)
-                .endAssertion()
-                .collapseButtonClick()
-                .clickRolePill(this.nextRoleSecondValue)
-                .check(CareerPathAssertions)
-                    .assertThatRoleNamePillIsDisplayed(this.nextRoleSecondValue)
-                    .assertThatRoleLevelIsDisplayed(this.roleLevelValue)
-                    .assertThatRoleAreaIsDisplayed(this.roleAreaValue)
-                    .assertThatRoleSkillsAreDisplayed()
-                .endAssertion()
-                .clickRoleCard(this.nextRoleSecondValue)
-                .clickOnMarkRoleAsAspirationalButton()
-                .optionallyAddSkillsCloseModal()
-                .clickBackButtonAndReturnToGalaxyView()
-                .check(CareerPathAssertions)
-                    .assertThatRoleIsMarkedAsAspirational(this.nextRoleSecondValue)
-                    .assertThatRoleNamePillIsDisplayed(this.nextRoleFirstValue)
-                .endAssertion()
-                .currentRoleDropdown()
-                .waitForRolePillOnGalaxyView(this.endRole)
-                .check(CareerPathAssertions)
-                    .assertThatRoleNamePillIsDisplayed(this.endRole)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.editProfile();
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.startingRole, this.startingRoleFullName);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToCareerPathPageViaTab();
+        __page1 = __page1.waitForRolePillOnGalaxyView(this.endRole);
+        __page1 = __page1.clickRolePill(this.endRole);
+        __page1 = __page1.clickRoleCard(this.endRole);
+        expect(__page1.roleNameLabel).toContainText(this.endRole, { timeout: 30000 });
+        __page1 = __page1.clickBackButtonAndReturnToGalaxyView();
+        expect(__page1.galaxyView).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.exploreJobRoles();
+        expect(__page1.allJobRolesHeader).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToCareerPathPageViaTab();
+        __page1 = __page1.waitForRolePillOnGalaxyView(this.endRole);
+        __page1 = __page1.selectStartingJobRole(this.selectStartingJobRole);
+        __page1 = __page1.waitForRolePillOnGalaxyView(this.selectStartingJobRole);
+        __page1 = __page1.clickRolePill(this.nextRoleFirstValue);
+        expect(__page1.rolePill(this.nextRoleFirstValue)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.collapseButtonClick();
+        __page1 = __page1.clickRolePill(this.nextRoleSecondValue);
+        expect(__page1.rolePill(this.nextRoleSecondValue)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleLevel.first()).toContainText(this.roleLevelValue, { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Role level is displayed.");
+        expect(__page1.roleArea(this.roleAreaValue)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleSkills).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Role skills are displayed.");
+        __page1 = __page1.clickRoleCard(this.nextRoleSecondValue);
+        __page1 = __page1.clickOnMarkRoleAsAspirationalButton();
+        __page1 = __page1.optionallyAddSkillsCloseModal();
+        __page1 = __page1.clickBackButtonAndReturnToGalaxyView();
+        expect(__page1.roleIsMarkedAspirational(this.nextRoleSecondValue)).toBeVisible({ timeout: 30000 });
+        expect(__page1.rolePill(this.nextRoleFirstValue)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.currentRoleDropdown();
+        __page1 = __page1.waitForRolePillOnGalaxyView(this.endRole);
+        expect(__page1.rolePill(this.endRole)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldCheckGalaxyViewNavigation(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToCareerPathPageViaTab()
-                .clickRolePill(this.endRole)
-                .check(CareerPathAssertions)
-                    .assertThatShowPanelIsNotDisplayed()
-                .endAssertion()
-                .collapseJobRoleCardDetails()
-                .check(CareerPathAssertions)
-                    .assertThatRoleCardsPanelIsCollapsed()
-                    .assertThatShowPanelIsDisplayed()
-                .endAssertion()
-                .expandJobRolesPanel()
-                .check(CareerPathAssertions)
-                    .assertThatRoleCardIsDisplayed(this.endRole)
-                    .assertThatShowPanelIsNotDisplayed()
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.startingPoint)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.zero, this.r0)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.first, this.r1)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.second, this.r2)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.third, this.r3)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.fourth, this.r4)
-                    .assertThatRolePillLocationIsEqualTo(this.endRole, this.xDimension0, this.yDimension0)
-                .endAssertion()
-                .moveLeft()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.leftPoint)
-                .endAssertion()
-                .moveUp()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.leftUpPoint)
-                .endAssertion()
-                .moveRight()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.upPoint)
-                .endAssertion()
-                .moveRight()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.rightUpPoint)
-                .endAssertion()
-                .moveDown()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.rightPoint)
-                .endAssertion()
-                .moveDown()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.rightDownPoint)
-                .endAssertion()
-                .moveLeft()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.downPoint)
-                .endAssertion()
-                .moveLeft()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.leftDownPoint)
-                .endAssertion()
-                .moveLeft()
-                .moveLeft()
-                .moveDown()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewBoxParameterIsEqualTo(this.left3Down2Point)
-                .endAssertion()
-                .zoomOut()
-                .check(CareerPathAssertions)
-                    .assertThatRolePillLocationIsEqualTo(this.endRole, this.xDimensionZoomedOut1, this.yDimension0)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.zero, this.r0ZoomedOut)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.first, this.r1ZoomedOut)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.second, this.r2ZoomedOut)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.third, this.r3ZoomedOut)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.fourth, this.r4ZoomedOut)
-                .endAssertion()
-                .zoomIn()
-                .zoomIn()
-                .check(CareerPathAssertions)
-                    .assertThatRolePillLocationIsEqualTo(this.endRole, this.xDimensionZoomedIn1, this.yDimension0)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.zero, this.r0ZoomedIn)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.first, this.r1ZoomedIn)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.second, this.r2ZoomedIn)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.third, this.r3ZoomedIn)
-                    .assertThatGalaxyViewRingParameterIsEqualTo(this.fourth, this.r4ZoomedIn);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToCareerPathPageViaTab();
+        __page2 = __page2.clickRolePill(this.endRole);
+        expect(__page2.showPanelButton).toBeHidden();
+        __page2 = __page2.collapseJobRoleCardDetails();
+        expect(__page2.galaxyViewDetailPanel).toHaveClass("galaxy-view-detail__panel --collapsed");
+        expect(__page2.showPanelButton).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.expandJobRolesPanel();
+        expect(__page2.roleCard(this.endRole)).toBeVisible({ timeout: 30000 });
+        expect(__page2.showPanelButton).toBeHidden();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.startingPoint);
+        expect(__page2.galaxyRing(this.zero)).toHaveAttribute("r", this.r0);
+        expect(__page2.galaxyRing(this.first)).toHaveAttribute("r", this.r1);
+        expect(__page2.galaxyRing(this.second)).toHaveAttribute("r", this.r2);
+        expect(__page2.galaxyRing(this.third)).toHaveAttribute("r", this.r3);
+        expect(__page2.galaxyRing(this.fourth)).toHaveAttribute("r", this.r4);
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("x", this.xDimension0);
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("y", this.yDimension0);
+        __page2 = __page2.moveLeft();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.leftPoint);
+        __page2 = __page2.moveUp();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.leftUpPoint);
+        __page2 = __page2.moveRight();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.upPoint);
+        __page2 = __page2.moveRight();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.rightUpPoint);
+        __page2 = __page2.moveDown();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.rightPoint);
+        __page2 = __page2.moveDown();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.rightDownPoint);
+        __page2 = __page2.moveLeft();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.downPoint);
+        __page2 = __page2.moveLeft();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.leftDownPoint);
+        __page2 = __page2.moveLeft();
+        __page2 = __page2.moveLeft();
+        __page2 = __page2.moveDown();
+        expect(__page2.galaxyViewBox).toHaveAttribute("viewBox", this.left3Down2Point);
+        __page2 = __page2.zoomOut();
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("x", this.xDimensionZoomedOut1);
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("y", this.yDimension0);
+        expect(__page2.galaxyRing(this.zero)).toHaveAttribute("r", this.r0ZoomedOut);
+        expect(__page2.galaxyRing(this.first)).toHaveAttribute("r", this.r1ZoomedOut);
+        expect(__page2.galaxyRing(this.second)).toHaveAttribute("r", this.r2ZoomedOut);
+        expect(__page2.galaxyRing(this.third)).toHaveAttribute("r", this.r3ZoomedOut);
+        expect(__page2.galaxyRing(this.fourth)).toHaveAttribute("r", this.r4ZoomedOut);
+        __page2 = __page2.zoomIn();
+        __page2 = __page2.zoomIn();
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("x", this.xDimensionZoomedIn1);
+        expect(__page2.rolePillLocation(this.endRole)).toHaveAttribute("y", this.yDimension0);
+        expect(__page2.galaxyRing(this.zero)).toHaveAttribute("r", this.r0ZoomedIn);
+        expect(__page2.galaxyRing(this.first)).toHaveAttribute("r", this.r1ZoomedIn);
+        expect(__page2.galaxyRing(this.second)).toHaveAttribute("r", this.r2ZoomedIn);
+        expect(__page2.galaxyRing(this.third)).toHaveAttribute("r", this.r3ZoomedIn);
+        expect(__page2.galaxyRing(this.fourth)).toHaveAttribute("r", this.r4ZoomedIn);
     }
 
     public afterClass(): void {

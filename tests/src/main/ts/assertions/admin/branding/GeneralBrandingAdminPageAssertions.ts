@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { GeneralBrandingAdminPage } from "pages/admin/branding/GeneralBrandingAdminPage";
+import { expect } from "common/testing/playwright";
 
 export class GeneralBrandingAdminPageAssertions extends BaseAssertion<GeneralBrandingAdminPage> {
 
     public assertThatUploadedFileNameIsDisplayed(filename: string): GeneralBrandingAdminPageAssertions {
-        this.assertThat(this.page.deleteButtonForUploadedFile.first()).containsText(filename);
+        expect(this.page.deleteButtonForUploadedFile.first()).toContainText(filename);
         return this;
 
     }

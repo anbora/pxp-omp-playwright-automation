@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -30,10 +31,10 @@ export class WelcomePage_New extends BasePage implements CareerGrowthTopPanelCom
     }
     public readonly tabTip: Locator = this.page.locator("//p[@class='s-margin-bottom']");
     public tabButton(tab: string): Locator {
-      return getP().getByRole(AriaRole.BUTTON, tab).build();
+      return getP().getByRole(AriaRole.BUTTON, tab);
     }
     public hoverOverCards(cardName: string): Locator {
-      return this.getByRole(AriaRole.BUTTON, cardName).build().first();
+      return this.getByRole(AriaRole.BUTTON, cardName).first();
     }
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {

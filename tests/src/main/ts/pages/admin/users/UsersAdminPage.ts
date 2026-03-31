@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -33,12 +34,12 @@ export class UsersAdminPage extends BasePage {
       return this.aiLocator(ROLES_MODAL, "//div/button[@class='close']");
     }
     public editButton(user: string): Locator {
-      return this.getByLabel("Edit User: "+user).build();
+      return this.getByLabel("Edit User: "+user);
     }
     public userManagementLocation(): Locator {
-      return this.getByLabel("Edit user", true).getByText("Location", true ).build();
+      return this.getByLabel("Edit user", true).getByText("Location", true );
     }
-    public cancelButton: Locator = getByRole(AriaRole.BUTTON, "Cancel").build();
+    public cancelButton: Locator = this.getByRole(AriaRole.BUTTON, "Cancel");
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {
 

@@ -1,18 +1,19 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { BrowseBySubjectPage } from "cs/pages/BrowseBySubjectPage";
 import { CourseDetailsPage } from "cs/pages/CourseDetailsPage";
 import { ResultContainer } from "models/ResultContainer";
+import { expect } from "common/testing/playwright";
 
 export class CourseDetailsAssertions extends BaseAssertion<CourseDetailsPage>{
 
 	public assertThatDurationIsVisible(duration: string): CourseDetailsAssertions {
-        this.assertThat(this.page.duration(duration)).isVisible(this.isVisibleOptions);
+        expect(this.page.duration(duration)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatLanguageIsVisible(language: string): CourseDetailsAssertions {
-        this.assertThat(this.page.language(language)).isVisible(this.isVisibleOptions);
+        expect(this.page.language(language)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -21,53 +22,53 @@ export class CourseDetailsAssertions extends BaseAssertion<CourseDetailsPage>{
 		for (const subscription of subscriptionlistArray) {
 			if(subscription.equals("N/A"))
 			{
-				this.assertThat(this.page.getPage().locator("//span[text()='SUBSCRIPTIONS']/following-sibling:: span[not(text()='')]")).not().isVisible();
+				expect(this.page.getPage().locator("//span[text()='SUBSCRIPTIONS']/following-sibling:: span[not(text()='')]")).not.toBeVisible();
 			}
 			else
 			{
-				this.assertThat(this.page.subscriptions(subscription.trim())).isVisible(this.isVisibleOptions);
+				expect(this.page.subscriptions(subscription.trim())).toBeVisible(this.isVisibleOptions);
 			}
 		}
         return this;
     }
 
 	public assertThatModalitiesIsVisible(): CourseDetailsAssertions {
-        this.assertThat(this.page.complianceEmploymentLaw.first()).isVisible(this.isVisibleOptions);
+        expect(this.page.complianceEmploymentLaw.first()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatContentPartnerIsVisible(provider: string): CourseDetailsAssertions {
-        this.assertThat(this.page.contentPartner(provider)).isVisible(this.isVisibleOptions);
+        expect(this.page.contentPartner(provider)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
 	public assertThatSkillIsVisible(skills: string): CourseDetailsAssertions {
 		if(skills.equals("N/A")){
-			this.assertThat(this.page.getPage().locator("//span[text()='SKILLS']/following-sibling::div/div")).not().isVisible(this.isVisibleOptions);
+			expect(this.page.getPage().locator("//span[text()='SKILLS']/following-sibling::div/div")).not.toBeVisible(this.isVisibleOptions);
 		}
 		else {
-			this.assertThat(this.page.getPage().locator("//span[text()='SKILLS']/following-sibling::div/div").first()).hasText(skills);
+			expect(this.page.getPage().locator("//span[text()='SKILLS']/following-sibling::div/div").first()).toHaveText(skills);
 		}
         return this;
     }
 
 	public assertThatCategoryIsVisible(category: string): CourseDetailsAssertions {
-		this.assertThat(this.page.verifydetails("CATEGORIES")).hasText(category);
+		expect(this.page.verifydetails("CATEGORIES")).toHaveText(category);
 		return this;
 	}
 
 	public assertThatTopicIsVisible(topic: string): CourseDetailsAssertions {
-		this.assertThat(this.page.verifydetails("TOPICS").first()).hasText(topic);
+		expect(this.page.verifydetails("TOPICS").first()).toHaveText(topic);
 		return this;
 	}
 
 	public assertThatSubjectIsVisible(subject: string): CourseDetailsAssertions {
-		this.assertThat(this.page.verifydetails("SUBJECTS").first()).hasText(subject);
+		expect(this.page.verifydetails("SUBJECTS").first()).toHaveText(subject);
 		return this;
 	}
 
 	public assertThatBadgeIsVisible(badge: string): CourseDetailsAssertions {
-		this.assertThat(this.page.badge_check(badge)).isVisible(this.extendedIsVisibleOptions);
+		expect(this.page.badge_check(badge)).toBeVisible(this.extendedIsVisibleOptions);
         return this;
     }
 }

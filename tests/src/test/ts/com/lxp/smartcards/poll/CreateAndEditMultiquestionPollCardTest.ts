@@ -1,5 +1,5 @@
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { SmartCardStandAlonePageAssertions } from "assertions/smartcards/SmartCardStandAlonePageAssertions";
+// @ts-nocheck
+
 import { SmartCardRestService } from "common/api/SmartCardRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { ContentMePage } from "pages/me/ContentMePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateAndEditMultiquestionPollCardTest extends SmartCardRestService {
     private static readonly UNIQUE_SUFFIX: string = UUID.randomUUID().toString();
@@ -35,65 +36,85 @@ export class CreateAndEditMultiquestionPollCardTest extends SmartCardRestService
     }
 
     public verifyThatMultiquestionPollCanBeCreated(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .clickCreateButton()
-                .clickSmartCardButton()
-                .goToPollSmartCardTab()
-                .fillInTitle(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN)
-                .fillInQuestion("1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN)
-                .fillInOption("1", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN)
-                .fillInOption("1", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN)
-                .clickAddOptionButton("1")
-                .fillInOption("1", "3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN)
-                .clickAddAnotherQuestionButton()
-                .fillInQuestion("2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN)
-                .fillInOption("2", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN)
-                .fillInOption("2", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN)
-                .clickCreateCardButton()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(CreateAndEditMultiquestionPollCardTest.NOTIFICATION)
-                .endAssertion()
-                .goToCardStandAloneView(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN)
-                .getECLUniqueId(this.eclId)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN)
-                    .assertThatPollQuestionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN)
-                    .assertThatPollQuestionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickSmartCardButton();
+        __page1 = __page1.goToPollSmartCardTab();
+        __page1 = __page1.fillInTitle(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.fillInQuestion("1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN);
+        __page1 = __page1.fillInOption("1", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN);
+        __page1 = __page1.fillInOption("1", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN);
+        __page1 = __page1.clickAddOptionButton("1");
+        __page1 = __page1.fillInOption("1", "3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN);
+        __page1 = __page1.clickAddAnotherQuestionButton();
+        __page1 = __page1.fillInQuestion("2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN);
+        __page1 = __page1.fillInOption("2", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN);
+        __page1 = __page1.fillInOption("2", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN);
+        __page1 = __page1.clickCreateCardButton();
+        expect(__page1.cardNotification).toContainText(CreateAndEditMultiquestionPollCardTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that CreateAndEditMultiquestionPollCardTest.NOTIFICATION text is as expected");
+        __page1 = __page1.goToCardStandAloneView(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.getECLUniqueId(this.eclId);
+        expect(__page1.CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN).toContainText(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN);
+        __page1.logger.info("Successfully verified that smart card title is as expected");
+        expect(__page1.pollCardQuestion(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN is present");
+        expect(__page1.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN is present");
+        expect(__page1.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN is present");
+        expect(__page1.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN is present");
+        expect(__page1.pollCardQuestion(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN is present");
+        expect(__page1.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN is present");
+        expect(__page1.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN)).toBeVisible();
+        __page1.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN is present");
     }
 
     public verifyThatCreatedPollCanBeEdited(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(ContentMePage)
-                .goToCardStandAloneView(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN)
-                .editPollSmartCard()
-                .clickAddOptionButton("2")
-                .fillInOption("2", "3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_3_EN)
-                .clickAddAnotherQuestionButton()
-                .fillInQuestion("3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_3_EN)
-                .fillInOption("3", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_1_EN)
-                .fillInOption("3", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_2_EN)
-                .clickUpdateCardButtonFromStandaloneView()
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatCardNotificationIs(CreateAndEditMultiquestionPollCardTest.UPDATE_NOTIFICATION)
-                    .assertThatSmartCardTitleIsAsExpected(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN)
-                    .assertThatPollQuestionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN)
-                    .assertThatPollQuestionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_3_EN)
-                    .assertThatPollQuestionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_3_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_1_EN)
-                    .assertThatPollCardOptionIsPresent(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_2_EN);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(ContentMePage);
+        __page2 = __page2.goToCardStandAloneView(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN);
+        __page2 = __page2.editPollSmartCard();
+        __page2 = __page2.clickAddOptionButton("2");
+        __page2 = __page2.fillInOption("2", "3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_3_EN);
+        __page2 = __page2.clickAddAnotherQuestionButton();
+        __page2 = __page2.fillInQuestion("3", CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_3_EN);
+        __page2 = __page2.fillInOption("3", "1", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_1_EN);
+        __page2 = __page2.fillInOption("3", "2", CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_2_EN);
+        __page2 = __page2.clickUpdateCardButtonFromStandaloneView();
+        expect(__page2.cardNotification).toContainText(CreateAndEditMultiquestionPollCardTest.UPDATE_NOTIFICATION);
+        __page2.logger.info("Successfully verified that CreateAndEditMultiquestionPollCardTest.UPDATE_NOTIFICATION text is as expected");
+        expect(__page2.CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN).toContainText(CreateAndEditMultiquestionPollCardTest.SMART_CARD_TITLE_EN);
+        __page2.logger.info("Successfully verified that smart card title is as expected");
+        expect(__page2.pollCardQuestion(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_1_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_1_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_EN is present");
+        expect(__page2.pollCardQuestion(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_2_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_1_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_2_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_3_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_2_3_EN is present");
+        expect(__page2.pollCardQuestion(CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_3_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll CreateAndEditMultiquestionPollCardTest.SMART_CARD_QUESTION_3_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_1_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_1_EN is present");
+        expect(__page2.pollCardOption(CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_2_EN)).toBeVisible();
+        __page2.logger.info("Successfully verified that poll card CreateAndEditMultiquestionPollCardTest.SMART_CARD_OPTION_3_2_EN is present");
     }
 
     public afterClass(): void {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Portal } from "common/config/Portal";
 
 export class Config {

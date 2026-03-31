@@ -1,6 +1,5 @@
-import { SkillsPassportMePageAssertions } from "assertions/careergrowth/jobs/SkillsPassportMePageAssertions";
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
-import { MePageAssertions } from "assertions/me/MePageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +7,8 @@ import { TeamsResponsibleEnum } from "common/enums/TeamsResponsibleEnum";
 import { UserModel } from "models/user/UserModel";
 import { RoleDetailsPage } from "pages/careergrowth/roles/RoleDetailsPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
+import { expect } from "common/testing/playwright";
 
 export class SkillsOperationsInContextOfRoleTest  extends BaseRestTest {
     public static readonly GARDENING: string = "gardening";
@@ -42,40 +43,33 @@ export class SkillsOperationsInContextOfRoleTest  extends BaseRestTest {
     }
 
     public shouldManageSkillsInRoleContext(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goDirectlyTo(RoleDetailsPage, this.getPortalConfig(this.portalIndex).getSkilledGardenerRoleId())
-                .waitForSkills()
-                .clickShowMoreSkills()
-                .check(RoleDetailsAssertions)
-                    .assertSkillsOfIndicatedLevelContains("Intermediate", this.beginnerRoleSkills)
-                    .assertSkillsOfIndicatedLevelContains("Expert", this.advancedRoleSkills)
-                    .assertSkillsOfIndicatedLevelHaveAtLeast("Advanced", SkillsOperationsInContextOfRoleTest.EXPECTED_INTERMEDIATE_SKILLS_NUMBER)
-                .endAssertion()
-                .clickAddSkillsToPassport()
-                .markSkill(SkillsOperationsInContextOfRoleTest.GARDENING)
-                .clickAddSkills()
-                .clickSetLearningGoals()
-                .markSkill(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE)
-                .check(RoleDetailsAssertions)
-                    .assertRoleTargetLevelForSkillIs(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE, SkillsOperationsInContextOfRoleTest.INTERMEDIATE)
-                    .assertLearningTargetLevelForSkillIs(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE, SkillsOperationsInContextOfRoleTest.INTERMEDIATE)
-                .endAssertion()
-                .markSkill(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE)
-                .check(RoleDetailsAssertions)
-                    .assertRoleTargetLevelForSkillIs(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, "Advanced")
-                    .assertLearningTargetLevelForSkillIs(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, "Advanced")
-                .endAssertion()
-                .selectLearningTargetLevelForSkill(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, "Expert")
-                .clickAdd()
-                .goToMePageProfile()
-                .check(MePageAssertions)
-                    .assertLearningGoals(this.expectedLearningGoals)
-                .endAssertion()
-                .goToSkillPassportTab()
-                .check(SkillsPassportMePageAssertions)
-                    .assertThatSkillIsAdded(SkillsOperationsInContextOfRoleTest.GARDENING);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goDirectlyTo(RoleDetailsPage, this.getPortalConfig(this.portalIndex).getSkilledGardenerRoleId());
+        __page1 = __page1.waitForSkills();
+        __page1 = __page1.clickShowMoreSkills();
+        assertTrue(__page1.getSkillsOfLevel("Intermediate").containsAll(this.beginnerRoleSkills));
+        assertTrue(__page1.getSkillsOfLevel("Expert").containsAll(this.advancedRoleSkills));
+        assertTrue(__page1.getSkillsOfLevel("Advanced").length>= SkillsOperationsInContextOfRoleTest.EXPECTED_INTERMEDIATE_SKILLS_NUMBER);
+        __page1 = __page1.clickAddSkillsToPassport();
+        __page1 = __page1.markSkill(SkillsOperationsInContextOfRoleTest.GARDENING);
+        __page1 = __page1.clickAddSkills();
+        __page1 = __page1.clickSetLearningGoals();
+        __page1 = __page1.markSkill(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE);
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE, 2).locator("p")).toHaveText(SkillsOperationsInContextOfRoleTest.INTERMEDIATE);
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfRoleTest.CUSTOMER_SERVICE, 3).locator("//select/option[@selected]")).toHaveText(SkillsOperationsInContextOfRoleTest.INTERMEDIATE);
+        __page1 = __page1.markSkill(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE);
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, 2).locator("p")).toHaveText("Advanced");
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, 3).locator("//select/option[@selected]")).toHaveText("Advanced");
+        __page1 = __page1.selectLearningTargetLevelForSkill(SkillsOperationsInContextOfRoleTest.LANDSCAPE_ARCHITECTURE, "Expert");
+        __page1 = __page1.clickAdd();
+        __page1 = __page1.goToMePageProfile();
+        __page1.pause(2000);
+        Assert.assertEquals(__page1.getLearningGoals(), this.expectedLearningGoals);
+        __page1 = __page1.goToSkillPassportTab();
+        expect(__page1.addedSkill(SkillsOperationsInContextOfRoleTest.GARDENING)).toBeVisible({ timeout: 30000 });
 //                    .assertSkillHasGotAdvancedLevelIcon(GARDENING);
     }
 

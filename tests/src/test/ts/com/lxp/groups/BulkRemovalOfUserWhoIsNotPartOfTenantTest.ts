@@ -1,7 +1,5 @@
-import { BulkRemovalAssertions } from "assertions/groups/BulkRemovalAssertions";
-import { GroupDetailsAssertions } from "assertions/groups/GroupDetailsAssertions";
-import { MembersGroupAssertions } from "assertions/groups/MembersGroupAssertions";
-import { NotificationPageAssertions } from "assertions/other/NotificationPageAssertions";
+// @ts-nocheck
+
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -13,6 +11,8 @@ import { NotificationPage } from "pages/other/NotificationPage";
 import { SignOutPage } from "pages/other/SignOutPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertEquals } from "common/testing/runtime";
 
 export class BulkRemovalOfUserWhoIsNotPartOfTenantTest extends GroupsRestService {
     private static readonly UNIQUE_SUFFIX: string = UUID.randomUUID().toString();
@@ -44,34 +44,36 @@ export class BulkRemovalOfUserWhoIsNotPartOfTenantTest extends GroupsRestService
                 .changeGroupMemberRole(this.user1.fullName, BulkRemovalOfUserWhoIsNotPartOfTenantTest.GROUP_ADMIN)
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .goDirectlyTo(MembersGroupPage, BulkRemovalOfUserWhoIsNotPartOfTenantTest.GROUP_NAME)
-                .clickBulkRemovalTab()
-                .uploadBulkRemovalCsvFile(generateCsvFileWithContent(BulkRemovalOfUserWhoIsNotPartOfTenantTest.USER_OUTSIDE_TENANT_EMAIL))
-                .clickUploadButton()
-                .clickRemoveInBulkButton()
-                .check(GroupDetailsAssertions)
-                    .assertThatFileUploadNotificationTextIs(BulkRemovalOfUserWhoIsNotPartOfTenantTest.NOTIFICATION);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.goDirectlyTo(MembersGroupPage, BulkRemovalOfUserWhoIsNotPartOfTenantTest.GROUP_NAME);
+        __page1 = __page1.clickBulkRemovalTab();
+        __page1 = __page1.uploadBulkRemovalCsvFile(generateCsvFileWithContent(BulkRemovalOfUserWhoIsNotPartOfTenantTest.USER_OUTSIDE_TENANT_EMAIL));
+        __page1 = __page1.clickUploadButton();
+        __page1 = __page1.clickRemoveInBulkButton();
+        expect(__page1.getUploadFileNotification()).toContainText(BulkRemovalOfUserWhoIsNotPartOfTenantTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that upload file BulkRemovalOfUserWhoIsNotPartOfTenantTest.NOTIFICATION text is as expected");
     }
 
     public verifyBulkRemovalReportStatusWhenTryingToRemoveUserNotBeingPartOfATenant(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(MembersGroupPage, BulkRemovalOfUserWhoIsNotPartOfTenantTest.GROUP_NAME)
-                .clickBulkRemovalTab()
-                .clickDownloadRemoveReportButton()
-                .convertFileToText(BulkRemovalOfUserWhoIsNotPartOfTenantTest.FILE_NAME, this.content)
-                .check(BulkRemovalAssertions)
-                    .assertDownloadedFileContent(this.content.getValue(), expectedFileContent(BulkRemovalOfUserWhoIsNotPartOfTenantTest.USER_OUTSIDE_TENANT_EMAIL));
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(MembersGroupPage, BulkRemovalOfUserWhoIsNotPartOfTenantTest.GROUP_NAME);
+        __page2 = __page2.clickBulkRemovalTab();
+        __page2 = __page2.clickDownloadRemoveReportButton();
+        __page2 = __page2.convertFileToText(BulkRemovalOfUserWhoIsNotPartOfTenantTest.FILE_NAME, this.content);
+        assertEquals(expectedFileContent(BulkRemovalOfUserWhoIsNotPartOfTenantTest.USER_OUTSIDE_TENANT_EMAIL), this.content.getValue());
+        __page2.logger.info("Successfully verified that downloaded sample file content is the same as expected file content");
     }
 
     public verifyCorrectBellNotificationForGroupAdmin(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(NotificationPage)
-                .check(NotificationPageAssertions)
-                    .assertThatFirstNotificationContains(BulkRemovalOfUserWhoIsNotPartOfTenantTest.BELL_NOTIFICATION_TEXT);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user1));
+        __page3 = __page3.goDirectlyTo(NotificationPage);
+        expect(__page3.notificationMessage.first()).toContainText(BulkRemovalOfUserWhoIsNotPartOfTenantTest.BELL_NOTIFICATION_TEXT, { timeout: 30000 });
     }
 
     public afterTests(): void {

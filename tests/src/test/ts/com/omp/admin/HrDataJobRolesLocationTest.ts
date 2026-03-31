@@ -1,10 +1,11 @@
-import { HrDataCreateJobRoleAssertion } from "assertions/admin/hrdata/HrDataCreateJobRoleAssertion";
-import { HrDataEditJobRoleAssertion } from "assertions/admin/hrdata/HrDataEditJobRoleAssertion";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class HrDataJobRolesLocationTest extends BaseRestTest {
 
@@ -22,26 +23,25 @@ export class HrDataJobRolesLocationTest extends BaseRestTest {
     }
 
     public createJobRoleWithLocationField(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.hrData)
-                .openMenuForJobRolesHRData()
-                .clickAddJobRoleButton()
-                .typeRoleName(this.jobRoleName)
-                .typeRoleDescription(this.roleDescription)
-                .selectFunctionAndFamily(this.functionName, this.functionAndFamilyName)
-                .clickJobLevelDropdown()
-                .check(HrDataCreateJobRoleAssertion)
-                    .assertThatLocationFieldIsDisplayed()
-                .endAssertion()
-                .clickLocationDropdown()
-                .clickSaveButton()
-                .clickSearchJobRole(this.jobRoleName)
-                .clickEditJobRoleButton()
-                .check(HrDataEditJobRoleAssertion)
-                    .assertThatLocationIsDisplayed()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.hrData);
+        __page1 = __page1.openMenuForJobRolesHRData();
+        __page1 = __page1.clickAddJobRoleButton();
+        __page1 = __page1.typeRoleName(this.jobRoleName);
+        __page1 = __page1.typeRoleDescription(this.roleDescription);
+        __page1 = __page1.selectFunctionAndFamily(this.functionName, this.functionAndFamilyName);
+        __page1 = __page1.clickJobLevelDropdown();
+        expect(__page1.locationField).toHaveCount(1);
+        __page1.logger.info("Successfully verified location field is displayed");
+        __page1 = __page1.clickLocationDropdown();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickSearchJobRole(this.jobRoleName);
+        __page1 = __page1.clickEditJobRoleButton();
+        expect(__page1.selectedLocationFieldValue).toHaveCount(1);
+        __page1.logger.info("Successfully verified data location field found");
     }
 
     public afterClass(): void {

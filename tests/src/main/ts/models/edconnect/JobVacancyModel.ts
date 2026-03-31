@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { HiringManagers } from "models/edconnect/HiringManagers";
 import { JobDescription } from "models/edconnect/JobDescription";

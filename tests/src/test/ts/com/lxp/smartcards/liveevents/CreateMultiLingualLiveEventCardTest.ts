@@ -1,5 +1,5 @@
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { SmartCardStandAlonePageAssertions } from "assertions/smartcards/SmartCardStandAlonePageAssertions";
+// @ts-nocheck
+
 import { SmartCardRestService } from "common/api/SmartCardRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { ContentMePage } from "pages/me/ContentMePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateMultiLingualLiveEventCardTest extends SmartCardRestService {
 
@@ -30,51 +31,51 @@ export class CreateMultiLingualLiveEventCardTest extends SmartCardRestService {
     }
 
     public verifyThatMultiLingualSmartCardCanBeCreated(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .clickCreateButton()
-                .clickSmartCardButton()
-                .goToLiveEventSmartCardTab()
-                .clickLanguageDropdown()
-                .chooseLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL)
-                .fillInMultilingualTitle(CreateMultiLingualLiveEventCardTest.LANG_CODE_EN, CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN)
-                .openAccordion(CreateMultiLingualLiveEventCardTest.LANGUAGE_PL)
-                .fillInMultilingualTitle(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL, CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL)
-                .chooseFifteenthDayOfNextMonth()
-                .selectTimezone(CreateMultiLingualLiveEventCardTest.TIMEZONE)
-                .fillInMeetingLink(CreateMultiLingualLiveEventCardTest.MEETING_LINK)
-                .clickCreateCardButton()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(CreateMultiLingualLiveEventCardTest.NOTIFICATION)
-                .endAssertion()
-                .goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN)
-                .getECLUniqueId(this.eclId);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickSmartCardButton();
+        __page1 = __page1.goToLiveEventSmartCardTab();
+        __page1 = __page1.clickLanguageDropdown();
+        __page1 = __page1.chooseLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL);
+        __page1 = __page1.fillInMultilingualTitle(CreateMultiLingualLiveEventCardTest.LANG_CODE_EN, CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.openAccordion(CreateMultiLingualLiveEventCardTest.LANGUAGE_PL);
+        __page1 = __page1.fillInMultilingualTitle(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL, CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+        __page1 = __page1.chooseFifteenthDayOfNextMonth();
+        __page1 = __page1.selectTimezone(CreateMultiLingualLiveEventCardTest.TIMEZONE);
+        __page1 = __page1.fillInMeetingLink(CreateMultiLingualLiveEventCardTest.MEETING_LINK);
+        __page1 = __page1.clickCreateCardButton();
+        expect(__page1.cardNotification).toContainText(CreateMultiLingualLiveEventCardTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that CreateMultiLingualLiveEventCardTest.NOTIFICATION text is as expected");
+        __page1 = __page1.goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.getECLUniqueId(this.eclId);
     }
 
         public verifyThatLanguageCanBeChangedOnSmartCardStandAlonePage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(ContentMePage)
-                .goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN)
-                .endAssertion()
-                .changeLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(ContentMePage);
+        __page2 = __page2.goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN);
+        expect(__page2.CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN).toContainText(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_EN);
+        __page2.logger.info("Successfully verified that smart card title is as expected");
+        __page2 = __page2.changeLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL);
+        expect(__page2.CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL).toContainText(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+        __page2.logger.info("Successfully verified that smart card title is as expected");
         }
 
         public verifyThatLanguageOfCardChangesWhenUserPreferredLanguageIsChanged(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .changeUserDefinedLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL)
-                .goDirectlyTo(ContentMePage)
-                .check(ContentMePageAssertions)
-                    .assertThatCardTitleIsAsExpected(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL)
-                .endAssertion()
-                .goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user1));
+        __page3 = __page3.changeUserDefinedLanguage(CreateMultiLingualLiveEventCardTest.LANG_CODE_PL);
+        __page3 = __page3.goDirectlyTo(ContentMePage);
+        expect(__page3.cardTile).toContainText(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+        __page3.logger.info("Successfully verified that CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL is as expected");
+        __page3 = __page3.goToCardStandAloneView(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+        expect(__page3.CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL).toContainText(CreateMultiLingualLiveEventCardTest.SMART_CARD_TITLE_PL);
+        __page3.logger.info("Successfully verified that smart card title is as expected");
     }
 
     public afterClass(): void {

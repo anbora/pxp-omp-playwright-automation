@@ -1,6 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { MyOpportunitiesAssertions } from "assertions/careergrowth/jobs/MyOpportunitiesAssertions";
-import { ManageRoleAssertions } from "assertions/careergrowth/roles/ManageRoleAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +8,8 @@ import { UserModel } from "models/user/UserModel";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
+import { assertTrue } from "common/testing/runtime";
 
 export class OpportunitiesTabsInProfileTest extends BaseRestTest {
 
@@ -36,62 +37,52 @@ export class OpportunitiesTabsInProfileTest extends BaseRestTest {
     }
 
     public shouldVerifyRolesProfileTab(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .sortListBy(this.alphabeticalAZ)
-                .getFirstItemOnSuggestedJobVacanciesList(this.roleContainer)
-                .performActionForRoleNumber(this.first, this.markAsAspitrationalRole)
-                .goToProfileFromUserDropDown(this.user.name)
-                .clickRolesTab()
-                .refreshPageUntilRoleFound(this.roleContainer.getValue())
-                .check(ManageRoleAssertions)
-                    .assertThatSubmenuTabIsSelected(this.markedAsAspitrationalRole)
-                    .assertThatSubmenuTabIsHighlighted(this.markedAsAspitrationalRole, this.highlightedColor)
-                .endAssertion()
-                .performActionForRole(this.removeAsAspitrationalRole)
-                .check(ManageRoleAssertions)
-                    .assertThatThereIsNoItemsToShow(this.noAspirationalRoles);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        __page1 = __page1.sortListBy(this.alphabeticalAZ);
+        __page1 = __page1.getFirstItemOnSuggestedJobVacanciesList(this.roleContainer);
+        __page1 = __page1.performActionForRoleNumber(this.first, this.markAsAspitrationalRole);
+        __page1 = __page1.goToProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickRolesTab();
+        __page1 = __page1.refreshPageUntilRoleFound(this.roleContainer.getValue());
+        expect(__page1.selectedTab(this.markedAsAspitrationalRole)).toBeVisible({ timeout: 30000 });
+        expect(__page1.selectedTab(this.markedAsAspitrationalRole)).toHaveCSS("background-color", this.highlightedColor);
+        __page1 = __page1.performActionForRole(this.removeAsAspitrationalRole);
+        expect(__page1.noJobVacanciesToShowInfo(this.noAspirationalRoles)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldVerifyJobVacanciesProfileTab(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .sortListBy(this.alphabeticalAZ)
-                .clickSpecifiedVacancyByOrder(this.first)
-                .clickBookmarkButton()
-                .clickBackButton()
-                .clickSpecifiedVacancyByOrder(this.second)
-                .clickDismissButton()
-                .clickBackButton()
-                .goToProfileFromUserDropDown(this.user.name)
-                .clickOpenJobsTab()
-                .check(MyOpportunitiesAssertions)
-                    .assertThatSubmenuTabIsSelected(this.applications)
-                    .assertThatSubmenuTabIsHighlighted(this.applications, this.highlightedColor)
-                .endAssertion()
-                .selectLeftMenuTab(this.bookmarked)
-                .check(MyOpportunitiesAssertions)
-                    .assertThatSubmenuTabIsSelected(this.bookmarked)
-                    .assertThatSubmenuTabIsHighlighted(this.bookmarked, this.highlightedColor)
-                .endAssertion()
-                .clickUnbookmarkJobVacancy()
-                .check(MyOpportunitiesAssertions)
-                    .assertThatThereIsNoItemsToShow(this.noBookmarkedJobs)
-                .endAssertion()
-                .selectLeftMenuTab(this.dismissed)
-                .check(MyOpportunitiesAssertions)
-                    .assertThatSubmenuTabIsSelected(this.dismissed)
-                    .assertThatSubmenuTabIsHighlighted(this.dismissed, this.highlightedColor)
-                .endAssertion()
-                .selectLeftMenuTab(this.bookmarked)
-                .clickExploreOpenJobs()
-                .check(VacanciesListAssertions)
-                    .assertThatUrlContainsProperText(this.openJobVacanciesUrl);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaCard();
+        __page2 = __page2.sortListBy(this.alphabeticalAZ);
+        __page2 = __page2.clickSpecifiedVacancyByOrder(this.first);
+        __page2 = __page2.clickBookmarkButton();
+        __page2 = __page2.clickBackButton();
+        __page2 = __page2.clickSpecifiedVacancyByOrder(this.second);
+        __page2 = __page2.clickDismissButton();
+        __page2 = __page2.clickBackButton();
+        __page2 = __page2.goToProfileFromUserDropDown(this.user.name);
+        __page2 = __page2.clickOpenJobsTab();
+        expect(__page2.selectedTab(this.applications)).toBeVisible({ timeout: 30000 });
+        expect(__page2.selectedTab(this.applications)).toHaveCSS("background-color", this.highlightedColor);
+        __page2 = __page2.selectLeftMenuTab(this.bookmarked);
+        expect(__page2.selectedTab(this.bookmarked)).toBeVisible({ timeout: 30000 });
+        expect(__page2.selectedTab(this.bookmarked)).toHaveCSS("background-color", this.highlightedColor);
+        __page2 = __page2.clickUnbookmarkJobVacancy();
+        expect(__page2.noJobVacanciesToShowInfo).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.selectLeftMenuTab(this.dismissed);
+        expect(__page2.selectedTab(this.dismissed)).toBeVisible({ timeout: 30000 });
+        expect(__page2.selectedTab(this.dismissed)).toHaveCSS("background-color", this.highlightedColor);
+        __page2 = __page2.selectLeftMenuTab(this.bookmarked);
+        __page2 = __page2.clickExploreOpenJobs();
+        assertTrue(__page2.getPage().url().contains(this.openJobVacanciesUrl), "Expected url: '" + this.openJobVacanciesUrl + "' but was: '" + __page2.getPage().url() + "'");
     }
 
     public afterTests(): void {

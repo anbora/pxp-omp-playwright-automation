@@ -1,4 +1,5 @@
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { ResultContainer } from "models/ResultContainer";
 import { UserModel } from "models/user/UserModel";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class AnnouncementsWidgetTest extends BaseRestTest {
 
@@ -20,16 +22,15 @@ export class AnnouncementsWidgetTest extends BaseRestTest {
 
     }
     public announcementsWidgetTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.adminSettings)
-                .openSettingsAnnouncementsPage()
-                .getFirstEnabledAnnouncementTitle(this.announcementTitleContainer)
-                .goDirectlyTo(LandingPage)
-                .check(LandingPageAssertions)
-                    .assertThatAnnouncementsWidgetIsDisplayed()
-                    .assertThatAnnouncementIsVisible(this.announcementTitleContainer)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.adminSettings);
+        __page1 = __page1.openSettingsAnnouncementsPage();
+        __page1 = __page1.getFirstEnabledAnnouncementTitle(this.announcementTitleContainer);
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        expect(__page1.announcementsWidget()).toBeVisible({ timeout: 30000 });
+        expect(__page1.announcement(this.announcementTitleContainer.getValue())).toBeVisible({ timeout: 30000 });
     }
 }

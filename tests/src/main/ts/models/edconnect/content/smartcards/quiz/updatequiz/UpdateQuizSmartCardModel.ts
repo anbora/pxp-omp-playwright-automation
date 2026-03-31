@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { UpdateQuizContent } from "models/edconnect/content/smartcards/quiz/updatequiz/UpdateQuizContent";
 

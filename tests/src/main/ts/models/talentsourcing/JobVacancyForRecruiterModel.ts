@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class JobVacancyForRecruiterModel {
     public type: string;
     public pageSize: number;

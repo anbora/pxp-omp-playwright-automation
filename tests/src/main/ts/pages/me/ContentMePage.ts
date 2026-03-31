@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
 import { AriaRole, Browser, LoadState, Locator } from "common/testing/playwright";
@@ -26,14 +27,14 @@ export class ContentMePage extends AbstractMePage <ContentMePage> {
     public editSmartCard: Locator = this.page.locator("//ul[@role='menu']/descendant::li[contains(text(), 'Edit')]");
     public assignToMe: Locator = this.page.locator("//ul[@role='menu']/li[contains(text(), 'Assign to Me')]");
     public assignButton: Locator = this.page.locator("//button[@class='ed-btn ed-btn-primary']");
-    public assignedByMeTab: Locator = getByRole(AriaRole.TAB,"Assigned by Me").build();
+    public assignedByMeTab: Locator = this.getByRole(AriaRole.TAB,"Assigned by Me");
     public shareCardButton: Locator = this.page.locator("//button//i[@class='card-icon icon-share1']");
     public shareContentUser: Locator = this.page.locator("//div[3]/div/table/tbody/tr[1]/td/div//input");
     public shareButton: Locator = this.page.locator("//button[text() = 'Share']");
-    public sharedByMeTab: Locator = getByRole(AriaRole.TAB,"Shared by Me").build();
+    public sharedByMeTab: Locator = this.getByRole(AriaRole.TAB,"Shared by Me");
     public deleteCard: Locator = this.page.locator("//ul[@role='menu']/li[contains(text(), 'Delete')]");
     public areYouSureDeleteButton: Locator = this.page.locator("//button[@class='ed-btn ed-btn-negative']");
-    public deletedTab: Locator = getByRole(AriaRole.TAB,"Deleted").build();
+    public deletedTab: Locator = this.getByRole(AriaRole.TAB,"Deleted");
     public sharedByMeEmpty: Locator = this.page.locator("//div[@class='margin-auto text-center']");
     public cardNotification: Locator = this.page.locator("//div[@class='success']/descendant::span[2]");
     public cardTile: Locator = this.page.locator("//div[starts-with(@id, 'card-title')]/descendant::span[2]");

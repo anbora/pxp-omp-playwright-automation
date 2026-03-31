@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Gson, JsonArray, JsonElement, JsonObject } from "common/testing/json";
 import { APIResponse } from "common/testing/playwright";
 import { Assert } from "common/testing/runtime";

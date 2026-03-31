@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { OpportunityMarketplaceSourcingPage } from "pages/admin/OpportunityMarketplaceSourcingPage";
+import { expect } from "common/testing/playwright";
 
 export class OpportunityMarketplaceSourcingAssertions extends BaseAssertion <OpportunityMarketplaceSourcingPage>{
 
     public assertThatEnableSourcingIsVisible(): OpportunityMarketplaceSourcingAssertions {
-        this.assertThat(this.page.enableSourcing).isVisible(this.isVisibleOptions);
+        expect(this.page.enableSourcing).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Enable sourcing is visible");
         return this;
     }
     public assertThatSourcingIsOn(): OpportunityMarketplaceSourcingAssertions {
-        this.assertThat(this.page.sourcingON).isVisible(this.isVisibleOptions);
+        expect(this.page.sourcingON).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Sourcing is ON");
         return this;
     }

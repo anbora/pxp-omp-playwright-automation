@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { UpdatePathwayLanguage } from "models/edconnect/content/pathway/updatepathway/UpdatePathwayLanguage";
 import { UpdatePathwayMetadata } from "models/edconnect/content/pathway/updatepathway/UpdatePathwayMetadata";

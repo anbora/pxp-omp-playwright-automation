@@ -1,4 +1,5 @@
-import { MembersGroupAssertions } from "assertions/groups/MembersGroupAssertions";
+// @ts-nocheck
+
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,7 @@ import { MembersGroupPage } from "pages/groups/MembersGroupPage";
 import { SignOutPage } from "pages/other/SignOutPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class GroupBulkRemovalTabAccessBasicTest extends GroupsRestService {
 
@@ -35,13 +37,14 @@ export class GroupBulkRemovalTabAccessBasicTest extends GroupsRestService {
     }
 
     public verifyThatGlobalAdminHasAccessToBulkRemovalTab(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(GroupDetailsPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME)
-                .clickSettings()
-                .clickManageGroupOption()
-                .check(MembersGroupAssertions)
-                    .assertThatBulkRemovalTabIsPresent();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(GroupDetailsPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME);
+        __page1 = __page1.clickSettings();
+        __page1 = __page1.clickManageGroupOption();
+        expect(__page1.bulkRemovalTab).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that bulk removal tab is present");
     }
     public verifyThatGroupAdminHasAccessToBulkRemovalTab(): void {
         this.getOmpLoginPage()
@@ -50,11 +53,12 @@ export class GroupBulkRemovalTabAccessBasicTest extends GroupsRestService {
                 .changeGroupMemberRole(this.user2.fullName,GroupBulkRemovalTabAccessBasicTest.GROUP_ADMIN)
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .goDirectlyTo(MembersGroupPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME)
-                .check(MembersGroupAssertions)
-                    .assertThatBulkRemovalTabIsPresent();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginWithOnboardingScenario(this.user2));
+        __page2 = __page2.goDirectlyTo(MembersGroupPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME);
+        expect(__page2.bulkRemovalTab).toBeVisible({ timeout: 30000 });
+        __page2.logger.info("Successfully verified that bulk removal tab is present");
     }
 
     public verifyThatGroupLeaderHasAccessToBulkRemovalTab(): void {
@@ -64,11 +68,12 @@ export class GroupBulkRemovalTabAccessBasicTest extends GroupsRestService {
                 .changeGroupMemberRole(this.user3.fullName,GroupBulkRemovalTabAccessBasicTest.GROUP_LEADER)
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user3))
-                .goDirectlyTo(MembersGroupPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME)
-                .check(MembersGroupAssertions)
-                    .assertThatBulkRemovalTabIsPresent();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginWithOnboardingScenario(this.user3));
+        __page3 = __page3.goDirectlyTo(MembersGroupPage, GroupBulkRemovalTabAccessBasicTest.GROUP_NAME);
+        expect(__page3.bulkRemovalTab).toBeVisible({ timeout: 30000 });
+        __page3.logger.info("Successfully verified that bulk removal tab is present");
     }
 
     public afterTests(): void {

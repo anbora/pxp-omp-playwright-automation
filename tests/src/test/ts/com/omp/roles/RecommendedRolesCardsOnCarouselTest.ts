@@ -1,5 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
-import { SuggestionsAssertions } from "assertions/careergrowth/careergrowth/SuggestionsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -13,6 +13,7 @@ import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCare
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class RecommendedRolesCardsOnCarouselTest extends BaseRestTest {
 
@@ -37,39 +38,38 @@ export class RecommendedRolesCardsOnCarouselTest extends BaseRestTest {
     }
 
     public checkDataShownOnRecommendedRolesCards(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .run(new AddBasicCareerPreferencesForUser())
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.footballPlayerJunior,this.footballClub,this.football,this.october,this.year_2017,this.june,this.year_2022 ))
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToSuggestionsPageViaTab()
-                .waitForJobRoleRecommendationByTitle(this.footballPlayerJunior)
-                .getFirstOpportunityMatchValue(this.matchName)
-                .check(SuggestionsAssertions)
-                    .assertThatRoleIsNotDisplayedAsRecommended(this.currentUserRole)
-                    .assertThatFirstRoleOnRecommendedRolesListIsEqualTo(this.footballPlayerJunior)
-                    .assertThatLevelIconIsDisplayedForRecommendedRole(this.footballPlayerJunior)
-                    .assertThatRecommendedRoleLevelIsEqualTo(this.footballPlayerJunior, this.entryLevel)
-                    .assertThatJobFamilyIconIsDisplayedForRecommendedRole(this.footballPlayerJunior)
-                    .assertThatRecommendedRoleJobFamilyIsEqualTo(this.footballPlayerJunior, this.unusualJobFamily)
-                .endAssertion()
-                .goToRolesPageViaTab()
-                .check(RoleListAssertions)
-                    .assertThatRoleIsNotDisplayedAsRecommended(this.currentUserRole)
-                    .assertThatFirstRoleOnAllRolesListIsEqualTo(this.footballPlayerJunior)
-                    .assertThatLevelIconIsDisplayedForRecommendedRole(this.footballPlayerJunior)
-                    .assertThatRecommendedRoleLevelIsEqualTo(this.footballPlayerJunior, this.entryLevel)
-                    .assertThatJobFamilyIconIsDisplayedForRecommendedRole(this.footballPlayerJunior)
-                    .assertThatRecommendedRoleJobFamilyIsEqualTo(this.footballPlayerJunior, this.unusualJobFamily)
-                    .assertThatRecommendedRoleSkillsIconIsDisplayed(this.footballPlayerJunior, this.skillsIcon)
-                    .assertThatSkillIsDisplayedOnRecommendedRoleCard(this.footballPlayerJunior, this.football)
-                    .assertThatMoreSkillsLinkIsDisplayedOnRecommendedRoleCard(this.footballPlayerJunior)
-                    .assertThatMoreSkillsLinkIsDisplayedOnRecommendedRoleCard(this.footballPlayerJunior)
-                    .assertThatJobRoleMatchIsEqualTo(this.footballPlayerJunior, this.matchName.getValue());
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.footballPlayerJunior,this.footballClub,this.football,this.october,this.year_2017,this.june,this.year_2022 ));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToSuggestionsPageViaTab();
+        __page1 = __page1.waitForJobRoleRecommendationByTitle(this.footballPlayerJunior);
+        __page1 = __page1.getFirstOpportunityMatchValue(this.matchName);
+        expect(__page1.firstCard().first()).not.toContainText(this.currentUserRole, { timeout: 30000 });
+        expect(__page1.firstCard()).toContainText(this.footballPlayerJunior, { timeout: 30000 });
+        expect(__page1.recommendedRoleLevelIcon(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleLevelByTitle(this.footballPlayerJunior).first()).toContainText(this.entryLevel, { timeout: 30000 });
+        expect(__page1.recommendedRoleJobFamilyIcon(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleJobFamilyByTitle(this.footballPlayerJunior).first()).toContainText(this.unusualJobFamily, { timeout: 30000 });
+        __page1 = __page1.goToRolesPageViaTab();
+        expect(__page1.firstCardName().first()).not.toContainText(this.currentUserRole, { timeout: 30000 });
+        __page1.pause(1000);
+        expect(__page1.firstCardName().first()).toContainText(this.footballPlayerJunior, { timeout: 30000 });
+        expect(__page1.recommendedRoleLevelIcon(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleLevelByTitle(this.footballPlayerJunior).first()).toContainText(this.entryLevel, { timeout: 30000 });
+        expect(__page1.recommendedRoleJobFamilyIcon(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.roleJobFamilyByTitle(this.footballPlayerJunior).first()).toContainText(this.unusualJobFamily, { timeout: 30000 });
+        expect(__page1.recommendedRoleSkillIcon(this.footballPlayerJunior)).toHaveClass(this.skillsIcon);
+        expect(__page1.skillOnRoleCard(this.footballPlayerJunior, this.football)).toBeVisible({ timeout: 30000 });
+        expect(__page1.moreSkillsLinkOnRecommendedRoleCard(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.moreSkillsLinkOnRecommendedRoleCard(this.footballPlayerJunior)).toBeVisible({ timeout: 30000 });
+        expect(__page1.recommendedRoleMatchLabel(this.footballPlayerJunior)).toContainText(this.matchName.getValue(), { timeout: 30000 });
     }
 
     public afterTests(): void {

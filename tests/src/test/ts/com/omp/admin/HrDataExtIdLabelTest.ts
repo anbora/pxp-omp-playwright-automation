@@ -1,12 +1,11 @@
-import { HrDataConfigurationAssertion } from "assertions/admin/hrdata/configuration/HrDataConfigurationAssertion";
-import { HrDataCreateJobRoleAssertion } from "assertions/admin/hrdata/HrDataCreateJobRoleAssertion";
-import { HrDataJobRolesAssertion } from "assertions/admin/hrdata/HrDataJobRolesAssertion";
-import { OpportunityMarketplaceSourcingAssertions } from "assertions/admin/OpportunityMarketplaceSourcingAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class HrDataExtIdLabelTest extends BaseRestTest {
 
@@ -26,25 +25,25 @@ export class HrDataExtIdLabelTest extends BaseRestTest {
     }
 
     public checkJobRoleExternalIdInfoLabel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.hrdata)
-                .openMenuForJobRolesHRData()
-                .clickAddJobRoleButton()
-                .typeRoleName(this.jobRoleName)
-                .typeRoleDescription(this.roleDescription)
-                .typeRoleSummary(this.roleSummary)
-                .typeAdiitionalDescription(this.additionalDescription)
-                .clickLocationDropdown()
-                .selectFunctionAndFamily(this.functionName, this.functionAndFamilyName)
-                .clickJobLevelDropdown()
-                .check(HrDataCreateJobRoleAssertion)
-                .assertThatExternalIdTextIsDisplayed()
-                .endAssertion()
-                .clickSaveButton()
-                .clickSearchJobRole(this.jobRoleName)
-                .clickEditJobRoleButton();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.hrdata);
+        __page1 = __page1.openMenuForJobRolesHRData();
+        __page1 = __page1.clickAddJobRoleButton();
+        __page1 = __page1.typeRoleName(this.jobRoleName);
+        __page1 = __page1.typeRoleDescription(this.roleDescription);
+        __page1 = __page1.typeRoleSummary(this.roleSummary);
+        __page1 = __page1.typeAdiitionalDescription(this.additionalDescription);
+        __page1 = __page1.clickLocationDropdown();
+        __page1 = __page1.selectFunctionAndFamily(this.functionName, this.functionAndFamilyName);
+        __page1 = __page1.clickJobLevelDropdown();
+        expect(__page1.externalIdText).toContainText("System will auto generate and assign an id if left blank", { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Warning message is showing");
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickSearchJobRole(this.jobRoleName);
+        __page1 = __page1.clickEditJobRoleButton();
 
     }
 

@@ -1,11 +1,11 @@
+// @ts-nocheck
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { CourseDetailsAssertions } from "cs/assertions/CourseDetailsAssertions";
-import { SubscriptionAssertions } from "cs/assertions/SubscriptionAssertions";
 import { BrowseBySubjectPage } from "cs/pages/BrowseBySubjectPage";
 import { CourseDetailsPage } from "cs/pages/CourseDetailsPage";
 import { SubscriptionPage } from "cs/pages/SubscriptionPage";
+import { expect } from "common/testing/playwright";
 
 export class VerifySubscriptionTest_SBX extends BaseTest{
 
@@ -54,72 +54,59 @@ export class VerifySubscriptionTest_SBX extends BaseTest{
 	//Fully Implemented
 	public verifySubscriptionOrder(): void {
 
-		this.getCsLoginPage(this.getConfig().getSbxurl())
-		.logintoSBX("CSUSERFOUR", "welcome")
-		.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		.check(SubscriptionAssertions)
-		.assertThatSubcriptionPresent(this.expectedSubscriptionOrder)
-		.assertThatSubcriptionNotPresent(this.expectedSubscriptionNotPresent)
-		.assertThatButtonWithOptionVisible(this.CC_TAB)
-		.assertThatButtonWithOptionVisible(this.CP_TAB)
-		.endAssertion();
+		  let __page1: any = this;
+  __page1 = __page1.getCsLoginPage(this.getConfig().getSbxurl());
+  __page1 = __page1.logintoSBX("CSUSERFOUR", "welcome");
+  __page1 = __page1.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+  expect(__page1.availableSubscritpion).toContainText(this.expectedSubscriptionOrder);
+  expect(__page1.availableSubscritpion).not.toContainText(this.expectedSubscriptionNotPresent);
+  expect(__page1.locateButtonText(this.CC_TAB)).toBeVisible({ timeout: 60000 });
+  expect(__page1.locateButtonText(this.CP_TAB)).toBeVisible({ timeout: 60000 });
 	}
 
 	//@Test
 	//Fully Implemented
 	public verifyHTMLLinkCornerstoneCurated(): void {
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.searchCourse(this.COURSE_TO_SEARCH)
-		.clickQuickView(this.COURSE_TO_SEARCH)
-		.check(SubscriptionAssertions)
-		.assertThatButtonWithOptionVisible("All-time")
-		.assertThatButtonWithOptionVisible("Last Quarter")
-		.assertThatYourLearnerMetricVisible(this.YOURLEARNERCOUNT_CC)
-		.assertThatTotalLearnerMetricVisible(this.TOTALLEARNERCOUNT_CC)
-		.assertThatQuickViewDurationIsVisible(this.COURSE_TO_SEARCH)
-		.endAssertion()
-		.clickGoToDetails()
-		.check(SubscriptionAssertions)
-		.assertThatReadMoreIsVisible()
-		.endAssertion()
-		.clickReadMore()
-		.check(SubscriptionAssertions)
-		.assertThatAboutCourseVisible("ABOUT THE COURSE")
-		.endAssertion();
+		  let __page2: any = this;
+  __page2 = __page2.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page2 = __page2.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+  __page2 = __page2.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+  __page2 = __page2.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page2 = __page2.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page2 = __page2.searchCourse(this.COURSE_TO_SEARCH);
+  __page2 = __page2.clickQuickView(this.COURSE_TO_SEARCH);
+  expect(__page2.locateButtonText("All-time")).toBeVisible({ timeout: 60000 });
+  expect(__page2.locateButtonText("Last Quarter")).toBeVisible({ timeout: 60000 });
+  expect(__page2.metricYourLearner(this.YOURLEARNERCOUNT_CC)).toBeVisible({ timeout: 60000 });
+  expect(__page2.metricTotalLearner(this.TOTALLEARNERCOUNT_CC)).toBeVisible({ timeout: 60000 });
+  expect(__page2.qv_duration_check(this.COURSE_TO_SEARCH)).toHaveText(Pattern.compile("(\\d.\\d|\\d) (hr|min)"));
+  __page2 = __page2.clickGoToDetails();
+  expect(__page2.readMore).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.clickReadMore();
+  expect(__page2.locateSpanText("ABOUT THE COURSE")).toBeVisible({ timeout: 60000 });
 	}
 
 	//@Test
 	//Fully Implemented
 	public verifyHTMLLinkCornerstonePartner(): void {
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		.clickContentPartnersTab()
-		.searchContentPartners(this.CONTENTPARTNER_TO_SEARCH)
-		.clickContentPartnersCard(this.CONTENTPARTNER_TO_SEARCH)
-		.searchCourse(this.CONTENTPARTNERCOURSE_SEARCH)
-		.clickQuickView(this.CONTENTPARTNERCOURSE_SEARCH)
-		.check(SubscriptionAssertions)
-		.assertThatButtonWithOptionVisible("All-time")
-		.assertThatButtonWithOptionVisible("Last Quarter")
-		.assertThatYourLearnerTextVisible()
-		.assertThatTotalLearnerMetricTextVisible()
-		.assertThatQuickViewDurationIsVisible(this.CONTENTPARTNER_TO_SEARCH)
-		.endAssertion()
-		.clickGoToDetails()
-		//.check(SubscriptionAssertions)
-		//.assertThatReadMoreIsVisible()
-		//.endAssertion()
-		//.clickReadMore()
-		.check(SubscriptionAssertions)
-		.assertThatAboutCourseVisible("ABOUT THE COURSE")
-		.endAssertion();
+		  let __page3: any = this;
+  __page3 = __page3.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page3 = __page3.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+  __page3 = __page3.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+  __page3 = __page3.clickContentPartnersTab();
+  __page3 = __page3.searchContentPartners(this.CONTENTPARTNER_TO_SEARCH);
+  __page3 = __page3.clickContentPartnersCard(this.CONTENTPARTNER_TO_SEARCH);
+  __page3 = __page3.searchCourse(this.CONTENTPARTNERCOURSE_SEARCH);
+  __page3 = __page3.clickQuickView(this.CONTENTPARTNERCOURSE_SEARCH);
+  expect(__page3.locateButtonText("All-time")).toBeVisible({ timeout: 60000 });
+  expect(__page3.locateButtonText("Last Quarter")).toBeVisible({ timeout: 60000 });
+  expect(__page3.yourLearnerText).toHaveText(Pattern.compile("(^\\d$)"));
+  expect(__page3.totalLernerText).toHaveText(Pattern.compile("(^\\d{1,3}|\\d{1,3}.\\d$)"));
+  expect(__page3.qv_duration_check(this.CONTENTPARTNER_TO_SEARCH)).toHaveText(Pattern.compile("(\\d.\\d|\\d) (hr|min)"));
+  __page3 = __page3.clickGoToDetails();
+  expect(__page3.locateSpanText("ABOUT THE COURSE")).toBeVisible({ timeout: 60000 });
 		//.logoutFromContentStudio(SubscriptionPage);
 	}
 
@@ -134,105 +121,125 @@ export class VerifySubscriptionTest_SBX extends BaseTest{
 		filter.put(this.MODALITIES_FILTER_NAME, Arrays.asList(this.MODALITIES_FILTERVALUE));
 		filter.put(this.SKILLS_FILTER_NAME, Arrays.asList(this.SKILLS_FILTERVALUE));
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.applySubscriptionFilter(filter)
-		.clickApplyFilterButton()
-		.check(SubscriptionAssertions)
-		.assertThatAppliedFilterVisible(this.CATEGORIES_FILTER_NAME, this.CATEGORIES_FILTERVALUE[0])
-		.assertThatAppliedFilterVisible(this.TOPIC_FILTER_NAME, this.TOPIC_FILTERVALUE[1])
-		.assertThatAppliedFilterVisible(this.MODALITIES_FILTER_NAME, this.MODALITIES_FILTERVALUE[0])
-		.assertThatAppliedFilterVisible(this.SKILLS_FILTER_NAME, this.SKILLS_FILTERVALUE[1])
-		.endAssertion()
-		.clickclearFilterIcon(this.CATEGORIES_FILTERVALUE[0])
-		.check(SubscriptionAssertions)
-		.assertThatAppliedFilterNotVisible("Categories", this.CATEGORIES_FILTERVALUE[0])
-		.endAssertion()
-		.clickClearAllFilters(SubscriptionPage)
-		.check(SubscriptionAssertions)
-		.assertThatAppliedFilterNotVisible(this.CATEGORIES_FILTER_NAME, this.CATEGORIES_FILTERVALUE[0])
-		.assertThatAppliedFilterNotVisible(this.TOPIC_FILTER_NAME, this.TOPIC_FILTERVALUE[1])
-		.assertThatAppliedFilterNotVisible(this.MODALITIES_FILTER_NAME, this.MODALITIES_FILTERVALUE[0])
-		.assertThatAppliedFilterNotVisible(this.SKILLS_FILTER_NAME, this.SKILLS_FILTERVALUE[0])
-		.endAssertion();
+		  let __page4: any = this;
+  __page4 = __page4.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page4 = __page4.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+  __page4 = __page4.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+  __page4 = __page4.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page4 = __page4.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page4 = __page4.applySubscriptionFilter(filter);
+  __page4 = __page4.clickApplyFilterButton();
+  if(this.CATEGORIES_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.CATEGORIES_FILTER_NAME,this.CATEGORIES_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+  if(this.TOPIC_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.TOPIC_FILTERVALUE[1]=this.TOPIC_FILTERVALUE[1].substring(0,1).toUpperCase()+this.TOPIC_FILTERVALUE[1].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.TOPIC_FILTER_NAME,this.TOPIC_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+  if(this.MODALITIES_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.MODALITIES_FILTERVALUE[0]=this.MODALITIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.MODALITIES_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.MODALITIES_FILTER_NAME,this.MODALITIES_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+  if(this.SKILLS_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.SKILLS_FILTERVALUE[1]=this.SKILLS_FILTERVALUE[1].substring(0,1).toUpperCase()+this.SKILLS_FILTERVALUE[1].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.SKILLS_FILTER_NAME,this.SKILLS_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+  __page4 = __page4.clickclearFilterIcon(this.CATEGORIES_FILTERVALUE[0]);
+  if("Categories".equals("Modalities"))
+  		{
+  			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter("Categories",this.CATEGORIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+  __page4 = __page4.clickClearAllFilters(SubscriptionPage);
+  if(this.CATEGORIES_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.CATEGORIES_FILTER_NAME,this.CATEGORIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+  if(this.TOPIC_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.TOPIC_FILTERVALUE[1]=this.TOPIC_FILTERVALUE[1].substring(0,1).toUpperCase()+this.TOPIC_FILTERVALUE[1].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.TOPIC_FILTER_NAME,this.TOPIC_FILTERVALUE[1])).not.toBeVisible({ timeout: 60000 });
+  if(this.MODALITIES_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.MODALITIES_FILTERVALUE[0]=this.MODALITIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.MODALITIES_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.MODALITIES_FILTER_NAME,this.MODALITIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+  if(this.SKILLS_FILTER_NAME.equals("Modalities"))
+  		{
+  			this.SKILLS_FILTERVALUE[0]=this.SKILLS_FILTERVALUE[0].substring(0,1).toUpperCase()+this.SKILLS_FILTERVALUE[0].substring(1);
+  		}
+  expect(__page4.verifyAppliedFilter(this.SKILLS_FILTER_NAME,this.SKILLS_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
 		//.logoutFromContentStudio(SubscriptionPage);
 	}
 
 	//@Test
 	public verifySubscriptionsPageSortByTotalLearner(): void {
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		.clickSortingDownArrow()
-		.check(SubscriptionAssertions)
-		.assertThatSortingOptionVisible(this.SORING_BY_TOTALLEARNER)
-		.endAssertion()
-		.selectSortingOption(this.SORING_BY_TOTALLEARNER);
+		  let __page5: any = this;
+  __page5 = __page5.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page5 = __page5.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+  __page5 = __page5.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+  __page5 = __page5.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page5 = __page5.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+  __page5 = __page5.clickSortingDownArrow();
+  expect(__page5.sortingOption(this.SORING_BY_TOTALLEARNER)).toBeVisible({ timeout: 60000 });
+  __page5 = __page5.selectSortingOption(this.SORING_BY_TOTALLEARNER);
 		//.logoutFromContentStudio(SubscriptionPage);
 	}
 
 	//@Test
 	 public verifyNewBadge(): void {
 
-		 this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		 .loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		 .navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		 .searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		 .selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-		 .searchCourse(this.SEARCHCOURSE_NEW_BADGE)
-		 .waitForCard(SubscriptionPage)
-		 .check(SubscriptionAssertions)
-		 .assertThatBadgeIsVisible(this.SEARCHCOURSE_NEW_BADGE, this.LABEL_SUBSCRIBE)
-		 .assertThatBadgeIsVisible(this.SEARCHCOURSE_NEW_BADGE, this.LABEL_NEW)
-		 .endAssertion()
-		 .clickQuickView(this.SEARCHCOURSE_NEW_BADGE,SubscriptionPage)
-		 .check(SubscriptionAssertions)
-		 .assertThatBadgeIsVisible(this.SEARCHCOURSE_NEW_BADGE, this.LABEL_SUBSCRIBE)
-		 .assertThatBadgeIsVisible(this.SEARCHCOURSE_NEW_BADGE, this.LABEL_NEW)
-		 .assertThatQuickViewDurationIsVisible(this.SEARCHCOURSE_NEW_BADGE)
-		 .endAssertion()
-		 .clickGoToDetails(CourseDetailsPage)
-		 .check(CourseDetailsAssertions)
-		 .assertThatBadgeIsVisible(this.LABEL_SUBSCRIBE)
-		 .assertThatBadgeIsVisible(this.LABEL_NEW)
-		 .endAssertion()
-		 .goToLastPage()
-		 .clickCloseQuickViewDialog(this.SEARCHCOURSE_NEW_BADGE, BrowseBySubjectPage);
+		    let __page6: any = this;
+   __page6 = __page6.getCsLoginPage(this.getConfig().getThinkContentURL());
+   __page6 = __page6.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+   __page6 = __page6.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+   __page6 = __page6.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+   __page6 = __page6.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+   __page6 = __page6.searchCourse(this.SEARCHCOURSE_NEW_BADGE);
+   __page6 = __page6.waitForCard(SubscriptionPage);
+   expect(__page6.card_label(this.SEARCHCOURSE_NEW_BADGE,this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+   expect(__page6.card_label(this.SEARCHCOURSE_NEW_BADGE,this.LABEL_NEW)).toBeVisible({ timeout: 60000 });
+   __page6 = __page6.clickQuickView(this.SEARCHCOURSE_NEW_BADGE, SubscriptionPage);
+   expect(__page6.card_label(this.SEARCHCOURSE_NEW_BADGE,this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+   expect(__page6.card_label(this.SEARCHCOURSE_NEW_BADGE,this.LABEL_NEW)).toBeVisible({ timeout: 60000 });
+   expect(__page6.qv_duration_check(this.SEARCHCOURSE_NEW_BADGE)).toHaveText(Pattern.compile("(\\d.\\d|\\d) (hr|min)"));
+   __page6 = __page6.clickGoToDetails(CourseDetailsPage);
+   expect(__page6.badge_check(this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+   expect(__page6.badge_check(this.LABEL_NEW)).toBeVisible({ timeout: 60000 });
+   __page6 = __page6.goToLastPage();
+   __page6 = __page6.clickCloseQuickViewDialog(this.SEARCHCOURSE_NEW_BADGE, BrowseBySubjectPage);
 	  }
 
 	 // @Test
 	  public verifyRetireBadge(): void {
 
-		  this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		  .loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		  .navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-			.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-			.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-			.searchCourse(this.SEARCHCOURSE_RETIRE_BADGE)
-			.waitForCard(SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatBadgeIsVisible(this.SEARCHCOURSE_RETIRE_BADGE, this.LABEL_SUBSCRIBE)
-			.assertThatBadgeIsVisible(this.SEARCHCOURSE_RETIRE_BADGE, this.LABEL_RETIRING)
-			.endAssertion()
-			.clickQuickView(this.SEARCHCOURSE_RETIRE_BADGE,SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatBadgeIsVisible(this.SEARCHCOURSE_RETIRE_BADGE, this.LABEL_SUBSCRIBE)
-			.assertThatBadgeIsVisible(this.SEARCHCOURSE_RETIRE_BADGE, this.LABEL_RETIRING)
-			.assertThatQuickViewDurationIsVisible(this.SEARCHCOURSE_RETIRE_BADGE)
-			.endAssertion()
-			.clickGoToDetails(CourseDetailsPage)
-			.check(CourseDetailsAssertions)
-			.assertThatBadgeIsVisible(this.LABEL_SUBSCRIBE)
-			.assertThatBadgeIsVisible(this.LABEL_RETIRING)
-			.endAssertion()
-			.goToLastPage()
-			.clickCloseQuickViewDialog(this.SEARCHCOURSE_RETIRE_BADGE, BrowseBySubjectPage);
+		      let __page7: any = this;
+    __page7 = __page7.getCsLoginPage(this.getConfig().getThinkContentURL());
+    __page7 = __page7.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+    __page7 = __page7.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+    __page7 = __page7.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+    __page7 = __page7.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+    __page7 = __page7.searchCourse(this.SEARCHCOURSE_RETIRE_BADGE);
+    __page7 = __page7.waitForCard(SubscriptionPage);
+    expect(__page7.card_label(this.SEARCHCOURSE_RETIRE_BADGE,this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+    expect(__page7.card_label(this.SEARCHCOURSE_RETIRE_BADGE,this.LABEL_RETIRING)).toBeVisible({ timeout: 60000 });
+    __page7 = __page7.clickQuickView(this.SEARCHCOURSE_RETIRE_BADGE, SubscriptionPage);
+    expect(__page7.card_label(this.SEARCHCOURSE_RETIRE_BADGE,this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+    expect(__page7.card_label(this.SEARCHCOURSE_RETIRE_BADGE,this.LABEL_RETIRING)).toBeVisible({ timeout: 60000 });
+    expect(__page7.qv_duration_check(this.SEARCHCOURSE_RETIRE_BADGE)).toHaveText(Pattern.compile("(\\d.\\d|\\d) (hr|min)"));
+    __page7 = __page7.clickGoToDetails(CourseDetailsPage);
+    expect(__page7.badge_check(this.LABEL_SUBSCRIBE)).toBeVisible({ timeout: 60000 });
+    expect(__page7.badge_check(this.LABEL_RETIRING)).toBeVisible({ timeout: 60000 });
+    __page7 = __page7.goToLastPage();
+    __page7 = __page7.clickCloseQuickViewDialog(this.SEARCHCOURSE_RETIRE_BADGE, BrowseBySubjectPage);
 	  }
 
 	  //@Test(description = "CP-1575,CP-1904")
@@ -244,28 +251,49 @@ export class VerifySubscriptionTest_SBX extends BaseTest{
 		  filter.put("Proficiency",Arrays.asList(this.PROFICIENCY_FILTERVALUE));
 		  filter.put("languageType",Arrays.asList(this.LANGUAGE_TYPE_FILTERVALUE));
 
-		  this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		  .loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-		  .navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-		  .searchSubscription(this.SUBSCRIPTION_Filter)
-		  .selectSubscription(this.SUBSCRIPTION_Filter)
-		  .clickAllFilters(SubscriptionPage)
-		  .check(SubscriptionAssertions)
-		  .assertThatFilterIsVisible("Accreditation Body")
-		  .assertThatFilterIsVisible("Proficiency")
-		  .assertThatFilterIsVisible("languageType")
-		  .endAssertion()
-		  .clickCloseIcon(SubscriptionPage)
-		  .applySubscriptionFilter(filter)
-		  .clickApplyFilterButton()
-		  .check(SubscriptionAssertions)
-		  .assertThatAppliedFilterVisible(this.ACCREDITATION_FILTER_NAME,this.ACCREDITATION_FILTERVALUE[0])
-		  .assertThatAppliedFilterVisible(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[0])
-		  .assertThatAppliedFilterVisible(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[1])
-		  .assertThatAppliedFilterVisible(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[0])
-		  .assertThatAppliedFilterVisible(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[1])
-		  .assertThatAppliedFilterVisible(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[2])
-		  .endAssertion();
+		      let __page8: any = this;
+    __page8 = __page8.getCsLoginPage(this.getConfig().getThinkContentURL());
+    __page8 = __page8.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+    __page8 = __page8.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+    __page8 = __page8.searchSubscription(this.SUBSCRIPTION_Filter);
+    __page8 = __page8.selectSubscription(this.SUBSCRIPTION_Filter);
+    __page8 = __page8.clickAllFilters(SubscriptionPage);
+    expect(__page8.badge_check("Accreditation Body")).toBeVisible();
+    expect(__page8.badge_check("Proficiency")).toBeVisible();
+    expect(__page8.badge_check("languageType")).toBeVisible();
+    __page8 = __page8.clickCloseIcon(SubscriptionPage);
+    __page8 = __page8.applySubscriptionFilter(filter);
+    __page8 = __page8.clickApplyFilterButton();
+    if(this.ACCREDITATION_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.ACCREDITATION_FILTERVALUE[0]=this.ACCREDITATION_FILTERVALUE[0].substring(0,1).toUpperCase()+this.ACCREDITATION_FILTERVALUE[0].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.ACCREDITATION_FILTER_NAME,this.ACCREDITATION_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+    if(this.PROFICIENCY_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.PROFICIENCY_FILTERVALUE[0]=this.PROFICIENCY_FILTERVALUE[0].substring(0,1).toUpperCase()+this.PROFICIENCY_FILTERVALUE[0].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+    if(this.PROFICIENCY_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.PROFICIENCY_FILTERVALUE[1]=this.PROFICIENCY_FILTERVALUE[1].substring(0,1).toUpperCase()+this.PROFICIENCY_FILTERVALUE[1].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+    if(this.LANGUAGE_TYPE_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.LANGUAGE_TYPE_FILTERVALUE[0]=this.LANGUAGE_TYPE_FILTERVALUE[0].substring(0,1).toUpperCase()+this.LANGUAGE_TYPE_FILTERVALUE[0].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+    if(this.LANGUAGE_TYPE_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.LANGUAGE_TYPE_FILTERVALUE[1]=this.LANGUAGE_TYPE_FILTERVALUE[1].substring(0,1).toUpperCase()+this.LANGUAGE_TYPE_FILTERVALUE[1].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+    if(this.LANGUAGE_TYPE_FILTER_NAME.equals("Modalities"))
+    		{
+    			this.LANGUAGE_TYPE_FILTERVALUE[2]=this.LANGUAGE_TYPE_FILTERVALUE[2].substring(0,1).toUpperCase()+this.LANGUAGE_TYPE_FILTERVALUE[2].substring(1);
+    		}
+    expect(__page8.verifyAppliedFilter(this.LANGUAGE_TYPE_FILTER_NAME,this.LANGUAGE_TYPE_FILTERVALUE[2])).toBeVisible({ timeout: 60000 });
 		}
 
 		//@Test(description = "CP-1575,CP-1904")
@@ -281,73 +309,76 @@ export class VerifySubscriptionTest_SBX extends BaseTest{
 			filter.put("Proficiency",Arrays.asList(this.PROFICIENCY_FILTERVALUE));
 			filter.put("languageType",Arrays.asList(LANGUAGE_TYPE_FILTERVALUE_CP));
 
-			this.getCsLoginPage(this.getConfig().getThinkContentURL())
-			.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password)
-			.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-			.clickContentPartnersTab()
-			.searchContentPartners("Cegos")
-			.clickContentPartnersCard("Cegos")
-			.clickAllFilters(SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatFilterIsVisible("Accreditation Body")
-			.endAssertion()
-			.clickCloseIcon(SubscriptionPage)
-			.applySubscriptionFilter(filterAccri)
-			.clickApplyFilterButton()
-			.check(SubscriptionAssertions)
-			.assertThatAppliedFilterVisible(this.ACCREDITATION_FILTER_NAME,ACCREDITATION_FILTERVALUE_CP[0])
-			.endAssertion()
-			.clickClearAllFilters(SubscriptionPage)
-			.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-			.clickContentPartnersTab()
-			.searchContentPartners("CyberU")
-			.clickContentPartnersCard("CyberU")
-			.clickAllFilters(SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatFilterIsVisible("Proficiency")
-			.assertThatFilterIsVisible("languageType")
-			.endAssertion()
-			.clickCloseIcon(SubscriptionPage)
-			.applySubscriptionFilter(filter)
-			.clickApplyFilterButton()
-			.check(SubscriptionAssertions)
-			.assertThatAppliedFilterVisible(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[0])
-			.assertThatAppliedFilterVisible(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[1])
-			.assertThatAppliedFilterVisible(this.LANGUAGE_TYPE_FILTER_NAME,LANGUAGE_TYPE_FILTERVALUE_CP[0])
-			.endAssertion();
+			   let __page9: any = this;
+   __page9 = __page9.getCsLoginPage(this.getConfig().getThinkContentURL());
+   __page9 = __page9.loginToThinkContent(this.getPlayFiveUser().email, this.getPlayOneUser().password);
+   __page9 = __page9.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+   __page9 = __page9.clickContentPartnersTab();
+   __page9 = __page9.searchContentPartners("Cegos");
+   __page9 = __page9.clickContentPartnersCard("Cegos");
+   __page9 = __page9.clickAllFilters(SubscriptionPage);
+   expect(__page9.badge_check("Accreditation Body")).toBeVisible();
+   __page9 = __page9.clickCloseIcon(SubscriptionPage);
+   __page9 = __page9.applySubscriptionFilter(filterAccri);
+   __page9 = __page9.clickApplyFilterButton();
+   if(this.ACCREDITATION_FILTER_NAME.equals("Modalities"))
+   		{
+   			ACCREDITATION_FILTERVALUE_CP[0]=ACCREDITATION_FILTERVALUE_CP[0].substring(0,1).toUpperCase()+ACCREDITATION_FILTERVALUE_CP[0].substring(1);
+   		}
+   expect(__page9.verifyAppliedFilter(this.ACCREDITATION_FILTER_NAME,ACCREDITATION_FILTERVALUE_CP[0])).toBeVisible({ timeout: 60000 });
+   __page9 = __page9.clickClearAllFilters(SubscriptionPage);
+   __page9 = __page9.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+   __page9 = __page9.clickContentPartnersTab();
+   __page9 = __page9.searchContentPartners("CyberU");
+   __page9 = __page9.clickContentPartnersCard("CyberU");
+   __page9 = __page9.clickAllFilters(SubscriptionPage);
+   expect(__page9.badge_check("Proficiency")).toBeVisible();
+   expect(__page9.badge_check("languageType")).toBeVisible();
+   __page9 = __page9.clickCloseIcon(SubscriptionPage);
+   __page9 = __page9.applySubscriptionFilter(filter);
+   __page9 = __page9.clickApplyFilterButton();
+   if(this.PROFICIENCY_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.PROFICIENCY_FILTERVALUE[0]=this.PROFICIENCY_FILTERVALUE[0].substring(0,1).toUpperCase()+this.PROFICIENCY_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page9.verifyAppliedFilter(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+   if(this.PROFICIENCY_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.PROFICIENCY_FILTERVALUE[1]=this.PROFICIENCY_FILTERVALUE[1].substring(0,1).toUpperCase()+this.PROFICIENCY_FILTERVALUE[1].substring(1);
+   		}
+   expect(__page9.verifyAppliedFilter(this.PROFICIENCY_FILTER_NAME,this.PROFICIENCY_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+   if(this.LANGUAGE_TYPE_FILTER_NAME.equals("Modalities"))
+   		{
+   			LANGUAGE_TYPE_FILTERVALUE_CP[0]=LANGUAGE_TYPE_FILTERVALUE_CP[0].substring(0,1).toUpperCase()+LANGUAGE_TYPE_FILTERVALUE_CP[0].substring(1);
+   		}
+   expect(__page9.verifyAppliedFilter(this.LANGUAGE_TYPE_FILTER_NAME,LANGUAGE_TYPE_FILTERVALUE_CP[0])).toBeVisible({ timeout: 60000 });
 		  }
 
 		public verifyStickyHeadersExploreSubscription(): void {
 
 			let headerName: string = "Explore subscriptions";
-			this.getCsLoginPage(this.getConfig().getSbxurl())
-			.logintoSBX("CSUSERFOUR", "welcome")
-			.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-			.waitForCard(SubscriptionPage)
-			.scrolltoBottom("1000",SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatStickyHeaderVisible(headerName)
-			.endAssertion()
-			.scrolltoBottom("Downmost",SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatStickyHeaderVisible(headerName)
-			.endAssertion();
+			   let __page10: any = this;
+   __page10 = __page10.getCsLoginPage(this.getConfig().getSbxurl());
+   __page10 = __page10.logintoSBX("CSUSERFOUR", "welcome");
+   __page10 = __page10.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+   __page10 = __page10.waitForCard(SubscriptionPage);
+   __page10 = __page10.scrolltoBottom("1000", SubscriptionPage);
+   expect(__page10.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
+   __page10 = __page10.scrolltoBottom("Downmost", SubscriptionPage);
+   expect(__page10.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
 		}
 
 		public verifyStickyHeadersYourSubscription(): void {
 
 			let headerName: string = "Your subscriptions";
-			this.getCsLoginPage(this.getConfig().getSbxurl())
-			.logintoSBX("CSUSERFOUR", "welcome")
-			.navigateToPageByPath(this.YOURSUBSCRIPTIONPATH, SubscriptionPage)
-			.waitForCard(SubscriptionPage)
-			.scrolltoBottom("1000",SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatStickyHeaderVisible(headerName)
-			.endAssertion()
-			.scrolltoBottom("Downmost",SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatStickyHeaderVisible(headerName)
-			.endAssertion();
+			   let __page11: any = this;
+   __page11 = __page11.getCsLoginPage(this.getConfig().getSbxurl());
+   __page11 = __page11.logintoSBX("CSUSERFOUR", "welcome");
+   __page11 = __page11.navigateToPageByPath(this.YOURSUBSCRIPTIONPATH, SubscriptionPage);
+   __page11 = __page11.waitForCard(SubscriptionPage);
+   __page11 = __page11.scrolltoBottom("1000", SubscriptionPage);
+   expect(__page11.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
+   __page11 = __page11.scrolltoBottom("Downmost", SubscriptionPage);
+   expect(__page11.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
 		}
 }

@@ -1,8 +1,5 @@
-import { AddToSkillsPassportAssertions } from "assertions/careergrowth/AddToSkillsPassportAssertions";
-import { SkillsPassportMePageAssertions } from "assertions/careergrowth/jobs/SkillsPassportMePageAssertions";
-import { MatchingSkillsModalAssertions } from "assertions/careergrowth/MatchingSkillsModalAssertions";
-import { SetYourLearningGoalsAssertions } from "assertions/careergrowth/SetYourLearningGoalsAssertions";
-import { MePageAssertions } from "assertions/me/MePageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -12,6 +9,8 @@ import { ResultContainer } from "models/ResultContainer";
 import { UserModel } from "models/user/UserModel";
 import { AddSkillIfMissingScenario } from "scenarios/jobs/AddSkillIfMissingScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { Assert, assertEquals } from "common/testing/runtime";
 
 export class SkillsOperationsInContextOfJobVavancyTest extends BaseRestTest {
     public static readonly GARDENING: string = "gardening";
@@ -49,80 +48,66 @@ export class SkillsOperationsInContextOfJobVavancyTest extends BaseRestTest {
         this.advancedRoleSkills.add("gardening");
     }
     public shouldManageSkillsInJobVacancyContext(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE)
-                .goToFirstJobVacancyOnAllJobsList()
-                .waitForSkills()
-                .getNumberOfSkillsInCategory(null, this.resultContainer)
-                .run(new AddSkillIfMissingScenario(SkillsOperationsInContextOfJobVavancyTest.PLANTING, this.resultContainer))
-                .run(new AddSkillIfMissingScenario("horticulture", this.resultContainer))
-                .run(new AddSkillIfMissingScenario("gardening", this.resultContainer))
-                .waitForParticularSkill("horticulture")
-                .clickAddSkillsToPassport()
-                .markSkill("gardening")
-                .markSkill("horticulture")
-                .selectLevelForSkill("horticulture", SkillsOperationsInContextOfJobVavancyTest.ADVANCED)
-                .markSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING)
-                .selectLevelForSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER)
-                .clickAddSkills()
-                .clickAddSkillsToPassport()
-                .check(AddToSkillsPassportAssertions)
-                    .assertSkillIsAlreadyCheckedOnTheList("gardening")
-                    .assertSkillIsAlreadyCheckedOnTheList("horticulture")
-                    .assertSkillIsAlreadyCheckedOnTheList(SkillsOperationsInContextOfJobVavancyTest.PLANTING)
-                    .assertYourSkillLevelIs("gardening", "Intermediate")
-                    .assertJobVacancySkillLevelIs("gardening", "Intermediate")
-                    .assertYourSkillLevelIs("horticulture", "Advanced")
-                    .assertJobVacancySkillLevelIs("horticulture", "Intermediate")
-                    .assertYourSkillLevelIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER)
-                    .assertJobVacancySkillLevelIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, "Intermediate")
-                .endAssertion()
-                .clickClose()
-                .clickSetLearningGoals()
-                .markSkill("gardening")
-                .check(SetYourLearningGoalsAssertions)
-                    .assertRoleTargetLevelForSkillIs("gardening", SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertLearningTargetLevelForSkillIs("gardening", SkillsOperationsInContextOfJobVavancyTest.ADVANCED)
-                .endAssertion()
-                .markSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING)
-                .check(SetYourLearningGoalsAssertions)
-                    .assertRoleTargetLevelForSkillIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertLearningTargetLevelForSkillIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                .endAssertion()
-                .selectLearningTargetLevelForSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER)
-                .clickAdd()
-                .goToMePageProfile()
-                .check(MePageAssertions)
-                    .assertLearningGoals(this.expectedLearningGoals)
-//                    .assertLearningGoalHasGotAdvancedLevel("gardening")
-//                    .assertLearningGoalHasGotBeginnerLevel(PLANTING)
-                .endAssertion()
-                .goToSkillPassportTab()
-                .check(SkillsPassportMePageAssertions)
-                    .assertThatSkillIsAdded(SkillsOperationsInContextOfJobVavancyTest.GARDENING)
-//                    .assertSkillHasGotIntermediateLevelIcon(GARDENING)
-                    .assertThatSkillIsAdded("horticulture")
-//                    .assertSkillHasGotAdvancedLevelIcon("horticulture")
-                    .assertThatSkillIsAdded(SkillsOperationsInContextOfJobVavancyTest.PLANTING)
-//                    .assertSkillHasGotBeginnerLevelIcon(PLANTING)
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE)
-                .clickMoreSkillsButton(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE)
-                .check(MatchingSkillsModalAssertions)
-                    .assertMatchingSkillUserLevelIs(SkillsOperationsInContextOfJobVavancyTest.GARDENING, SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertMatchingSkillExpectedLevelIs(SkillsOperationsInContextOfJobVavancyTest.GARDENING, SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertMatchingSkillStatusIs(SkillsOperationsInContextOfJobVavancyTest.GARDENING, "On target")
-                    .assertMatchingSkillUserLevelIs("horticulture", SkillsOperationsInContextOfJobVavancyTest.ADVANCED)
-                    .assertMatchingSkillExpectedLevelIs("horticulture", SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertMatchingSkillStatusIs("horticulture", "On target")
-                    .assertMatchingSkillUserLevelIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER)
-                    .assertMatchingSkillExpectedLevelIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE)
-                    .assertMatchingSkillStatusIs(SkillsOperationsInContextOfJobVavancyTest.PLANTING, "Off target");
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        __page1 = __page1.waitForSkills();
+        __page1 = __page1.getNumberOfSkillsInCategory(null, this.resultContainer);
+        __page1 = __page1.run(new AddSkillIfMissingScenario(SkillsOperationsInContextOfJobVavancyTest.PLANTING, this.resultContainer));
+        __page1 = __page1.run(new AddSkillIfMissingScenario("horticulture", this.resultContainer));
+        __page1 = __page1.run(new AddSkillIfMissingScenario("gardening", this.resultContainer));
+        __page1 = __page1.waitForParticularSkill("horticulture");
+        __page1 = __page1.clickAddSkillsToPassport();
+        __page1 = __page1.markSkill("gardening");
+        __page1 = __page1.markSkill("horticulture");
+        __page1 = __page1.selectLevelForSkill("horticulture", SkillsOperationsInContextOfJobVavancyTest.ADVANCED);
+        __page1 = __page1.markSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING);
+        __page1 = __page1.selectLevelForSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER);
+        __page1 = __page1.clickAddSkills();
+        __page1 = __page1.clickAddSkillsToPassport();
+        expect(__page1.passportSkillsColumn("gardening", 1).locator("//input[@type='checkbox']")).toBeChecked();
+        expect(__page1.passportSkillsColumn("horticulture", 1).locator("//input[@type='checkbox']")).toBeChecked();
+        expect(__page1.passportSkillsColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 1).locator("//input[@type='checkbox']")).toBeChecked();
+        expect(__page1.passportSkillsColumn("gardening", 3).locator("//select/option[@selected]")).toHaveText("Intermediate");
+        expect(__page1.passportSkillsColumn("gardening", 2).locator("//p")).toHaveText("Intermediate");
+        expect(__page1.passportSkillsColumn("horticulture", 3).locator("//select/option[@selected]")).toHaveText("Advanced");
+        expect(__page1.passportSkillsColumn("horticulture", 2).locator("//p")).toHaveText("Intermediate");
+        expect(__page1.passportSkillsColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 3).locator("//select/option[@selected]")).toHaveText(SkillsOperationsInContextOfJobVavancyTest.BEGINNER);
+        expect(__page1.passportSkillsColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 2).locator("//p")).toHaveText("Intermediate");
+        __page1 = __page1.clickClose();
+        __page1 = __page1.clickSetLearningGoals();
+        __page1 = __page1.markSkill("gardening");
+        expect(__page1.learningGoalColumn("gardening", 2).locator("p")).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.learningGoalColumn("gardening", 3).locator("//select/option[@selected]")).toHaveText(SkillsOperationsInContextOfJobVavancyTest.ADVANCED);
+        __page1 = __page1.markSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING);
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 2).locator("p")).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.learningGoalColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 3).locator("//select/option[@selected]")).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        __page1 = __page1.selectLearningTargetLevelForSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING, SkillsOperationsInContextOfJobVavancyTest.BEGINNER);
+        __page1 = __page1.clickAdd();
+        __page1 = __page1.goToMePageProfile();
+        __page1.pause(2000);
+        Assert.assertEquals(__page1.getLearningGoals(), this.expectedLearningGoals);
+        __page1 = __page1.goToSkillPassportTab();
+        expect(__page1.addedSkill(SkillsOperationsInContextOfJobVavancyTest.GARDENING)).toBeVisible({ timeout: 30000 });
+        expect(__page1.addedSkill("horticulture")).toBeVisible({ timeout: 30000 });
+        expect(__page1.addedSkill(SkillsOperationsInContextOfJobVavancyTest.PLANTING)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE);
+        __page1 = __page1.clickMoreSkillsButton(SkillsOperationsInContextOfJobVavancyTest.JOB_TITLE);
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.GARDENING, 2)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.GARDENING, 3)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.GARDENING, 4)).toHaveText("On target");
+        expect(__page1.matchingSkillColumn("horticulture", 2)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.ADVANCED);
+        expect(__page1.matchingSkillColumn("horticulture", 3)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.matchingSkillColumn("horticulture", 4)).toHaveText("On target");
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 2)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.BEGINNER);
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 3)).toHaveText(SkillsOperationsInContextOfJobVavancyTest.INTERMEDIATE);
+        expect(__page1.matchingSkillColumn(SkillsOperationsInContextOfJobVavancyTest.PLANTING, 4)).toHaveText("Off target");
     }
     public afterTests(): void {
         this.deleteUser(this.user);

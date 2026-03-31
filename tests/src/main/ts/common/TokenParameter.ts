@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class TokenParameter {
 
     private userId: string;

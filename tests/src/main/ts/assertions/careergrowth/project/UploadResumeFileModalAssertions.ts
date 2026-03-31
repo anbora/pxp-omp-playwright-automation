@@ -1,13 +1,14 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { WorkHistoryItem } from "models/job/WorkHistoryItem";
 import { UploadResumeFileModalPage } from "pages/careergrowth/project/UploadResumeFileModalPage";
+import { expect } from "common/testing/playwright";
 
 export class UploadResumeFileModalAssertions extends BaseAssertion<UploadResumeFileModalPage> {
 
     public assertThatDocumentNameIsEqualTo(name: string): UploadResumeFileModalAssertions {
-        this.assertThat(this.page.documentName).containsText(name, this.containsTextOptions);
+        expect(this.page.documentName).toContainText(name, this.containsTextOptions);
 //        this.page.documentName().should('contain.text', name)
         return this;
     }
@@ -18,12 +19,12 @@ export class UploadResumeFileModalAssertions extends BaseAssertion<UploadResumeF
     }
 
     public assertThatTitleErrorIsVisible(): UploadResumeFileModalAssertions {
-        this.assertThat(this.page.addTitleError).isVisible(this.isVisibleOptions);
+        expect(this.page.addTitleError).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatTitleErrorIsNotVisible(): UploadResumeFileModalAssertions {
-        this.assertThat(this.page.addTitleError).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.addTitleError).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 }

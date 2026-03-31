@@ -1,9 +1,8 @@
-import { GroupDetailsAssertions } from "assertions/groups/GroupDetailsAssertions";
-import { JourneyDetailsPageAssertions } from "assertions/journeys/JourneyDetailsPageAssertions";
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
+// @ts-nocheck
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
+import { expect } from "common/testing/playwright";
 import { GroupModel } from "models/lxp/GroupModel";
 import { UserModel } from "models/user/UserModel";
 import { GroupDetailsPage } from "pages/groups/GroupDetailsPage";
@@ -51,114 +50,102 @@ export class VisibilityOfMultilingualJourneysInGroups extends GroupsRestService 
                 .changeGroupMemberRole(this.user.fullName, VisibilityOfMultilingualJourneysInGroups.GROUP_ADMIN)
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .clickSettings()
-                .clickEditGroupOption()
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .clickSelectLanguageDropdown()
-                .openAccordion(VisibilityOfMultilingualJourneysInGroups.ACCORDION_LANGUAGE)
-                .fillInGroupNameInAccordion(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL)
-                .fillInGroupDescriptionInAccordion(VisibilityOfMultilingualJourneysInGroups.GROUP_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickUpdateGroupButton()
-                .check(GroupDetailsAssertions)
-                    .assertThatGroupNotificationIs(VisibilityOfMultilingualJourneysInGroups.GROUP_UPDATE_NOTIFICATION);
+        let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        __page1 = __page1.clickSettings();
+        __page1 = __page1.clickEditGroupOption();
+        __page1 = __page1.clickAddLanguagesButton();
+        __page1 = __page1.addLanguages(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page1 = __page1.clickSelectLanguageDropdown();
+        __page1 = __page1.openAccordion(VisibilityOfMultilingualJourneysInGroups.ACCORDION_LANGUAGE);
+        __page1 = __page1.fillInGroupNameInAccordion(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL);
+        __page1 = __page1.fillInGroupDescriptionInAccordion(VisibilityOfMultilingualJourneysInGroups.GROUP_DESCRIPTION_PL);
+        __page1 = __page1.changeDefaultLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page1 = __page1.clickAddLanguageInModal();
+        __page1 = __page1.clickUpdateGroupButton();
+        expect(__page1.groupNotification).toContainText(VisibilityOfMultilingualJourneysInGroups.GROUP_UPDATE_NOTIFICATION);
     }
 
     public shouldCreateAndShareJourneyInAGroup(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .clickShareJourneyButton()
-                .fillInJourneyTitle(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN)
-                .fillInJourneyDescription(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DESCRIPTION_EN)
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .clickSelectLanguagesDropdown()
-                .openAccordion(VisibilityOfMultilingualJourneysInGroups.ACCORDION_LANGUAGE)
-                .fillInJourneyNameInAccordion(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL)
-                .fillInJourneyDescriptionInAccordion(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickContinueButton()
-                .enterSectionTitle(VisibilityOfMultilingualJourneysInGroups.SECTION_TITLE)
-                .clickAddNewSmartCardButton()
-                .goToTextSmartCardTab()
-                .fillInTitle(VisibilityOfMultilingualJourneysInGroups.SMARTCARD_TITLE_EN)
-                .clickCreateCardButtonInJourney()
-                .clickPublishJourneyButton()
-                .check(ContentMePageAssertions)
-                    .assertThatCardTitleIsAsExpected(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
+        let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        __page2 = __page2.clickShareJourneyButton();
+        __page2 = __page2.fillInJourneyTitle(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
+        __page2 = __page2.fillInJourneyDescription(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DESCRIPTION_EN);
+        __page2 = __page2.clickAddLanguagesButton();
+        __page2 = __page2.addLanguages(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page2 = __page2.clickSelectLanguagesDropdown();
+        __page2 = __page2.openAccordion(VisibilityOfMultilingualJourneysInGroups.ACCORDION_LANGUAGE);
+        __page2 = __page2.fillInJourneyNameInAccordion(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL);
+        __page2 = __page2.fillInJourneyDescriptionInAccordion(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DESCRIPTION_PL);
+        __page2 = __page2.changeDefaultLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page2 = __page2.clickAddLanguageInModal();
+        __page2 = __page2.clickContinueButton();
+        __page2 = __page2.enterSectionTitle(VisibilityOfMultilingualJourneysInGroups.SECTION_TITLE);
+        __page2 = __page2.clickAddNewSmartCardButton();
+        __page2 = __page2.goToTextSmartCardTab();
+        __page2 = __page2.fillInTitle(VisibilityOfMultilingualJourneysInGroups.SMARTCARD_TITLE_EN);
+        __page2 = __page2.clickCreateCardButtonInJourney();
+        __page2 = __page2.clickPublishJourneyButton();
+        expect(__page2.cardTile).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
     }
 
     public shouldDisplayJourneyInGroupInUserPreferredLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .check(GroupDetailsAssertions)
-                    .assertThatSharedJourneyContentTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN)
-                    .assertThatGroupTitleIs(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
-
+        let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        expect(__page3.sharedJourneyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
+        expect(__page3.groupTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        __page3 = __page3.clickJourneyTitle();
+        expect(__page3.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
+        expect(__page3.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
     }
 
     public shouldDisplayJourneyInGroupInDefaultLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .check(GroupDetailsAssertions)
-                    .assertThatSharedJourneyContentTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL)
-                    .assertThatGroupTitleIs(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .endAssertion()
-                .changeUserDefinedLanguageInPolish(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
-
+        let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page4 = __page4.goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        expect(__page4.sharedJourneyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL);
+        expect(__page4.groupTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL);
+        __page4 = __page4.clickJourneyTitle();
+        expect(__page4.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL);
+        expect(__page4.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page4 = __page4.changeUserDefinedLanguageInPolish(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
     }
 
     public shouldDisplayJourneyInGroupInDefaultLanguageWhenUserPreferredLanguageIsChanged(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_SPANISH)
-                .goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN)
-                .check(GroupDetailsAssertions)
-                    .assertThatGroupTitleIs(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL)
-                    .assertThatCardListIsEmpty()
-                .endAssertion()
-                .clickDisplayAllContentButton()
-                .check(GroupDetailsAssertions)
-                    .assertThatSharedJourneyContentTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL)
-                    .assertThatGroupTitleIs(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL)
-                .endAssertion()
-                .clickJourneyTitle()
-                .check(JourneyDetailsPageAssertions)
-                    .assertThatJourneyTitleIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH)
-                .endAssertion()
-                .changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
+        let __page5: any = this;
+        __page5 = __page5.getOmpLoginPage();
+        __page5 = __page5.run(new LoginScenario(this.user));
+        __page5 = __page5.changeUserDefinedLanguage(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_SPANISH);
+        __page5 = __page5.goDirectlyTo(GroupDetailsPage, VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_EN);
+        expect(__page5.groupTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL);
+        expect(__page5.sharedJourneyTitle).not.toBeVisible();
+        __page5 = __page5.clickDisplayAllContentButton();
+        expect(__page5.sharedJourneyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL);
+        expect(__page5.groupTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.GROUP_NAME_PL);
+        __page5 = __page5.clickJourneyTitle();
+        expect(__page5.journeyTitle).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_PL);
+        expect(__page5.languageDropdown).toHaveValue(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_POLISH);
+        __page5 = __page5.changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualJourneysInGroups.LANG_CODE_ENGLISH);
     }
 
     public shouldDeleteJourney(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(ContentMePage)
-                .clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN)
-                .clickDeleteCard()
-                .confirmJourneyDeletion()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DELETION_NOTIFICATION);
+        let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.user));
+        __page6 = __page6.goDirectlyTo(ContentMePage);
+        __page6 = __page6.clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualJourneysInGroups.JOURNEY_NAME_EN);
+        __page6 = __page6.clickDeleteCard();
+        __page6 = __page6.confirmJourneyDeletion();
+        expect(__page6.cardNotification).toContainText(VisibilityOfMultilingualJourneysInGroups.JOURNEY_DELETION_NOTIFICATION);
     }
 
     public afterTests(): void {

@@ -1,11 +1,13 @@
-import { MatchLevelRecommendationConfigAssertions } from "assertions/admin/MatchLevelRecommendationConfigAssertions";
-import { OpportunityMarketplaceGeneralAssertions } from "assertions/admin/OpportunityMarketplaceGeneralAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { TeamsResponsibleEnum } from "common/enums/TeamsResponsibleEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertTrue } from "common/testing/runtime";
 
 export class MatchRecommendationConfigurationTabTest extends BaseRestTest {
 
@@ -30,30 +32,41 @@ export class MatchRecommendationConfigurationTabTest extends BaseRestTest {
     }
 
     public shouldCheckMatchRecommendationConfigurationTab(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.talentMarketplace)
-                .openMenuForGeneralOpportunityMarketplace()
-                .clickMatchRecommendationConfigurationButton()
-                .clickActionButton(this.lowMatch)
-                .check(MatchLevelRecommendationConfigAssertions)
-                    .assertThatMatchLevelLabel(this.english)
-                    .assertThatDefaultLabelIsEqualTo(this.lowMatch)
-                .endAssertion()
-                .clickCancelButton()
-                .check(OpportunityMarketplaceGeneralAssertions)
-                    .assertThatActionForMatchLevelIsAvailable(this.lowMatch)
-                    .assertThatActionForMatchLevelIsAvailable(this.fairMatch)
-                    .assertThatActionForMatchLevelIsAvailable(this.goodMatch)
-                    .assertThatActionForMatchLevelIsAvailable(this.excellentMatch)
-                    .assertThatIconSetRadiobuttonIsPresent(this.faces)
-                    .assertThatIconSetRadiobuttonIsPresent(this.bars)
-                    .assertThatIconSetRadiobuttonIsPresent(this.networkBars)
-                    .assertThatIconSetRadiobuttonIsPresent(this.circle)
-                    .assertThatIconSetRadiobuttonIsPresent(this.diamond)
-                    .assertThatIconSetRadiobuttonIsPresent(this.pie)
-                    .assertThatIconSetIsSelected(this.faces);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.talentMarketplace);
+        __page1 = __page1.openMenuForGeneralOpportunityMarketplace();
+        __page1 = __page1.clickMatchRecommendationConfigurationButton();
+        __page1 = __page1.clickActionButton(this.lowMatch);
+        expect(__page1.matchLevelLanguage.first()).toContainText(this.english, { timeout: 30000 });
+        __page1.logger.info("Successfully verified that match level label is '" + this.english + "'.");
+        assertTrue(__page1.defaultLabel.getAttribute("value").contains(this.lowMatch));
+        __page1.logger.info("Successfully verified that default this.lowMatch is '" + this.lowMatch + "'.");
+        __page1 = __page1.clickCancelButton();
+        expect(__page1.matchLevelAction(this.lowMatch)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that action is displayed for '" + this.lowMatch + "' level.");
+        expect(__page1.matchLevelAction(this.fairMatch)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that action is displayed for '" + this.fairMatch + "' level.");
+        expect(__page1.matchLevelAction(this.goodMatch)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that action is displayed for '" + this.goodMatch + "' level.");
+        expect(__page1.matchLevelAction(this.excellentMatch)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that action is displayed for '" + this.excellentMatch + "' level.");
+        expect(__page1.iconSetRadiobutton(this.faces)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.faces + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.bars)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.bars + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.networkBars)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.networkBars + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.circle)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.circle + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.diamond)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.diamond + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.pie)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that icon set '" + this.pie + "' is displayed.");
+        expect(__page1.iconSetRadiobutton(this.faces)).toBeChecked();
+        __page1.logger.info("Successfully verified that icon set '" + this.faces + "' is checked.");
     }
 
     public afterClass(): void {

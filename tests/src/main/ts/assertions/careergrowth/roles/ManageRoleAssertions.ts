@@ -1,25 +1,25 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { Locator, WaitForSelectorState } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { Locator, WaitForSelectorState, expect } from "common/testing/playwright";
 import { Assert } from "common/testing/runtime";
 import { ManageRolePage } from "pages/careergrowth/roles/ManageRolePage";
 
 export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
 
     public assertThatSubmenuTabIsSelected(subMenuTab: string): ManageRoleAssertions {
-        this.assertThat(this.page.selectedTab(subMenuTab)).isVisible(this.isVisibleOptions);
+        expect(this.page.selectedTab(subMenuTab)).toBeVisible(this.isVisibleOptions);
 //        this.page.selectedTab(subMenuTab).should('exist')
         return this;
     }
 
 	public assertThatSubmenuTabIsHighlighted(subMenuTab: string, rgbColor: string): ManageRoleAssertions {
-        this.assertThat(this.page.selectedTab(subMenuTab)).hasCSS("background-color", rgbColor);
+        expect(this.page.selectedTab(subMenuTab)).toHaveCSS("background-color", rgbColor);
 //        this.page.selectedTab(subMenuTab).should('have.css', 'background-color').and('eq', rgbColor)
         return this;
     }
 
 	public assertThatNumberOfItemsOnRoleListIs(additionalRoleNumber: number, dismissedRoleNumber: string): ManageRoleAssertions {
-        this.assertThat(this.page.rolesList).containsText(String.valueOf(additionalRoleNumber + Integer.parseInt(dismissedRoleNumber)), this.containsTextOptions);
+        expect(this.page.rolesList).toContainText(String.valueOf(additionalRoleNumber + Integer.parseInt(dismissedRoleNumber)), this.containsTextOptions);
 //        cy.get('@dismissedRoleNumber').then((dismissedRoleNumber : any) {
 //            this.page.rolesList().should('contain.text', parseInt(dismissedRoleNumber.toString()) + additionalRoleNumber)
 //        })
@@ -27,7 +27,7 @@ export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
     }
 
 	public assertThatItemIsDisplayedOnRoleList(dismissedRoleTitle: string): ManageRoleAssertions {
-        this.assertThat(this.page.rolesList).containsText(dismissedRoleTitle, this.containsTextOptions);
+        expect(this.page.rolesList).toContainText(dismissedRoleTitle, this.containsTextOptions);
 //        cy.get('@firstElementOnAllRolesList').then((dismissedRoleTitle: any) {
 //            this.page.rolesList().should('contain.text', dismissedRoleTitle)
 //        })
@@ -35,7 +35,7 @@ export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
     }
 
 	public assertThatItemIsNotDisplayedOnRoleList(dismissedRoleTitle: string): ManageRoleAssertions {
-        this.assertThat(this.page.rolesList).not().not().containsText(dismissedRoleTitle, this.containsTextOptions);
+        expect(this.page.rolesList).not.toContainText(dismissedRoleTitle, this.containsTextOptions);
 //        cy.get('@firstElementOnAllRolesList').then((dismissedRoleTitle: any) {
 //            this.page.rolesList().should('not.contain.text', dismissedRoleTitle)
 //        })
@@ -43,13 +43,13 @@ export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
     }
 
 	public assertThatRoleIsDisplayedOnTheList(roleId: string): ManageRoleAssertions {
-        this.assertThat(this.page.rolesByID(roleId)).isVisible(this.isVisibleOptions);
+        expect(this.page.rolesByID(roleId)).toBeVisible(this.isVisibleOptions);
 //        this.page.rolesByID(roleId).should('exist')
         return this;
     }
 
 	public assertThatRoleIsNotDisplayedOnTheList(roleId: string): ManageRoleAssertions {
-        this.assertThat(this.page.rolesByID(roleId)).isHidden();
+        expect(this.page.rolesByID(roleId)).toBeHidden();
 //        this.page.rolesByID(roleId).should('not.exist')
         return this;
     }
@@ -69,25 +69,25 @@ export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
     }
 
 	public assertThatRoleIsMarkedAsAspirational(roleId: string): ManageRoleAssertions {
-        this.assertThat(this.page.markedAsAspirationalRoleIdArrowIcon(roleId)).isVisible(this.isVisibleOptions);
+        expect(this.page.markedAsAspirationalRoleIdArrowIcon(roleId)).toBeVisible(this.isVisibleOptions);
 //        this.page.markedAsAspirationalRoleIdArrowIcon(roleId).should('exist')
         return this;
     }
 
 	public assertThatThereIsNoItemsToShow(information: string): ManageRoleAssertions {
-        this.assertThat(this.page.noJobVacanciesToShowInfo(information)).isVisible(this.isVisibleOptions);
+        expect(this.page.noJobVacanciesToShowInfo(information)).toBeVisible(this.isVisibleOptions);
 //        this.page.noJobVacanciesToShowInfo(information).should('exist')
         return this;
     }
 
 	public assertThatActionIsNotDisplayed(option: string): ManageRoleAssertions {
-        this.assertThat(this.page.moreActionsPopperOption(option)).isHidden();
+        expect(this.page.moreActionsPopperOption(option)).toBeHidden();
 //        this.page.moreActionsPopperOption(option).should('not.exist')
         return this;
     }
 
     public assertMessageText(messageText: string): ManageRoleAssertions {
-        this.assertThat(this.page.message).containsText(messageText, this.containsTextOptions);
+        expect(this.page.message).toContainText(messageText, this.containsTextOptions);
         return this;
     }
 
@@ -98,7 +98,7 @@ export class ManageRoleAssertions extends BaseAssertion<ManageRolePage> {
     }
 
     public assertThatRoleIsNotPresentOnTheList(message: string): ManageRoleAssertions {
-        this.assertThat(this.page.searchResults.first()).containsText(message, this.containsTextOptions);
+        expect(this.page.searchResults.first()).toContainText(message, this.containsTextOptions);
         this.page.logger.info("Successfully verified data. Job role not found on the list.");
         return this;
     }

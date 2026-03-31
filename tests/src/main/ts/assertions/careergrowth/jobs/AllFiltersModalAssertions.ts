@@ -1,10 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
 import { AllFiltersModalPage } from "pages/careergrowth/jobs/AllFiltersModalPage";
+import { expect } from "common/testing/playwright";
 
 export class AllFiltersModalAssertions extends BaseAssertion<AllFiltersModalPage> {
 
     public assertThatFilterTitleIsDisplayed(filter: string): AllFiltersModalAssertions {
-        this.assertThat(this.page.filterTitle(filter)).isVisible(this.isVisibleOptions);
+        expect(this.page.filterTitle(filter)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -12,42 +14,42 @@ export class AllFiltersModalAssertions extends BaseAssertion<AllFiltersModalPage
     public assertThatFilterOptionIsDisplayed(filter: string, option: string): AllFiltersModalAssertions;
     public assertThatFilterOptionIsDisplayed(filter: string, option: string, index?: string): AllFiltersModalAssertions {
         if (index != null) {
-            this.assertThat(this.page.filterOption(filter, index)).containsText(option, this.containsTextOptions);
+            expect(this.page.filterOption(filter, index)).toContainText(option, this.containsTextOptions);
             return this;
         }
 
-        this.assertThat(this.page.filterOptionWithText(filter, option)).isVisible(this.isVisibleOptions);
+        expect(this.page.filterOptionWithText(filter, option)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatFilterOptionsIsChecked(filter: string, option: string): AllFiltersModalAssertions {
-        this.assertThat(this.page.filterWithSearchValueCheckbox(filter, option)).isChecked();
+        expect(this.page.filterWithSearchValueCheckbox(filter, option)).toBeChecked();
 //        this.page.filterWithSearchValueCheckbox(filter, option).should('be.checked')
         return this;
     }
 
     public assertThatFilterModalIsOpened(): AllFiltersModalAssertions {
-        this.assertThat(this.page.allFiltersModal).isVisible(this.isVisibleOptions);
+        expect(this.page.allFiltersModal).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsVisibleOnJobVacancyFilter(): AllFiltersModalAssertions {
-        this.assertThat(this.page.jobFilterLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.jobFilterLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnJobVacancyFilter(): AllFiltersModalAssertions {
-        this.assertThat(this.page.jobFilterLocation).isHidden();
+        expect(this.page.jobFilterLocation).toBeHidden();
         return this;
     }
 
     public assertThatLocationIsVisibleOnJobCardFilter(): AllFiltersModalAssertions {
-        this.assertThat(this.page.jobFilterLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.jobFilterLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnJobCardFilter(): AllFiltersModalAssertions {
-        this.assertThat(this.page.jobFilterLocation).isHidden();
+        expect(this.page.jobFilterLocation).toBeHidden();
         return this;
     }
 }

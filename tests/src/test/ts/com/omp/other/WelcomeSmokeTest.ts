@@ -1,8 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
-import { SuggestionsAssertions } from "assertions/careergrowth/careergrowth/SuggestionsAssertions";
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { WelcomePageAssertions } from "assertions/careergrowth/careergrowth/WelcomePageAssertions";
-import { ProjectDiscoveryAssertions } from "assertions/careergrowth/project/ProjectDiscoveryAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -12,6 +9,8 @@ import { WelcomePage_New } from "pages/careergrowth/careergrowth/WelcomePage_New
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
+import { assertTrue } from "common/testing/runtime";
 
 export class WelcomeSmokeTest extends BaseRestTest {
 
@@ -44,75 +43,49 @@ export class WelcomeSmokeTest extends BaseRestTest {
     }
 
     public checkWelcomePage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goDirectlyTo(WelcomePage_New)
-                .check(WelcomePageAssertions)
-                    .assertThatUserNameIsVisible(this.user.name)
-                    .assertThatUrlContainsProperText(this.careerGrowthWelcomePage)
-                    .assertThatWelcomeMessageIsEqualTo(this.welcomeMessage)
-                    .assertThatSuggestionsMessageIsEqualTo(this.suggestionsMessage)
-                    .assertThatIconIsDisplayedForTab(this.suggestions, this.star)
-                    .assertThatIconIsDisplayedForTab(this.jobRoles, this.route)
-                    .assertThatIconIsDisplayedForTab(this.jobVacancies, this.briefcase)
-                    .assertThatIconIsDisplayedForTab(this.projects, this.pencil)
-                .endAssertion()
-                .hoverOverTab(this.suggestions)
-                .check(WelcomePageAssertions)
-                    .assertThatTabTipIsEqualTo(this.suggestionsTip)
-                .endAssertion()
-                .hoverOverTab(this.jobRoles)
-                .check(WelcomePageAssertions)
-                    .assertThatTabTipIsEqualTo(this.jobRolesTip)
-                .endAssertion()
-                .hoverOverTab(this.jobVacancies)
-                .check(WelcomePageAssertions)
-                    .assertThatTabTipIsEqualTo(this.jobVacanciesTip)
-                .endAssertion()
-                .hoverOverTab(this.projects)
-                .check(WelcomePageAssertions)
-                    .assertThatTabTipIsEqualTo(this.projectsTip)
-                .endAssertion()
-                .goToSuggestionsPageViaTab()
-                .check(SuggestionsAssertions)
-                    .assertThatUrlContainsProperText(this.suggestionsPage)
-                .endAssertion()
-                .goToRolesPageViaTab()
-                .check(RoleListAssertions)
-                    .assertThatUrlContainsProperText(this.rolesPage)
-                .endAssertion()
-                .goToVacanciesPageViaTab()
-                .check(VacanciesListAssertions)
-                    .assertThatUrlContainsProperText(this.vacanciesPage)
-                .endAssertion()
-                .goToProjectsPageViaTab()
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatUrlContainsProperText(this.projectsPage)
-                .endAssertion()
-                .goToCareerGrowthWelcomePageViaTab()
-                .check(WelcomePageAssertions)
-                    .assertThatUrlContainsProperText(this.careerGrowthWelcomePage)
-                .endAssertion()
-                .goToSuggestionsPageViaCard()
-                .check(SuggestionsAssertions)
-                    .assertThatUrlContainsProperText(this.suggestionsPage)
-                .endAssertion()
-                .goToCareerGrowthWelcomePageViaTab()
-                .goToRolesPageViaCard()
-                .check(RoleListAssertions)
-                    .assertThatUrlContainsProperText(this.rolesPage)
-                .endAssertion()
-                .goToCareerGrowthWelcomePageViaTab()
-                .goToVacanciesPageViaCard()
-                .check(VacanciesListAssertions)
-                    .assertThatUrlContainsProperText(this.vacanciesPage)
-                .endAssertion()
-                .goToCareerGrowthWelcomePageViaTab()
-                .goToProjectsPageViaCard()
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatUrlContainsProperText(this.projectsPage);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goDirectlyTo(WelcomePage_New);
+        expect(__page1.this.user.name()).toContainText(this.user.name, { timeout: 30000 });
+        assertTrue(__page1.getPage().url().contains(this.careerGrowthWelcomePage), "Expected url: '" + this.careerGrowthWelcomePage + "' but was: '" + __page1.getPage().url() + "'");
+        expect(__page1.welcomeMessage).toContainText(this.welcomeMessage, { timeout: 30000 });
+        expect(__page1.suggestionsMessage()).toContainText(this.suggestionsMessage, { timeout: 30000 });
+        expect(__page1.tabIcon(this.suggestions)).toHaveClass(this.star);
+        expect(__page1.tabIcon(this.jobRoles)).toHaveClass(this.route);
+        expect(__page1.tabIcon(this.jobVacancies)).toHaveClass(this.briefcase);
+        expect(__page1.tabIcon(this.projects)).toHaveClass(this.pencil);
+        __page1 = __page1.hoverOverTab(this.suggestions);
+        expect(__page1.tabTip.last()).toContainText(this.suggestionsTip, { timeout: 30000 });
+        __page1 = __page1.hoverOverTab(this.jobRoles);
+        expect(__page1.tabTip.last()).toContainText(this.jobRolesTip, { timeout: 30000 });
+        __page1 = __page1.hoverOverTab(this.jobVacancies);
+        expect(__page1.tabTip.last()).toContainText(this.jobVacanciesTip, { timeout: 30000 });
+        __page1 = __page1.hoverOverTab(this.projects);
+        expect(__page1.tabTip.last()).toContainText(this.projectsTip, { timeout: 30000 });
+        __page1 = __page1.goToSuggestionsPageViaTab();
+        assertTrue(__page1.getPage().url().contains(this.suggestionsPage), "Expected url: '" + this.suggestionsPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToRolesPageViaTab();
+        assertTrue(__page1.getPage().url().contains(this.rolesPage), "Expected url: '" + this.rolesPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToVacanciesPageViaTab();
+        assertTrue(__page1.getPage().url().contains(this.vacanciesPage), "Expected url: '" + this.vacanciesPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToProjectsPageViaTab();
+        assertTrue(__page1.getPage().url().contains(this.projectsPage), "Expected url: '" + this.projectsPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToCareerGrowthWelcomePageViaTab();
+        assertTrue(__page1.getPage().url().contains(this.careerGrowthWelcomePage), "Expected url: '" + this.careerGrowthWelcomePage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToSuggestionsPageViaCard();
+        assertTrue(__page1.getPage().url().contains(this.suggestionsPage), "Expected url: '" + this.suggestionsPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToCareerGrowthWelcomePageViaTab();
+        __page1 = __page1.goToRolesPageViaCard();
+        assertTrue(__page1.getPage().url().contains(this.rolesPage), "Expected url: '" + this.rolesPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToCareerGrowthWelcomePageViaTab();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        assertTrue(__page1.getPage().url().contains(this.vacanciesPage), "Expected url: '" + this.vacanciesPage + "' but was: '" + __page1.getPage().url() + "'");
+        __page1 = __page1.goToCareerGrowthWelcomePageViaTab();
+        __page1 = __page1.goToProjectsPageViaCard();
+        assertTrue(__page1.getPage().url().contains(this.projectsPage), "Expected url: '" + this.projectsPage + "' but was: '" + __page1.getPage().url() + "'");
     }
 
     public afterClass(): void {

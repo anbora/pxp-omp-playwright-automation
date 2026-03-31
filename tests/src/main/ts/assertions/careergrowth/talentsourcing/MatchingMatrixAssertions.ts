@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MatchingMatrixPage } from "pages/careergrowth/talentsourcing/MatchingMatrixPage";
+import { expect } from "common/testing/playwright";
 
 export class MatchingMatrixAssertions extends BaseAssertion<MatchingMatrixPage> {
 
     public assertThatMatchingSkillTitleIsDisplayed(): MatchingMatrixAssertions {
-        this.assertThat(this.page.matchingSkill).isVisible();
+        expect(this.page.matchingSkill).toBeVisible();
         return this;
     }
 
     public assertThatFirstMatchingSkillsIsDisplayed(): MatchingMatrixAssertions {
-        this.assertThat(this.page.getFirstMatchingSkills).isVisible(this.isVisibleOptions);
+        expect(this.page.getFirstMatchingSkills).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

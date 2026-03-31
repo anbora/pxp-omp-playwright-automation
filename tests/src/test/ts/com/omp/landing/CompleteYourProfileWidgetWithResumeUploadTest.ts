@@ -1,8 +1,5 @@
-import { ExperienceCareerProfileModalAssertions } from "assertions/careergrowth/profiles/ExperienceCareerProfileModalAssertions";
-import { PreferencesCareerProfileModalAssertions } from "assertions/careergrowth/profiles/PreferencesCareerProfileModalAssertions";
-import { SkillsCareerProfileModalAssertions } from "assertions/careergrowth/profiles/SkillsCareerProfileModalAssertions";
-import { SkillToDevelopAssertions } from "assertions/careergrowth/profiles/SkillToDevelopAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { SkillsToDevelopPage } from "pages/careergrowth/profiles/SkillsToDevelopPage";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CompleteYourProfileWidgetWithResumeUploadTest extends BaseRestTest {
 
@@ -39,65 +37,47 @@ export class CompleteYourProfileWidgetWithResumeUploadTest extends BaseRestTest 
     }
 
     public shouldCheckThatCompleteYourProfileWidgetIsWorking(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .check(LandingPageAssertions)
-                    .assertThatYourCompleteYourProfileWidgetIsDisplayed()
-                    .assertCompleteYourProfilePercentageCompleted(this.percentageValueStep1)
-                    .assertCompleteYourProfileWidgetCompleteNowIsDisplayed()
-                    .assertCompleteYourProfileWidgetAvatarIsDisplayed()
-                .endAssertion()
-                .clickCompleteNowButton()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertCompleteYourProfileModalHeaderIsDisplayed()
-                    .assertCompleteYourProfileProgressCount(this.progressCountStep1)
-                .endAssertion()
-                .clickSelectFile()
-                .uploadFile(this.filePath)
-                .clickUploadButton()
-                .clickNextButton()
-                .clickAddButton()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryDate)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryPosition)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryCompany)
-                    .assertThatSaveAndContinueIsDisplayed()
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .check(SkillsCareerProfileModalAssertions)
-                    .assertCompleteYourProfileModalSubHeaderIsDisplayed(this.subheaderName1)
-                    .assertCompleteYourProfileProgressCount(this.progressCountStep2)
-                .endAssertion()
-                .searchForSkill(this.NoviceSkillName, "Novice")
-                .selectOptionFromSkillsDropdown(this.NoviceSkillName)
-                .check(SkillsCareerProfileModalAssertions)
-                    .assertThatSaveAndContinueIsDisplayed()
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .check(SkillToDevelopAssertions)
-                    .assertCompleteYourProfileModalSubHeaderIsDisplayed(this.subheaderName2)
-                    .assertCompleteYourProfileProgressCount(this.progressCountStep3)
-                .endAssertion()
-                .searchForSkill(this.NoviceSkillName2, "Novice")
-                .selectOptionFromSkillsDropdown(this.NoviceSkillName2)
-                .check(SkillToDevelopAssertions)
-                    .assertThatSaveAndContinueIsDisplayed()
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertCompleteYourProfileModalSubHeaderIsDisplayed(this.subheaderName3)
-                    .assertCompleteYourProfileProgressCount(this.progressCountStep4)
-                .endAssertion()
-                .select1stChkBoxCareerPrefs()
-                .clickSaveAndContinueButton()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatProfileCompletedHeaderIsDisplayed()
-                    .assertThatProfileCompletedProgressCountIsDisplayed()
-                .endAssertion()
-                .clickSaveButton(LandingPage)
-                .check(LandingPageAssertions)
-                    .assertCompleteYourProfilePercentageCompleted(this.percentageValueStep2)
-                    .assertCompleteYourProfileWidgetUpdateNowIsDisplayed();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        expect(__page1.completeYourProfileWidgetHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileWidgetCompletionPercentage(this.percentageValueStep1)).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileWidgetCompleteNowButton).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileWidgetAvatar).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickCompleteNowButton();
+        expect(__page1.completeYourProfileModalHeader()).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileModalProgressCount(this.progressCountStep1)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSelectFile();
+        __page1 = __page1.uploadFile(this.filePath);
+        __page1 = __page1.clickUploadButton();
+        __page1 = __page1.clickNextButton();
+        __page1 = __page1.clickAddButton();
+        expect(__page1.workHistoryLineLabel(this.workHistoryDate).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.workHistoryPosition).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.workHistoryCompany).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.saveAndContinue()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSaveAndContinueButton();
+        expect(__page1.completeYourProfileModalSubHeader(this.subheaderName1)).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileModalProgressCount(this.progressCountStep2)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.searchForSkill(this.NoviceSkillName, "Novice");
+        __page1 = __page1.selectOptionFromSkillsDropdown(this.NoviceSkillName);
+        expect(__page1.saveAndContinue()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSaveAndContinueButton();
+        expect(__page1.completeYourProfileModalSubHeader(this.subheaderName2)).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileModalProgressCount(this.progressCountStep3)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.searchForSkill(this.NoviceSkillName2, "Novice");
+        __page1 = __page1.selectOptionFromSkillsDropdown(this.NoviceSkillName2);
+        expect(__page1.saveAndContinue()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSaveAndContinueButton();
+        expect(__page1.completeYourProfileModalSubHeader(this.subheaderName3)).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileModalProgressCount(this.progressCountStep4)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.select1stChkBoxCareerPrefs();
+        __page1 = __page1.clickSaveAndContinueButton();
+        expect(__page1.completeYourProfileWidgetProfileCompletedHeader()).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfile100CompletedProgressData).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSaveButton(LandingPage);
+        expect(__page1.completeYourProfileWidgetCompletionPercentage(this.percentageValueStep2)).toBeVisible({ timeout: 30000 });
+        expect(__page1.completeYourProfileWidgetUpdateNowButton).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

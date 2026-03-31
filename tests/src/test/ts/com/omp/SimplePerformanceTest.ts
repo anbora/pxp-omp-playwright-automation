@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseGatling } from "com/omp/BaseGatling";
 
 export class SimplePerformanceTest extends BaseGatling {

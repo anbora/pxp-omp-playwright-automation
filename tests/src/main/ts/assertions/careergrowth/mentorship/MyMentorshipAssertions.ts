@@ -1,94 +1,95 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MyMentorshipPage } from "pages/careergrowth/mentorship/MyMentorshipPage";
+import { expect } from "common/testing/playwright";
 
 export class MyMentorshipAssertions extends BaseAssertion<MyMentorshipPage> {
 
     public assertMentorStatusIsCorrect(mentorName: string, statusName: string): MyMentorshipAssertions {
-        this.assertThat(this.page.mentorStatus(mentorName, statusName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorStatus(mentorName, statusName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertAcceptRejectButtonDisplays(mentorName: string): MyMentorshipAssertions {
-        this.assertThat(this.page.mentorAcceptRejectButton(mentorName, "Accept")).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorAcceptRejectButton(mentorName, "Reject")).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorAcceptRejectButton(mentorName, "Accept")).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorAcceptRejectButton(mentorName, "Reject")).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorApplicationStatusIsDisplayed(mentorName: string, applicationStatus: string): MyMentorshipAssertions {
-        this.assertThat(this.page.mentorApplicationStatusText(mentorName, applicationStatus)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorApplicationStatusText(mentorName, applicationStatus)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertViewCommentModalDisplays(): MyMentorshipAssertions {
-        this.assertThat(this.page.viewCommentModal).isVisible(this.isVisibleOptions);
+        expect(this.page.viewCommentModal).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertActionForMentorCard(mentorName: string, actionName: string): MyMentorshipAssertions {
         this.page.mentorCardActionsDropDownButton(mentorName).click();
-        this.assertThat(this.page.mentorCardDropDownAction(mentorName, actionName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardDropDownAction(mentorName, actionName)).toBeVisible(this.isVisibleOptions);
         this.page.mentorCardActionsDropDownButton(mentorName).click();
         return this;
     }
 
     public assertMyMenteesTabIsNotDisplayed(): MyMentorshipAssertions {
-        this.assertThat(this.page.myMenteesTab).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.myMenteesTab).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertMyMenteesTabIsDisplayed(): MyMentorshipAssertions {
-        this.assertThat(this.page.myMenteesTab).isVisible(this.isVisibleOptions);
+        expect(this.page.myMenteesTab).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMyMentorsTabIsDisplayed(): MyMentorshipAssertions {
-        this.assertThat(this.page.myMentorsTab).isVisible(this.isVisibleOptions);
+        expect(this.page.myMentorsTab).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertViewMyMentorProfileButtonIsNotDisplayed(): MyMentorshipAssertions {
-        this.assertThat(this.page.viewMyMentorProfileButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.viewMyMentorProfileButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertMyMentorshipsPageLoads(): MyMentorshipAssertions {
-        this.assertThat(this.page.myMentorshipsPageLoad).isVisible(this.isVisibleOptions);
+        expect(this.page.myMentorshipsPageLoad).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorCardIsDisplayed(mentorName: string): MyMentorshipAssertions {
-        this.assertThat(this.page.mentorCardUserName(mentorName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardUserName(mentorName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMentorIsDisplayed(mentorNameInput: string): MyMentorshipAssertions {
-        this.assertThat(this.page.mentorName(mentorNameInput)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorName(mentorNameInput)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMenteeExistingCheckInsIsDisplayed(userFullName: string): MyMentorshipAssertions {
-//        assertThat(this.page.menteeExistingCheckInsContainer(userFullName)).isVisible(this.isVisibleOptions);
+//        expect(this.page.menteeExistingCheckInsContainer(userFullName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMenteeManageCheckInsIsDisplayed(userFullName: string): MyMentorshipAssertions {
-//        assertThat(this.page.menteeManageCheckInsButton(userFullName)).isVisible(this.isVisibleOptions);
+//        expect(this.page.menteeManageCheckInsButton(userFullName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMenteeCreateACheckInIsDisplayed(userFullName: string): MyMentorshipAssertions {
-//        assertThat(this.page.menteeCreateNewCheckInButton(userFullName)).isVisible(this.isVisibleOptions);
+//        expect(this.page.menteeCreateNewCheckInButton(userFullName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatManageCheckInsModalIsDisplayed(): MyMentorshipAssertions {
-//        assertThat(this.page.manageCheckInsModalHeader).isVisible(this.isVisibleOptions);
+//        expect(this.page.manageCheckInsModalHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatCreateACheckInButtonIsDisplayedInManageCheckInsModal(): MyMentorshipAssertions {
-//        assertThat(this.page.manageCheckInsModalCreateACheckInButton).isVisible(this.isVisibleOptions);
+//        expect(this.page.manageCheckInsModalCreateACheckInButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

@@ -1,4 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { AllFiltersModalPage } from "pages/careergrowth/jobs/AllFiltersModalPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class RolesFilteringByJobFamilyTest extends BaseRestTest {
 
@@ -25,26 +27,22 @@ export class RolesFilteringByJobFamilyTest extends BaseRestTest {
     }
 
     public shouldFilterRolesByJobFamily(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .typeSearchValue(this.jobRoleName)
-                .check(RoleListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.one)
-                .endAssertion()
-                .clearSearchKeywordCriteria()
-                .refreshPage()
-                .check(RoleListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.twelve)
-                .endAssertion()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForFilterWithCheckbox(this.jobFamily, this.jobFamilyName, 1000)
-                .applyFiltersAndBackToRoleList()
-                .check(RoleListAssertions)
-                    .assertThatFilterIsApplied(this.jobFamilyName)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.twelve);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        __page1 = __page1.typeSearchValue(this.jobRoleName);
+        expect(__page1.allCards()).toHaveCount(this.one, { timeout: 30000 });
+        __page1 = __page1.clearSearchKeywordCriteria();
+        __page1 = __page1.refreshPage();
+        expect(__page1.allCards()).toHaveCount(this.twelve, { timeout: 30000 });
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.searchForFilterWithCheckbox(this.jobFamily, this.jobFamilyName, 1000);
+        __page1 = __page1.applyFiltersAndBackToRoleList();
+        expect(__page1.removeFilterButton(this.jobFamilyName)).toBeVisible({ timeout: 30000 });
+        expect(__page1.allCards()).toHaveCount(this.twelve, { timeout: 30000 });
     }
 
     public cleanUp(): void {

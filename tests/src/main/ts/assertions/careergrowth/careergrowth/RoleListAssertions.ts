@@ -1,118 +1,118 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { LocatorAssertions } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { expect } from "common/testing/playwright";
 import { Assert, assertTrue } from "common/testing/runtime";
 import { RolesListPage_New } from "pages/careergrowth/careergrowth/RolesListPage_New";
 
 export class RoleListAssertions extends BaseAssertion<RolesListPage_New> {
 
     public assertThatAllJobRolesHeaderIsDisplayed(): RoleListAssertions {
-        this.assertThat(this.page.allJobRolesHeader).isVisible(this.isVisibleOptions);
+        expect(this.page.allJobRolesHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSimilarJobVacancyAvailableIconIsDisplayedForRole(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.similarJobVacancyForRoleIcon(roleTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.similarJobVacancyForRoleIcon(roleTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSimilarJobVacancyAvailableIconIsNotDisplayedForRole(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.similarJobVacancyForRoleIcon(roleTitle)).isHidden();
+        expect(this.page.similarJobVacancyForRoleIcon(roleTitle)).toBeHidden();
         return this;
     }
 
     public assertThatFirstRoleIdIsMarkedWithArrowIcon(roleId: string): RoleListAssertions {
-        this.assertThat(this.page.markedAsAspirationalRoleIdArrowIcon(roleId).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.markedAsAspirationalRoleIdArrowIcon(roleId).first()).toBeVisible(this.isVisibleOptions);
 //        this.page.markedAsAspirationalRoleArrowIcon().first().should("be.visible")
         return this;
     }
 
     public assertNumberOfYourAspirationalRoles(numberOfRoles: number): RoleListAssertions {
-        this.assertThat(this.page.numberOfYourAspirationalRoles).hasCount(numberOfRoles);
+        expect(this.page.numberOfYourAspirationalRoles).toHaveCount(numberOfRoles);
 //        this.page.numberOfYourAspirationalRoles().wait(3000).contains(numberOfRoles)
         return this;
     }
 
     public assertThatFirstRoleOnAllRolesListIsEqualTo(roleTitle: string): RoleListAssertions {
         this.page.pause(1000);
-        this.assertThat(this.page.firstCardName().first()).containsText(roleTitle, this.containsTextOptions);
+        expect(this.page.firstCardName().first()).toContainText(roleTitle, this.containsTextOptions);
         return this;
     }
 
     public assertThatRecommendedRoleSkillsIconIsDisplayed(roleTitle: string, icon: string): RoleListAssertions {
-        this.assertThat(this.page.recommendedRoleSkillIcon(roleTitle)).hasClass(icon);
+        expect(this.page.recommendedRoleSkillIcon(roleTitle)).toHaveClass(icon);
         return this;
     }
 
     public assertThatSkillIsDisplayedOnRecommendedRoleCard(roleTitle: string, skillName: string): RoleListAssertions {
-        this.assertThat(this.page.skillOnRoleCard(roleTitle, skillName)).isVisible(this.isVisibleOptions);
+        expect(this.page.skillOnRoleCard(roleTitle, skillName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatMoreSkillsLinkIsDisplayedOnRecommendedRoleCard(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.moreSkillsLinkOnRecommendedRoleCard(roleTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.moreSkillsLinkOnRecommendedRoleCard(roleTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatJobRoleMatchIsEqualTo(roleTitle: string, match: string): RoleListAssertions {
-        this.assertThat(this.page.recommendedRoleMatchLabel(roleTitle)).containsText(match, this.containsTextOptions);
+        expect(this.page.recommendedRoleMatchLabel(roleTitle)).toContainText(match, this.containsTextOptions);
         return this;
     }
 
     public assertThatFirstRoleOnAllRolesListIsNotEqualTo(roleTitle: string): RoleListAssertions {
         this.page.pause(1000);
-        this.assertThat(this.page.firstCardName().first()).not().containsText(roleTitle, this.containsTextOptions);
+        expect(this.page.firstCardName().first()).not.toContainText(roleTitle, this.containsTextOptions);
         return this;
     }
 
     public assertThatRoleIsNotDisplayedAsRecommended(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.firstCardName().first()).not().containsText(roleTitle, this.containsTextOptions);
+        expect(this.page.firstCardName().first()).not.toContainText(roleTitle, this.containsTextOptions);
         return this;
     }
 
     public assertThatLevelIconIsDisplayedForRecommendedRole(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.recommendedRoleLevelIcon(roleTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.recommendedRoleLevelIcon(roleTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatJobFamilyIconIsDisplayedForRecommendedRole(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.recommendedRoleJobFamilyIcon(roleTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.recommendedRoleJobFamilyIcon(roleTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatRecommendedRoleLevelIsEqualTo(roleTitle: string, level: string): RoleListAssertions {
-        this.assertThat(this.page.roleLevelByTitle(roleTitle).first()).containsText(level, this.containsTextOptions);
+        expect(this.page.roleLevelByTitle(roleTitle).first()).toContainText(level, this.containsTextOptions);
         return this;
     }
 
     public assertThatRecommendedRoleJobFamilyIsEqualTo(roleTitle: string, jobFamily: string): RoleListAssertions {
-        this.assertThat(this.page.roleJobFamilyByTitle(roleTitle).first()).containsText(jobFamily, this.containsTextOptions);
+        expect(this.page.roleJobFamilyByTitle(roleTitle).first()).toContainText(jobFamily, this.containsTextOptions);
         return this;
     }
 
     public assertThatFirstRoleOnRecommendedRolesListIsEqualTo(roleTitle: string): RoleListAssertions {
-        this.assertThat(this.page.firstCard()).containsText(roleTitle, this.containsTextOptions);
+        expect(this.page.firstCard()).toContainText(roleTitle, this.containsTextOptions);
         return this;
     }
 
     public assertThatCurrentRoleNameIsEqualTo(role: string): RoleListAssertions {
-        this.assertThat(this.page.currentRoleName()).containsText(role, this.containsTextOptions);
+        expect(this.page.currentRoleName()).toContainText(role, this.containsTextOptions);
         return this;
     }
 
     public assertThatYourAspirationalRolesInformationTextIsDisplayed(text: string): RoleListAssertions {
-        this.assertThat(this.page.yourAspirationalRolesInformation()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.yourAspirationalRolesInformation()).containsText(text, this.containsTextOptions);
+        expect(this.page.yourAspirationalRolesInformation()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.yourAspirationalRolesInformation()).toContainText(text, this.containsTextOptions);
         return this;
     }
 
     public assertThatFilterIsApplied(filterValue: string): RoleListAssertions {
-        this.assertThat(this.page.removeFilterButton(filterValue)).isVisible(this.isVisibleOptions);
+        expect(this.page.removeFilterButton(filterValue)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatVacancyCardsDisplayProperNumberOfCards(cardsNumber: number): RoleListAssertions {
-        this.assertThat(this.page.allCards()).hasCount(cardsNumber, this.hasCountOptions);
+        expect(this.page.allCards()).toHaveCount(cardsNumber, this.hasCountOptions);
         return this;
     }
 

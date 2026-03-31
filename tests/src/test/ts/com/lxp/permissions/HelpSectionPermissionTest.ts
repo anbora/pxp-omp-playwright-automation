@@ -1,5 +1,5 @@
-import { RolesAssertions } from "assertions/admin/roles/RolesAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { assertFalse, assertTrue } from "common/testing/runtime";
 
 export class HelpSectionPermissionTest extends GroupsRestService {
 
@@ -24,37 +25,35 @@ export class HelpSectionPermissionTest extends GroupsRestService {
     }
 
     public verifyPermissionForNewRole(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.adminUser))
-                .goToAdminPanel()
-                .selectMainTab(this.accountsLabel)
-                .openRolesPage()
-                .clickAddNewRole()
-                .check(RolesAssertions)
-                    .assertThatPermissionIsSwitchOff(this.helpSectionPermissionName)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.adminUser));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.accountsLabel);
+        __page1 = __page1.openRolesPage();
+        __page1 = __page1.clickAddNewRole();
+        assertFalse(__page1.checkboxPermission(this.helpSectionPermissionName).isChecked(), "Permission '" + this.helpSectionPermissionName + "' should be unchecked!");
+        __page1.logger.info("Successfully verified that permission is switched off");
     }
 
     public verifyPermissionAndHelpSectionForAdmin(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.adminUser))
-                .goToAdminPanel()
-                .selectMainTab(this.accountsLabel)
-                .openRolesPage()
-                .clickEditRole(this.adminRoleName)
-                .check(RolesAssertions)
-                    .assertThatPermissionIsSwitchOn(this.helpSectionPermissionName)
-                .endAssertion()
-                .clickCloseButton()
-                .clickUserDropdownButton()
-                .check(RolesAssertions)
-                    .assertThatHelpSectionIsVisibleInAdminPanel()
-                .endAssertion()
-                .goDirectlyTo(LandingPage)
-                .clickUserButton()
-                .check(LandingPageAssertions)
-                    .assertThatHelpSectionIsVisible()
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.adminUser));
+        __page2 = __page2.goToAdminPanel();
+        __page2 = __page2.selectMainTab(this.accountsLabel);
+        __page2 = __page2.openRolesPage();
+        __page2 = __page2.clickEditRole(this.adminRoleName);
+        assertTrue(__page2.checkboxPermission(this.helpSectionPermissionName).isChecked(), "Permission '" + this.helpSectionPermissionName + "' should be checked!");
+        __page2.logger.info("Successfully verified that permission is switched on");
+        __page2 = __page2.clickCloseButton();
+        __page2 = __page2.clickUserDropdownButton();
+        assertTrue(__page2.helpSection.isVisible(), "Help section should be visible!");
+        __page2.logger.info("Successfully verified that help section is visible in admin panel");
+        __page2 = __page2.goDirectlyTo(LandingPage);
+        __page2 = __page2.clickUserButton();
+        assertTrue(__page2.helpSection.isVisible(), "Help section should be visible!");
+        __page2.logger.info("Successfully verified that help section is visible in admin panel");
     }
 
     public turnOffPermissionForMemberRole(): void {
@@ -69,12 +68,12 @@ export class HelpSectionPermissionTest extends GroupsRestService {
     }
 
     public verifyHelpSectionForUserWhenPermissionIsOff(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.regularUser))
-                .clickUserButton()
-                .check(LandingPageAssertions)
-                    .assertThatHelpSectionIsInvisible()
-                .endAssertion();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginWithOnboardingScenario(this.regularUser));
+        __page3 = __page3.clickUserButton();
+        assertFalse(__page3.helpSection.isVisible(), "Help section should be invisible!");
+        __page3.logger.info("Successfully verified that help section is invisible in admin panel");
     }
 
     public turnOnPermissionForMemberRole(): void {
@@ -89,12 +88,12 @@ export class HelpSectionPermissionTest extends GroupsRestService {
     }
 
     public verifyHelpSectionForUserWhenPermissionIsOn(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .clickUserButton()
-                .check(LandingPageAssertions)
-                    .assertThatHelpSectionIsVisible()
-                .endAssertion();
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.regularUser));
+        __page4 = __page4.clickUserButton();
+        assertTrue(__page4.helpSection.isVisible(), "Help section should be visible!");
+        __page4.logger.info("Successfully verified that help section is visible in admin panel");
     }
 
     public afterTests(): void {

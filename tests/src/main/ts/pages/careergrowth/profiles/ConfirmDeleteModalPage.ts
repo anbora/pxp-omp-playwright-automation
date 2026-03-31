@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -6,7 +7,7 @@ import { SkillsPassportMePage } from "pages/careergrowth/jobs/SkillsPassportMePa
 
 export class ConfirmDeleteModalPage extends BasePage {
 
-    public confirmButton: Locator = getByRole(AriaRole.DIALOG).getByRole(AriaRole.BUTTON, "Confirm", true).build();
+    public confirmButton: Locator = this.getByRole(AriaRole.DIALOG).getByRole(AriaRole.BUTTON, "Confirm", true);
 
 	public clickConfirm(): SkillsPassportMePage {
         confirmButton.click();

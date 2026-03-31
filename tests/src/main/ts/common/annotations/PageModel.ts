@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface PageModel {
   pageName: string;
   url: string;

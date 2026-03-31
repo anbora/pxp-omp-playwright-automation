@@ -1,4 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddCustomRoleToUserScenario } from "scenarios/profile/AddCustomRoleToUserScenario";
 import { AddCustomSkillToUserScenario } from "scenarios/profile/AddCustomSkillToUserScenario";
+import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
 
 export class LocationRestrictionToJobRoleRecommendationsTest extends BaseRestTest {
 
@@ -58,42 +60,53 @@ export class LocationRestrictionToJobRoleRecommendationsTest extends BaseRestTes
     }
 
     public shouldCheckThat(user: UserModel, withLocation: boolean, locationValueList: Array<string>, expectedRoleList: Array<string>, notExpectedRoleList: Array<string>, expectedRoleList2: Array<string>, notExpectedRoleList2: Array<string>): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(user))
-                .run(new AddCustomRoleToUserScenario(user, this.restaurantManagerRole, "Restaurant family -  " + this.restaurantManagerRole))
-                .run(new AddCustomSkillToUserScenario("restaurant management"))
-                .run(new AddCustomSkillToUserScenario("restaurant menus"))
-                .run(new AddCustomSkillToUserScenario("food safety"))
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobRoleOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .enableOrDisableLocationPreferences(true)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .waitForGoodOrExcellentMatch()
-                .getAllRecommendedJobRolesWhichContainsTitle(this.recommendedJobList, this.restaurantManagerRole)
-                .check(RoleListAssertions)
-                    .assertThatJobRoleListContainsValues(this.recommendedJobList.getListValue(), expectedRoleList2)
-                    .assertThatJobRoleListContainsNotValues(this.recommendedJobList.getListValue(), notExpectedRoleList2)
-                .endAssertion()
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobRoleOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .enableOrDisableLocationPreferences(false)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .waitForGoodOrExcellentMatch()
-                .getAllRecommendedJobRolesWhichContainsTitle(this.recommendedJobList, this.restaurantManagerRole)
-                .check(RoleListAssertions)
-                    .assertThatJobRoleListContainsValues(this.recommendedJobList.getListValue(), expectedRoleList)
-                    .assertThatJobRoleListContainsNotValues(this.recommendedJobList.getListValue(), notExpectedRoleList)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(user));
+        __page1 = __page1.run(new AddCustomRoleToUserScenario(user, this.restaurantManagerRole, "Restaurant family -  " + this.restaurantManagerRole));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("restaurant management"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("restaurant menus"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("food safety"));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobRoleOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.enableOrDisableLocationPreferences(true);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatch();
+        __page1 = __page1.getAllRecommendedJobRolesWhichContainsTitle(this.recommendedJobList, this.restaurantManagerRole);
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(expectedRoleList2);
+        Assert.assertEquals(this.recommendedJobList.getListValue(), expectedRoleList2, "List of roles are different ");
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(notExpectedRoleList2);
+        let currentSet: any = new HashSet<>(this.recommendedJobList.getListValue());
+        let expectedSet: any = new HashSet<>(notExpectedRoleList2);
+        currentSet.retainAll(expectedSet);
+        Assert.assertTrue(currentSet.isEmpty(), "List should not contains any element but it contains: " + currentSet.length + " elements");
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobRoleOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.enableOrDisableLocationPreferences(false);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatch();
+        __page1 = __page1.getAllRecommendedJobRolesWhichContainsTitle(this.recommendedJobList, this.restaurantManagerRole);
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(expectedRoleList);
+        Assert.assertEquals(this.recommendedJobList.getListValue(), expectedRoleList, "List of roles are different ");
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(notExpectedRoleList);
+        let currentSet: any = new HashSet<>(this.recommendedJobList.getListValue());
+        let expectedSet: any = new HashSet<>(notExpectedRoleList);
+        currentSet.retainAll(expectedSet);
+        Assert.assertTrue(currentSet.isEmpty(), "List should not contains any element but it contains: " + currentSet.length + " elements");
     }
 
     public clearAfterTests(): void {

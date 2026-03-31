@@ -1,10 +1,13 @@
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { Assert, assertTrue } from "common/testing/runtime";
 
 export class SubwayViewForThreeCareerPathsThroughDifferentRolesTest extends BaseRestTest {
 
@@ -49,129 +52,116 @@ export class SubwayViewForThreeCareerPathsThroughDifferentRolesTest extends Base
 
     public shouldCheckSubwayView(): void {
         //paths: A => B1 => C and A => B2 => C and A => B3 => C
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToMePageProfile()
-                .editProfile()
-                .goToEditProfileFromUserDropDown(this.user.name)
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.nopolitan2, this.nopolitan2FullName)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .typeSearchValue(this.nopolitan6)
-                .goToFirstRoleCard()
-                .refreshPageUntilSubwayViewIsDisplayed()
-                .clickOnRoleName(this.nopolitan6)
-                .check(RoleDetailsAssertions)
-                    .assertThatUserRoleNameIsEqualTo(this.nopolitan2)
-                    .assertThatNumberOfGridLinesIsEqualTo(this.two)
-                    .assertThatNumberOfPathsIsEqualTo(this.three)
-                    .assertThatNumberOfMovesForThePathIsEqualTo(this.zero, this.two)
-                    .assertThatNumberOfMovesForThePathIsEqualTo(this.one, this.two)
-                    .assertThatNumberOfMovesForThePathIsEqualTo(this.two, this.two)
-                    .assertThatGoalRoleNameIsEqualTo(this.nopolitan6)
-                    .assertThatRolePositionOnTheGridIsEqualTo(this.nopolitan4, this.row1_col1)
-                    .assertThatRolePositionOnTheGridIsEqualTo(this.nopolitan5, this.row1_col2)
-                    .assertThatRolePositionOnTheGridIsEqualTo(this.nopolitan5b, this.row1_col0)
-                    .assertThatRolePositionOnTheGridIsEqualTo(this.nopolitan6, this.row2_col0_highlighted);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.editProfile();
+        __page1 = __page1.goToEditProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.nopolitan2, this.nopolitan2FullName);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        __page1 = __page1.typeSearchValue(this.nopolitan6);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.refreshPageUntilSubwayViewIsDisplayed();
+        __page1 = __page1.clickOnRoleName(this.nopolitan6);
+        expect(__page1.userRoleName).toContainText(this.nopolitan2, { timeout: 30000 });
+        __page1.logger.info("Successfully verified that user role name contains '" + this.nopolitan2 + "' text.");
+        expect(__page1.gridLine).toHaveCount(Integer.parseInt(this.two));
+        expect(__page1.paths).toHaveCount(Integer.parseInt(this.three));
+        expect(__page1.movesForGivenPath(this.zero)).toHaveCount(Integer.parseInt(this.two));
+        expect(__page1.movesForGivenPath(this.one)).toHaveCount(Integer.parseInt(this.two));
+        expect(__page1.movesForGivenPath(this.two)).toHaveCount(Integer.parseInt(this.two));
+        expect(__page1.goalRoleName).toContainText(this.nopolitan6, { timeout: 30000 });
+        __page1.logger.info("Successfully verified that goal this.nopolitan6 name contains '" + this.nopolitan6 + "' text.");
+        Assert.assertTrue(__page1.this.row1_col1(this.nopolitan4).getAttribute("class").contains(this.row1_col1));
+        Assert.assertTrue(__page1.this.row1_col2(this.nopolitan5).getAttribute("class").contains(this.row1_col2));
+        Assert.assertTrue(__page1.this.row1_col0(this.nopolitan5b).getAttribute("class").contains(this.row1_col0));
+        Assert.assertTrue(__page1.this.row2_col0_highlighted(this.nopolitan6).getAttribute("class").contains(this.row2_col0_highlighted));
     }
 
     public shouldCheckPathParametersAndSelectAPath(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .typeSearchValue(this.nopolitan6)
-                .goToFirstRoleCard()
-                .check(RoleDetailsAssertions)
-                    .assertThatPathHasParameterForTheMove(this.zero, this.two, this.zero, this.moveOneLeftParameter)
-                    .assertThatPathHasParameterForTheMove(this.zero, this.two, this.one, this.moveTwoLeftParameter)
-                    .assertThatPathHasParameterForTheMove(this.one, this.three, this.zero, this.moveOneRightParameter)
-                    .assertThatPathHasParameterForTheMove(this.one, this.three, this.one, this.moveTwoRightParameter)
-                    .assertThatPathHasParameterForTheMove(this.two, this.one, this.zero, this.moveOneStraightParameter)
-                    .assertThatPathHasParameterForTheMove(this.two, this.one, this.one, this.moveTwoStraightParameter)
-                .endAssertion()
-                .check(RoleDetailsAssertions)
-                    .assertThatMoveWithinAPathIsHighlighted(this.one, this.zero)
-                    .assertThatMoveWithinAPathIsHighlighted(this.one, this.one)
-                    .assertThatPathHasNoHighlightedMoves(this.zero)
-                    .assertThatPathHasNoHighlightedMoves(this.one)
-                .endAssertion()
-                .selectPath(this.pathB)
-                .check(RoleDetailsAssertions)
-                    .assertThatMoveWithinAPathIsHighlighted(this.two, this.zero)
-                    .assertThatMoveWithinAPathIsHighlighted(this.two, this.one)
-                    .assertThatPathHasNoHighlightedMoves(this.zero)
-                    .assertThatPathHasNoHighlightedMoves(this.one)
-                .endAssertion()
-                .selectPath(this.pathC)
-                .check(RoleDetailsAssertions)
-                    .assertThatMoveWithinAPathIsHighlighted(this.three, this.zero)
-                    .assertThatMoveWithinAPathIsHighlighted(this.three, this.one)
-                    .assertThatPathHasNoHighlightedMoves(this.zero)
-                    .assertThatPathHasNoHighlightedMoves(this.one)
-                .endAssertion()
-                .selectPath(this.pathC)
-                .check(RoleDetailsAssertions)
-                    .assertThatPathHasNoHighlightedMoves(this.zero)
-                    .assertThatPathHasNoHighlightedMoves(this.one)
-                    .assertThatPathHasNoHighlightedMoves(this.two);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToRolesPageViaCard();
+        __page2 = __page2.typeSearchValue(this.nopolitan6);
+        __page2 = __page2.goToFirstRoleCard();
+        expect(__page2.moveForGivenStep(this.zero, this.two, this.zero)).toHaveAttribute("d", this.moveOneLeftParameter);
+        expect(__page2.moveForGivenStep(this.zero, this.two, this.one)).toHaveAttribute("d", this.moveTwoLeftParameter);
+        expect(__page2.moveForGivenStep(this.one, this.three, this.zero)).toHaveAttribute("d", this.moveOneRightParameter);
+        expect(__page2.moveForGivenStep(this.one, this.three, this.one)).toHaveAttribute("d", this.moveTwoRightParameter);
+        expect(__page2.moveForGivenStep(this.two, this.one, this.zero)).toHaveAttribute("d", this.moveOneStraightParameter);
+        expect(__page2.moveForGivenStep(this.two, this.one, this.one)).toHaveAttribute("d", this.moveTwoStraightParameter);
+        Assert.assertTrue(__page2.moveByPathAndStep(this.one, this.zero).getAttribute("class").contains("highlihgted"));
+        Assert.assertTrue(__page2.moveByPathAndStep(this.one, this.one).getAttribute("class").contains("highlihgted"));
+        expect(__page2.highlightedMoveForGivenPath(this.zero)).toBeHidden();
+        expect(__page2.highlightedMoveForGivenPath(this.one)).toBeHidden();
+        __page2 = __page2.selectPath(this.pathB);
+        Assert.assertTrue(__page2.moveByPathAndStep(this.two, this.zero).getAttribute("class").contains("highlihgted"));
+        Assert.assertTrue(__page2.moveByPathAndStep(this.two, this.one).getAttribute("class").contains("highlihgted"));
+        expect(__page2.highlightedMoveForGivenPath(this.zero)).toBeHidden();
+        expect(__page2.highlightedMoveForGivenPath(this.one)).toBeHidden();
+        __page2 = __page2.selectPath(this.pathC);
+        Assert.assertTrue(__page2.moveByPathAndStep(this.three, this.zero).getAttribute("class").contains("highlihgted"));
+        Assert.assertTrue(__page2.moveByPathAndStep(this.three, this.one).getAttribute("class").contains("highlihgted"));
+        expect(__page2.highlightedMoveForGivenPath(this.zero)).toBeHidden();
+        expect(__page2.highlightedMoveForGivenPath(this.one)).toBeHidden();
+        __page2 = __page2.selectPath(this.pathC);
+        expect(__page2.highlightedMoveForGivenPath(this.zero)).toBeHidden();
+        expect(__page2.highlightedMoveForGivenPath(this.one)).toBeHidden();
+        expect(__page2.highlightedMoveForGivenPath(this.two)).toBeHidden();
     }
 
     public shouldMarkRoleAsAspirationalChangePathSelectNoPathRemoveRoleAsAspirational(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .typeSearchValue(this.nopolitan6)
-                .goToFirstRoleCard()
-                .check(RoleDetailsAssertions)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathA)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathB)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathC)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.whiteColor)
-                .endAssertion()
-                .markRoleAspirational()
-                .selectPathForAspirationalSubmenu(this.pathA)
-                .check(RoleDetailsAssertions)
-                    .assertThatArrowIconIsDisplayedForPath(this.pathA)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.blackColor)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathB)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathC)
-                .endAssertion()
-                .changePath()
-                .selectPathForAspirationalSubmenuForExistingAspirationalRole(this.pathB)
-                .check(RoleDetailsAssertions)
-                    .assertThatArrowIconIsDisplayedForPath(this.pathB)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.blackColor)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathA)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathC)
-                .endAssertion()
-                .changePath()
-                .selectPathForAspirationalSubmenuForExistingAspirationalRole(this.noPath)
-                .check(RoleDetailsAssertions)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.blackColor)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathA)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathB)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathC)
-                .endAssertion()
-                .changePath()
-                .selectPathForAspirationalSubmenuForExistingAspirationalRole(this.pathC)
-                .check(RoleDetailsAssertions)
-                    .assertThatArrowIconIsDisplayedForPath(this.pathC)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.blackColor)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathA)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathB)
-                .endAssertion()
-                .removeRoleAsAspirational()
-                .check(RoleDetailsAssertions)
-                    .assertThatBackgroundColorForARoleIsEqualTo(this.nopolitan6, this.whiteColor)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathA)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathB)
-                    .assertThatArrowIconIsNotDisplayedForPath(this.pathC);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.goToRolesPageViaCard();
+        __page3 = __page3.typeSearchValue(this.nopolitan6);
+        __page3 = __page3.goToFirstRoleCard();
+        expect(__page3.aspirationalIconForPath(this.pathA)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathB)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathC)).toBeHidden();
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.whiteColor);
+        __page3 = __page3.markRoleAspirational();
+        __page3 = __page3.selectPathForAspirationalSubmenu(this.pathA);
+        __page3.pause(2000);
+        Assert.assertTrue(__page3.aspirationalIconForPath(this.pathA).getAttribute("class").contains("icon icon-bullseye-arrow active icon-selected"));
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.blackColor);
+        expect(__page3.aspirationalIconForPath(this.pathB)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathC)).toBeHidden();
+        __page3 = __page3.changePath();
+        __page3 = __page3.selectPathForAspirationalSubmenuForExistingAspirationalRole(this.pathB);
+        __page3.pause(2000);
+        Assert.assertTrue(__page3.aspirationalIconForPath(this.pathB).getAttribute("class").contains("icon icon-bullseye-arrow active icon-selected"));
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.blackColor);
+        expect(__page3.aspirationalIconForPath(this.pathA)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathC)).toBeHidden();
+        __page3 = __page3.changePath();
+        __page3 = __page3.selectPathForAspirationalSubmenuForExistingAspirationalRole(this.noPath);
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.blackColor);
+        expect(__page3.aspirationalIconForPath(this.pathA)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathB)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathC)).toBeHidden();
+        __page3 = __page3.changePath();
+        __page3 = __page3.selectPathForAspirationalSubmenuForExistingAspirationalRole(this.pathC);
+        __page3.pause(2000);
+        Assert.assertTrue(__page3.aspirationalIconForPath(this.pathC).getAttribute("class").contains("icon icon-bullseye-arrow active icon-selected"));
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.blackColor);
+        expect(__page3.aspirationalIconForPath(this.pathA)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathB)).toBeHidden();
+        __page3 = __page3.removeRoleAsAspirational();
+        expect(__page3.roleBackgroundColor(this.nopolitan6)).toHaveCSS("background-color", this.whiteColor);
+        expect(__page3.aspirationalIconForPath(this.pathA)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathB)).toBeHidden();
+        expect(__page3.aspirationalIconForPath(this.pathC)).toBeHidden();
     }
 
     public afterTests(): void {

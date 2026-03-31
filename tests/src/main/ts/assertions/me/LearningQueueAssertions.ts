@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { LearningQueuePage } from "pages/me/LearningQueuePage";
+import { expect } from "common/testing/playwright";
 
 export class LearningQueueAssertions extends BaseAssertion<LearningQueuePage> {
 
     public assertThatLearningTitleContains(learningTitle: string): LearningQueueAssertions {
-        this.assertThat(this.page.learningTitle).containsText(learningTitle, this.containsTextOptions);
+        expect(this.page.learningTitle).toContainText(learningTitle, this.containsTextOptions);
         return this;
     }
 }

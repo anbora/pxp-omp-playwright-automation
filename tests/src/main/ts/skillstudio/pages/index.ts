@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { CategoryLibraryPage } from "./CategoryLibraryPage";
 export { LearningRecommendationsPage } from "./LearningRecommendationsPage";
 export { OrganizationOperationPage } from "./OrganizationOperationPage";

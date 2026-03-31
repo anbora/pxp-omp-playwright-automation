@@ -1,41 +1,42 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { GalaxyViewFiltersModalPage } from "pages/careergrowth/roles/GalaxyViewFiltersModalPage";
+import { expect } from "common/testing/playwright";
 
 export class GalayViewFiltersModalAssertions extends BaseAssertion<GalaxyViewFiltersModalPage> {
 
     public assertThatJobFamilyCheckboxIsDisabled(jobFamily: string): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.jobFamilyCheckbox(jobFamily)).isDisabled();
+        expect(this.page.jobFamilyCheckbox(jobFamily)).toBeDisabled();
         return this;
     }
 
     public assertThatApplyButtonIsDisabled(): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.applyButton).isDisabled();
+        expect(this.page.applyButton).toBeDisabled();
         return this;
     }
 
     public assertThatApplyButtonIsEnabled(): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.applyButton).isEnabled();
+        expect(this.page.applyButton).toBeEnabled();
         return this;
     }
 
     public assertThatNumberOfRolesWithinJobFamilyIsEqualTo(jobFamily: string, numberOfRoles: string): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.jobFamilyText(jobFamily)).containsText(numberOfRoles, this.containsTextOptions);
+        expect(this.page.jobFamilyText(jobFamily)).toContainText(numberOfRoles, this.containsTextOptions);
         return this;
     }
 
     public assertThatNumberOfSelectedFamiliesIsEqualTo(number: string): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.selectedFamiliesLabel(number)).containsText(number);
+        expect(this.page.selectedFamiliesLabel(number)).toContainText(number);
         return this;
     }
 
     public assertThatAlertIsDisplayedWithText(alertDescription: string): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.alert).containsText(alertDescription, this.containsTextOptions);
+        expect(this.page.alert).toContainText(alertDescription, this.containsTextOptions);
         return this;
     }
 
     public assertThatAlertIsNotDisplayed(): GalayViewFiltersModalAssertions {
-        this.assertThat(this.page.alert).isHidden();
+        expect(this.page.alert).toBeHidden();
         return this;
     }
 }

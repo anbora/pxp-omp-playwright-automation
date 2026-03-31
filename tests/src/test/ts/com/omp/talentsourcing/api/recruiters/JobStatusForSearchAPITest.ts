@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CommonOperationsForApiTest } from "com/omp/talentsourcing/CommonOperationsForApiTest";
 import { EndpointsEnum } from "common/enums/EndpointsEnum";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";

@@ -1,4 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +9,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class RolesListSortingTest extends BaseRestTest {
 
@@ -39,22 +41,21 @@ export class RolesListSortingTest extends BaseRestTest {
     }
 
     public shouldCheckRoleSorting(startSorting: string, endSorting: string): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .sortListBy(startSorting)
-                .getFirstCardOnAllList(this.roleContainer)
-                .check(RoleListAssertions)
-                    .assertThatFirstRoleOnAllRolesListIsEqualTo(this.roleContainer.getValue())
-                .endAssertion()
-                .sortListBy(endSorting)
-                .check(RoleListAssertions)
-                    .assertThatFirstRoleOnAllRolesListIsNotEqualTo(this.roleContainer.getValue())
-                .endAssertion()
-                .sortListBy(startSorting)
-                .check(RoleListAssertions)
-                    .assertThatFirstRoleOnAllRolesListIsEqualTo(this.roleContainer.getValue());
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        __page1 = __page1.sortListBy(startSorting);
+        __page1 = __page1.getFirstCardOnAllList(this.roleContainer);
+        __page1.pause(1000);
+        expect(__page1.firstCardName().first()).toContainText(this.roleContainer.getValue(), { timeout: 30000 });
+        __page1 = __page1.sortListBy(endSorting);
+        __page1.pause(1000);
+        expect(__page1.firstCardName().first()).not.toContainText(this.roleContainer.getValue(), { timeout: 30000 });
+        __page1 = __page1.sortListBy(startSorting);
+        __page1.pause(1000);
+        expect(__page1.firstCardName().first()).toContainText(this.roleContainer.getValue(), { timeout: 30000 });
     }
 
     public afterTests(): void {

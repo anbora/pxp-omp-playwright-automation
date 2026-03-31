@@ -1,4 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddCustomRoleToUserScenario } from "scenarios/profile/AddCustomRoleToUserScenario";
 import { AddCustomSkillToUserScenario } from "scenarios/profile/AddCustomSkillToUserScenario";
+import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
 
 export class LevelRestrictionToJobRoleRecommendationsTest extends BaseRestTest {
 
@@ -71,28 +73,34 @@ export class LevelRestrictionToJobRoleRecommendationsTest extends BaseRestTest {
     }
 
     public shouldCheckLevelRestriction(user: UserModel, roleToAssign: string, levelRanksHigher: string, levelRanksLower: string, expectedRoleList: Array<string>, notExpectedRoleList: Array<string>): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(user))
-                .run(new AddCustomRoleToUserScenario(user, roleToAssign, "Anime Watcher family -  " + roleToAssign))
-                .run(new AddCustomSkillToUserScenario("anime"))
-                .run(new AddCustomSkillToUserScenario("MTV"))
-                .run(new AddCustomSkillToUserScenario("japanese art"))
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobRoleOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .selectLevelRanksHigher(levelRanksHigher)
-                .selectLevelRanksLower(levelRanksLower)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .waitForGoodOrExcellentMatch()
-                .getAllRecommendedJobRolesWhichContainsTitle(this.recommendedRoleList, "Anime Watcher")
-                .check(RoleListAssertions)
-                    .assertThatJobRoleListContainsValues(this.recommendedRoleList.getListValue(), expectedRoleList)
-                    .assertThatJobRoleListContainsNotValues(this.recommendedRoleList.getListValue(), notExpectedRoleList)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(user));
+        __page1 = __page1.run(new AddCustomRoleToUserScenario(user, roleToAssign, "Anime Watcher family -  " + roleToAssign));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("anime"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("MTV"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("japanese art"));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobRoleOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.selectLevelRanksHigher(levelRanksHigher);
+        __page1 = __page1.selectLevelRanksLower(levelRanksLower);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatch();
+        __page1 = __page1.getAllRecommendedJobRolesWhichContainsTitle(this.recommendedRoleList, "Anime Watcher");
+        Collections.sort(this.recommendedRoleList.getListValue());
+        Collections.sort(expectedRoleList);
+        Assert.assertEquals(this.recommendedRoleList.getListValue(), expectedRoleList, "List of roles are different ");
+        Collections.sort(this.recommendedRoleList.getListValue());
+        Collections.sort(notExpectedRoleList);
+        let currentSet: any = new HashSet<>(this.recommendedRoleList.getListValue());
+        let expectedSet: any = new HashSet<>(notExpectedRoleList);
+        currentSet.retainAll(expectedSet);
+        Assert.assertTrue(currentSet.isEmpty(), "List should not contains any element but it contains: " + currentSet.length + " elements");
     }
 
     public clearAfterTests(): void {

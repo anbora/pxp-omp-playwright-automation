@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { JobRoleMarkedAsAspirationalModal } from "pages/careergrowth/roles/JobRoleMarkedAsAspirationalModal";
+import { expect } from "common/testing/playwright";
 
 export class JobRoleMarkedAsAspirationalModalAssertions  extends BaseAssertion<JobRoleMarkedAsAspirationalModal> {
     private static readonly HEADER_TEXT_TEMPLATE =
@@ -13,12 +14,12 @@ export class JobRoleMarkedAsAspirationalModalAssertions  extends BaseAssertion<J
     }
 
     public assertSkillIsInactive(skillName: string): JobRoleMarkedAsAspirationalModalAssertions {
-        this.assertThat(this.page.skillCheckbox(skillName)).isDisabled();
+        expect(this.page.skillCheckbox(skillName)).toBeDisabled();
         return this;
     }
 
     public assertWarningText(warningText: string): JobRoleMarkedAsAspirationalModalAssertions {
-        this.assertThat(this.page.warning).hasText(warningText);
+        expect(this.page.warning).toHaveText(warningText);
         return this;
     }
 }

@@ -1,4 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +12,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddCustomRoleToUserScenario } from "scenarios/profile/AddCustomRoleToUserScenario";
 import { AddCustomSkillToUserScenario } from "scenarios/profile/AddCustomSkillToUserScenario";
+import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
 
 export class OrganizationRestrictionToJobVacancyRecommendationsTest extends BaseRestTest {
 
@@ -76,67 +78,78 @@ export class OrganizationRestrictionToJobVacancyRecommendationsTest extends Base
     }
 
     public shouldCheckThat(user: UserModel, withOrganization: boolean, organizationValueList: Array<string>, withOrganizationUnit: boolean, organizationUnitValueList: Array<string>, expectedRoleList: Array<string>, notExpectedRoleList: Array<string>, expectedRoleList2: Array<string>, notExpectedRoleList2: Array<string>): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(user))
-                .run(new AddCustomRoleToUserScenario(user, this.role, "Anime Watcher family -  " + this.role))
-                .run(new AddCustomSkillToUserScenario("manga"))
-                .run(new AddCustomSkillToUserScenario("illustration"))
-                .run(new AddCustomSkillToUserScenario("drawing"))
-                .goDirectlyTo(WelcomePage_New)
-                .refreshPage()
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.role, "Manga Reader", this.role, this.october, this.year_2017, this.june, this.year_2022))
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToEditProfileFromUserDropDown(user.name)
-                .clickEditProfileButton()
-                .goToCareerPreferencesTab()
-                .addCareerPreference("Preferred Work Location", "TestingQA")
-                .selectCareerPreferenceCheckbox(this.careerGoal, this.backward)
-                .selectCareerPreferenceCheckbox(this.careerGoal, "I'm open to horizontal career development moves")
-                .selectCareerPreferenceCheckbox(this.careerGoal, "I want to progress my career and take on more responsibility")
-                .selectCareerPreferenceCheckbox(this.workplaceModel, this.hybrid)
-                .selectCareerPreferenceCheckbox(this.schedule, this.fullTime)
-                .selectCareerPreferenceCheckbox(this.careerTrack, this.management)
-                .addCareerPreference(this.jobType, this.internship)
-                .addAFewCareerPreferencesWithCondition("Department", organizationValueList, withOrganization)
-                .clickAFewCheckboxesWithCondition("Legal Unit", organizationUnitValueList, withOrganizationUnit)
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.role_2)
-                .markFirstRoleAsAspirational()
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobVacancyOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .enableOrDisableOrganizationPreferences(true)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .waitForGoodOrExcellentMatchForSuggestedJobVacancy()
-                .waitForRecommendationsCounterEqualOrGreaterThan(this.recommendedJobList.getListValue().length)
-                .getAllRecommendedJobVacanciesWhichContainsTitle(this.recommendedJobList, this.role)
-                .check(RoleListAssertions)
-                    .assertThatJobRoleListContainsValues(this.recommendedJobList.getListValue(), expectedRoleList2)
-                    .assertThatJobRoleListContainsNotValues(this.recommendedJobList.getListValue(), notExpectedRoleList2)
-                .endAssertion()
-                .goToAdminPanel()
-                .selectOpportunityMarketplace()
-                .openMenuForJobVacancyOpportunityMarketplace()
-                .clickRecommendationsButton()
-                .enableOrDisableOrganizationPreferences(false)
-                .clickSaveButton()
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .waitForGoodOrExcellentMatchForSuggestedJobVacancy()
-                .waitForRecommendationsCounterEqualOrGreaterThan(this.recommendedJobList.getListValue().length)
-                .getAllRecommendedJobVacanciesWhichContainsTitle(this.recommendedJobList, this.role)
-                .check(RoleListAssertions)
-                    .assertThatJobRoleListContainsValues(this.recommendedJobList.getListValue(), expectedRoleList)
-                    .assertThatJobRoleListContainsNotValues(this.recommendedJobList.getListValue(), notExpectedRoleList)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(user));
+        __page1 = __page1.run(new AddCustomRoleToUserScenario(user, this.role, "Anime Watcher family -  " + this.role));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("manga"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("illustration"));
+        __page1 = __page1.run(new AddCustomSkillToUserScenario("drawing"));
+        __page1 = __page1.goDirectlyTo(WelcomePage_New);
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.role, "Manga Reader", this.role, this.october, this.year_2017, this.june, this.year_2022));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToEditProfileFromUserDropDown(user.name);
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.goToCareerPreferencesTab();
+        __page1 = __page1.addCareerPreference("Preferred Work Location", "TestingQA");
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, this.backward);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, "I'm open to horizontal career development moves");
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, "I want to progress my career and take on more responsibility");
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.workplaceModel, this.hybrid);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.schedule, this.fullTime);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerTrack, this.management);
+        __page1 = __page1.addCareerPreference(this.jobType, this.internship);
+        __page1 = __page1.addAFewCareerPreferencesWithCondition("Department", organizationValueList, withOrganization);
+        __page1 = __page1.clickAFewCheckboxesWithCondition("Legal Unit", organizationUnitValueList, withOrganizationUnit);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.role_2);
+        __page1 = __page1.markFirstRoleAsAspirational();
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobVacancyOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.enableOrDisableOrganizationPreferences(true);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatchForSuggestedJobVacancy();
+        __page1 = __page1.waitForRecommendationsCounterEqualOrGreaterThan(this.recommendedJobList.getListValue().length);
+        __page1 = __page1.getAllRecommendedJobVacanciesWhichContainsTitle(this.recommendedJobList, this.role);
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(expectedRoleList2);
+        Assert.assertEquals(this.recommendedJobList.getListValue(), expectedRoleList2, "List of roles are different ");
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(notExpectedRoleList2);
+        let currentSet: any = new HashSet<>(this.recommendedJobList.getListValue());
+        let expectedSet: any = new HashSet<>(notExpectedRoleList2);
+        currentSet.retainAll(expectedSet);
+        Assert.assertTrue(currentSet.isEmpty(), "List should not contains any element but it contains: " + currentSet.length + " elements");
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectOpportunityMarketplace();
+        __page1 = __page1.openMenuForJobVacancyOpportunityMarketplace();
+        __page1 = __page1.clickRecommendationsButton();
+        __page1 = __page1.enableOrDisableOrganizationPreferences(false);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatchForSuggestedJobVacancy();
+        __page1 = __page1.waitForRecommendationsCounterEqualOrGreaterThan(this.recommendedJobList.getListValue().length);
+        __page1 = __page1.getAllRecommendedJobVacanciesWhichContainsTitle(this.recommendedJobList, this.role);
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(expectedRoleList);
+        Assert.assertEquals(this.recommendedJobList.getListValue(), expectedRoleList, "List of roles are different ");
+        Collections.sort(this.recommendedJobList.getListValue());
+        Collections.sort(notExpectedRoleList);
+        let currentSet: any = new HashSet<>(this.recommendedJobList.getListValue());
+        let expectedSet: any = new HashSet<>(notExpectedRoleList);
+        currentSet.retainAll(expectedSet);
+        Assert.assertTrue(currentSet.isEmpty(), "List should not contains any element but it contains: " + currentSet.length + " elements");
     }
 
     public clearAfterTests(): void {

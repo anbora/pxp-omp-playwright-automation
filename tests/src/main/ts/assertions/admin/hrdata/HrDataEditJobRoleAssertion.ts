@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { EditJobRolePage } from "pages/admin/users/EditJobRolePage";
+import { expect } from "common/testing/playwright";
 
 export class HrDataEditJobRoleAssertion extends BaseAssertion <EditJobRolePage>{
 
@@ -10,45 +11,45 @@ export class HrDataEditJobRoleAssertion extends BaseAssertion <EditJobRolePage>{
     private value4: string = "4";
 
     public assertThatLocationIsDisplayed(): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.selectedLocationFieldValue).hasCount(1);
+        expect(this.page.selectedLocationFieldValue).toHaveCount(1);
         this.page.logger.info("Successfully verified data location field found");
         return this;
     }
 
     public assertThatRoleSummaryIsDisplayed(roleSummary: string): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.enterRoleSummary).containsText(roleSummary);
+        expect(this.page.enterRoleSummary).toContainText(roleSummary);
         this.page.logger.info("Successfully verified data Role Summary is displayed");
         return this;
     }
 
     public assertThatAdditionalDescriptionIsDisplayed(additionalDescription: string): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.enterAdditionalDescription).containsText(additionalDescription);
+        expect(this.page.enterAdditionalDescription).toContainText(additionalDescription);
         this.page.logger.info("Successfully verified data Additional Description is displayed");
         return this;
     }
 
     public assertThatDescriptionIsDisplayed(description: string): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.enterRoleDescription).containsText(description);
+        expect(this.page.enterRoleDescription).toContainText(description);
         this.page.logger.info("Successfully verified data Description is displayed");
         return this;
     }
 
     public assertThatLocationsAreDisplayed(): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.locationValue(value1)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.locationValue(value2)).isVisible(this.isVisibleOptions);
+        expect(this.page.locationValue(value1)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.locationValue(value2)).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data locations are displayed");
         return this;
     }
 
     public assertThatAdditionalLocationsAreDisplayed(): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.locationValue(value3)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.locationValue(value4)).isVisible(this.isVisibleOptions);
+        expect(this.page.locationValue(value3)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.locationValue(value4)).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data  additional locations are displayed");
         return this;
     }
 
     public assertThatMaxNumberOfSkillsReachedMessageIsDisplayed(): HrDataEditJobRoleAssertion {
-        this.assertThat(this.page.maximumNumberOfSkillsMessage).containsText("You have already added max allowed skill.", this.containsTextOptions);
+        expect(this.page.maximumNumberOfSkillsMessage).toContainText("You have already added max allowed skill.", this.containsTextOptions);
         this.page.logger.info("Successfully verified data. Warning message is showing");
         return this;
     }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -40,7 +41,7 @@ export class MyOpportunitiesPage extends BasePage {
     public unbookmarkButton: Locator = this.page.locator("//i[@class='icon-bookmark-fill']/parent::button");
     public bookmarkButton: Locator = this.page.locator("//i[@class='icon-bookmark']/parent::button");
     public leftMenuTab(tabName: string): Locator {
-      return this.getByText(tabName).build();
+      return this.getByText(tabName);
     }
     public selectedTab(tabName: string): Locator {
       return this.getLocatorWithParam("//button[text() ='%s'][contains(@class,'selected')]", tabName);

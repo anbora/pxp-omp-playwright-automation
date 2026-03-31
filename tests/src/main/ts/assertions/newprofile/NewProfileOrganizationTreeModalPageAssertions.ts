@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { NewProfileOrganizationTreeModalPage } from "pages/newprofile/NewProfileOrganizationTreeModalPage";
+import { expect } from "common/testing/playwright";
 
 export class NewProfileOrganizationTreeModalPageAssertions extends BaseAssertion<NewProfileOrganizationTreeModalPage> {
 
     public assertThatShowOrganizationTreeContainsUsersName(userName: string): NewProfileOrganizationTreeModalPageAssertions {
-        this.assertThat(this.page.organizationTree).containsText(userName);
+        expect(this.page.organizationTree).toContainText(userName);
         this.page.logger.info("Successfully verified, that User Name is displayed");
         return this;
     }

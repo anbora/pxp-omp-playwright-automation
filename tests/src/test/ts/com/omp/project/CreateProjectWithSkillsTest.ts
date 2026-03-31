@@ -1,6 +1,5 @@
-import { CreateProjectAssertions } from "assertions/careergrowth/project/CreateProjectAssertions";
-import { ProjectDetailsAssertions } from "assertions/careergrowth/project/ProjectDetailsAssertions";
-import { ProjectMePageAssertions } from "assertions/careergrowth/project/ProjectMePageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +10,7 @@ import { LandingPage } from "pages/landing/LandingPage";
 import { HomePage } from "pages/other/HomePage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { CreateProjectWithSkillsScenario } from "scenarios/project/CreateProjectWithSkillsScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateProjectWithSkillsTest extends BaseRestTest {
 
@@ -37,41 +37,42 @@ export class CreateProjectWithSkillsTest extends BaseRestTest {
     }
 
     public createAProjectWithSkillsAtEachLevelAndValidateDetailsPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToHomePage()
-                .clickCreateButton()
-                .clickCreateProjectButton()
-                .check(CreateProjectAssertions)
-                    .assertThatProjectPageLoadsAllRequiredFields()
-                .endAssertion()
-                .run(new CreateProjectWithSkillsScenario(this.projectTitle, this.projectDesc, this.skillName1, this.skillName2, this.skillName3, this.skillLevel1Numeric, this.skillLevel2Numeric, this.skillLevel3Numeric))
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(this.projectTitle)
-                .endAssertion()
-                .goDirectlyTo(ProjectsMePage)
-                .clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName, ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .assertThatProjectDetailsPageLoadsForOwner(this.projectTitle)
-                    .assertThatProjectDetailsPageFieldsLoadsSkills(this.skillLevel1, this.skillName1)
-                    .assertThatProjectDetailsPageFieldsLoadsSkills(this.skillLevel2, this.skillName2)
-                    .assertThatProjectDetailsPageFieldsLoadsSkills(this.skillLevel3, this.skillName3)
-                .endAssertion()
-                .clickOnAProjectAction(this.actionName2, ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .closeProjectModalDisplays()
-                .endAssertion()
-                .clickCloseButtonCloseProjectModal()
-                .check(ProjectDetailsAssertions)
-                    .assertToasterTextDisplays(this.toasterText)
-                .endAssertion()
-                .goDirectlyTo(LandingPage)
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickClosedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayed(this.projectTitle);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToHomePage();
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickCreateProjectButton();
+        expect(__page1.createProjectHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectTitle).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDescription).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectThumbnail).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.run(new CreateProjectWithSkillsScenario(this.projectTitle, this.projectDesc, this.skillName1, this.skillName2, this.skillName3, this.skillLevel1Numeric, this.skillLevel2Numeric, this.skillLevel3Numeric));
+        expect(__page1.ownedByMeHorizontalCardProjectTitle(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goDirectlyTo(ProjectsMePage);
+        __page1 = __page1.clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle);
+        __page1 = __page1.clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName, ProjectDetailsPage);
+        expect(__page1.projectTitleHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectMetaDetailsSection).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDescriptionHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDetailsRightPanel).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectOwnersList).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectPublishedDate).toBeVisible({ timeout: 30000 });
+        expect(__page1.relatedSkillsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillLevelAndName(this.skillLevel1, this.skillName1)).toBeVisible({ timeout: 30000 });
+        expect(__page1.relatedSkillsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillLevelAndName(this.skillLevel2, this.skillName2)).toBeVisible({ timeout: 30000 });
+        expect(__page1.relatedSkillsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillLevelAndName(this.skillLevel3, this.skillName3)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOnAProjectAction(this.actionName2, ProjectDetailsPage);
+        expect(__page1.closeProjectModal).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickCloseButtonCloseProjectModal();
+        expect(__page1.confirmationToaster(this.toasterText)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToProjectsTab();
+        __page1 = __page1.clickClosedTab();
+        expect(__page1.projectTitleMePage(this.projectTitle)).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

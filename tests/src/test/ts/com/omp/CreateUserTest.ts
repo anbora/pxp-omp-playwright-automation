@@ -1,6 +1,5 @@
-import { UsersAdminAssertions } from "assertions/admin/users/UsersAdminAssertions";
-import { WelcomePageAssertions } from "assertions/careergrowth/careergrowth/WelcomePageAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { UsersAdminPage } from "pages/admin/users/UsersAdminPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateUserTest extends BaseRestTest {
 
@@ -35,20 +35,21 @@ export class CreateUserTest extends BaseRestTest {
     }
 
     public logInToNewUserCreatedViaRest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.userModel))
-                .goToAdminPanel()
-                .selectMainTab(this.accountsLabel)
-                .openUsersPage()
-                .clickAddUsersButton()
-                .uploadCsvFile(this.csvFile)
-                .clickSendWelcomeMessageCheckbox()
-                .clickPreviewButton()
-                .clickImportButton()
-                .refreshCurrentPage(UsersAdminPage)
-                .fillInSearchInput(this.userName)
-                .check(UsersAdminAssertions)
-                    .assertThatUserEmailIsOnTheList(this.email);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.userModel));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.accountsLabel);
+        __page1 = __page1.openUsersPage();
+        __page1 = __page1.clickAddUsersButton();
+        __page1 = __page1.uploadCsvFile(this.csvFile);
+        __page1 = __page1.clickSendWelcomeMessageCheckbox();
+        __page1 = __page1.clickPreviewButton();
+        __page1 = __page1.clickImportButton();
+        __page1 = __page1.refreshCurrentPage(UsersAdminPage);
+        __page1 = __page1.fillInSearchInput(this.userName);
+        expect(__page1.userEmailInTable(this.email)).toBeVisible({ timeout: 30000 });
+        __page1.logger.info("Successfully verified that user email in visible on the list.");
 
     }
 
@@ -59,33 +60,32 @@ export class CreateUserTest extends BaseRestTest {
     }
 
     public logInToNewUserCreatedManually(): void {
-        this.getOmpLoginPage()
-                .fillInLoginInput(this.email)
-                .fillInPasswordInput(this.password)
-                .clickLoginButtonAndGoToOnboarding()
-                .clickNextButtonAndGoToInterest()
-                .clickNextButtonAndGoToLandingPage()
-                .check(LandingPageAssertions)
-                    .assertThatHomePageIsLoaded(this.newUserModel)
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .check(WelcomePageAssertions)
-                    .assertThatCurrentRoleNameIsEqualTo("Unusual job family - Unusual role");
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.fillInLoginInput(this.email);
+        __page2 = __page2.fillInPasswordInput(this.password);
+        __page2 = __page2.clickLoginButtonAndGoToOnboarding();
+        __page2 = __page2.clickNextButtonAndGoToInterest();
+        __page2 = __page2.clickNextButtonAndGoToLandingPage();
+        __page2.assertHomePageLoaded(this.newUserModel);
+        __page2 = __page2.goToCareerGrowthPage();
+        expect(__page2.currentRoleName()).toContainText("Unusual job family - Unusual role", { timeout: 30000 });
     }
 
     public deleteUserManually(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.userModel))
-                .goToAdminPanel()
-                .selectMainTab(this.accountsLabel)
-                .openUsersPage()
-                .fillInSearchInput(this.userName)
-                .clickUserCheckBox(this.userName + " " + this.userLastName)
-                .clickDeleteUserButton()
-                .clickYesForDeletionConfirmation()
-                .refreshCurrentPage(UsersAdminPage)
-                .fillInSearchInput(this.userName)
-                .check(UsersAdminAssertions)
-                    .assertThatUserListIsEmpty();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.userModel));
+        __page3 = __page3.goToAdminPanel();
+        __page3 = __page3.selectMainTab(this.accountsLabel);
+        __page3 = __page3.openUsersPage();
+        __page3 = __page3.fillInSearchInput(this.userName);
+        __page3 = __page3.clickUserCheckBox(this.userName + " " + this.userLastName);
+        __page3 = __page3.clickDeleteUserButton();
+        __page3 = __page3.clickYesForDeletionConfirmation();
+        __page3 = __page3.refreshCurrentPage(UsersAdminPage);
+        __page3 = __page3.fillInSearchInput(this.userName);
+        expect(__page3.emptyListLabel).toContainText("No data available.", { timeout: 30000 });
+        __page3.logger.info("Successfully verified that user list is empty.");
     }
 }

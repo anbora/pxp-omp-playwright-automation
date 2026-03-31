@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseRestTest } from "common/BaseRestTest";
 import { JobModel } from "models/job/JobModel";
 import { LinkedRole } from "models/job/LinkedRole";

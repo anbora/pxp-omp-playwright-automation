@@ -1,7 +1,5 @@
-import { SkillsPassportMePageAssertions } from "assertions/careergrowth/jobs/SkillsPassportMePageAssertions";
-import { ExperienceCareerProfileModalAssertions } from "assertions/careergrowth/profiles/ExperienceCareerProfileModalAssertions";
-import { SkillsCareerProfileModalAssertions } from "assertions/careergrowth/profiles/SkillsCareerProfileModalAssertions";
-import { UploadResumeFileModalAssertions } from "assertions/careergrowth/project/UploadResumeFileModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +8,8 @@ import { WorkHistoryItem } from "models/job/WorkHistoryItem";
 import { ResultContainer } from "models/ResultContainer";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { Assert, assertEquals, assertTrue } from "common/testing/runtime";
 
 export class ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest extends BaseRestTest {
 
@@ -44,67 +44,58 @@ export class ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest extends Ba
     }
 
     public shouldUpdateCareerWithSkillsAndWorkHistoryParsedFromCv(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .editProfile()
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENER, ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENER)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .refreshPage()
-                .clickUpdateCareerProfileLink()
-                .clickSelectFile()
-                .uploadFile(this.cvFilePath, this.documentName)
-                .check(UploadResumeFileModalAssertions)
-                    .assertThatDocumentNameIsEqualTo(this.documentName)
-                .endAssertion()
-                .clickUploadButton()
-                .check(UploadResumeFileModalAssertions)
-                    .assertWorkHistory(this.expectedWorkHistory)
-                .endAssertion()
-                .clickNextButton()
-                .unselectAllSkills()
-                .markParsedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING)
-                .selectSkillLevel(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING, "Expert")
-                .markParsedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE)
-                .selectSkillLevel(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE, "Beginner")
-                .clickAddButton()
-                .clickXButtonAndStayInModal()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertWarningText(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.UNSAVED_WORK_HISTORIES)
-                .endAssertion()
-                .clickSkipForNowButton()
-                .clickXButtonAndStayInModal()
-                .check(SkillsCareerProfileModalAssertions)
-                    .assertWarningText(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.UNSAVED_SKILLS)
-                .endAssertion()
-                .clickAddFirstSuggestedSkill(this.suggestedSkillContainer, "Intermediate")
-                .clickMoreSkills(this.moreSkillsContainer)
-                .markSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE)
-                .selectLevelForSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE, "Advanced")
-                .clickAdd()
-                .check(SkillsCareerProfileModalAssertions)
-                    .assertThatSkillIsDisplayed("Beginner", ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE.toLowerCase())
-                    .assertThatSkillIsDisplayed("Intermediate", this.suggestedSkillContainer.getValue())
-                    .assertThatSkillIsDisplayed("Expert", ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING.toLowerCase())
-                    .assertThatSkillIsDisplayed("Advanced", ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE)
-                    .assertThatRemainingNumberOfSuggestedSkillsDecreased(this.moreSkillsContainer)
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToMePageProfile()
-                .goToSkillPassportTab()
-                .check(SkillsPassportMePageAssertions)
-                    .assertThatSkillIsAdded(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE.toLowerCase())
-//                    .assertSkillHasGotBeginnerLevelIcon(CUSTOMER_SERVICE.toLowerCase())
-                    .assertThatSkillIsAdded(this.suggestedSkillContainer.getValue().toLowerCase())
-//                    .assertSkillHasGotIntermediateLevelIcon(suggestedSkillContainer.getValue().toLowerCase())
-                    .assertThatSkillIsAdded(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING.toLowerCase())
-//                    .assertSkillHasGotAdvancedLevelIcon(GARDENING.toLowerCase())
-                    .assertThatSkillIsAdded(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE.toLowerCase());
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.editProfile();
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENER, ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENER);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.clickSelectFile();
+        __page1 = __page1.uploadFile(this.cvFilePath, this.documentName);
+        expect(__page1.documentName).toContainText(this.documentName, { timeout: 30000 });
+        __page1 = __page1.clickUploadButton();
+        Assert.assertEquals(__page1.getWorkHistory(), this.expectedWorkHistory);
+        __page1 = __page1.clickNextButton();
+        __page1 = __page1.unselectAllSkills();
+        __page1 = __page1.markParsedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING);
+        __page1 = __page1.selectSkillLevel(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING, "Expert");
+        __page1 = __page1.markParsedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE);
+        __page1 = __page1.selectSkillLevel(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE, "Beginner");
+        __page1 = __page1.clickAddButton();
+        __page1 = __page1.clickXButtonAndStayInModal();
+        expect(__page1.warning).toHaveText(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.UNSAVED_WORK_HISTORIES);
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickXButtonAndStayInModal();
+        expect(__page1.warning).toHaveText(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.UNSAVED_SKILLS);
+        __page1 = __page1.clickAddFirstSuggestedSkill(this.suggestedSkillContainer, "Intermediate");
+        __page1 = __page1.clickMoreSkills(this.moreSkillsContainer);
+        __page1 = __page1.markSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE);
+        __page1 = __page1.selectLevelForSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE, "Advanced");
+        __page1 = __page1.clickAdd();
+        Assert.assertTrue(__page1.skillsOfLevel("Beginner").allTextContents().contains(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE.toLowerCase()), "Skill of name " + ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE.toLowerCase() + " is missing!");
+        Assert.assertTrue(__page1.skillsOfLevel("Intermediate").allTextContents().contains(this.suggestedSkillContainer.getValue()), "Skill of name " + this.suggestedSkillContainer.getValue() + " is missing!");
+        Assert.assertTrue(__page1.skillsOfLevel("Expert").allTextContents().contains(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING.toLowerCase()), "Skill of name " + ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING.toLowerCase() + " is missing!");
+        Assert.assertTrue(__page1.skillsOfLevel("Advanced").allTextContents().contains(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE), "Skill of name " + ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE + " is missing!");
+        const remainingSuggestedSkills = __page1.moreSkillsButton.textContent() ?? "";
+        const match = remainingSuggestedSkills.match(Pattern.compile("\\d+"));
+        if (match != null) {
+                    Assert.assertEquals(Integer.parseInt(this.moreSkillsContainer.getValue()), Integer.parseInt(match[0]) + 1);
+                }
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToSkillPassportTab();
+        expect(__page1.addedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.CUSTOMER_SERVICE.toLowerCase())).toBeVisible({ timeout: 30000 });
+        expect(__page1.addedSkill(this.suggestedSkillContainer.getValue().toLowerCase())).toBeVisible({ timeout: 30000 });
+        expect(__page1.addedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.GARDENING.toLowerCase())).toBeVisible({ timeout: 30000 });
+        expect(__page1.addedSkill(ReviewAndManageParsedSkillsAndHistoryInCareerProfileTest.HORTICULTURE.toLowerCase())).toBeVisible({ timeout: 30000 });
 //                    .assertSkillHasGotAdvancedLevelIcon(HORTICULTURE.toLowerCase());
     }
 

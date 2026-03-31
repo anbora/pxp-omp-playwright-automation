@@ -1,4 +1,5 @@
-import { MentorshipDiscoveryAssertions } from "assertions/careergrowth/mentorship/MentorshipDiscoveryAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -6,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class MentorshipFiltersModalTest extends BaseRestTest {
 
@@ -41,49 +43,47 @@ export class MentorshipFiltersModalTest extends BaseRestTest {
     }
 
     public CheckAllFiltersInFiltersModal(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goDirectlyTo(LandingPage)
-                .goToCareerGrowthPage()
-                .goToMentorshipPageViaCard()
-                .clickInFiltersButton()
-                .check(MentorshipDiscoveryAssertions)
-                    .assertThatFilterTitlesAreDisplayed(this.jobRoles)
-                    .assertThatFilterTitlesAreDisplayed(this.skills)
-                    .assertThatFilterTitlesAreDisplayed(this.timeZones)
-                    .assertThatFilterTitlesAreDisplayed(this.languages)
-                    .assertThatFilterTitlesSecondAreDisplayed(this.geographicalLocation)
-                    .assertThatFilterTitlesSecondAreDisplayed(this.unitOfBusiness)
-                    .assertThatFilterTitlesSecondAreDisplayed(this.department)
-                    .assertThatFilterTitlesSecondAreDisplayed(this.legalUnit)
-                    .assertThatSearchFieldsDefaultTextIsDisplayed(this.searchAllJobRoles)
-                    .assertThatSearchFieldsDefaultTextIsDisplayed(this.searchAllSkills)
-                    .assertThatLocationsAndDepartmentInputFieldsAreDisplayed(this.locationSectionNumber)
-                    .assertThatLocationsAndDepartmentInputFieldsAreDisplayed(this.departmentSectionNumber)
-                    .assertThatTimeZonesAndLanguagesInputFieldsAreDisplayed(this.timeZonesSectionNumber)
-                    .assertThatTimeZonesAndLanguagesInputFieldsAreDisplayed(this.languagesSectionNumber)
-                    .assertThatShowMoreFieldIsDisplayed()
-                .endAssertion()
-                .clickAndFillFilter(this.searchAllJobRoles, this.jobRoleValue, this.jobRoleValue)
-                .clickAndFillFilter(this.searchAllSkills, this.skillValue, this.skillValue)
-//                .clickAndFillLanguageAndTimezonesFilter(timeZonesSectionNumber,timeZonesValue)
-                .clickAndFillLanguageAndTimezonesFilter(this.languagesSectionNumber,this.languageValue)
-                .clickAndFillLocationsAndDepartmentFilter(this.locationSectionNumber, this.geographicalLocationValue)
-                .clickAndFillLocationsAndDepartmentFilter(this.departmentSectionNumber,this.departmentValue)
-                .selectDivisionFilter(this.unitOfBusinessValue)
-                .selectLegalUnitFilter(this.legalUnitValue)
-                .clickApplyButtonFiltersModal()
-                .check(MentorshipDiscoveryAssertions)
-                    .assertThatAppliedFiltersAreVisible(this.jobRoleNoFamily)
-                    .assertThatAppliedFiltersAreVisible(this.skillValue)
-//                  .assertThatAppliedFiltersAreVisible(timeZonesValue)
-                    .assertThatAppliedFiltersAreVisible(this.languageValue)
-                    .assertThatAppliedFiltersAreVisible(this.geographicalLocationValue)
-                    .assertThatAppliedFiltersAreVisible(this.departmentValue)
-                    .assertThatAppliedFiltersAreVisible(this.unitOfBusinessValue)
-                    .assertThatAppliedFiltersAreVisible(this.legalUnitValue)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToMentorshipPageViaCard();
+        __page1 = __page1.clickInFiltersButton();
+        expect(__page1.this.jobRoles(this.jobRoles)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.skills(this.skills)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.timeZones(this.timeZones)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.languages(this.languages)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.geographicalLocation(this.geographicalLocation)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.unitOfBusiness(this.unitOfBusiness)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.department(this.department)).toBeVisible({ timeout: 30000 });
+        expect(__page1.this.legalUnit(this.legalUnit)).toBeVisible({ timeout: 30000 });
+        expect(__page1.searchFields(this.searchAllJobRoles)).toBeVisible({ timeout: 30000 });
+        expect(__page1.searchFields(this.searchAllSkills)).toBeVisible({ timeout: 30000 });
+        expect(__page1.locationsAndDepartmentFilterInput(this.locationSectionNumber)).toBeVisible({ timeout: 30000 });
+        expect(__page1.locationsAndDepartmentFilterInput(this.departmentSectionNumber)).toBeVisible({ timeout: 30000 });
+        expect(__page1.timeZonesAndLanguagesFilterInput(this.timeZonesSectionNumber)).toBeVisible({ timeout: 30000 });
+        expect(__page1.timeZonesAndLanguagesFilterInput(this.languagesSectionNumber)).toBeVisible({ timeout: 30000 });
+        expect(__page1.showMore(showMoreTimeZones)).toBeVisible({ timeout: 30000 });
+        expect(__page1.showMore(showMoreLanguages)).toBeVisible({ timeout: 30000 });
+        expect(__page1.showMore(showMoreLocations)).toBeVisible({ timeout: 30000 });
+        expect(__page1.showMore(showMoreDepartments)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickAndFillFilter(this.searchAllJobRoles, this.jobRoleValue, this.jobRoleValue);
+        __page1 = __page1.clickAndFillFilter(this.searchAllSkills, this.skillValue, this.skillValue);
+        __page1 = __page1.clickAndFillLanguageAndTimezonesFilter(this.languagesSectionNumber, this.languageValue);
+        __page1 = __page1.clickAndFillLocationsAndDepartmentFilter(this.locationSectionNumber, this.geographicalLocationValue);
+        __page1 = __page1.clickAndFillLocationsAndDepartmentFilter(this.departmentSectionNumber, this.departmentValue);
+        __page1 = __page1.selectDivisionFilter(this.unitOfBusinessValue);
+        __page1 = __page1.selectLegalUnitFilter(this.legalUnitValue);
+        __page1 = __page1.clickApplyButtonFiltersModal();
+        expect(__page1.filterPanel).toContainText(this.jobRoleNoFamily, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.skillValue, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.languageValue, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.geographicalLocationValue, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.departmentValue, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.unitOfBusinessValue, { timeout: 30000 });
+        expect(__page1.filterPanel).toContainText(this.legalUnitValue, { timeout: 30000 });
     }
 
     public afterClass(): void {

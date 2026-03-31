@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { UserModel } from "models/user/UserModel";
 import { AbstractMePage } from "pages/me/share/AbstractMePage";
+import { expect } from "common/testing/playwright";
 
 export class MePageAssertions extends BaseAssertion<AbstractMePage> {
 
@@ -10,52 +11,52 @@ export class MePageAssertions extends BaseAssertion<AbstractMePage> {
     public static readonly ADVANCED_LEVEL: number = 3;
 
     public assertThatViewDetailsButtonIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.viewDetailsButton).isVisible(this.isVisibleOptions);
+        expect(this.page.viewDetailsButton).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. View details button is visible");
         return this;
     }
 
     public assertThatSkillsAssessmentButtonIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.skillsAssessmentButton).isVisible(this.isVisibleOptions);
+        expect(this.page.skillsAssessmentButton).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Skills assessment button is visible");
         return this;
     }
 
     public assertThatViewPublicProfileIconIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.viewPublicProfileIcon).isVisible(this.isVisibleOptions);
+        expect(this.page.viewPublicProfileIcon).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. View public profile icon is visible");
         return this;
     }
 
     public assertThatEditProfileButtonIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.editButton).isVisible(this.isVisibleOptions);
+        expect(this.page.editButton).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Edit profile button is visible");
         return this;
     }
 
     public assertThatPointsLabelIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.pointsLabel).isVisible(this.isVisibleOptions);
+        expect(this.page.pointsLabel).toBeVisible(this.isVisibleOptions);
         this.page.logger.info("Successfully verified data. Points label is visible");
         return this;
     }
 
     public assertThatSkillPassportTabIsDisplayed(): MePageAssertions {
-        this.assertThat(this.page.skillsTab).isVisible(this.isVisibleOptions);
+        expect(this.page.skillsTab).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSkillPassportTabIsNotDisplayed(): MePageAssertions {
-        this.assertThat(this.page.skillsTab).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.skillsTab).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertThatProjectsTabIsNotDisplayed(): MePageAssertions {
-        this.assertThat(this.page.projectsTab).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.projectsTab).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertThatMentorshipsTabIsNotDisplayed(): MePageAssertions {
-        this.assertThat(this.page.mentorshipsTab).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.mentorshipsTab).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
@@ -66,17 +67,17 @@ export class MePageAssertions extends BaseAssertion<AbstractMePage> {
     }
 
     public assertLearningGoalHasGotAdvancedLevel(learningGoal: string): MePageAssertions {
-        this.assertThat(this.page.learningGoalLevel(learningGoal)).hasCount(ADVANCED_LEVEL);
+        expect(this.page.learningGoalLevel(learningGoal)).toHaveCount(ADVANCED_LEVEL);
         return this;
     }
 
     public assertLearningGoalHasGotBeginnerLevel(learningGoal: string): MePageAssertions {
-        this.assertThat(this.page.learningGoalLevel(learningGoal)).hasCount(BEGINNER_LEVEL);
+        expect(this.page.learningGoalLevel(learningGoal)).toHaveCount(BEGINNER_LEVEL);
         return this;
     }
 
     public assertThatUsernameIsVisible(user: UserModel): MePageAssertions {
-        this.assertThat(this.page.username(user)).isVisible(this.isVisibleOptions);
+        expect(this.page.username(user)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

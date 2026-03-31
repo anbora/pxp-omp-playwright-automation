@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { DiscoverPage } from "pages/discover/DiscoverPage";
+import { expect } from "common/testing/playwright";
 
 export class DiscoverAssertions extends BaseAssertion<DiscoverPage> {
 
     public assertThatDiscoverTabHasActiveClass(): DiscoverAssertions {
-        this.assertThat(this.page.discoverTab()).hasClass("active", this.hasClassOptions);
+        expect(this.page.discoverTab()).toHaveClass("active", this.hasClassOptions);
         return this;
     }
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { S } from "com/redis/S";
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -18,7 +19,7 @@ export class CreateProjectPage extends BasePage {
     public imageUploadConfirmButton: Locator = this.page.locator("//div/span[@class='fsp-button fsp-button--primary']");
     public image1Unsplash: Locator = this.page.locator("//div[@class='unsplash-image-uploader']//ul//li[1]");
     public unsplashSelectButton: Locator = this.page.locator("//button[@class='ed-btn ed-btn-primary' and text()='Add Image']");
-    public applicationRequiredToggle: Locator = getByRole(AriaRole.BUTTON, "Application required").build();
+    public applicationRequiredToggle: Locator = this.getByRole(AriaRole.BUTTON, "Application required");
     public publishBuitton: Locator = this.page.locator("//div[@class='projects-footer-actions']/button[text()='Publish']");
     public confirmationModalShareButton: Locator = this.page.locator("//button[text()='Get Shareable Link'] | //button[text()='Share']");
     public errormessageRequiredField: Locator = this.page.locator("div.input-error > span.input-error");
@@ -33,8 +34,8 @@ export class CreateProjectPage extends BasePage {
       return this.getLocatorWithParam("//div[@id='project-description']/p[text()='%s']", descText);
     }
     public numberOfOpeningsCount: Locator = this.page.locator("//input[@class='input-field input-field-border' and @aria-label='Openings available']");
-    public replaceImageTxt: Locator = getByText("Replace image").build();
-    public projectOwnersCountTxt: Locator = getByText("1/6 Owners").build();
+    public replaceImageTxt: Locator = this.getByText("Replace image");
+    public projectOwnersCountTxt: Locator = this.getByText("1/6 Owners");
     public duplicateProjectTitleWarning: Locator = this.page.locator("//div[contains(@class, 'ed-dialog-modal-content')]/span[@class='duplicate-project-warning-modal__hint']");
     public duplicateTitleWarningYesButton: Locator = this.page.locator("//button[@class='ed-btn ed-btn-primary' and text() ='Yes']");
     public duplicateTitleWarningCancelButton: Locator = this.page.locator("//div[@class='ed-dialog-modal-footer ']//button[@class='ed-btn ed-btn-neutral' and text() ='Cancel']");

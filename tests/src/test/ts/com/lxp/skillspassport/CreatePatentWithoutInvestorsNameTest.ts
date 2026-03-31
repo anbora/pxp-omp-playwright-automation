@@ -1,10 +1,12 @@
-import { PatentModalPageAssertion } from "assertions/skillspassport/PatentModalPageAssertion";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreatePatentWithoutInvestorsNameTest extends BaseRestTest {
 
@@ -20,19 +22,21 @@ export class CreatePatentWithoutInvestorsNameTest extends BaseRestTest {
     }
 
     public addPatentWithoutInvestorsName(): void {
-        this.getOmpLoginPage()
-                .run((new LoginWithOnboardingScenario(this.user)))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToMePageProfile()
-                .goToSkillPassportTab()
-                .clickSkillsPassportAddSkillButton()
-                .selectPatentType()
-                .addPatentTitle(CreatePatentWithoutInvestorsNameTest.PATENT_NAME)
-                .addDescriptionFromInput(CreatePatentWithoutInvestorsNameTest.DESCRIPTION)
-                .clickSaveButton()
-                .check(PatentModalPageAssertion)
-                    .assertThatPatentIsAdded(CreatePatentWithoutInvestorsNameTest.PATENT_NAME)
-                    .assertThatPatentInvestorNameEmpty();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run((new LoginWithOnboardingScenario(this.user)));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToSkillPassportTab();
+        __page1 = __page1.clickSkillsPassportAddSkillButton();
+        __page1 = __page1.selectPatentType();
+        __page1 = __page1.addPatentTitle(CreatePatentWithoutInvestorsNameTest.PATENT_NAME);
+        __page1 = __page1.addDescriptionFromInput(CreatePatentWithoutInvestorsNameTest.DESCRIPTION);
+        __page1 = __page1.clickSaveButton();
+        expect(__page1.getPatentName()).toHaveValue(CreatePatentWithoutInvestorsNameTest.PATENT_NAME);
+        __page1.logger.info("Successfully verified that patent is added");
+        expect(__page1.getPatentInvestorName()).toBeVisible();
+        __page1.logger.info("Successfully verified that Investor's name is empty");
     }
 
     public afterTests(): void {

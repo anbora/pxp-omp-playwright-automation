@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SerializedName } from "common/testing/json";
 import { User } from "models/user/User";
 

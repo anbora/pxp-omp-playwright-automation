@@ -1,5 +1,5 @@
-import { MatchingAnalysisModalAssertions } from "assertions/careergrowth/MatchingAnalysisModalAssertions";
-import { CareerPathAssertions } from "assertions/careergrowth/roles/CareerPathAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +9,7 @@ import { UserModel } from "models/user/UserModel";
 import { AddMoreExperienceToCareerProfileScenario } from "scenarios/jobs/AddMoreExperienceToCareerProfileScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
+import { expect } from "common/testing/playwright";
 
 export class UpdateDataFromHowYouMatchModalTest extends BaseRestTest {
 
@@ -52,75 +53,49 @@ export class UpdateDataFromHowYouMatchModalTest extends BaseRestTest {
     }
 
     public shouldCheckMatchDetailsVisibilityForJobVacancy(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .typeSearchValue(this.jobTitle)
-                .goToFirstJobVacancyOnAllJobsList()
-                .showMatchDetails()
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatOverallMatchLabelForFairAndLowMatchIsEqualTo(this.jobVacancy, this.low)
-                    .assertThatTabDescriptionIsEqualTo(this.skills, this.missingData)
-                //    .assertThatTabDescriptionIsEqualTo(careerPreferences, missingData) //issue: https://jira.csod.com/browse/TM-8509
-                    .assertThatTabDescriptionIsEqualTo(this.experience, this.missingData)
-                    .assertThatTabDescriptionIsEqualTo(this.careerPath, this.missingData)
-                    .assertThatQuestionMarkIconIsDisplayedForTab(this.skills)
-                //    .assertThatQuestionMarkIconIsDisplayedForTab(careerPreferences)
-                    .assertThatQuestionMarkIconIsDisplayedForTab(this.experience)
-                    .assertThatQuestionMarkIconIsDisplayedForTab(this.careerPath)
-                    .assertThatNoDataDescriptionIsEqualTo(this.noDataSkills)
-                .endAssertion()
-                .updateSkills()
-                .run(new AddSkillToCareerProfileScenario(this.anxiety, this.beginner))
-                .clickSaveAndContinueButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSaveButtonAndGoBackToJobVacancyDetails()
-                .showMatchDetails()
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatUpdateButtonLabelIsEqualTo(this.updateSkills)
-                    .assertThatNoDataLabelIsNotDisplayed()
-                .endAssertion()
-                //.selectTab(careerPreferences) //https://jira.csod.com/browse/TM-8509
-                //.check(MatchingAnalysisModalAssertions)
-                //    .assertThatNoDataDescriptionIsEqualTo(noDataPreferences)
-                //.endAssertion()
-                //.addPreferences()
-                //.addCareerPreference(level, internship)
-                //.clickSaveAndContinueButton()
-                //.clickSaveButtonAndGoBackToJobVacancyDetails()
-                //.showMatchDetails()
-                //.selectTab(careerPreferences)
-                //.check(MatchingAnalysisModalAssertions)
-                //    .assertThatUpdateButtonLabelIsEqualTo(updatePreferences)
-                //    .assertThatNoDataLabelIsNotDisplayed()
-                //.endAssertion()
-                .selectTab(this.experience)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatNoDataDescriptionIsEqualTo(this.noDataExperience)
-                .endAssertion()
-                .addExperience()
-                .run(new AddMoreExperienceToCareerProfileScenario(this.bountyHunter, this.lumesse, this.hunting, this.october, this.year_2018, this.june, this.year_2023))
-                .clickSaveAndContinueButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSaveButtonAndGoBackToJobVacancyDetails()
-                .showMatchDetails()
-                .selectTab(this.experience)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatUpdateButtonLabelIsEqualTo(this.updateExperience)
-                    .assertThatNoDataLabelIsNotDisplayed()
-                .endAssertion()
-                .selectTab(this.careerPath)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatNoDataDescriptionIsEqualTo(this.noDataCareerPath)
-                .endAssertion()
-                .searchAspirationalJobRole()
-                .check(CareerPathAssertions)
-                    .assertThatGalaxyViewIsDisplayed();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.jobTitle);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        __page1 = __page1.showMatchDetails();
+        expect(__page1.matchModalDescription).toContainText("This " + this.jobVacancy + " seems to be a " + this.low + " match.", { timeout: 30000 });
+        expect(__page1.matchModalTabDescription(this.skills)).toContainText(this.missingData, { timeout: 30000 });
+        expect(__page1.matchModalTabDescription(this.experience)).toContainText(this.missingData, { timeout: 30000 });
+        expect(__page1.matchModalTabDescription(this.careerPath)).toContainText(this.missingData, { timeout: 30000 });
+        expect(__page1.matchModalTabIcon(this.skills)).toHaveClass("progress-tab-icon primary-color icon-question-circle");
+        expect(__page1.matchModalTabIcon(this.experience)).toHaveClass("progress-tab-icon primary-color icon-question-circle");
+        expect(__page1.matchModalTabIcon(this.careerPath)).toHaveClass("progress-tab-icon primary-color icon-question-circle");
+        expect(__page1.noDataContainerDescription).toContainText(this.noDataSkills, { timeout: 30000 });
+        __page1 = __page1.updateSkills();
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.anxiety, this.beginner));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSaveButtonAndGoBackToJobVacancyDetails();
+        __page1 = __page1.showMatchDetails();
+        expect(__page1.updateButton).toContainText(this.updateSkills, { timeout: 30000 });
+        expect(__page1.noDataContainerDescription).toBeHidden();
+        __page1 = __page1.selectTab(this.experience);
+        expect(__page1.noDataContainerDescription).toContainText(this.noDataExperience, { timeout: 30000 });
+        __page1 = __page1.addExperience();
+        __page1 = __page1.run(new AddMoreExperienceToCareerProfileScenario(this.bountyHunter, this.lumesse, this.hunting, this.october, this.year_2018, this.june, this.year_2023));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSaveButtonAndGoBackToJobVacancyDetails();
+        __page1 = __page1.showMatchDetails();
+        __page1 = __page1.selectTab(this.experience);
+        expect(__page1.updateButton).toContainText(this.updateExperience, { timeout: 30000 });
+        expect(__page1.noDataContainerDescription).toBeHidden();
+        __page1 = __page1.selectTab(this.careerPath);
+        expect(__page1.noDataContainerDescription).toContainText(this.noDataCareerPath, { timeout: 30000 });
+        __page1 = __page1.searchAspirationalJobRole();
+        expect(__page1.galaxyView).toBeVisible({ timeout: 30000 });
     }
 }

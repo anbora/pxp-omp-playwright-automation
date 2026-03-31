@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -7,7 +8,7 @@ import { CareerPathPage_New } from "pages/careergrowth/careergrowth/CareerPathPa
 export class GalaxyViewFiltersModalPage extends BasePage {
   static pageModel = { pageName: "All Filters for Galaxy View modal", url: "/career/career-path" };
 
-    public readonly selectButton: Locator = getByLabel("Show selected").build();
+    public readonly selectButton: Locator = this.getByLabel("Show selected");
     public readonly recommendedOption: Locator = this.page.locator("//option[@value='recommended']");
     public readonly customOption: Locator = this.page.locator("//option[@value='custom']");
     public jobFamilyCheckbox(jobFamily: string): Locator {

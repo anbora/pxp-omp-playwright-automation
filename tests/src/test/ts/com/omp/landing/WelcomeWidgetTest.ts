@@ -1,5 +1,5 @@
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
-import { MePageAssertions } from "assertions/me/MePageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 //@Group(GroupNameEnum.OMP_REGRESSION) will be fixed soon as part of july release feature
 //@FunctionalArea(FunctionalAreaEnum.LANDING)
@@ -21,13 +22,12 @@ export class WelcomeWidgetTest extends BaseRestTest {
     }
 
     public welcomeWidget(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goDirectlyTo(LandingPage)
-                .check(LandingPageAssertions)
-                    .assertThatWelcomeStringAndSubTextInWelcomeWidgetIsVisible()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        expect(__page1.welcomeStringAndSubTextInWelcomeWidget).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

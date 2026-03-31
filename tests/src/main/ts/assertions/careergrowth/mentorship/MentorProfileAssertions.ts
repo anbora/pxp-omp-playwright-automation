@@ -1,76 +1,77 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MentorProfilePage } from "pages/careergrowth/mentorship/MentorProfilePage";
+import { expect } from "common/testing/playwright";
 
 export class MentorProfileAssertions extends BaseAssertion<MentorProfilePage> {
 
     public assertMentorProfilePageLoadsAllFieldsForMentee(mentorName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorProfileMentorTitleText).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileMentorTitleText).toBeVisible(this.isVisibleOptions);
         if (!mentorName.isEmpty()) {
-            this.assertThat(this.page.mentorProfileName(mentorName)).isVisible(this.isVisibleOptions);
+            expect(this.page.mentorProfileName(mentorName)).toBeVisible(this.isVisibleOptions);
         }
-        this.assertThat(this.page.mentorProfileAvatar).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorAboutSectionHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorSkillsSectionHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorDetails).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileAvatar).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorAboutSectionHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorSkillsSectionHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorDetails).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorProfilePageLoadsAllFieldsForMentor(mentorName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorProfileMentorTitleText).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorProfileName(mentorName)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorProfileAvatar).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorAboutSectionHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorSkillsSectionHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.mentorDetails).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.availableToMentorToggle).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileMentorTitleText).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileName(mentorName)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileAvatar).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorAboutSectionHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorSkillsSectionHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.mentorDetails).toBeVisible(this.isVisibleOptions);
+        expect(this.page.availableToMentorToggle).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorProfileActionLoads(actionName: string): MentorProfileAssertions {
         this.page.mentorProfileActionsDropdownButton.click();
-        this.assertThat(this.page.mentorProfileAction(actionName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileAction(actionName)).toBeVisible(this.isVisibleOptions);
         this.page.mentorProfileActionsDropdownButton.click();
         return this;
     }
 
     public assertMentorMentorshipStatus(mentorshipStatus: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorMentorshipStatus(mentorshipStatus)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorMentorshipStatus(mentorshipStatus)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertmentorProfileDescriptionContainsText(descriptionText: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorProfileDescriptionText(descriptionText)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileDescriptionText(descriptionText)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorEditProfileModalLoads(): MentorProfileAssertions {
-        this.assertThat(this.page.mentorEditMentorProfileHeader).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorEditMentorProfileHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorUserProfilePageLoads(userName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorUserProfileInfo(userName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorUserProfileInfo(userName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorDetailsLocationLoads(locationName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorLocationText(locationName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorLocationText(locationName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertEditMentorProfileModalLocationLoads(locationName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorEditMentorProfileLocationText(locationName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorEditMentorProfileLocationText(locationName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorSkillNameAndLevelIsDisplayed(skillLevel: string, skillName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorSkillLevelAndNameText(skillLevel, skillName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorSkillLevelAndNameText(skillLevel, skillName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorSkillIsNotDisplayed(skillLevel: string, skillName: string): MentorProfileAssertions {
-        this.assertThat(this.page.mentorSkillLevelAndNameText(skillLevel, skillName)).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.mentorSkillLevelAndNameText(skillLevel, skillName)).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 }

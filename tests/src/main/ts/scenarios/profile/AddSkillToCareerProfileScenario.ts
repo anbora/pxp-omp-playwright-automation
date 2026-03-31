@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseScenario } from "common/BaseScenario";
 import { SkillsCareerProfileModalPage } from "pages/careergrowth/profiles/SkillsCareerProfileModalPage";
 

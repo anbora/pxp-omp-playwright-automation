@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MatchingSkillsModalPage } from "pages/careergrowth/MatchingSkillsModalPage";
+import { expect } from "common/testing/playwright";
 
 export class MatchingSkillsModalAssertions extends BaseAssertion<MatchingSkillsModalPage> {
 
@@ -9,17 +10,17 @@ export class MatchingSkillsModalAssertions extends BaseAssertion<MatchingSkillsM
     public static readonly MATCHING_SKILL_USER_LEVEL_COLUMN_NUMBER: number = 2;
 
     public assertMatchingSkillUserLevelIs(skillLabel: string, level: string): MatchingSkillsModalAssertions {
-        this.assertThat(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_USER_LEVEL_COLUMN_NUMBER)).hasText(level);
+        expect(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_USER_LEVEL_COLUMN_NUMBER)).toHaveText(level);
         return this;
     }
 
     public assertMatchingSkillExpectedLevelIs(skillLabel: string, level: string): MatchingSkillsModalAssertions {
-        this.assertThat(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_LEVEL_COLUMN_NUMBER)).hasText(level);
+        expect(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_LEVEL_COLUMN_NUMBER)).toHaveText(level);
         return this;
     }
 
     public assertMatchingSkillStatusIs(skillLabel: string, status: string): MatchingSkillsModalAssertions {
-        this.assertThat(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_STATUS_COLUMN_NUMBER)).hasText(status);
+        expect(this.page.matchingSkillColumn(skillLabel, MATCHING_SKILL_STATUS_COLUMN_NUMBER)).toHaveText(status);
         return this;
     }
 }

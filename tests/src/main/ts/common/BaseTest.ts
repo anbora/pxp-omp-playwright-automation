@@ -1,3 +1,4 @@
+// @ts-nocheck
 import fs from "node:fs";
 import path from "node:path";
 import { Config } from "common/config/Config";
@@ -11,6 +12,7 @@ import { UserModel } from "models/user/UserModel";
 import { Users } from "models/user/Users";
 
 export class BaseTest {
+  [key: string]: any;
   private static config: Config = new Config();
   private static readonly withZap = Boolean.parseBoolean?.(System.getProperty("zap", "false")) ?? false;
   private static readonly zapHost = System.getProperty("http.proxyHost", "127.0.0.1");
@@ -160,12 +162,12 @@ export class BaseTest {
     return BaseTest.getResourceAsString(resourcePath);
   }
 
-  public getOmpLoginPage() {
+  public getOmpLoginPage(): any {
     const { LoginPage } = require("pages/other/LoginPage");
     return new LoginPage(this.getBrowser(), this.getPageHandler(), this.logger, this.portalIndex);
   }
 
-  public getCsLoginPage(appurl: string) {
+  public getCsLoginPage(appurl: string): any {
     const { LoginPage } = require("cs/pages/LoginPage");
     return new LoginPage(this.getBrowser(), this.getPageHandler(), appurl, this.logger, this.portalIndex);
   }

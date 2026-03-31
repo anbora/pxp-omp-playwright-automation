@@ -1,5 +1,5 @@
-import { BulkRemovalAssertions } from "assertions/groups/BulkRemovalAssertions";
-import { MembersGroupAssertions } from "assertions/groups/MembersGroupAssertions";
+// @ts-nocheck
+
 import { GroupsRestService } from "common/api/GroupsRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,8 @@ import { ResultContainer } from "models/ResultContainer";
 import { UserModel } from "models/user/UserModel";
 import { MembersGroupPage } from "pages/groups/MembersGroupPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertEquals } from "common/testing/runtime";
 
 export class DownloadAndVerifyExampleCSVFileForBulkRemovalTest extends GroupsRestService {
     private static readonly UNIQUE_SUFFIX: string = UUID.randomUUID().toString();
@@ -29,17 +31,17 @@ export class DownloadAndVerifyExampleCSVFileForBulkRemovalTest extends GroupsRes
     }
 
     public verifyContentOfTheExampleCSVFile(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(MembersGroupPage, DownloadAndVerifyExampleCSVFileForBulkRemovalTest.GROUP_NAME)
-                .clickBulkRemovalTab()
-                .check(BulkRemovalAssertions)
-                    .assertThatDownloadSampleFileButtonIsVisible()
-                .endAssertion()
-                .clickDownloadSampleFileButton()
-                .convertFileToText(DownloadAndVerifyExampleCSVFileForBulkRemovalTest.FILE_NAME, this.content)
-                .check(BulkRemovalAssertions)
-                    .assertDownloadedFileContent(this.content.getValue(), this.expectedFileContent);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(MembersGroupPage, DownloadAndVerifyExampleCSVFileForBulkRemovalTest.GROUP_NAME);
+        __page1 = __page1.clickBulkRemovalTab();
+        expect(__page1.getDownloadSampleFileButton()).toBeVisible();
+        __page1.logger.info("Successfully verified that download sample file button is present");
+        __page1 = __page1.clickDownloadSampleFileButton();
+        __page1 = __page1.convertFileToText(DownloadAndVerifyExampleCSVFileForBulkRemovalTest.FILE_NAME, this.content);
+        assertEquals(this.expectedFileContent, this.content.getValue());
+        __page1.logger.info("Successfully verified that downloaded sample file content is the same as expected file content");
     }
 
     public afterTests(): void {

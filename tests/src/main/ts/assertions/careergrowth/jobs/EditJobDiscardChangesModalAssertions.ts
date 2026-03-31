@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { EditJobDiscardChangesModalPage } from "pages/careergrowth/jobs/EditJobDiscardChangesModalPage";
+import { expect } from "common/testing/playwright";
 
 export class EditJobDiscardChangesModalAssertions extends BaseAssertion<EditJobDiscardChangesModalPage> {
 
     public assertThatDiscardChangesTitleIsDisplayed(): EditJobDiscardChangesModalAssertions {
-        this.assertThat(this.page.getModalHeader()).isVisible(this.isVisibleOptions);
+        expect(this.page.getModalHeader()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

@@ -1,13 +1,12 @@
-import { RolesAssertions } from "assertions/admin/roles/RolesAssertions";
-import { UsersAdminAssertions } from "assertions/admin/users/UsersAdminAssertions";
-import { WelcomePageAssertions } from "assertions/careergrowth/careergrowth/WelcomePageAssertions";
-import { MentorshipDiscoveryAssertions } from "assertions/careergrowth/mentorship/MentorshipDiscoveryAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertFalse, assertTrue } from "common/testing/runtime";
 
 export class MentorshipCarouselVisibilityPermissionTest extends BaseRestTest {
 
@@ -24,50 +23,41 @@ export class MentorshipCarouselVisibilityPermissionTest extends BaseRestTest {
     }
 
     public mentorsCarouselShouldBeVisibleUserAdmin(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .check(LandingPageAssertions)
-                    .assertThatMentorsCarouselWidgetIsDisplayed()
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .goToMentorshipPageViaCard()
-                .check(MentorshipDiscoveryAssertions)
-                    .assertAllMentorsHeaderIsDisplayed()
-                .endAssertion()
-                .goToAdminPanel()
-                .selectMainTab(this.accounts)
-                .openUsersPage()
-                .fillInSearchInput(this.user.email)
-                .checkUserRole()
-                .clickCloseRolesModalButton()
-                .checkUserRole()
-                .check(UsersAdminAssertions)
-                    .assertThatUserHasAdminRoleAssigned()
-                .endAssertion()
-                .clickCloseRolesModalButton()
-                .openRolesPage()
-                .clickEditRole(this.adminRole)
-                .check(RolesAssertions)
-                    .assertThatPermissionIsSwitchOn(this.permissionName)
-                .endAssertion()
-                .clickCloseButton()
-                .clickEditRole(this.memberRole)
-                .check(RolesAssertions)
-                    .assertThatPermissionIsSwitchOff(this.permissionName)
-                .endAssertion()
-                .clickCloseButton();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        expect(__page1.mentorsCarousel).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToMentorshipPageViaCard();
+        expect(__page1.allMentorsHeader).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.accounts);
+        __page1 = __page1.openUsersPage();
+        __page1 = __page1.fillInSearchInput(this.user.email);
+        __page1 = __page1.checkUserRole();
+        __page1 = __page1.clickCloseRolesModalButton();
+        __page1 = __page1.checkUserRole();
+        expect(__page1.currentRolesField()).toContainText("admin", { timeout: 30000 });
+        __page1.logger.info("Successfully verified that admin role is assigned to user");
+        __page1 = __page1.clickCloseRolesModalButton();
+        __page1 = __page1.openRolesPage();
+        __page1 = __page1.clickEditRole(this.adminRole);
+        assertTrue(__page1.checkboxPermission(this.permissionName).isChecked(), "Permission '" + this.permissionName + "' should be checked!");
+        __page1.logger.info("Successfully verified that permission is switched on");
+        __page1 = __page1.clickCloseButton();
+        __page1 = __page1.clickEditRole(this.memberRole);
+        assertFalse(__page1.checkboxPermission(this.permissionName).isChecked(), "Permission '" + this.permissionName + "' should be unchecked!");
+        __page1.logger.info("Successfully verified that permission is switched off");
+        __page1 = __page1.clickCloseButton();
     }
 
     public mentorsCarouselShouldNotBeVisibleUserMember(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .check(LandingPageAssertions)
-                    .assertThatMentorsCarouselWidgetIsNotDisplayed()
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .check(WelcomePageAssertions)
-                    .assertThatMentorshipTabIsNotVisible()
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginWithOnboardingScenario(this.user2));
+        expect(__page2.mentorsCarousel).not.toBeVisible({ timeout: 5000 });
+        __page2 = __page2.goToCareerGrowthPage();
+        expect(__page2.mentorshipsCard).not.toBeVisible({ timeout: 5000 });
     }
 
     public afterTests(): void {

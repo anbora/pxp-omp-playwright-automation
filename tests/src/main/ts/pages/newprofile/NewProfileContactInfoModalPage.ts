@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -6,7 +7,7 @@ import { NewProfilePage } from "pages/newprofile/NewProfilePage";
 
 export class NewProfileContactInfoModalPage extends BasePage {
 
-    public privateToYouSwitch: Locator = getByLabel("Private to you").build();
+    public privateToYouSwitch: Locator = this.getByLabel("Private to you");
     public closeModalButton: Locator = this.page.locator("#ed-dialog-modal-header-close-button");
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {

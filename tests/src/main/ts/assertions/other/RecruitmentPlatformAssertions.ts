@@ -1,23 +1,24 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { RecruitmentPlatformPage } from "pages/other/RecruitmentPlatformPage";
+import { expect } from "common/testing/playwright";
 
 export class RecruitmentPlatformAssertions extends BaseAssertion<RecruitmentPlatformPage> {
 
     public assertThatCurrentPageUrlContains(url: string): RecruitmentPlatformAssertions {
-//        assertThat(this.page.filtersButton).isVisible(this.isVisibleOptions);
+//        expect(this.page.filtersButton).toBeVisible(this.isVisibleOptions);
 //        cy.url().should('contain', url)
         return this;
     }
 
 	public assertThatRecruitmentPlatformHeaderContains(heading: string): RecruitmentPlatformAssertions {
-        this.assertThat(this.page.header).containsText(heading, this.containsTextOptions);
+        expect(this.page.header).toContainText(heading, this.containsTextOptions);
 //        this.page.header().should('contain.text', heading)
         return this;
     }
 
 	public assertThatJobTitleIsEqualTo(jobTitle: string): RecruitmentPlatformAssertions {
-        this.assertThat(this.page.jobTitle).containsText(jobTitle, this.containsTextOptions);
+        expect(this.page.jobTitle).toContainText(jobTitle, this.containsTextOptions);
 //        this.page.jobTitle().should('contain.text', jobTitle)
         return this;
     }

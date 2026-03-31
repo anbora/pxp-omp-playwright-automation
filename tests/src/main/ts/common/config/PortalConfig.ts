@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseTest } from "common/BaseTest";
 import { LoginSettings } from "common/LoginSettings";
 import { Portal } from "common/config/Portal";

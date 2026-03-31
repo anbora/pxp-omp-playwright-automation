@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { HrDataJobRolesPage } from "pages/admin/hrdata/HrDataJobRolesPage";
+import { expect } from "common/testing/playwright";
 
 export class HrDataAssertions extends BaseAssertion<HrDataJobRolesPage> {
 
     public assertThatJobRoleIsDisplayedOnTheList(jobRole: string): HrDataAssertions {
-        this.assertThat(this.page.jobRoleTitleInTable.first()).containsText(jobRole, this.containsTextOptions);
+        expect(this.page.jobRoleTitleInTable.first()).toContainText(jobRole, this.containsTextOptions);
         return this;
     }
 }

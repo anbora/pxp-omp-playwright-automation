@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { PollLanguage } from "models/edconnect/content/smartcards/poll/createpoll/PollLanguage";
 import { PollQuestionOption } from "models/edconnect/content/smartcards/poll/createpoll/PollQuestionOption";

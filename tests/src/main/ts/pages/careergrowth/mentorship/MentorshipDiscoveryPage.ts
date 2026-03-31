@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { ElementType } from "common/enums/ElementType";
 import { PageHandler } from "common/PageHandler";
@@ -16,19 +17,19 @@ export class MentorshipDiscoveryPage extends BasePage
     private static readonly MENTOR_CONFIRM_MODAL: string = ".become-a-mentor-confirmation-modal";
     private static readonly SKILL_ADD_MODAL: string = ".ed-dialog-modal-content";
     private static readonly SKILL_ADD_MODAL_FOOTER: string = ".ed-dialog-modal-footer";
-    public allMentorsHeader: Locator = getByRole(AriaRole.HEADING, "All Mentors").build();
-    public searchInputField: Locator = getByPlaceholder("Search here...").build();
-    public searchIcon: Locator = getByRole(AriaRole.BUTTON, "Search").build().last();
+    public allMentorsHeader: Locator = this.getByRole(AriaRole.HEADING, "All Mentors");
+    public searchInputField: Locator = this.getByPlaceholder("Search here...");
+    public searchIcon: Locator = this.getByRole(AriaRole.BUTTON, "Search").last();
     public sortByDropDownButton: Locator = this.page.locator("//div[@class='ed-input-container']");
     public filtersButton(): Locator {
       return this.aiLocator(FILTERS_SECTION, "//i[@class='icon-new-filter']/parent::button[@class = 'ed-btn ed-btn-neutral']", "Filters", ElementType.BUTTON);
     }
-    public sortByDropDown: Locator = getByText("Sort By").locator("//..").getByRole(AriaRole.COMBOBOX).build();
+    public sortByDropDown: Locator = this.getByText("Sort By").locator("//..").getByRole(AriaRole.COMBOBOX);
     public homePageTab(): Locator {
       return this.aiLocator(TOP_MENU_TABS, "//li/child::a[text()='HOME']");
     }
     public filterButton(): Locator {
-      return this.getByRole(AriaRole.BUTTON, "Filters").build();
+      return this.getByRole(AriaRole.BUTTON, "Filters");
     }
     public myMentorshipsButton: Locator = this.page.locator("//i[@class='icon-external-link']/parent::a[@class = 'ed-btn ed-btn-neutral']");
     public viewMyMentorProfileButton: Locator = this.page.locator("//div/div[@class='filter-header-cta-wrapper']/button");
@@ -208,14 +209,14 @@ export class MentorshipDiscoveryPage extends BasePage
 
     public addMoreButton: Locator = this.page.locator("//div[@class='m-margin-right']/child::button[@aria-label='Add More Skill/Credential']");
 
-    public filtersInMyMentorsTab: Locator = locator("//div[@class='dropdown-wrapper ed-filter-with-radio-select']").build();
+    public filtersInMyMentorsTab: Locator = this.locator("//div[@class='dropdown-wrapper ed-filter-with-radio-select']");
     public requestMentorship(mentorName: string): Locator {
-      return this.getByLabel(mentorName).build().first();
+      return this.getByLabel(mentorName).first();
     }
-    public readonly myMenteesTab: Locator = locator("//ul[@class='left-navigation mb-16']/li[2]/button[@role='listitem']").build();
-    public readonly myMentorsTab: Locator = locator("//ul[@class='left-navigation mb-16']/li[3]/button[@role='listitem']").build();
-    public createProfileButton: Locator = locator("//div[@class='me__mentorships']/div/div/div/div/button").build();
-    public createProfileButtonFromModal: Locator = getByRole(AriaRole.BUTTON, "Create Profile").build();
+    public readonly myMenteesTab: Locator = this.locator("//ul[@class='left-navigation mb-16']/li[2]/button[@role='listitem']");
+    public readonly myMentorsTab: Locator = this.locator("//ul[@class='left-navigation mb-16']/li[3]/button[@role='listitem']");
+    public createProfileButton: Locator = this.locator("//div[@class='me__mentorships']/div/div/div/div/button");
+    public createProfileButtonFromModal: Locator = this.getByRole(AriaRole.BUTTON, "Create Profile");
     public optionToSelect(skill: string): Locator {
       return this.getLocatorWithParam("//div[@tabindex = '-1'][contains(text(), '%s')]", skill);
     }
@@ -231,9 +232,9 @@ export class MentorshipDiscoveryPage extends BasePage
     public createdMentorProfileText(): Locator {
       return this.aiLocator(MENTOR_CONFIRM_MODAL,"//h1[text()='Mentor Profile Created']");
     }
-    public closeMentorProfileCreatedButton: Locator = getByRole(AriaRole.BUTTON, "Close Mentor Profile Created").build();
-    public readonly mentorFilterLocation: Locator = getByLabel("Locations").build();
-    public mentorProfileLocation: Locator = getByText("Location").build();
+    public closeMentorProfileCreatedButton: Locator = this.getByRole(AriaRole.BUTTON, "Close Mentor Profile Created");
+    public readonly mentorFilterLocation: Locator = this.getByLabel("Locations");
+    public mentorProfileLocation: Locator = this.getByText("Location");
 
     public clickMentorCard(mentorName: string): MentorshipDiscoveryPage {
         this.mentorCardMain(mentorName).click();

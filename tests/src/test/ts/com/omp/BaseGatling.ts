@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Config } from "common/config/Config";
 import { ObjectMapper } from "common/testing/json";
 

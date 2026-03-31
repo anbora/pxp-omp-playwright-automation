@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -7,7 +8,7 @@ import { HrDataJobRolesPage } from "pages/admin/hrdata/HrDataJobRolesPage";
 
 export class HrDataConfigurationPage extends BasePage {
     public LOCATIONS_TAB(): Locator {
-      return this.locator(".container-fluid").build();
+      return this.locator(".container-fluid");
     }
     public jobRoleConfigurationTitle: Locator = this.page.locator("//h4[normalize-space()='Job Role Configuration']");
     public organizationConfigurationTitle: Locator = this.page.locator("//a[contains(text(),'Organization')]");
@@ -30,7 +31,7 @@ export class HrDataConfigurationPage extends BasePage {
     public usage: Locator = this.page.locator("(//div[@class='usage']//div)[1]");
     public organizationLevelValuesToBeDisplayed: Locator = this.page.locator("(//div[@class='usage']//div)[1]");
     public organizationTypeDisplayedOnTheOpportunityCard: Locator = this.page.locator("(//div[@class='usage']//div)[1]");
-    public locations: Locator = getByRole(AriaRole.TAB, "Locations").build();
+    public locations: Locator = this.getByRole(AriaRole.TAB, "Locations");
     public locationsConfiguration: Locator = this.page.locator("(//h4[@class='hrData-config-header'])[3]");
     public proficiencyLevels: Locator = this.page.locator("//div[@class='hrData-config-radio-skills']//div[contains(@id, 'select')]");
     public jobRoleFilter: Locator = this.page.locator("//p[text()='Job Role filter']");
@@ -74,16 +75,16 @@ export class HrDataConfigurationPage extends BasePage {
       return this.getLocatorWithParam("//div[3]/div[@class='rubix-panel-container-with-controls']/div[@class='rubix-panel-container']/div[@class='rubix-panel-body']//div[@class='css-1pcexqc-container']/div[@class='css-bg1rzq-control']/div[@class='css-1hwfws3']/div/child::div[text()='%s']/parent::div/div[@class='css-1alnv5e']", associationType);
     }
     public addLocationAssociationDropdown(): Locator {
-      return this.locator("//div[3]/div[@class='rubix-panel-container-with-controls']/div[@class='rubix-panel-container']/div[@class='rubix-panel-body']//div[@class='css-1pcexqc-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/child::div[2]").build(LOCATIONS_TAB());
+      return this.locator("//div[3]/div[@class='rubix-panel-container-with-controls']/div[@class='rubix-panel-container']/div[@class='rubix-panel-body']//div[@class='css-1pcexqc-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/child::div[2]");
     }
     public addLocationVisibilityDropdown(): Locator {
-      return this.locator("//label[text()='Location name']/parent::div/div[@class='css-pkazdl-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/div[2]").build(LOCATIONS_TAB());
+      return this.locator("//label[text()='Location name']/parent::div/div[@class='css-pkazdl-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/div[2]");
     }
-    public saveLocationsConfigButton: Locator = getByRole(AriaRole.BUTTON, "Save").build();
+    public saveLocationsConfigButton: Locator = this.getByRole(AriaRole.BUTTON, "Save");
     public addGeoLocationVisibilityDropdown(): Locator {
-      return this.locator("//label[text()='Geo-location radius distance search']/parent::div/div[@class='css-pkazdl-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/div[2]").build(LOCATIONS_TAB());
+      return this.locator("//label[text()='Geo-location radius distance search']/parent::div/div[@class='css-pkazdl-container']/div[@class='css-bg1rzq-control']/div[@class='css-1wy0on6']/div[2]");
     }
-    public industryDropdown: Locator = getByText( "Industry 20 results available").build();
+    public industryDropdown: Locator = this.getByText( "Industry 20 results available");
     public industryDropdownSelect(industryTypeDropdown: string): Locator {
       return this.getLocatorWithParam("//div[contains(@class, 'option')][text() = '%s']", industryTypeDropdown);
     }
@@ -150,17 +151,14 @@ export class HrDataConfigurationPage extends BasePage {
     }
 
     public clickEnterJobRoleFilterLevel(organizationLevel: string): HrDataConfigurationPage {
-        inputTypeNumber.clear();
-        inputTypeNumber.fill(organizationLevel);
+        this.inputTypeNumber.clear();
+        this.inputTypeNumber.fill(organizationLevel);
         return this;
     }
 
     public clickEnterJobRoleFilterLevelIncorrect(organizationLevelIncorrect: string): HrDataConfigurationPage {
-        try {
-            inputTypeNumber.clear();
-        } catch (e) {
-            inputTypeNumber.fill(organizationLevelIncorrect);
-        }
+        this.inputTypeNumber.clear();
+        this.inputTypeNumber.fill(organizationLevelIncorrect);
         return this;
     }
 

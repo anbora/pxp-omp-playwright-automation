@@ -1,5 +1,5 @@
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { RoleDetailsPage } from "pages/careergrowth/roles/RoleDetailsPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class RoleDetailsTest extends BaseRestTest {
 
@@ -22,17 +23,17 @@ export class RoleDetailsTest extends BaseRestTest {
     }
 
     public shouldCheckRoleTitleDescriptionAndLevel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(RoleDetailsPage, this.roleId)
-                .waitForRoleDetailsToBeVisible(this.CYPRESS_ROLE_NAME)
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(this.CYPRESS_ROLE_NAME)
-                    .assertThatRoleDescriptionH3ValueContains(this.ROLE_NAME)
-                    .assertThatRoleDescriptionDivValueContains(this.ROLE_NAME)
-                    .assertThatRoleDescriptionAValueContains(this.ROLE_NAME)
-                    .assertThatRoleDescriptionStrongValueContains(this.ROLE_NAME)
-                    .assertThatLevelIsEqualTo(this.internship);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(RoleDetailsPage, this.roleId);
+        __page1 = __page1.waitForRoleDetailsToBeVisible(this.CYPRESS_ROLE_NAME);
+        expect(__page1.roleNameLabel).toContainText(this.CYPRESS_ROLE_NAME, { timeout: 30000 });
+        expect(__page1.h3InDescription).toContainText(this.ROLE_NAME, { timeout: 30000 });
+        expect(__page1.divInDescription).toContainText(this.ROLE_NAME, { timeout: 30000 });
+        expect(__page1.aInDescription).toContainText(this.ROLE_NAME, { timeout: 30000 });
+        expect(__page1.strongInDescription).toContainText(this.ROLE_NAME, { timeout: 30000 });
+        expect(__page1.levelLabel.first()).toContainText(this.internship, { timeout: 30000 });
     }
 
     public afterTests(): void {

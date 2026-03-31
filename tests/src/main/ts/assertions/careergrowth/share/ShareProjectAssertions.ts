@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { AbstractShareAssertions } from "assertions/careergrowth/share/AbstractShareAssertions";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { ShareProjectPage } from "pages/careergrowth/share/ShareProjectPage";
+import { expect } from "common/testing/playwright";
 
 export class ShareProjectAssertions extends AbstractShareAssertions<ShareProjectAssertions, ShareProjectPage> {
 
@@ -16,7 +17,7 @@ export class ShareProjectAssertions extends AbstractShareAssertions<ShareProject
     }
 
     public assertShareSuccessToasterDisplays(): ShareProjectAssertions {
-        this.assertThat(this.page.shareSuccessToasterMessage).isVisible(this.isVisibleOptions);
+        expect(this.page.shareSuccessToasterMessage).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

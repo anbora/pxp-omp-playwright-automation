@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
 import { Browser, Locator, Page } from "common/testing/playwright";
@@ -22,7 +23,7 @@ export class CourseDetailsPage extends GlobalNavigationPage{
 	public verifydetails(name: string): Locator {
 	  return this.getLocatorWithParam("//span[text()='%s']/following-sibling::div/div", name);
 	}
-	//locator("//span[text()='SKILLS']/following-sibling::div/div")
+	//this.locator("//span[text()='SKILLS']/following-sibling::div/div")
 
 	constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {
 

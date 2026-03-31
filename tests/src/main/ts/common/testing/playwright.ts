@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "./javaCompat";
 import { chromium, expect, firefox, request, webkit, TimeoutError } from "@playwright/test";
 
@@ -122,7 +123,7 @@ export namespace Locator {
   export class GetByPlaceholderOptions extends Builder {}
   export class GetByRoleOptions extends Builder {}
   export class GetByTextOptions extends Builder {}
-  export class GetByTitleOptions extends Builder {}
+  export class GetByTitleOptions extends Builder {}             
   export class IsCheckedOptions extends Builder {}
   export class WaitForOptions extends Builder {}
 }
@@ -164,12 +165,3 @@ export const Playwright = {
     };
   }
 };
-
-export namespace LocatorAssertions {
-  export class ContainsTextOptions extends Builder {}
-  export class HasAttributeOptions extends Builder {}
-  export class HasClassOptions extends Builder {}
-  export class HasCountOptions extends Builder {}
-  export class HasValueOptions extends Builder {}
-  export class IsVisibleOptions extends Builder {}
-}

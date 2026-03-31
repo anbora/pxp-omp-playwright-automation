@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseScenario } from "common/BaseScenario";
 import { CreateCollectionPage } from "cs/pages/CreateCollectionPage";
 

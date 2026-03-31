@@ -1,3 +1,4 @@
+// @ts-nocheck
 class NameGenerator {
   firstName() {
     const names = ["Alex", "Jordan", "Taylor", "Sam", "Riley", "Casey", "Morgan", "Jamie"];

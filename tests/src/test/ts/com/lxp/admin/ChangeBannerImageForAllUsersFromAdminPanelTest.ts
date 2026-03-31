@@ -1,6 +1,5 @@
-import { GeneralBrandingAdminPageAssertions } from "assertions/admin/branding/GeneralBrandingAdminPageAssertions";
-import { ProfileDetailsAssertions } from "assertions/careergrowth/profiles/ProfileDetailsAssertions";
-import { MePageProfileTabAssertions } from "assertions/me/MePageProfileTabAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +8,8 @@ import { UserModel } from "models/user/UserModel";
 import { SignOutPage } from "pages/other/SignOutPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { assertTrue } from "common/testing/runtime";
 
 export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest {
 
@@ -41,61 +42,63 @@ export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest
     }
 
     public verifyIfUserCanUploadCustomBannerImage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.regularUser))
-                .goToCareerGrowthPage()
-                .editProfile()
-                .check(ProfileDetailsAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)
-                .endAssertion()
-                .clickEditProfileButton()
-                .clickEditBannerImageButton()
-                .uploadBannerImage(this.filePath)
-                .clickSaveButton()
-                .check(ProfileDetailsAssertions)
-                    .assertThatBannerIsNotDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)
-                .endAssertion()
-                .clickBackButton()
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.regularUser));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.editProfile();
+        expect(__page1.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)).toBeVisible();
+        __page1.logger.info("Successfully verified that banner is visible");
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickEditBannerImageButton();
+        __page1 = __page1.uploadBannerImage(this.filePath);
+        __page1 = __page1.clickSaveButton();
+        expect(__page1.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)).not.toBeVisible();
+        __page1.logger.info("Successfully verified that default banner is not visible");
+        __page1 = __page1.clickBackButton();
+        __page1 = __page1.goToMePageProfile();
+        expect(__page1.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER)).toBeVisible();
+        __page1.logger.info("Successfully verified that default banner is visible");
     }
 
     public verifyIfAdminUserCanUploadBannerImage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.adminUser))
-                .goToAdminPanel()
-                .selectMainTab(ChangeBannerImageForAllUsersFromAdminPanelTest.BRANDING)
-                .openGeneralBrandingPage()
-                .clickUploadFileButton()
-                .uploadBannerImage(this.filePath2)
-                .clickSaveChangesButton()
-                .check(GeneralBrandingAdminPageAssertions)
-                    .assertThatUploadedFileNameIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)
-                .endAssertion()
-                .goDirectlyTo(SignOutPage);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.adminUser));
+        __page2 = __page2.goToAdminPanel();
+        __page2 = __page2.selectMainTab(ChangeBannerImageForAllUsersFromAdminPanelTest.BRANDING);
+        __page2 = __page2.openGeneralBrandingPage();
+        __page2 = __page2.clickUploadFileButton();
+        __page2 = __page2.uploadBannerImage(this.filePath2);
+        __page2 = __page2.clickSaveChangesButton();
+        expect(__page2.deleteButtonForUploadedFile.first()).toContainText(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER);
+        __page2 = __page2.goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.adminUser))
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)
-                    .assertThatAltTextIs(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER, ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_ALT_TEXT);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.adminUser));
+        __page3 = __page3.goToMePageProfile();
+        expect(__page3.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)).toBeVisible();
+        __page3.logger.info("Successfully verified that default banner is visible");
+        assertTrue(__page3.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER).getAttribute("alt").contains(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_ALT_TEXT));
+        __page3.logger.info("Successfully verified that alt text is as expected");
     }
 
     public verifyThatCustomUserBannerIsNotOverriddenByAdminSettings(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER)
-                .endAssertion()
-                .clickEditPublicProfileButton()
-                .clickEditProfileButton()
-                .check(ProfileDetailsAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER)
-                    .assertThatChangeBannerImageButtonIsDisplayed()
-                    .assertThatRemoveBannerImageButtonIsDisplayed();
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.regularUser));
+        __page4 = __page4.goToMePageProfile();
+        expect(__page4.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER)).toBeVisible();
+        __page4.logger.info("Successfully verified that default banner is visible");
+        __page4 = __page4.clickEditPublicProfileButton();
+        __page4 = __page4.clickEditProfileButton();
+        expect(__page4.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_USER_BANNER)).toBeVisible();
+        __page4.logger.info("Successfully verified that banner is visible");
+        expect(__page4.editBannerImageButton).toBeVisible();
+        __page4.logger.info("Successfully verified that change banner image button is displayed");
+        expect(__page4.removeBannerButton).toBeVisible();
+        __page4.logger.info("Successfully verified that remove banner button is displayed");
     }
 
     public verifyThatAdminCanDisableAbilityToChangeBannerByUser(): void {
@@ -108,14 +111,16 @@ export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest
                 .clickSaveChangesButton()
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .clickEditProfileButton()
-                .check(ProfileDetailsAssertions)
-                    .assertThatChangeBannerImageButtonIsNotDisplayed()
-                    .assertThatRemoveBannerImageButtonIsNotDisplayed();
+                let __page5: any = this;
+        __page5 = __page5.getOmpLoginPage();
+        __page5 = __page5.run(new LoginScenario(this.regularUser));
+        __page5 = __page5.goToMePageProfile();
+        __page5 = __page5.clickEditPublicProfileButton();
+        __page5 = __page5.clickEditProfileButton();
+        expect(__page5.editBannerImageButton).not.toBeVisible();
+        __page5.logger.info("Successfully verified that change banner image button is not displayed");
+        expect(__page5.removeBannerButton).not.toBeVisible();
+        __page5.logger.info("Successfully verified that remove banner button is not displayed");
     }
 
     public verifyThatAfterRemovingCustomImageUserFallsBackToAdminDefinedBannerImage(): void {
@@ -128,21 +133,21 @@ export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest
                 .clickSaveChangesButton()
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .goToMePageProfile()
-                .clickEditPublicProfileButton()
-                .clickEditProfileButton()
-                .clickRemoveBannerButton()
-                .confirmBannerRemoval()
-                .clickSaveButton()
-                .check(ProfileDetailsAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)
-                .endAssertion()
-                .clickBackButton()
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER);
+                let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.regularUser));
+        __page6 = __page6.goToMePageProfile();
+        __page6 = __page6.clickEditPublicProfileButton();
+        __page6 = __page6.clickEditProfileButton();
+        __page6 = __page6.clickRemoveBannerButton();
+        __page6 = __page6.confirmBannerRemoval();
+        __page6 = __page6.clickSaveButton();
+        expect(__page6.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)).toBeVisible();
+        __page6.logger.info("Successfully verified that banner is visible");
+        __page6 = __page6.clickBackButton();
+        __page6 = __page6.goToMePageProfile();
+        expect(__page6.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER)).toBeVisible();
+        __page6.logger.info("Successfully verified that default banner is visible");
     }
 
     public verifyThatAdminUserCanDefineCustomAltTextForBanner(): void {
@@ -155,11 +160,12 @@ export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest
                 .clickSaveChangesButton()
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatAltTextIs(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER, ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_ALT_TEXT);
+                let __page7: any = this;
+        __page7 = __page7.getOmpLoginPage();
+        __page7 = __page7.run(new LoginScenario(this.regularUser));
+        __page7 = __page7.goToMePageProfile();
+        assertTrue(__page7.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.ADMIN_BANNER).getAttribute("alt").contains(ChangeBannerImageForAllUsersFromAdminPanelTest.CUSTOM_ALT_TEXT));
+        __page7.logger.info("Successfully verified that alt text is as expected");
     }
 
     public verifyIfAdminUserCanRemoveBannerImage(): void {
@@ -172,16 +178,16 @@ export class ChangeBannerImageForAllUsersFromAdminPanelTest extends BaseRestTest
                 .clickSaveChangesButton()
                 .goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.regularUser))
-                .goToMePageProfile()
-                .check(MePageProfileTabAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)
-                .endAssertion()
-                .clickEditPublicProfileButton()
-                .clickEditProfileButton()
-                .check(ProfileDetailsAssertions)
-                    .assertThatBannerIsDisplayed(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER);
+                let __page8: any = this;
+        __page8 = __page8.getOmpLoginPage();
+        __page8 = __page8.run(new LoginScenario(this.regularUser));
+        __page8 = __page8.goToMePageProfile();
+        expect(__page8.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)).toBeVisible();
+        __page8.logger.info("Successfully verified that default banner is visible");
+        __page8 = __page8.clickEditPublicProfileButton();
+        __page8 = __page8.clickEditProfileButton();
+        expect(__page8.bannerImageLink(ChangeBannerImageForAllUsersFromAdminPanelTest.DEFAULT_BANNER)).toBeVisible();
+        __page8.logger.info("Successfully verified that banner is visible");
     }
 
     public afterTests(): void {

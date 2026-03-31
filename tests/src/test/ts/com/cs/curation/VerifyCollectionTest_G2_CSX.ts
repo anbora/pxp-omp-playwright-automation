@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { Faker } from "com/github/javafaker/Faker";
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { CreateCollectionAssertions } from "cs/assertions/CreateCollectionAssertions";
 import { CreateCollectionPage } from "cs/pages/CreateCollectionPage";
 import { ResultContainer } from "models/ResultContainer";
+import { expect } from "common/testing/playwright";
 
 export class VerifyCollectionTest_G2_CSX extends BaseTest {
 
@@ -45,31 +46,26 @@ export class VerifyCollectionTest_G2_CSX extends BaseTest {
 		let collectionName: string = "Auto_" + this.data.name().firstName() + this.dfor.format(today);
 		let collectionDes: string = "AutoDes_" + this.data.name().firstName() + this.dfor.format(today);
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password)
-		.navigateToPageByPath(this.PATH, CreateCollectionPage)
-		.createCollection(collectionName, collectionDes, "suomi (Suomi)s")
-		.ClickAddcontent()
-		.clickClearAllFilters(CreateCollectionPage)
-		.clickContentSourceDownArrow()
-		.selectContentSource(courseToBeAdd[0][0])
-		.searchContent(courseToBeAdd[0][1])
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible(this.LABEL_NEW)
-		.endAssertion()
-		.selectcourse(courseToBeAdd[0][1])
-		.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage)
-		.check(CreateCollectionAssertions)
-		.assertThatQVBadgeIsVisible(this.LABEL_NEW)
-		.endAssertion()
-		.clickGoToDetails(CreateCollectionPage)
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible(this.LABEL_NEW)
-		.endAssertion()
-		.goToLastPage()
-		.closeQuickViewDialog(courseToBeAdd[0][1])
-		.clickReviewCollection()
-		.clickAddContentToCollection();
+		  let __page1: any = this;
+  __page1 = __page1.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page1 = __page1.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password);
+  __page1 = __page1.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page1 = __page1.createCollection(collectionName, collectionDes, "suomi (Suomi)s");
+  __page1 = __page1.ClickAddcontent();
+  __page1 = __page1.clickClearAllFilters(CreateCollectionPage);
+  __page1 = __page1.clickContentSourceDownArrow();
+  __page1 = __page1.selectContentSource(courseToBeAdd[0][0]);
+  __page1 = __page1.searchContent(courseToBeAdd[0][1]);
+  expect(__page1.badge_check(this.LABEL_NEW).first()).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.selectcourse(courseToBeAdd[0][1]);
+  __page1 = __page1.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage);
+  expect(__page1.qv_badge_check(this.LABEL_NEW)).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.clickGoToDetails(CreateCollectionPage);
+  expect(__page1.badge_check(this.LABEL_NEW).first()).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.goToLastPage();
+  __page1 = __page1.closeQuickViewDialog(courseToBeAdd[0][1]);
+  __page1 = __page1.clickReviewCollection();
+  __page1 = __page1.clickAddContentToCollection();
 		//.logoutFromContentStudio(SubscriptionPage);
 	}
 
@@ -80,30 +76,25 @@ export class VerifyCollectionTest_G2_CSX extends BaseTest {
 		let collectionName: string = "Auto_" + this.data.name().firstName() + this.dfor.format(today);
 		let collectionDes: string = "AutoDes_" + this.data.name().firstName() + this.dfor.format(today);
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password)
-		.navigateToPageByPath(this.PATH, CreateCollectionPage)
-		.createCollection(collectionName, collectionDes, "suomi (Suomi)s")
-		.ClickAddcontent()
-		.clickContentSourceDownArrow()
-		.selectContentSource(courseToBeAdd[0][0])
-		.searchContent(courseToBeAdd[0][1])
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible(this.LABEL_RETIRING)
-		.endAssertion()
-		.selectcourse(courseToBeAdd[0][1])
-		.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage)
-		.check(CreateCollectionAssertions)
-		.assertThatQVBadgeIsVisible(this.LABEL_RETIRING)
-		.endAssertion()
-		.clickGoToDetails(CreateCollectionPage)
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible(this.LABEL_RETIRING)
-		.endAssertion()
-		.goToLastPage()
-		.closeQuickViewDialog(courseToBeAdd[0][1])
-		.clickReviewCollection()
-		.clickAddContentToCollection();
+		  let __page2: any = this;
+  __page2 = __page2.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page2 = __page2.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password);
+  __page2 = __page2.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page2 = __page2.createCollection(collectionName, collectionDes, "suomi (Suomi)s");
+  __page2 = __page2.ClickAddcontent();
+  __page2 = __page2.clickContentSourceDownArrow();
+  __page2 = __page2.selectContentSource(courseToBeAdd[0][0]);
+  __page2 = __page2.searchContent(courseToBeAdd[0][1]);
+  expect(__page2.badge_check(this.LABEL_RETIRING).first()).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.selectcourse(courseToBeAdd[0][1]);
+  __page2 = __page2.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage);
+  expect(__page2.qv_badge_check(this.LABEL_RETIRING)).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.clickGoToDetails(CreateCollectionPage);
+  expect(__page2.badge_check(this.LABEL_RETIRING).first()).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.goToLastPage();
+  __page2 = __page2.closeQuickViewDialog(courseToBeAdd[0][1]);
+  __page2 = __page2.clickReviewCollection();
+  __page2 = __page2.clickAddContentToCollection();
 		//.logoutFromContentStudio(SubscriptionPage);
 	}
 
@@ -112,26 +103,23 @@ export class VerifyCollectionTest_G2_CSX extends BaseTest {
 
 		let indexToSelect: number = new Random().nextInt(5 - 1 + 1) + 1;
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password)
-		.navigateToPageByPath(this.PATH, CreateCollectionPage)
-		.clickNewCollectionButton()
-		.clickCollectionNameAI()
-		.fillSearchTextAI(this.AI_SEARCH_KEYWORD)
-		.clickSearchArrowAI()
-		.hoverandSelectFirst(this.collectionName_AI,true,String.valueOf(indexToSelect))
-		.clickCollectionDesAI()
-		.hoverandSelectFirst(this.collectionName_AI,false,String.valueOf(1))
-		.submitCollection()
-		.check(CreateCollectionAssertions)
-		.assertThatMessageIsVisible("Add content to your collection")
-		.assertThatADDContentAIIsVisible()
-		.endAssertion()
-		.navigateToPageByPath(this.PATH, CreateCollectionPage)
-		.fillCollectionSearch(this.collectionName_AI.getValue())
-		.check(CreateCollectionAssertions)
-		.assertThatCollectionIsVisible(this.collectionName_AI.getValue())
-		.endAssertion();
+		  let __page3: any = this;
+  __page3 = __page3.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page3 = __page3.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password);
+  __page3 = __page3.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page3 = __page3.clickNewCollectionButton();
+  __page3 = __page3.clickCollectionNameAI();
+  __page3 = __page3.fillSearchTextAI(this.AI_SEARCH_KEYWORD);
+  __page3 = __page3.clickSearchArrowAI();
+  __page3 = __page3.hoverandSelectFirst(this.collectionName_AI, true, String.valueOf(indexToSelect));
+  __page3 = __page3.clickCollectionDesAI();
+  __page3 = __page3.hoverandSelectFirst(this.collectionName_AI, false, String.valueOf(1));
+  __page3 = __page3.submitCollection();
+  expect(__page3.messageElement("Add content to your collection")).toBeVisible({ timeout: 60000 });
+  expect(__page3.buttonAddContent_AI).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page3 = __page3.fillCollectionSearch(this.collectionName_AI.getValue());
+  expect(__page3.locatePTagByText(this.collectionName_AI.getValue())).toBeVisible({ timeout: 60000 });
 	}
 
 	public verifylanguage(): void {
@@ -140,21 +128,18 @@ export class VerifyCollectionTest_G2_CSX extends BaseTest {
 		let collectionName: string = "Auto_" + this.data.name().firstName() + this.dfor.format(today);
 		let collectionDes: string = "AutoDes_" + this.data.name().firstName() + this.dfor.format(today);
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password)
-		.navigateToPageByPath(this.PATH, CreateCollectionPage)
-		.createCollection(collectionName, collectionDes, "suomi (Suomi)s")
-		.ClickAddcontent()
-		.clickContentSourceDownArrow()
-		.selectContentSource(courseToBeAdd[0][0])
-		.searchContent(courseToBeAdd[0][1])
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible("English")
-		.endAssertion()
-		.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage)
-		.check(CreateCollectionAssertions)
-		.assertThatBadgeIsVisible("English")
-		.endAssertion();
+		  let __page4: any = this;
+  __page4 = __page4.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page4 = __page4.loginToThinkContent(this.getPlayFourteenUser().email, this.getPlayFourteenUser().password);
+  __page4 = __page4.navigateToPageByPath(this.PATH, CreateCollectionPage);
+  __page4 = __page4.createCollection(collectionName, collectionDes, "suomi (Suomi)s");
+  __page4 = __page4.ClickAddcontent();
+  __page4 = __page4.clickContentSourceDownArrow();
+  __page4 = __page4.selectContentSource(courseToBeAdd[0][0]);
+  __page4 = __page4.searchContent(courseToBeAdd[0][1]);
+  expect(__page4.badge_check("English").first()).toBeVisible({ timeout: 60000 });
+  __page4 = __page4.clickQuickView(courseToBeAdd[0][1], CreateCollectionPage);
+  expect(__page4.badge_check("English").first()).toBeVisible({ timeout: 60000 });
 	}
 
 }

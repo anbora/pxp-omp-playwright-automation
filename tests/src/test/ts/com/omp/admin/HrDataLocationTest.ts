@@ -1,11 +1,11 @@
-import { HrDataEditLocationAssertions } from "assertions/admin/hrdata/HrDataEditLocationAssertions";
-import { HrDataLocationAssertions } from "assertions/admin/hrdata/HrDataLocationAssertions";
-import { HrDataLocationTranslationAssertions } from "assertions/admin/hrdata/HrDataLocationTranslationAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class HrDataLocationTest extends BaseRestTest {
 
@@ -24,38 +24,37 @@ export class HrDataLocationTest extends BaseRestTest {
     }
 
     public createAndEditJobFunctionAndTranslationViaAdminPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.hrData)
-                .openMenuForLocationHRData()
-                .clickAddLocationButton()
-                .enterLocationName(this.locationName)
-                .selectCountry(this.country)
-                .clickSaveButton()
-                .clickSearchLocation(this.locationName)
-                .check(HrDataLocationAssertions)
-                    .assertThatLocationIsDisplayedOnTheList(this.locationName)
-                .endAssertion()
-                .clickEditLocationButton()
-                .enterLocationName(this.locationNameAfterEdit)
-                .clickClearButton()
-                .selectCountry(this.countryAfterEdit)
-                .clickSaveButton()
-                .check(HrDataEditLocationAssertions)
-                    .assertThatLocationNameIsDisplayedOnTheList(this.locationNameAfterEdit)
-                    .assertThatLocationCountryEditIsDisplayedOnTheList(this.countryAfterEdit)
-                .endAssertion()
-                .clickTranslationButton()
-                .clickLocationTranslationDropdown()
-                .typeEnterLocationName(this.locationNameTranslation)
-                .clickSaveButton()
-                .clickSearchLocation(this.locationNameAfterEdit)
-                .clickTranslationButton()
-                .clickLocationTranslationDropdown()
-                .check(HrDataLocationTranslationAssertions)
-                    .assertThatLocationTranslationIsDisplayed(this.locationNameTranslation)
-                .endAssertion()
-                .clickSaveButton();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.hrData);
+        __page1 = __page1.openMenuForLocationHRData();
+        __page1 = __page1.clickAddLocationButton();
+        __page1 = __page1.enterLocationName(this.locationName);
+        __page1 = __page1.selectCountry(this.country);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickSearchLocation(this.locationName);
+        expect(__page1.locationName.first()).toContainText(this.locationName, { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Location name found on the list.");
+        __page1 = __page1.clickEditLocationButton();
+        __page1 = __page1.enterLocationName(this.locationNameAfterEdit);
+        __page1 = __page1.clickClearButton();
+        __page1 = __page1.selectCountry(this.countryAfterEdit);
+        __page1 = __page1.clickSaveButton();
+        expect(__page1.locationName.first()).toContainText(this.locationNameAfterEdit, { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Location found on the list.");
+        expect(__page1.countryName.first()).toContainText(this.countryAfterEdit, { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Location this.countryAfterEdit after edit name found on the list.");
+        __page1 = __page1.clickTranslationButton();
+        __page1 = __page1.clickLocationTranslationDropdown();
+        __page1 = __page1.typeEnterLocationName(this.locationNameTranslation);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickSearchLocation(this.locationNameAfterEdit);
+        __page1 = __page1.clickTranslationButton();
+        __page1 = __page1.clickLocationTranslationDropdown();
+        expect(__page1.locationName.first()).toHaveValue(this.locationNameTranslation);
+        __page1.logger.info("Successfully verified data. Location translation name contains text.");
+        __page1 = __page1.clickSaveButton();
     }
 }

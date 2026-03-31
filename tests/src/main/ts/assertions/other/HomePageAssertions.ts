@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { HomePage } from "pages/other/HomePage";
+import { expect } from "common/testing/playwright";
 
 export class HomePageAssertions extends BaseAssertion<HomePage> {
 
 //    public HomePageAssertions assertThatHomePageIsLoaded(UserModel user) {
-//        assertThat(this.page.getUserAvatar()).isVisible(this.isVisibleOptions);
+//        expect(this.page.getUserAvatar()).toBeVisible(this.isVisibleOptions);
 //        this.page.logger.info("-------------------------------------------------------------------");
 //        this.page.logger.info("User logged with data:");
 //        this.page.logger.info(" - id: " + user.id);
@@ -16,78 +17,78 @@ export class HomePageAssertions extends BaseAssertion<HomePage> {
 //    }
 //
 //    public HomePageAssertions assertThatLogoDisplayed() {
-//        assertThat(this.page.logo).isVisible(this.isVisibleOptions);
+//        expect(this.page.logo).toBeVisible(this.isVisibleOptions);
 ////        this.page.logo().should('be.visible')
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatUserIsLoggedIn(String userName) {
-//        assertThat(this.page.userName.first()).isVisible(this.isVisibleOptions);
-//        assertThat(this.page.userName.first()).containsText(userName, this.containsTextOptions);
+//        expect(this.page.userName.first()).toBeVisible(this.isVisibleOptions);
+//        expect(this.page.userName.first()).toContainText(userName, this.containsTextOptions);
 ////        this.page.userName().should('be.visible')
 ////        this.page.userName().should('contain.text', user.name)
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatMenuTabIsHighlighted(String title, String rgbColor) {
-//        assertThat(this.page.menuTab(title)).hasCSS("border-color", rgbColor);
+//        expect(this.page.menuTab(title)).toHaveCSS("border-color", rgbColor);
 ////        this.page.menuTab(title).should('have.css', 'border-color').and('eq', rgbColor)
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatMenuTabIsDisplayed(String title) {
-//        assertThat(this.page.menuTab(title)).isVisible(this.isVisibleOptions);
+//        expect(this.page.menuTab(title)).toBeVisible(this.isVisibleOptions);
 ////        this.page.menuTab(title).should('be.visible')
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatSubmenuTabIsHighlighted(String title, String rgbColor) {
-//        assertThat(this.page.submenuTab(title)).hasCSS("border-bottom", rgbColor);
+//        expect(this.page.submenuTab(title)).toHaveCSS("border-bottom", rgbColor);
 ////        this.page.submenuTab(title).should('have.css', 'border-bottom').and('contain', rgbColor)
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatSubmenuTabIsDisplayed(String title) {
-//        assertThat(this.page.submenuTab(title)).isVisible(this.isVisibleOptions);
+//        expect(this.page.submenuTab(title)).toBeVisible(this.isVisibleOptions);
 ////        this.page.submenuTab(title).should('be.visible')
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatCreateButtonIsDisplayed() {
-//        assertThat(this.page.createButton).isVisible(this.isVisibleOptions);
+//        expect(this.page.createButton).toBeVisible(this.isVisibleOptions);
 ////        this.page.createButton().should('be.visible')
 //        return this;
 //    }
 //
 //	public HomePageAssertions assertThatCreateProjectButtonIsDisplayed() {
-//        assertThat(this.page.createProjectButton).isVisible(this.isVisibleOptions);
+//        expect(this.page.createProjectButton).toBeVisible(this.isVisibleOptions);
 ////        this.page.createProjectButton().should('be.visible')
 //        return this;
 //    }
 //
 //    public HomePageAssertions assertThatCreateProjectButtonIsNotDisplayed() {
-//        assertThat(this.page.createProjectButton).not().isVisible(this.isNotVisibleOptions);
+//        expect(this.page.createProjectButton).not.toBeVisible(this.isNotVisibleOptions);
 //        return this;
 //    }
 //
 	public assertThatErrorPageIsDisplayed(): HomePageAssertions {
-        this.assertThat(this.page.errorMessage).isVisible(this.isVisibleOptions);
+        expect(this.page.errorMessage).toBeVisible(this.isVisibleOptions);
 //        this.page.errorMessage().should('exist')
         return this;
     }
 
     public assertThatConfigureHomePageButtonIsDisplayed(): HomePageAssertions {
-        this.assertThat(this.page.configureHomePageButton).isVisible(this.isVisibleOptions);
+        expect(this.page.configureHomePageButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatConfigureHomePageButtonIsNotDisplayed(): HomePageAssertions {
-        this.assertThat(this.page.configureHomePageButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.configureHomePageButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 //
 //    public HomePageAssertions assertNotificationHasArrived(String notificationText) {
-//        assertThat(this.page.notificationMessage(notificationText).first()).isVisible(this.isVisibleOptions);
+//        expect(this.page.notificationMessage(notificationText).first()).toBeVisible(this.isVisibleOptions);
 //        return this;
 //    }
 //

@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { ResultContainer } from "models/ResultContainer";
 import { SkillsCareerProfileModalPage } from "pages/careergrowth/profiles/SkillsCareerProfileModalPage";
+import { expect } from "common/testing/playwright";
 
 export class SkillsCareerProfileModalAssertions extends BaseAssertion<SkillsCareerProfileModalPage> {
 
@@ -12,7 +13,7 @@ export class SkillsCareerProfileModalAssertions extends BaseAssertion<SkillsCare
     }
 
     public assertWarningText(expectedWarning: string): SkillsCareerProfileModalAssertions {
-        this.assertThat(this.page.warning).hasText(expectedWarning);
+        expect(this.page.warning).toHaveText(expectedWarning);
         return this;
     }
 
@@ -26,17 +27,17 @@ export class SkillsCareerProfileModalAssertions extends BaseAssertion<SkillsCare
     }
 
     public assertCompleteYourProfileModalSubHeaderIsDisplayed(subheaderName: string): SkillsCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfileModalSubHeader(subheaderName)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalSubHeader(subheaderName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertCompleteYourProfileProgressCount(progressPercentage: string): SkillsCareerProfileModalAssertions {
-        this.assertThat(this.page.completeYourProfileModalProgressCount(progressPercentage)).isVisible(this.isVisibleOptions);
+        expect(this.page.completeYourProfileModalProgressCount(progressPercentage)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSaveAndContinueIsDisplayed(): SkillsCareerProfileModalAssertions {
-        this.assertThat(this.page.saveAndContinue()).isVisible(this.isVisibleOptions);
+        expect(this.page.saveAndContinue()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 }

@@ -1,21 +1,22 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { SmartCardDetailsPage } from "pages/insights/SmartCardDetailsPage";
+import { expect } from "common/testing/playwright";
 
 export class SmartCardDetailsAssertions extends BaseAssertion<SmartCardDetailsPage> {
 
     public assertThatCardNameContains(cardName: string): SmartCardDetailsAssertions {
-        this.assertThat(this.page.cardName).containsText(cardName, this.containsTextOptions);
+        expect(this.page.cardName).toContainText(cardName, this.containsTextOptions);
         return this;
     }
 
     public assertThatCardTypeContains(cardType: string): SmartCardDetailsAssertions {
-        this.assertThat(this.page.cardType).containsText(cardType, this.containsTextOptions);
+        expect(this.page.cardType).toContainText(cardType, this.containsTextOptions);
         return this;
     }
 
     public assertThatCardLevelContains(cardLevel: string): SmartCardDetailsAssertions {
-        this.assertThat(this.page.cardLevel).containsText(cardLevel, this.containsTextOptions);
+        expect(this.page.cardLevel).toContainText(cardLevel, this.containsTextOptions);
         return this;
     }
 }

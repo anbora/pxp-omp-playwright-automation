@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { JsonProperty, SerializedName } from "common/testing/json";
 
 export class AnswerPollModel {

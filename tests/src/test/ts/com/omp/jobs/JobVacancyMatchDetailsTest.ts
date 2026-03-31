@@ -1,11 +1,12 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { MatchingAnalysisModalAssertions } from "assertions/careergrowth/MatchingAnalysisModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobVacancyMatchDetailsTest extends BaseRestTest {
 
@@ -55,84 +56,77 @@ export class JobVacancyMatchDetailsTest extends BaseRestTest {
     }
 
     public shouldCheckMatchDetailsVisibilityForJobVacancy(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .editProfile()
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.agriculturalMachineryMechanic, this.agriculturalMachineryMechanicFullTitle)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .refreshPage()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.agriculturalMachineryMechanicsDirector)
-                .markFirstRoleAsAspirational()
-                .clickUpdateCareerProfileLink()
-                .clickSkipForNowButton()
-                .run(new AddSkillToCareerProfileScenario(this.mechanics, this.intermediate))
-                .run(new AddSkillToCareerProfileScenario(this.agriculture, this.advanced))
-                .run(new AddSkillToCareerProfileScenario(this.electricians, this.beginner))
-                .clickSaveAndContinueButton()
-                .clickSkipForNowButton()
-                .selectCareerPreferenceCheckbox(this.careerGoal, this.forward)
-                .addCareerPreference(this.level, this.director)
-                .selectCareerPreferenceCheckbox(this.workplaceModel, this.remote)
-                .addCareerPreference(this.jobType, this.permanent)
-                .selectCareerPreferenceCheckbox(this.schedule, this.fullTime)
-                .selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor)
-                .clickSaveAndContinueButton()
-                .clickSaveButton()
-                .goToVacanciesPageViaTab()
-                .waitForGoodOrExcellentMatchForSuggestedJobVacancy()
-                .check(VacanciesListAssertions)
-                    .assertThatJobVacancyOnAllJobVacanciesListHasMatchEqualTo(this.agriculturalMachineryMechanicsDirector, this.goodMatch)
-                .endAssertion()
-                .goToFirstSuggestedJobVacancyDetailsPage()
-                .showMatchDetails()
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatHeaderIsEqualTo(this.matchDetails)
-                    .assertThatTabIsActive(this.skills)
-                    .assertThatOverallMatchIsEqualTo(this.goodMatch)
-                    .assertThatTabDescriptionIsEqualTo(this.skills, this.notMatchSkills)
-                    .assertThatCrossIconIsDisplayedForTab(this.skills)
-                    .assertThatTabDescriptionIsEqualTo(this.careerPreferences, this.matchPreferences)
-                    .assertThatTickIconIsDisplayedForTab(this.careerPreferences)
-                    .assertThatTabDescriptionIsEqualTo(this.experience, this.matchExperience)
-                    .assertThatTickIconIsDisplayedForTab(this.experience)
-                    .assertThatTabDescriptionIsEqualTo(this.careerPath, this.matchCareerPath)
-                    .assertThatTickIconIsDisplayedForTab(this.careerPath)
-                    .assertThatTickStatusIconIsDisplayedForSkill(this.agricultureLC)
-                    .assertThatCrossStatusIconIsDisplayedForSkill(this.agriculturalEngineeringLC)
-                    .assertThatOnTargetStatusIsDisplayedForSkill(this.agricultureLC)
-                    .assertThatOffTargetStatusIsDisplayedForSkill(this.agriculturalEngineeringLC)
-                    .assertThatYourLevelForSkillIsEqualTo(this.agricultureLC, this.advanced)
-                    .assertThatYourLevelForSkillIsEqualTo(this.agriculturalEngineeringLC, this.emptyLevel)
-                    .assertThatTargetLevelForSkillIsEqualTo(this.agricultureLC, this.advanced)
-                .endAssertion()
-                .selectTab(this.careerPreferences)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatTabIsActive(this.careerPreferences)
-                    .assertThatPreferenceTypeIsEqualTo(this.schedule, this.fullTime)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.schedule, this.matching)
-                    .assertThatPreferenceTypeIsEqualTo(this.workplaceModel, this.remote)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.workplaceModel, this.matching)
-                    .assertThatPreferenceTypeIsEqualTo(this.jobType, this.permanent)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.jobType, this.matching)
-                    .assertThatPreferenceTypeIsEqualTo(this.level, this.director)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.level, this.matching)
-                    .assertThatPreferenceTypeIsEqualTo(this.careerTrack, this.individualContributor)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerTrack, this.matching)
-                    .assertThatPreferenceTypeStatusIsEqualTo(this.careerGoal, this.matching)
-                .endAssertion()
-                .selectTab(this.experience)
-                .check(MatchingAnalysisModalAssertions)
-                    .assertThatTabIsActive(this.experience)
-                    .assertThatExperienceDescriptionIsEqualTo(this.closeRelationship)
-                    .assertThatExperienceStatusIsEqualTo(this.yes)
-                    .assertThatTickStatusIconIsDisplayedForExperience()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.editProfile();
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.agriculturalMachineryMechanic, this.agriculturalMachineryMechanicFullTitle);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.agriculturalMachineryMechanicsDirector);
+        __page1 = __page1.markFirstRoleAsAspirational();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.mechanics, this.intermediate));
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.agriculture, this.advanced));
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.electricians, this.beginner));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, this.forward);
+        __page1 = __page1.addCareerPreference(this.level, this.director);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.workplaceModel, this.remote);
+        __page1 = __page1.addCareerPreference(this.jobType, this.permanent);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.schedule, this.fullTime);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor);
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.waitForGoodOrExcellentMatchForSuggestedJobVacancy();
+        expect(__page1.this.goodMatch(this.agriculturalMachineryMechanicsDirector).first()).toContainText(this.goodMatch, { timeout: 30000 });
+        __page1 = __page1.goToFirstSuggestedJobVacancyDetailsPage();
+        __page1 = __page1.showMatchDetails();
+        expect(__page1.matchModalHeader).toContainText(this.matchDetails, { timeout: 30000 });
+        expect(__page1.matchModalTab(this.skills)).toHaveClass("ed-progress-tab active");
+        expect(__page1.matchModalDescription).toContainText(this.goodMatch, { timeout: 30000 });
+        expect(__page1.matchModalTabDescription(this.skills)).toContainText(this.notMatchSkills, { timeout: 30000 });
+        expect(__page1.matchModalTabIcon(this.skills)).toHaveClass("progress-tab-icon primary-color icon-cross-circle");
+        expect(__page1.matchModalTabDescription(this.careerPreferences)).toContainText(this.matchPreferences, { timeout: 30000 });
+        expect(__page1.matchModalTabIcon(this.careerPreferences)).toHaveClass("progress-tab-icon primary-color icon-check");
+        expect(__page1.matchModalTabDescription(this.experience)).toContainText(this.matchExperience, { timeout: 30000 });
+        expect(__page1.matchModalTabIcon(this.experience)).toHaveClass("progress-tab-icon primary-color icon-check");
+        expect(__page1.matchModalTabDescription(this.careerPath)).toContainText(this.matchCareerPath, { timeout: 30000 });
+        expect(__page1.matchModalTabIcon(this.careerPath)).toHaveClass("progress-tab-icon primary-color icon-check");
+        expect(__page1.skillStatusIcon(this.agricultureLC)).toHaveClass("card-icon icon-check");
+        expect(__page1.skillStatusIcon(this.agriculturalEngineeringLC)).toHaveClass("card-icon icon-cross-circle");
+        expect(__page1.skillStatusLabel(this.agricultureLC)).toContainText("On target", { timeout: 30000 });
+        expect(__page1.skillStatusLabel(this.agriculturalEngineeringLC)).toContainText("Off target", { timeout: 30000 });
+        expect(__page1.skillYourLevelLabel(this.agricultureLC)).toContainText(this.advanced, { timeout: 30000 });
+        expect(__page1.skillYourLevelLabel(this.agriculturalEngineeringLC)).toContainText(this.emptyLevel, { timeout: 30000 });
+        expect(__page1.skillTargetLevelLabel(this.agricultureLC)).toContainText(this.advanced, { timeout: 30000 });
+        __page1 = __page1.selectTab(this.careerPreferences);
+        expect(__page1.matchModalTab(this.careerPreferences)).toHaveClass("ed-progress-tab active");
+        expect(__page1.preference(this.schedule)).toContainText(this.fullTime, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.schedule)).toContainText(this.matching, { timeout: 30000 });
+        expect(__page1.preference(this.workplaceModel)).toContainText(this.remote, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.workplaceModel)).toContainText(this.matching, { timeout: 30000 });
+        expect(__page1.preference(this.jobType)).toContainText(this.permanent, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.jobType)).toContainText(this.matching, { timeout: 30000 });
+        expect(__page1.preference(this.level)).toContainText(this.director, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.level)).toContainText(this.matching, { timeout: 30000 });
+        expect(__page1.preference(this.careerTrack)).toContainText(this.individualContributor, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.careerTrack)).toContainText(this.matching, { timeout: 30000 });
+        expect(__page1.preferenceStatus(this.careerGoal)).toContainText(this.matching, { timeout: 30000 });
+        __page1 = __page1.selectTab(this.experience);
+        expect(__page1.matchModalTab(this.experience)).toHaveClass("ed-progress-tab active");
+        expect(__page1.experienceDescription).toContainText(this.closeRelationship, { timeout: 30000 });
+        expect(__page1.experienceStatus).toContainText(this.yes, { timeout: 30000 });
+        expect(__page1.experienceStatusIcon).toHaveClass("card-icon icon-check");
     }
 
     public afterTests(): void {

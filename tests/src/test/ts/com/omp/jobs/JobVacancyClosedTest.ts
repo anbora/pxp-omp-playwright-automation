@@ -1,5 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +9,7 @@ import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class JobVacancyClosedTest extends BaseRestTest {
 
@@ -27,15 +28,14 @@ export class JobVacancyClosedTest extends BaseRestTest {
     }
 
     public shouldCheckClosedJobDetails(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goToVacanciesPageViaTab()
-                .typeSearchValue(this.TITLE)
-                .check( VacanciesListAssertions)
-                    .assertThatZeroResultsForClosedVacancies()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.TITLE);
+        expect(__page1.noResultsMessage).toBeVisible({ timeout: 30000 });
     }
 
     public deleteJobViaRest(): void {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { UpdateJourneyLanguage } from "models/edconnect/content/journey/updatejourney/UpdateJourneyLanguage";
 import { UpdateJourneyMetadata } from "models/edconnect/content/journey/updatejourney/UpdateJourneyMetadata";

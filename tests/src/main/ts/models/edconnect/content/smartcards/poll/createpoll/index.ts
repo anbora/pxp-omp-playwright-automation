@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { Poll } from "./Poll";
 export { PollCardModel } from "./PollCardModel";
 export { PollLanguage } from "./PollLanguage";

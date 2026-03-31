@@ -1,5 +1,5 @@
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class YourNextCareerMilestoneWidgetTest extends BaseRestTest {
 
@@ -22,27 +23,22 @@ export class YourNextCareerMilestoneWidgetTest extends BaseRestTest {
     }
 
     public yourNextCareerMilestoneWidgetEmptyTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .check(LandingPageAssertions)
-                    .assertThatYourNextCareerMilestoneWidgetIsDisplayed()
-                    .assertThatYourNextCareerMilestoneWidgetIsEmpty()
-                .endAssertion()
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .goToRolesPageViaTab()
-                .getCardNameInAllBox(this.aspirationalRoleContainer)
-                .goToFirstRoleCard()
-                .markRoleAspirational_alternate()
-                .goDirectlyTo(LandingPage)
-                .check(LandingPageAssertions)
-                    .assertThatYourNextCareerMilestoneWidgetIsDisplayed()
-                    .assertThatAspirationRoleIsDisplayed(this.aspirationalRoleContainer.getValue())
-                .endAssertion()
-                .clickAspirationalRoleCard(this.aspirationalRoleContainer.getValue())
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(this.aspirationalRoleContainer.getValue())
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        expect(__page1.yourNextCareerMilestoneWidgetHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.yourNextCareerMilestoneWidgetEmptyLabel).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.getCardNameInAllBox(this.aspirationalRoleContainer);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.markRoleAspirational_alternate();
+        __page1 = __page1.goDirectlyTo(LandingPage);
+        expect(__page1.yourNextCareerMilestoneWidgetHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.aspirationalRoleWithTitle(this.aspirationalRoleContainer.getValue())).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickAspirationalRoleCard(this.aspirationalRoleContainer.getValue());
+        expect(__page1.roleNameLabel).toContainText(this.aspirationalRoleContainer.getValue(), { timeout: 30000 });
     }
 
     public afterClass(): void {

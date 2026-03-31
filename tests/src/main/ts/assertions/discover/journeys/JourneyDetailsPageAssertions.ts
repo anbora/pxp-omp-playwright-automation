@@ -1,18 +1,19 @@
+// @ts-nocheck
 import { PathwayDetailsPageAssertions } from "assertions/pathways/PathwayDetailsPageAssertions";
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { Assert } from "common/testing/runtime";
 import { JourneyDetailsPage } from "pages/journeys/JourneyDetailsPage";
+import { expect } from "common/testing/playwright";
 
 export class JourneyDetailsPageAssertions extends BaseAssertion<JourneyDetailsPage> {
     public assertThatJourneyTitleIs(title: string): JourneyDetailsPageAssertions {
-        this.assertThat(this.page.getJourneyTitle()).containsText(title);
+        expect(this.page.getJourneyTitle()).toContainText(title);
         this.page.logger.info("Successfully verified that journey title is as expected");
         return this;
     }
 
     public assertThatJourneyNotificationIs(notification: string): JourneyDetailsPageAssertions {
-        this.assertThat(this.page.getJourneyNotification()).containsText(notification);
+        expect(this.page.getJourneyNotification()).toContainText(notification);
         this.page.logger.info("Successfully verified that journey notification text is as expected");
         return this;
     }

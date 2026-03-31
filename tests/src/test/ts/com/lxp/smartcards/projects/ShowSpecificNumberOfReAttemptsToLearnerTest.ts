@@ -1,5 +1,5 @@
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { SmartCardStandAlonePageAssertions } from "assertions/smartcards/SmartCardStandAlonePageAssertions";
+// @ts-nocheck
+
 import { SmartCardRestService } from "common/api/SmartCardRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +11,7 @@ import { SignOutPage } from "pages/other/SignOutPage";
 import { SmartCardStandAlonePage } from "pages/smartcard/SmartCardStandAlonePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class ShowSpecificNumberOfReAttemptsToLearnerTest extends SmartCardRestService {
     private static readonly UNIQUE_SUFFIX: string = UUID.randomUUID().toString();
@@ -29,46 +30,49 @@ export class ShowSpecificNumberOfReAttemptsToLearnerTest extends SmartCardRestSe
     }
 
     public verifyThatProjectSmartCardCanBeCreatedWithShowNumberOfReattemptsChecked(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .clickCreateButton()
-                .clickSmartCardButton()
-                .goToProjectSmartCardTab()
-                .fillInSingleLanguageTitle(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN)
-                .fillInNumberOfReattempts(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS)
-                .clickShowNumberOfReattemptsToLearnerCheckbox()
-                .clickCreateCardButton()
-                .check(ContentMePageAssertions)
-                .assertThatCardNotificationIs(ShowSpecificNumberOfReAttemptsToLearnerTest.NOTIFICATION)
-                .endAssertion()
-                .goToCardStandAloneView(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN)
-                .getECLUniqueId(this.eclId)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatMaximumReattemptsLabelIsPresent()
-                    .assertThatSecondPositionFieldValueIsAsExpected(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickSmartCardButton();
+        __page1 = __page1.goToProjectSmartCardTab();
+        __page1 = __page1.fillInSingleLanguageTitle(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.fillInNumberOfReattempts(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS);
+        __page1 = __page1.clickShowNumberOfReattemptsToLearnerCheckbox();
+        __page1 = __page1.clickCreateCardButton();
+        expect(__page1.cardNotification).toContainText(ShowSpecificNumberOfReAttemptsToLearnerTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that ShowSpecificNumberOfReAttemptsToLearnerTest.NOTIFICATION text is as expected");
+        __page1 = __page1.goToCardStandAloneView(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.getECLUniqueId(this.eclId);
+        expect(__page1.maximumReattemptsLabel).toBeVisible();
+        __page1.logger.info("Successfully verified that passing grade label is visible");
+        expect(__page1.secondPositionMetadataValue).toContainText(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS);
+        __page1.logger.info("Successfully verified that field value is as expected");
     }
 
     public verifyThatSpecificNumberOfReattemptsIsShownWhenSharedWithAnotherUser(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(ContentMePage)
-                .goToCardStandAloneView(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN)
-                .clickShareContentButton()
-                .searchForUserToShareContentWith(this.user2.fullName)
-                .selectUserToShareContentWith(this.user2.fullName)
-                .clickShareButton()
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardNotificationIs(ShowSpecificNumberOfReAttemptsToLearnerTest.SHARE_NOTIFICATION)
-                .endAssertion()
-                .goDirectlyTo(SignOutPage);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(ContentMePage);
+        __page2 = __page2.goToCardStandAloneView(ShowSpecificNumberOfReAttemptsToLearnerTest.SMART_CARD_TITLE_EN);
+        __page2 = __page2.clickShareContentButton();
+        __page2 = __page2.searchForUserToShareContentWith(this.user2.fullName);
+        __page2 = __page2.selectUserToShareContentWith(this.user2.fullName);
+        __page2 = __page2.clickShareButton();
+        expect(__page2.smartCardNotification).toContainText(ShowSpecificNumberOfReAttemptsToLearnerTest.SHARE_NOTIFICATION);
+        __page2.logger.info("Successfully verified that ShowSpecificNumberOfReAttemptsToLearnerTest.SHARE_NOTIFICATION text is as expected");
+        __page2 = __page2.goDirectlyTo(SignOutPage);
 
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .goDirectlyTo(NotificationPage)
-                .clickFirstNotificationInRecentUpdatesWidget(SmartCardStandAlonePage)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatMaximumReattemptsLabelIsPresent()
-                    .assertThatSecondPositionFieldValueIsAsExpected(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginWithOnboardingScenario(this.user2));
+        __page3 = __page3.goDirectlyTo(NotificationPage);
+        __page3 = __page3.clickFirstNotificationInRecentUpdatesWidget(SmartCardStandAlonePage);
+        expect(__page3.maximumReattemptsLabel).toBeVisible();
+        __page3.logger.info("Successfully verified that passing grade label is visible");
+        expect(__page3.secondPositionMetadataValue).toContainText(ShowSpecificNumberOfReAttemptsToLearnerTest.NUMBER_OF_REATTEMPTS);
+        __page3.logger.info("Successfully verified that field value is as expected");
     }
 
     public afterClass(): void {

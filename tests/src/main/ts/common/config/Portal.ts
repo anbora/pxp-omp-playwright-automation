@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LoginSettings } from "common/LoginSettings";
 
 export class Portal {

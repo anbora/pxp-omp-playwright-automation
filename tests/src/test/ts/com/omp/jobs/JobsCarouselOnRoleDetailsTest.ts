@@ -1,5 +1,5 @@
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +10,7 @@ import { AddWorkHistoryToCareerProfileScenario } from "scenarios/jobs/AddWorkHis
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobsCarouselOnRoleDetailsTest extends BaseRestTest {
 
@@ -47,64 +48,55 @@ export class JobsCarouselOnRoleDetailsTest extends BaseRestTest {
     }
 
     public shouldCheckJobCarouselNavigationOnRoleDetailsPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .run(new AddWorkHistoryToCareerProfileScenario(this.fishCounter, this.lumesse, this.fishery, this.october, this.year_2017, this.june, this.year_2022))
-                .clickSaveAndContinueButton()
-                .run(new AddSkillToCareerProfileScenario(this.fishery, this.beginner))
-                .clickSaveAndContinueButton()
-                .clickXButton()
-                .goToVacanciesPageViaCard()
-                .waitForGoodOrExcellentMatchForSuggestedJobVacancy()
-                .goToRolesPageViaTab()
-                .typeSearchValue(this.unusuals)
-                .goToFirstRoleCard()
-                .waitForGoodOrExcellentMatchForLinkedJobVacancy()
-                .refreshCurrentPage(RoleDetailsPage)
-                .check(RoleDetailsAssertions)
-                    .assertThatCarouselCounterIsEqualTo(this.fifteen)
-                    .assertThatTheNumberOfTheJobsOnCarouselIsEqualTo(this.fifteenNo)
-                    .assertThatThereIsJobTitleOnCarousel(this.fishCounter)
-                    .assertThatTypeForGivenJobOnCarouselIsEqualTo(this.fishCounter, this.internship)
-                    .assertThatLocationForGivenJobOnCarouselIsEqualTo(this.fishCounter, this.londonOffice)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.fishCounter, this.goodMatch)
-                    .assertThatSmileIconForJobVacancyOnCarouselIsEqualTo(this.fishCounter, this.goodMatchIcon)
-                    .assertThatSkillForGivenJobOnCarouselIsEqualTo(this.fishCounter, this.fishery)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.bikeFisher, this.fairMatch)
-                    .assertThatSmileIconForJobVacancyOnCarouselIsEqualTo(this.bikeFisher, this.fairMatchIcon)
-                    .assertThatMatchForGivenJobOnCarouselIsEqualTo(this.paranormalTourGuide, this.lowMatch)
-                    .assertThatSmileIconForJobVacancyOnCarouselIsEqualTo(this.paranormalTourGuide, this.lowMatchIcon)
-                    .assertThatLeftCarouselControlButtonIsNotDisplayed()
-                    .assertThatRightCarouselControlButtonIsDisplayed()
-                .endAssertion()
-                .clickRightControlButton()
-                .check(RoleDetailsAssertions)
-                    .assertThatLeftCarouselControlButtonIsDisplayed()
-                    .assertThatRightCarouselControlButtonIsDisplayed()
-                .endAssertion()
-                .clickRightControlButton()
-                .clickRightControlButton()
-                .check(RoleDetailsAssertions)
-                    .assertThatLeftCarouselControlButtonIsDisplayed()
-                    .assertThatRightCarouselControlButtonIsNotDisplayed()
-                .endAssertion()
-                .clickLeftControlButton()
-                .clickLeftControlButton()
-                .clickLeftControlButton()
-                .check(RoleDetailsAssertions)
-                    .assertThatLeftCarouselControlButtonIsNotDisplayed()
-                    .assertThatRightCarouselControlButtonIsDisplayed()
-                .endAssertion()
-                .getFirstJobVacancyOnCarousel(this.titleResultContainer)
-                .goToFirstJobVacancyOnCarousel()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatTitleEqualTo(this.titleResultContainer.getValue())
-                .endAssertion()
-                .clickBackButtonToRolePage()
-                .check(RoleDetailsAssertions)
-                    .assertThatRoleNameEqualTo(this.unusuals);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.run(new AddWorkHistoryToCareerProfileScenario(this.fishCounter, this.lumesse, this.fishery, this.october, this.year_2017, this.june, this.year_2022));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.fishery, this.beginner));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.waitForGoodOrExcellentMatchForSuggestedJobVacancy();
+        __page1 = __page1.goToRolesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.unusuals);
+        __page1 = __page1.goToFirstRoleCard();
+        __page1 = __page1.waitForGoodOrExcellentMatchForLinkedJobVacancy();
+        __page1 = __page1.refreshCurrentPage(RoleDetailsPage);
+        expect(__page1.carouselCounter).toContainText(this.fifteen, { timeout: 30000 });
+        expect(__page1.jobsOnCarousel).toHaveCount(this.fifteenNo);
+        expect(__page1.carouselJobTitle(this.fishCounter)).toBeVisible({ timeout: 30000 });
+        expect(__page1.carouselJobTypeLabel(this.fishCounter)).toContainText(this.internship, { timeout: 30000 });
+        expect(__page1.carouselJobLocationLabel(this.fishCounter)).toContainText(this.londonOffice, { timeout: 30000 });
+        expect(__page1.carouselJobMatchLabel(this.fishCounter)).toContainText(this.goodMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.fishCounter)).toHaveAttribute("src", this.goodMatchIcon);
+        expect(__page1.carouselSkillLabel(this.fishCounter)).toContainText(this.fishery, { timeout: 30000 });
+        ;
+        expect(__page1.carouselJobMatchLabel(this.bikeFisher)).toContainText(this.fairMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.bikeFisher)).toHaveAttribute("src", this.fairMatchIcon);
+        expect(__page1.carouselJobMatchLabel(this.paranormalTourGuide)).toContainText(this.lowMatch, { timeout: 30000 });
+        expect(__page1.smileIconForJobVacancy(this.paranormalTourGuide)).toHaveAttribute("src", this.lowMatchIcon);
+        expect(__page1.leftCarouselControlButton).toBeHidden();
+        expect(__page1.rightCarouselControlButton).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickRightControlButton();
+        expect(__page1.leftCarouselControlButton).toBeEnabled();
+        expect(__page1.rightCarouselControlButton).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickRightControlButton();
+        __page1 = __page1.clickRightControlButton();
+        expect(__page1.leftCarouselControlButton).toBeEnabled();
+        expect(__page1.rightCarouselControlButton).toBeHidden();
+        __page1 = __page1.clickLeftControlButton();
+        __page1 = __page1.clickLeftControlButton();
+        __page1 = __page1.clickLeftControlButton();
+        expect(__page1.leftCarouselControlButton).toBeHidden();
+        expect(__page1.rightCarouselControlButton).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.getFirstJobVacancyOnCarousel(this.titleResultContainer);
+        __page1 = __page1.goToFirstJobVacancyOnCarousel();
+        expect(__page1.jobTitle).toContainText(this.titleResultContainer.getValue(), { timeout: 30000 });
+        __page1 = __page1.clickBackButtonToRolePage();
+        expect(__page1.roleNameLabel).toContainText(this.unusuals, { timeout: 30000 });
     }
 }

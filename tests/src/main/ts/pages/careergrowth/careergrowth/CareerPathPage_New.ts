@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -107,12 +108,12 @@ export class CareerPathPage_New extends BasePage implements CareerGrowthTopPanel
       return this.getLocatorWithParam("//div[@class='aspirational-role-name']/div[.='%s']", nextRoleSecond);
     }
     public hoverOverArrows(arrowName: string): Locator {
-      return this.getByLabel(arrowName).build().first();
+      return this.getByLabel(arrowName).first();
     }
     public hoverOverZoom(zoomInOrOut: string): Locator {
-      return this.getByLabel(zoomInOrOut).build().first();
+      return this.getByLabel(zoomInOrOut).first();
     }
-    public openSelectStartingJobRoleSearch: Locator = locator("//div[@class='cp-user-role__search-dropdown']/button").build();
+    public openSelectStartingJobRoleSearch: Locator = this.locator("//div[@class='cp-user-role__search-dropdown']/button");
 
     constructor(browser: Browser, pageHandler: PageHandler, logger: Logger, portalIndex: number) {
 

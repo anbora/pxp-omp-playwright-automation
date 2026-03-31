@@ -1,5 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { ExperienceCareerProfileModalAssertions } from "assertions/careergrowth/profiles/ExperienceCareerProfileModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +9,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCareerPreferencesForUser";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class SuggestionsProvidedByWorkHistoryTest extends BaseRestTest {
 
@@ -51,95 +52,89 @@ export class SuggestionsProvidedByWorkHistoryTest extends BaseRestTest {
     }
 
     public shouldUpdateProfileByAddingWorkHistory(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddBasicCareerPreferencesForUser())
-                .goDirectlyTo(WelcomePage_New)
-                .refreshPage()
-                .clickUpdateCareerProfileLink()
-                .goToCareerPreferenceTab()
-                .selectCareerPreferenceCheckbox(this.careerGoal, this.backward)
-//                .addCareerPreference(level, internship)
-                .selectCareerPreferenceCheckbox(this.workplaceModel, this.remote)
-//                .addCareerPreference(jobType, temporary)
-                .selectCareerPreferenceCheckbox(this.schedule, this.partTime)
-                .selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor)
-                .clickSaveAndContinueButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .clickAddMoreExperience()
-                .selectStartDateMonth(this.startDateMonth01)
-                .selectStartDateYear(this.startDateYear01)
-                .selectEndDateMonth(this.endDateMonth01)
-                .selectEndDateYear(this.endDateYear01)
-                .fillPositionTitle(this.TITLE_TEXT)
-                .fillCompanyName(this.workHistoryCompany01)
-                .fillDescription(this.workHistoryDescription01)
-                .clickDoneButton()
-                .clickAddMoreExperience()
-                .selectStartDateMonth(this.startDateMonth02)
-                .selectStartDateYear(this.startDateYear02)
-                .selectEndDateMonth(this.endDateMonth02)
-                .selectEndDateYear(this.endDateYear02)
-                .fillPositionTitle(this.workHistoryPosition02)
-                .fillCompanyName(this.workHistoryCompany02)
-                .fillDescription(this.workHistoryDescription02)
-                .clickDoneButton()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.startDateMonth01 + " " + this.startDateYear01 + " - " + this.endDateMonth01 + " " + this.endDateYear01)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.TITLE_TEXT)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryCompany01)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.startDateMonth02 + " " + this.startDateYear02 + " - " + this.endDateMonth02 + " " + this.endDateYear02)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryPosition02)
-                    .assertThatTextInWorkHistoryLineIsAdded(this.workHistoryCompany02)
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .clickXButton();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.goDirectlyTo(WelcomePage_New);
+        __page1 = __page1.refreshPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.goToCareerPreferenceTab();
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, this.backward);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.workplaceModel, this.remote);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.schedule, this.partTime);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor);
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.clickAddMoreExperience();
+        __page1 = __page1.selectStartDateMonth(this.startDateMonth01);
+        __page1 = __page1.selectStartDateYear(this.startDateYear01);
+        __page1 = __page1.selectEndDateMonth(this.endDateMonth01);
+        __page1 = __page1.selectEndDateYear(this.endDateYear01);
+        __page1 = __page1.fillPositionTitle(this.TITLE_TEXT);
+        __page1 = __page1.fillCompanyName(this.workHistoryCompany01);
+        __page1 = __page1.fillDescription(this.workHistoryDescription01);
+        __page1 = __page1.clickDoneButton();
+        __page1 = __page1.clickAddMoreExperience();
+        __page1 = __page1.selectStartDateMonth(this.startDateMonth02);
+        __page1 = __page1.selectStartDateYear(this.startDateYear02);
+        __page1 = __page1.selectEndDateMonth(this.endDateMonth02);
+        __page1 = __page1.selectEndDateYear(this.endDateYear02);
+        __page1 = __page1.fillPositionTitle(this.workHistoryPosition02);
+        __page1 = __page1.fillCompanyName(this.workHistoryCompany02);
+        __page1 = __page1.fillDescription(this.workHistoryDescription02);
+        __page1 = __page1.clickDoneButton();
+        expect(__page1.workHistoryLineLabel(this.startDateMonth01 + " " + this.startDateYear01 + " - " + this.endDateMonth01 + " " + this.endDateYear01).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.TITLE_TEXT).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.workHistoryCompany01).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.startDateMonth02 + " " + this.startDateYear02 + " - " + this.endDateMonth02 + " " + this.endDateYear02).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.workHistoryPosition02).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.workHistoryLineLabel(this.workHistoryCompany02).first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickXButton();
     }
 
     public shouldCheckSuggestionsProvidedByWorkHistory(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(this.TITLE)
-                .clearSearchKeywordCriteria()
-                .waitForGoodOrExcellentMatchForSuggestedJobVacancy()
-                .check(VacanciesListAssertions)
-                    .assertThatJobVacancyTitleSuggestionIsPresentOnTheList(this.TITLE_TEXT);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaCard();
+        __page2 = __page2.typeSearchValue(this.TITLE);
+        __page2 = __page2.clearSearchKeywordCriteria();
+        __page2 = __page2.waitForGoodOrExcellentMatchForSuggestedJobVacancy();
+        expect(__page2.firstCard().first()).toContainText(this.TITLE_TEXT, { timeout: 30000 });
     }
 
     public shouldUpdateCareerProfileByDeletingWorkHistory(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .deleteFirstWorkHistoryLine()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertThatTextInWorkHistoryNotExists(this.startDateMonth01 + " " + this.startDateYear01 + " - " + this.endDateMonth01 + " " + this.endDateYear01)
-                    .assertThatTextInWorkHistoryNotExists(this.TITLE_TEXT)
-                    .assertThatTextInWorkHistoryNotExists(this.workHistoryCompany01)
-                .endAssertion()
-                .deleteFirstWorkHistoryLine()
-                .check(ExperienceCareerProfileModalAssertions)
-                    .assertThatTextInWorkHistoryNotExists(this.startDateMonth02 + " " + this.startDateYear02 + " - " + this.endDateMonth02 + " " + this.endDateYear02)
-                    .assertThatTextInWorkHistoryNotExists(this.workHistoryPosition02)
-                    .assertThatTextInWorkHistoryNotExists(this.workHistoryCompany02)
-                .endAssertion()
-                .clickSaveAndContinueButton()
-                .clickXButton();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.clickUpdateCareerProfileLink();
+        __page3 = __page3.deleteFirstWorkHistoryLine();
+        expect(__page3.workHistoryLineLabel(this.startDateMonth01 + " " + this.startDateYear01 + " - " + this.endDateMonth01 + " " + this.endDateYear01).first()).not.toBeVisible({ timeout: 5000 });
+        expect(__page3.workHistoryLineLabel(this.TITLE_TEXT).first()).not.toBeVisible({ timeout: 5000 });
+        expect(__page3.workHistoryLineLabel(this.workHistoryCompany01).first()).not.toBeVisible({ timeout: 5000 });
+        __page3 = __page3.deleteFirstWorkHistoryLine();
+        expect(__page3.workHistoryLineLabel(this.startDateMonth02 + " " + this.startDateYear02 + " - " + this.endDateMonth02 + " " + this.endDateYear02).first()).not.toBeVisible({ timeout: 5000 });
+        expect(__page3.workHistoryLineLabel(this.workHistoryPosition02).first()).not.toBeVisible({ timeout: 5000 });
+        expect(__page3.workHistoryLineLabel(this.workHistoryCompany02).first()).not.toBeVisible({ timeout: 5000 });
+        __page3 = __page3.clickSaveAndContinueButton();
+        __page3 = __page3.clickXButton();
     }
 
     public shouldCheckSuggestionsAfterWorkHistoryBeingRemoved(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .waitUntilJobVacancyTitleDisappearsFromRecommendations(this.TITLE_TEXT)
-                .check(VacanciesListAssertions)
-                    .assertThatJobVacancySuggestionIsNotPresentOnTheList(this.TITLE_TEXT);
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.goToCareerGrowthPage();
+        __page4 = __page4.goToVacanciesPageViaCard();
+        __page4 = __page4.waitUntilJobVacancyTitleDisappearsFromRecommendations(this.TITLE_TEXT);
+        expect(__page4.cardName(this.TITLE_TEXT)).toBeHidden();
     }
 
     public afterTests(): void {

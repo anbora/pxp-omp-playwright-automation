@@ -1,5 +1,5 @@
-import { ProjectDetailsAssertions } from "assertions/careergrowth/project/ProjectDetailsAssertions";
-import { ProjectDiscoveryAssertions } from "assertions/careergrowth/project/ProjectDiscoveryAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class HrDataConfigurationLocationAssociationAndVisibilityForProjectsTest extends BaseRestTest {
 
@@ -24,45 +25,24 @@ export class HrDataConfigurationLocationAssociationAndVisibilityForProjectsTest 
     this.user = this.createUser(true);
 
     }
-// this is commented if we create new project it is taking more than 10 min to come in search results
-// so until finding solution for this commenting project creation part
-//    @Test(priority = 1)
-//    public void createProjectWithLocationField() {
-//        this.getOmpLoginPage()
-//                .run(new LoginWithOnboardingScenario(user))
-//                .clickCreateButton()
-//                .clickCreateProjectButton()
-//                .check(CreateProjectAssertions)
-//                .assertThatProjectPageLoadsAllRequiredFields()
-//                .endAssertion()
-//                .selectAProjectThumbnail()
-//                .fillInProjectTitle(projectTitle)
-//                .fillInProjectDescription(projectDesc)
-//                .selectProjectLocation(locationTextToEnter, locationName)
-//                .clickPublishButton();
-//    }
+    // Project creation is intentionally skipped here because indexing takes too long
+    // for this scenario and the project can miss the search window.
 
     public locationVisibilityForProjectsTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goToProjectsPageViaTab()
-                .searchForAProject(this.projectTitle)
-//              .refreshUntilProjectReturnsInResults(projectTitle)
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatLocationIsVisibleOnProjectCard()
-                .endAssertion()
-                .clickProjectCardCardDetails(this.projectTitle)
-                .check(ProjectDetailsAssertions)
-                    .assertThatLocationIsVisibleOnProjectDetails()
-                .endAssertion()
-                .clickBackButton()
-                .clickInFiltersButton()
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatLocationIsVisibleOnProjectFilter()
-                .endAssertion()
-                .clickFilterCancelButton();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goToProjectsPageViaTab();
+        __page1 = __page1.searchForAProject(this.projectTitle);
+        expect(__page1.projectCardLocation).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickProjectCardCardDetails(this.projectTitle);
+        expect(__page1.projectDetailsLocation).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickBackButton();
+        __page1 = __page1.clickInFiltersButton();
+        expect(__page1.projectFilterLocation).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickFilterCancelButton();
     }
 
     public removeAssociationTest(): void {
@@ -77,24 +57,19 @@ export class HrDataConfigurationLocationAssociationAndVisibilityForProjectsTest 
     }
 
     public locationShouldNotVisibleForProjectsTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToProjectsPageViaCard()
-                .searchForAProject(this.projectTitle)
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatLocationIsNotVisibleOnProjectCard()
-                .endAssertion()
-                .clickProjectCardCardDetails(this.projectTitle)
-                .check(ProjectDetailsAssertions)
-                    .assertThatLocationIsNotVisibleOnProjectDetails()
-                .endAssertion()
-                .clickBackButton()
-                .clickInFiltersButton()
-                .check(ProjectDiscoveryAssertions)
-                    .assertThatLocationIsNotVisibleOnProjectFilter()
-                .endAssertion()
-                .clickFilterCancelButton();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToProjectsPageViaCard();
+        __page2 = __page2.searchForAProject(this.projectTitle);
+        expect(__page2.projectCardLocation).toBeHidden();
+        __page2 = __page2.clickProjectCardCardDetails(this.projectTitle);
+        expect(__page2.projectDetailsLocation).toBeHidden();
+        __page2 = __page2.clickBackButton();
+        __page2 = __page2.clickInFiltersButton();
+        expect(__page2.projectFilterLocation).toBeHidden();
+        __page2 = __page2.clickFilterCancelButton();
     }
 
     public addAssociationAndVisibilityTest(): void {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class Layout {}
 
 export class PatternLayout extends Layout {

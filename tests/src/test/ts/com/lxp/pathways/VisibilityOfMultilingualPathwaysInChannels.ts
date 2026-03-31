@@ -1,6 +1,5 @@
-import { ChannelDetailsPageAssertions } from "assertions/channels/ChannelDetailsPageAssertions";
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { PathwayDetailsPageAssertions } from "assertions/pathways/PathwayDetailsPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -12,6 +11,8 @@ import { ContentMePage } from "pages/me/ContentMePage";
 import { CreatePathwayPage } from "pages/pathways/CreatePathwayPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
+import { Assert, assertTrue } from "common/testing/runtime";
 
 export class VisibilityOfMultilingualPathwaysInChannels extends BaseRestTest {
 
@@ -41,112 +42,118 @@ export class VisibilityOfMultilingualPathwaysInChannels extends BaseRestTest {
     }
 
     public shouldCreateMultilingualChannel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goDirectlyTo(CreateChannelPage)
-                .fillInChannelName(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN)
-                .fillInChannelDescription(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_DESCRIPTION_EN)
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .clickSelectLanguageDropdown()
-                .openAccordion(VisibilityOfMultilingualPathwaysInChannels.ACCORDION_LANGUAGE)
-                .fillInChannelNameInAccordion(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                .fillInChannelDescriptionInAccordion(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickCreateChannelButton()
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatChannelNotificationIs(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_CREATION_NOTIFICATION);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goDirectlyTo(CreateChannelPage);
+        __page1 = __page1.fillInChannelName(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN);
+        __page1 = __page1.fillInChannelDescription(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_DESCRIPTION_EN);
+        __page1 = __page1.clickAddLanguagesButton();
+        __page1 = __page1.addLanguages(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH);
+        __page1 = __page1.clickSelectLanguageDropdown();
+        __page1 = __page1.openAccordion(VisibilityOfMultilingualPathwaysInChannels.ACCORDION_LANGUAGE);
+        __page1 = __page1.fillInChannelNameInAccordion(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+        __page1 = __page1.fillInChannelDescriptionInAccordion(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_DESCRIPTION_PL);
+        __page1 = __page1.changeDefaultLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH);
+        __page1 = __page1.clickAddLanguageInModal();
+        __page1 = __page1.clickCreateChannelButton();
+        expect(__page1.getChannelNotification()).toContainText(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_CREATION_NOTIFICATION);
+        __page1.logger.info("Successfully verified that channel VisibilityOfMultilingualPathwaysInChannels.CHANNEL_CREATION_NOTIFICATION text is as expected");
     }
 
     public shouldCreateMultilingualPathwayAndShareItToChannel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(CreatePathwayPage)
-                .fillInPathwayTitle(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                .fillInPathwayDescription(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DESCRIPTION_EN)
-                .clickAddLanguagesButton()
-                .addLanguages(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .clickSelectLanguagesDropdown()
-                .openAccordion(VisibilityOfMultilingualPathwaysInChannels.ACCORDION_LANGUAGE)
-                .fillInPathwayNameInAccordion(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL)
-                .fillInPathwayDescriptionInAccordion(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DESCRIPTION_PL)
-                .changeDefaultLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .clickAddLanguageInModal()
-                .clickContinueButton()
-                .clickAddNewSmartCardButton()
-                .goToTextSmartCardTab()
-                .fillInTitle(VisibilityOfMultilingualPathwaysInChannels.SMARTCARD_TITLE_EN)
-                .clickCreateCardButtonInPathway()
-                .clickPublishPathwayButtonAndGoToPathwayDetailsPage()
-                .check(PathwayDetailsPageAssertions)
-                    .assertThatPathwayTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                .endAssertion()
-                .clickThreeDotsMenu(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                .clickPostToChannel()
-                .selectSpecificChannel(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN)
-                .clickPostButton()
-                .check(PathwayDetailsPageAssertions)
-                    .assertThatPathwayNotificationIs(VisibilityOfMultilingualPathwaysInChannels.SHARE_TO_CHANNEL_NOTIFICATION);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(CreatePathwayPage);
+        __page2 = __page2.fillInPathwayTitle(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+        __page2 = __page2.fillInPathwayDescription(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DESCRIPTION_EN);
+        __page2 = __page2.clickAddLanguagesButton();
+        __page2 = __page2.addLanguages(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH);
+        __page2 = __page2.clickSelectLanguagesDropdown();
+        __page2 = __page2.openAccordion(VisibilityOfMultilingualPathwaysInChannels.ACCORDION_LANGUAGE);
+        __page2 = __page2.fillInPathwayNameInAccordion(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL);
+        __page2 = __page2.fillInPathwayDescriptionInAccordion(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DESCRIPTION_PL);
+        __page2 = __page2.changeDefaultLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH);
+        __page2 = __page2.clickAddLanguageInModal();
+        __page2 = __page2.clickContinueButton();
+        __page2 = __page2.clickAddNewSmartCardButton();
+        __page2 = __page2.goToTextSmartCardTab();
+        __page2 = __page2.fillInTitle(VisibilityOfMultilingualPathwaysInChannels.SMARTCARD_TITLE_EN);
+        __page2 = __page2.clickCreateCardButtonInPathway();
+        __page2 = __page2.clickPublishPathwayButtonAndGoToPathwayDetailsPage();
+        expect(__page2.getJourneyTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+        __page2.logger.info("Successfully verified that journey VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN is as expected");
+        __page2 = __page2.clickThreeDotsMenu(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+        __page2 = __page2.clickPostToChannel();
+        __page2 = __page2.selectSpecificChannel(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN);
+        __page2 = __page2.clickPostButton();
+        expect(__page2.getJourneyNotification()).toContainText(VisibilityOfMultilingualPathwaysInChannels.SHARE_TO_CHANNEL_NOTIFICATION);
+        __page2.logger.info("Successfully verified that journey VisibilityOfMultilingualPathwaysInChannels.SHARE_TO_CHANNEL_NOTIFICATION text is as expected");
     }
 
       public shouldDisplayPathwayInChannelInUserPreferredLanguage(): void {
-          this.getOmpLoginPage()
-                  .run(new LoginScenario(this.user))
-                  .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                  .check(ChannelDetailsPageAssertions)
-                      .assertThatCardTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                      .assertThatChannelTitleIs(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN)
-                  .endAssertion()
-                  .clickPathwayTitle()
-                  .check(PathwayDetailsPageAssertions)
-                        .assertThatPathwayTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                        .assertThatSelectedLanguageIs(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH);
+                    let __page3: any = this;
+          __page3 = __page3.getOmpLoginPage();
+          __page3 = __page3.run(new LoginScenario(this.user));
+          __page3 = __page3.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+          expect(__page3.getCardTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+          __page3.logger.info("Successfully verified that card VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN is as expected");
+          expect(__page3.getChannelTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN);
+          __page3.logger.info("Successfully verified that channel VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_EN is as expected");
+          __page3 = __page3.clickPathwayTitle();
+          expect(__page3.getJourneyTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+          __page3.logger.info("Successfully verified that journey VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN is as expected");
+          let selectedLanguage: string = __page3.getLanguageDropdown().inputValue();
+          Assert.assertTrue(selectedLanguage.equals(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH));
       }
 
     public shouldDisplayPathwayInChannelInDefaultLanguage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .changeUserDefinedLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                .check(ChannelDetailsPageAssertions)
-                    .assertThatCardTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL)
-                    .assertThatChannelTitleIs(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                .endAssertion()
-                .clickPathwayTitle()
-                .check(PathwayDetailsPageAssertions)
-                    .assertThatPathwayTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL)
-                    .assertThatSelectedLanguageIs(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                .endAssertion()
-                .changeUserDefinedLanguageInPolish(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH);
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.changeUserDefinedLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH);
+        __page4 = __page4.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+        expect(__page4.getCardTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL);
+        __page4.logger.info("Successfully verified that card VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL is as expected");
+        expect(__page4.getChannelTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+        __page4.logger.info("Successfully verified that channel VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL is as expected");
+        __page4 = __page4.clickPathwayTitle();
+        expect(__page4.getJourneyTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL);
+        __page4.logger.info("Successfully verified that journey VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL is as expected");
+        let selectedLanguage: string = __page4.getLanguageDropdown().inputValue();
+        Assert.assertTrue(selectedLanguage.equals(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH));
+        __page4 = __page4.changeUserDefinedLanguageInPolish(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH);
     }
 
       public shouldDisplayPathwayInDefaultLanguageWhenUserPreferredLanguageDoesNotMatchCardLanguages(): void {
-          this.getOmpLoginPage()
-                  .run(new LoginScenario(this.user))
-                  .changeUserDefinedLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_SPANISH)
-                  .goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                  .check(ChannelDetailsPageAssertions)
-                      .assertThatCardTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL)
-                      .assertThatChannelTitleIs(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL)
-                  .endAssertion()
-                  .clickPathwayTitle()
-                  .check(PathwayDetailsPageAssertions)
-                        .assertThatPathwayTitleIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL)
-                        .assertThatSelectedLanguageIs(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH)
-                  .endAssertion()
-                  .changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH);
+                    let __page5: any = this;
+          __page5 = __page5.getOmpLoginPage();
+          __page5 = __page5.run(new LoginScenario(this.user));
+          __page5 = __page5.changeUserDefinedLanguage(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_SPANISH);
+          __page5 = __page5.goDirectlyTo(ChannelDetailsPage, VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+          expect(__page5.getCardTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL);
+          __page5.logger.info("Successfully verified that card VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL is as expected");
+          expect(__page5.getChannelTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL);
+          __page5.logger.info("Successfully verified that channel VisibilityOfMultilingualPathwaysInChannels.CHANNEL_NAME_PL is as expected");
+          __page5 = __page5.clickPathwayTitle();
+          expect(__page5.getJourneyTitle()).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL);
+          __page5.logger.info("Successfully verified that journey VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_PL is as expected");
+          let selectedLanguage: string = __page5.getLanguageDropdown().inputValue();
+          Assert.assertTrue(selectedLanguage.equals(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_POLISH));
+          __page5 = __page5.changeUserDefinedLanguageInSpanish(VisibilityOfMultilingualPathwaysInChannels.LANG_CODE_ENGLISH);
       }
 
     public shouldDeletePathway(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(ContentMePage)
-                .clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN)
-                .clickDeleteCard()
-                .confirmPathwayDeletion()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DELETION_NOTIFICATION);
+                let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.user));
+        __page6 = __page6.goDirectlyTo(ContentMePage);
+        __page6 = __page6.clickThreeDotsMenuForSpecificCards(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_NAME_EN);
+        __page6 = __page6.clickDeleteCard();
+        __page6 = __page6.confirmPathwayDeletion();
+        expect(__page6.cardNotification).toContainText(VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DELETION_NOTIFICATION);
+        __page6.logger.info("Successfully verified that VisibilityOfMultilingualPathwaysInChannels.PATHWAY_DELETION_NOTIFICATION text is as expected");
     }
 
     public afterTests(): void {

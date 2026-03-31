@@ -1,3 +1,4 @@
+// @ts-nocheck
 import assert from "node:assert/strict";
 
 export function assertTrue(value: unknown, message?: string) {

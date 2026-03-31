@@ -1,4 +1,5 @@
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +10,7 @@ import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { Locator, WaitForSelectorState, expect } from "common/testing/playwright";
 
 export class JobVacancyDetailsTest extends BaseRestTest {
 
@@ -39,35 +41,36 @@ export class JobVacancyDetailsTest extends BaseRestTest {
     }
 
     public shouldCheckJobDetails(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .goToVacanciesPageViaTab()
-                .typeSearchValue(this.TITLE)
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatTitleEqualTo(this.TITLE)
-                    .assertThatDescriptionEqualTo(this.TITLE)
-                    .assertThatDescriptionHasPlainTextFormatting()
-                    //.assertThatMatchingDetailFieldIsEqualTo(LOCATION_NAME, LOCATION)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.COMPANY_NAME, this.COMPANY)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.REFERENCE_NAME, this.REFERENCE)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.JOB_TYPE_NAME, this.JOB_TYPE)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.SALARY_NAME, this.SALARY)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.LEVEL_NAME, this.professional);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.TITLE);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        expect(__page1.jobTitle).toContainText(this.TITLE, { timeout: 30000 });
+        expect(__page1.description).toContainText(this.TITLE, { timeout: 30000 });
+        expect(__page1.descriptionPlainText).toBeVisible({ timeout: 30000 });
+        expect(__page1.matchDetailValue(this.COMPANY_NAME)).toContainText(this.COMPANY, { timeout: 30000 });
+        expect(__page1.matchDetailValue(this.REFERENCE_NAME)).toContainText(this.REFERENCE, { timeout: 30000 });
+        expect(__page1.matchDetailValue(this.JOB_TYPE_NAME)).toContainText(this.JOB_TYPE, { timeout: 30000 });
+        expect(__page1.matchDetailValue(this.SALARY_NAME)).toContainText(this.SALARY, { timeout: 30000 });
+        expect(__page1.matchDetailValue(this.LEVEL_NAME)).toContainText(this.professional, { timeout: 30000 });
     }
 
     public shouldCheckVacancyAndDescriptionFieldOnTopDetailsView(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToSuggestionsPageViaTab()
-                .waitForSuggestions()
-                .goToFirstSuggestedJobVacancyDetailsPage()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatJobVacancyFieldContainsHeader(JobVacancyDetailsTest.JOB_VACANCY)
-                    .assertThatJobDescriptionFieldContainsHeader(JobVacancyDetailsTest.DESCRIPTION);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToSuggestionsPageViaTab();
+        __page2 = __page2.waitForSuggestions();
+        __page2 = __page2.goToFirstSuggestedJobVacancyDetailsPage();
+        __page2.jobVacancyHeader.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        expect(__page2.jobVacancyHeader).toContainText(JobVacancyDetailsTest.JOB_VACANCY, { timeout: 30000 });
+        __page2.jobDescriptionHeader.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        expect(__page2.jobDescriptionHeader).toContainText(JobVacancyDetailsTest.DESCRIPTION, { timeout: 30000 });
     }
 
     public deleteJobViaRest(): void {

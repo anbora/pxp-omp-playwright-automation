@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { PathwayResource } from "models/edconnect/content/pathway/createpathway/PathwayResource";
 

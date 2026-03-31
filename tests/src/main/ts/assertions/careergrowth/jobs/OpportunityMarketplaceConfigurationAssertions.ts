@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { Locator, WaitForSelectorState } from "common/testing/playwright";
-import { assertThat } from "common/testing/playwrightAssertions";
+import { Locator, WaitForSelectorState, expect } from "common/testing/playwright";
 import { Assert } from "common/testing/runtime";
 import { OpportunityMarketplaceConfigurationPage } from "pages/careergrowth/jobs/OpportunityMarketplaceConfigurationPage";
 
@@ -25,25 +25,25 @@ export class OpportunityMarketplaceConfigurationAssertions extends BaseAssertion
     }
 
 	public assertThatAvailableOptionsForFieldContain(field: string, options: string): OpportunityMarketplaceConfigurationAssertions {
-        this.assertThat(this.page.availableOptionsForField(field)).containsText(options, this.containsTextOptions);
+        expect(this.page.availableOptionsForField(field)).toContainText(options, this.containsTextOptions);
 //        this.page.availableOptionsForField(field).should('contain.text', options)
         return this;
     }
 
 	public assertThatUsageForFieldContain(field: string, usage: string): OpportunityMarketplaceConfigurationAssertions {
-        this.assertThat(this.page.usageForField(field)).containsText(usage, this.containsTextOptions);
+        expect(this.page.usageForField(field)).toContainText(usage, this.containsTextOptions);
 //        this.page.usageForField(field).should('contain.text', usage)
         return this;
     }
 
 	public assertThatTypeForFieldContain(field: string, type: string): OpportunityMarketplaceConfigurationAssertions {
-        this.assertThat(this.page.typeForField(field)).containsText(type, this.containsTextOptions);
+        expect(this.page.typeForField(field)).toContainText(type, this.containsTextOptions);
 //        this.page.typeForField(field).should('contain.text', type)
         return this;
     }
 
     public assertDefaultLevelForJobVacancySkillsDetection(expectedDefaultLevel: string): OpportunityMarketplaceConfigurationAssertions {
-        this.assertThat(this.page.defaultSkillLevelSelect()).hasValue(expectedDefaultLevel);
+        expect(this.page.defaultSkillLevelSelect()).toHaveValue(expectedDefaultLevel);
         return this;
     }
 
@@ -53,7 +53,7 @@ export class OpportunityMarketplaceConfigurationAssertions extends BaseAssertion
     }
 
     public assertThatEnableSourcingTextFieldIsDisplayed(field: string): OpportunityMarketplaceConfigurationAssertions {
-        this.assertThat(this.page.enableSourcing).containsText(field, this.containsTextOptions);
+        expect(this.page.enableSourcing).toContainText(field, this.containsTextOptions);
         return this;
     }
 

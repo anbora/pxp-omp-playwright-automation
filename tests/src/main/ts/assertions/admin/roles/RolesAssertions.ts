@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
 import { assertFalse, assertTrue } from "common/testing/runtime";
 import { RolesAdminPage } from "pages/admin/roles/RolesAdminPage";

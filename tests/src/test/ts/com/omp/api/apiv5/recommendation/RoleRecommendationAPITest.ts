@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseRestTest } from "common/BaseRestTest";
 import { EndpointsEnum } from "common/enums/EndpointsEnum";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";

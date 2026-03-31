@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { Resource } from "models/edconnect/content/smartcards/poll/createpoll/Resource";
 

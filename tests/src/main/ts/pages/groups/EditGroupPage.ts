@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -16,7 +17,7 @@ export class EditGroupPage extends BasePage {
     public selectLanguagesDropdown: Locator = this.page.locator("//input[@name='multi-lang-section']/following-sibling::div");
     public selectLanguagesDropdownExpanded: Locator = this.page.locator("//input[@name='multi-lang-section']/following-sibling::div[1]");
     public accordion(language: string): Locator {
-      return this.getByRole(AriaRole.BUTTON, language).build();
+      return this.getByRole(AriaRole.BUTTON, language);
     }
     public groupNameInAccordion: Locator = this.page.locator("//div[@class='accordion-item ed-details']/descendant::input[@placeholder='Enter Group Name here']");
     public groupDescriptionInAccordion: Locator = this.page.locator("//div[@class='accordion-item ed-details']/descendant::textarea[@placeholder='Enter Group description here']");

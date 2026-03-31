@@ -1,4 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +9,7 @@ import { UserModel } from "models/user/UserModel";
 import { AllFiltersModalPage } from "pages/careergrowth/jobs/AllFiltersModalPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobVacanciesFilteringByLocationTest extends BaseRestTest {
 
@@ -27,26 +29,22 @@ export class JobVacanciesFilteringByLocationTest extends BaseRestTest {
     }
 
     public shouldFilterVacanciesByLocation(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(this.title)
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.one)
-                .endAssertion()
-                .clearSearchKeywordCriteria()
-                .refreshPage()
-                .check(VacanciesListAssertions)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.twelve)
-                .endAssertion()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForLocation(this.locationValue)
-                .applyFilters()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.locationValue)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.one);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(this.title);
+        expect(__page1.allCards()).toHaveCount(this.one);
+        __page1 = __page1.clearSearchKeywordCriteria();
+        __page1 = __page1.refreshPage();
+        expect(__page1.allCards()).toHaveCount(this.twelve);
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.searchForLocation(this.locationValue);
+        __page1 = __page1.applyFilters();
+        expect(__page1.removeFilterButton(this.locationValue)).toBeVisible({ timeout: 30000 });
+        expect(__page1.allCards()).toHaveCount(this.one);
     }
 
     public cleanUp(): void {

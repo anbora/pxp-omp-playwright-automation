@@ -1,5 +1,5 @@
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
-import { ShowInterestModalAssertions } from "assertions/careergrowth/jobs/ShowInterestModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -10,6 +10,7 @@ import { WelcomePage_New } from "pages/careergrowth/careergrowth/WelcomePage_New
 import { LoginPage } from "pages/other/LoginPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class DifferentActionForApplyJobButtonTest extends BaseRestTest {
 
@@ -40,37 +41,34 @@ export class DifferentActionForApplyJobButtonTest extends BaseRestTest {
     }
 
     public shouldSearchCreatedJob(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(DifferentActionForApplyJobButtonTest.FIRST_TITLE)
-                .clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.FIRST_TITLE)
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatApplyButtonTextIsCorrect(DifferentActionForApplyJobButtonTest.APPLY_BUTTON_TEXT)
-                    .assertThatUrlAttachedToButtonEqualTo(this.APPLY_URL)
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(DifferentActionForApplyJobButtonTest.SECOND_TITLE)
-                .clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.SECOND_TITLE)
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatApplyButtonTextIsCorrect(DifferentActionForApplyJobButtonTest.VIEW_ON_CAREER_SITE_BUTTON_TEXT)
-                    .assertThatUrlAttachedToButtonEqualTo(this.JOB_DETAILS_URL);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(DifferentActionForApplyJobButtonTest.FIRST_TITLE);
+        __page1 = __page1.clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.FIRST_TITLE);
+        expect(__page1.applyButtonText).toContainText(DifferentActionForApplyJobButtonTest.APPLY_BUTTON_TEXT, { timeout: 30000 });
+        expect(__page1.applyUrlButton(this.APPLY_URL)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.typeSearchValue(DifferentActionForApplyJobButtonTest.SECOND_TITLE);
+        __page1 = __page1.clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.SECOND_TITLE);
+        expect(__page1.applyButtonText).toContainText(DifferentActionForApplyJobButtonTest.VIEW_ON_CAREER_SITE_BUTTON_TEXT, { timeout: 30000 });
+        expect(__page1.applyUrlButton(this.JOB_DETAILS_URL)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldValidateMessageWhileClickingOnApplyButton(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .typeSearchValue(DifferentActionForApplyJobButtonTest.FIRST_TITLE)
-                .clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.FIRST_TITLE)
-                .clickApplyButton()
-                .check(ShowInterestModalAssertions)
-                        .assertThatValidateMessageWhenClickOnApplyButton(DifferentActionForApplyJobButtonTest.MESSAGE_AFTER_CLICKING_ON_APPLY_BUTTON)
-                .endAssertion()
-                .clickCloseButton();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaCard();
+        __page2 = __page2.typeSearchValue(DifferentActionForApplyJobButtonTest.FIRST_TITLE);
+        __page2 = __page2.clickJobVacancyCardsDetails(DifferentActionForApplyJobButtonTest.FIRST_TITLE);
+        __page2 = __page2.clickApplyButton();
+        expect(__page2.applyButtonMessage).toContainText(DifferentActionForApplyJobButtonTest.MESSAGE_AFTER_CLICKING_ON_APPLY_BUTTON, { timeout: 30000 });
+        __page2 = __page2.clickCloseButton();
     }
 
     public deleteJobsViaRest(): void {

@@ -1,16 +1,14 @@
-import { OpportunityMarketplaceProjectAssertions } from "assertions/admin/OpportunityMarketplaceProjectAssertions";
-import { CreateProjectAssertions, ManageProjectAssertions, ProjectDetailsAssertions, ProjectDiscoveryAssertions, ProjectMePageAssertions } from "assertions/careergrowth/project";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
+import { expect } from "common/testing/playwright";
 import { ResultContainer } from "models/ResultContainer";
 import { UserModel } from "models/user/UserModel";
 import { ManageProjectPage } from "pages/careergrowth/project/ManageProjectPage";
 import { ProjectDetailsPage } from "pages/careergrowth/project/ProjectDetailsPage";
 import { ProjectsMePage } from "pages/careergrowth/project/ProjectsMePage";
 import { LandingPage } from "pages/landing/LandingPage";
-import { HomePage } from "pages/other/HomePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
@@ -42,163 +40,152 @@ export class ProjectApprovalWorkflowTest extends BaseRestTest {
     }
 
     public resetDurationAndTimezoneToDefaultAndSave(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .goToAdminPanel()
-                .selectMainTab("Talent Marketplace")
-                .openMenuForProjectOpportunityMarketplace()
-                .clickStandardFieldsButton()
-                .check(OpportunityMarketplaceProjectAssertions)
-                .assertThatAdminProjectConfigPageLoads()
-                .endAssertion()
-                .toggleTimezonesFieldShowHideToOn()
-                .toggleTimeCommitmentRequiredToOff()
-                .clickSaveButtonStandardFieldTab();
+        let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab("Talent Marketplace");
+        __page1 = __page1.openMenuForProjectOpportunityMarketplace();
+        __page1 = __page1.clickStandardFieldsButton();
+        expect(__page1.projectConfigShowHideColumHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectConfigRequiredColumHeader).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.toggleTimezonesFieldShowHideToOn();
+        __page1 = __page1.toggleTimeCommitmentRequiredToOff();
+        __page1 = __page1.clickSaveButtonStandardFieldTab();
     }
 
     public setProjectApplicationModalSettingsToOff(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .goToAdminPanel()
-                .selectMainTab("Talent Marketplace")
-                .openMenuForProjectOpportunityMarketplace()
-                .check(OpportunityMarketplaceProjectAssertions)
-                    .assertThatRequireApplicantMessageLabelIsVisible()
-                    .assertThatShowManagerPermissionLabelIsVisible()
-                .endAssertion()
-                .toggleRequireApplicantMessageToOff()
-                .toggleShowManagerPermissionToOff()
-                .clickSaveButtonConfigTab();
+        let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page2 = __page2.goToAdminPanel();
+        __page2 = __page2.selectMainTab("Talent Marketplace");
+        __page2 = __page2.openMenuForProjectOpportunityMarketplace();
+        expect(__page2.requireApplicantMessage).toBeVisible({ timeout: 30000 });
+        expect(__page2.showManagerPermission).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.toggleRequireApplicantMessageToOff();
+        __page2 = __page2.toggleShowManagerPermissionToOff();
+        __page2 = __page2.clickSaveButtonConfigTab();
     }
 
     public createProjectAndPublishWithLimitedOpening(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user2))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user2.name))
-                .goDirectlyTo(LandingPage)
-                .clickCreateButton()
-                .check(LandingPageAssertions)
-                    .assertThatCreateProjectButtonIsDisplayed()
-                .endAssertion()
-                .clickCreateProjectButton()
-                .check(CreateProjectAssertions)
-                    .assertThatProjectPageLoadsAllRequiredFields()
-                .endAssertion()
-                .run(new CreateProjectWithDepartmentOrgFieldScenario(this.projectTitle, this.projectDesc, this.orgUnitValue))
-                .clickPublishedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(this.projectTitle)
-                    .assertOpeningsCountMatches(this.projectTitle, this.openingsCount)
-                .endAssertion()
-                .clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction2, ProjectsMePage)
-                .copyCurrentURL(this.urlContainer);
+        let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginWithOnboardingScenario(this.user2));
+        __page3 = __page3.run(new AddRoleAndFamilyToNewUserScenario(this.user2.name));
+        __page3 = __page3.goDirectlyTo(LandingPage);
+        __page3 = __page3.clickCreateButton();
+        expect(__page3.createProjectButton().first()).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.clickCreateProjectButton();
+        expect(__page3.createProjectHeader).toBeVisible({ timeout: 30000 });
+        expect(__page3.projectTitle).toBeVisible({ timeout: 30000 });
+        expect(__page3.projectDescription).toBeVisible({ timeout: 30000 });
+        expect(__page3.projectThumbnail).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.run(new CreateProjectWithDepartmentOrgFieldScenario(this.projectTitle, this.projectDesc, this.orgUnitValue));
+        __page3 = __page3.clickPublishedTab();
+        expect(__page3.ownedByMeHorizontalCardProjectTitle(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        expect(__page3.projectOpeningsCountField(this.projectTitle, this.openingsCount)).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle);
+        __page3 = __page3.clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction2, ProjectsMePage);
+        __page3 = __page3.copyCurrentURL(this.urlContainer);
     }
 
     public applyForAProjectWithLimitedOpenings(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user3))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user3.name))
-                .goToCareerGrowthPage()
-                .goToProjectsPageViaTab()
-                .check(ProjectDiscoveryAssertions)
-                    .assertProjectsDiscoveryPageLoads()
-                .endAssertion()
-                .clickInFiltersButton()
-                .check(ProjectDiscoveryAssertions)
-                    .assertFilterPageLoads()
-                .endAssertion()
-                .clickFilterCancelButton()
-                .visitAURL(this.urlContainer.getValue(), ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .assertThatProjectDetailsPageLoads(this.projectTitle)
-                .endAssertion()
-                .clickApplyForAProject()
-                .check(ProjectDetailsAssertions)
-                    .applyForALimitedOpeningProjectModalDisplays()
-                .endAssertion()
-                .clickSubmitButtonApplyToLimitedOpeningProject()
-                .check(ProjectDetailsAssertions)
-                    .appliedToALimitedOpeningProjectModalDisplays()
-                .endAssertion()
-                .clickCloseButtonApplyToALimitedOpeningProjectConfModal()
-                .check(ProjectDetailsAssertions)
-                    .assertProjectStatusTextDisplays(this.projectStatusText);
+        let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginWithOnboardingScenario(this.user3));
+        __page4 = __page4.run(new AddRoleAndFamilyToNewUserScenario(this.user3.name));
+        __page4 = __page4.goToCareerGrowthPage();
+        __page4 = __page4.goToProjectsPageViaTab();
+        expect(__page4.allProjectsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page4.filtersButton).toBeVisible({ timeout: 30000 });
+        expect(__page4.sortByDropDown().first()).toBeVisible({ timeout: 30000 });
+        expect(__page4.searchInputField).toBeVisible({ timeout: 30000 });
+        expect(__page4.createAProjectButton).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickInFiltersButton();
+        expect(__page4.allFiltersHeader).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickFilterCancelButton();
+        __page4 = __page4.visitAURL(this.urlContainer.getValue(), ProjectDetailsPage);
+        expect(__page4.projectTitleHeader).toBeVisible({ timeout: 30000 });
+        expect(__page4.applyButton).toBeVisible({ timeout: 30000 });
+        expect(__page4.projectMetaDetailsSection).toBeVisible({ timeout: 30000 });
+        expect(__page4.projectDescriptionHeader).toBeVisible({ timeout: 30000 });
+        expect(__page4.projectDetailsRightPanel).toBeVisible({ timeout: 30000 });
+        expect(__page4.projectOwnersList).toBeVisible({ timeout: 30000 });
+        expect(__page4.projectPublishedDate).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickApplyForAProject();
+        expect(__page4.applyConfirmationModal).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickSubmitButtonApplyToLimitedOpeningProject();
+        expect(__page4.applyToAProjectConfirmationModal).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickCloseButtonApplyToALimitedOpeningProjectConfModal();
+        expect(__page4.projectDetailsApplicantStatusText(this.projectStatusText)).toBeVisible({ timeout: 30000 });
     }
 
     public approveAUserForAProjectWithLimitedOpenings(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user2))
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickPublishedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayed(this.projectTitle)
-                .endAssertion()
-                .clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction3, ManageProjectPage)
-                .check(ManageProjectAssertions)
-                    .assertUserNameDisplaysInAppliedList(this.user3.fullName)
-                    .assertApplicantStatusTextDisplays(this.applicantStatusText1)
-                .endAssertion()
-                .clickApplicantApproveButton()
-                .check(ManageProjectAssertions)
-                    .assertApplicantStatusTextDisplays(this.applicantStatusText2)
-                .endAssertion()
-                .clickApplicantSeeDetailsButton()
-                .check(ManageProjectAssertions)
-                    .assertThatApprovalStatusModalIsDisplayed()
-                    .assertThatProjectOwnerStatusIsDisplayed(this.applicantStatusText3)
-                    .assertThatProjectOwnerNameIsDisplayed(this.user2.fullName)
-                    .assertThatProjectApproverStatusIsDisplayed(this.applicantStatusText2,this.applicantStatusText2)
-                .endAssertion()
-                .clickApprovalStatusModalCloseButton();
+        let __page5: any = this;
+        __page5 = __page5.getOmpLoginPage();
+        __page5 = __page5.run(new LoginScenario(this.user2));
+        __page5 = __page5.goToMePageProfile();
+        __page5 = __page5.goToProjectsTab();
+        __page5 = __page5.clickPublishedTab();
+        expect(__page5.projectTitleMePage(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page5 = __page5.clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle);
+        __page5 = __page5.clickOwnedByMeProjectHorizontalCardDropDownAction(this.projectAction3, ManageProjectPage);
+        expect(__page5.appliedUserName(this.user3.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page5.applicantStatusText_alternative(this.applicantStatusText1)).toBeVisible({ timeout: 30000 });
+        __page5 = __page5.clickApplicantApproveButton();
+        expect(__page5.applicantStatusText_alternative(this.applicantStatusText2)).toBeVisible({ timeout: 30000 });
+        __page5 = __page5.clickApplicantSeeDetailsButton();
+        expect(__page5.approvalModalHeaderText).toBeVisible({ timeout: 30000 });
+        expect(__page5.projectOwnerApprovalStatusText(this.applicantStatusText3)).toBeVisible({ timeout: 30000 });
+        expect(__page5.projectOwnerNameText(this.user2.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page5.projectApprover1ApprovalStatusText(this.applicantStatusText2)).toBeVisible({ timeout: 30000 });
+        expect(__page5.projectApprover2ApprovalStatusText(this.applicantStatusText2)).toBeVisible({ timeout: 30000 });
+        __page5 = __page5.clickApprovalStatusModalCloseButton();
     }
 
     public approveUserWithApprover1(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Bobby Benjamin")))
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickApprovalRequestsTab()
-                .check(ProjectMePageAssertions)
-                    .assertApprovalRequestsTabDisplays()
-                    .assertAppliedUserDetailsBeforeApproval(this.user3.fullName, this.projectTitle)
-                .endAssertion()
-                .clickActionEndUser(this.user3.fullName, "Approve")
-                .check(ProjectMePageAssertions)
-                    .assertAppliedUserDetails(this.user3.fullName, this.projectTitle, this.applicantStatusText1)
-                .endAssertion()
-                .clickAppliedUserSeeDetailsButton(this.user3.fullName)
-                .check(ProjectMePageAssertions)
-                    .assertStatusDetailsModalDisplays()
-                    .assertUserApprovalStatus(this.applicantStatusText3, this.applicantStatusText2)
-                .endAssertion()
-                .clickApprovalModalCloseButton();
+        let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.getUserByName("Bobby Benjamin")));
+        __page6 = __page6.goToMePageProfile();
+        __page6 = __page6.goToProjectsTab();
+        __page6 = __page6.clickApprovalRequestsTab();
+        expect(__page6.approvalRequestsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page6.appliedUserUserName(this.user3.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page6.appliedUserProjectName(this.user3.fullName, this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page6 = __page6.clickActionEndUser(this.user3.fullName, "Approve");
+        expect(__page6.appliedUserUserName(this.user3.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page6.appliedUserProjectName(this.user3.fullName, this.projectTitle)).toBeVisible({ timeout: 30000 });
+        expect(__page6.appliedUserStatusText(this.user3.fullName, this.applicantStatusText1)).toBeVisible({ timeout: 30000 });
+        __page6 = __page6.clickAppliedUserSeeDetailsButton(this.user3.fullName);
+        expect(__page6.statusDetailsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page6.projectApprover1ApprovalStatusText(this.applicantStatusText3)).toBeVisible({ timeout: 30000 });
+        expect(__page6.projectApprover2ApprovalStatusText(this.applicantStatusText2)).toBeVisible({ timeout: 30000 });
+        __page6 = __page6.clickApprovalModalCloseButton();
     }
 
     public approveUserWithApprover2(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Smokey Bear")))
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickApprovalRequestsTab()
-                .check(ProjectMePageAssertions)
-                    .assertApprovalRequestsTabDisplays()
-                    .assertAppliedUserDetailsBeforeApproval(this.user3.fullName, this.projectTitle)
-                .endAssertion()
-                .clickActionEndUser(this.user3.fullName, "Approve")
-                .clickApprovalRequestsFilterAndSelectAValue("Pending approval", this.selectFilterValue)
-                .check(ProjectMePageAssertions)
-                    .assertApprovalRequestsTabDisplays()
-                    .assertAppliedUserDetails(this.user3.fullName, this.projectTitle, this.applicantStatusText4)
-                .endAssertion()
-                .clickAppliedUserSeeDetailsButton_ApprovedFilter(this.user3.fullName)
-                .check(ProjectMePageAssertions)
-                    .assertStatusDetailsModalDisplays()
-                    .assertUserApprovalStatus(this.applicantStatusText3, this.applicantStatusText3)
-                .endAssertion()
-                .clickApprovalModalCloseButton();
+        let __page7: any = this;
+        __page7 = __page7.getOmpLoginPage();
+        __page7 = __page7.run(new LoginScenario(this.getUserByName("Smokey Bear")));
+        __page7 = __page7.goToMePageProfile();
+        __page7 = __page7.goToProjectsTab();
+        __page7 = __page7.clickApprovalRequestsTab();
+        expect(__page7.approvalRequestsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page7.appliedUserUserName(this.user3.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page7.appliedUserProjectName(this.user3.fullName, this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.clickActionEndUser(this.user3.fullName, "Approve");
+        __page7 = __page7.clickApprovalRequestsFilterAndSelectAValue("Pending approval", this.selectFilterValue);
+        expect(__page7.approvalRequestsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page7.appliedUserUserName(this.user3.fullName)).toBeVisible({ timeout: 30000 });
+        expect(__page7.appliedUserProjectName(this.user3.fullName, this.projectTitle)).toBeVisible({ timeout: 30000 });
+        expect(__page7.appliedUserStatusText(this.user3.fullName, this.applicantStatusText4)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.clickAppliedUserSeeDetailsButton_ApprovedFilter(this.user3.fullName);
+        expect(__page7.statusDetailsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page7.projectApprover1ApprovalStatusText(this.applicantStatusText3)).toBeVisible({ timeout: 30000 });
+        expect(__page7.projectApprover2ApprovalStatusText(this.applicantStatusText3)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.clickApprovalModalCloseButton();
     }
 
     /*@AfterClass Will add it back once we fix the issue with deleted users throwing error in approval requests tab

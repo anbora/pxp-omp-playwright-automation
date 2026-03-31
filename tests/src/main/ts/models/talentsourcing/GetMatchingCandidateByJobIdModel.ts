@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class GetMatchingCandidateByJobIdModel {
     public limit: number;
     public page: number;

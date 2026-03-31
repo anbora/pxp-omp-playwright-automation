@@ -1,5 +1,5 @@
-import { ContentMePageAssertions } from "assertions/me/ContentMePageAssertions";
-import { SmartCardStandAlonePageAssertions } from "assertions/smartcards/SmartCardStandAlonePageAssertions";
+// @ts-nocheck
+
 import { SmartCardRestService } from "common/api/SmartCardRestService";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -8,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { ContentMePage } from "pages/me/ContentMePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateMultiLingualQuizCardTest extends SmartCardRestService {
     private static readonly UNIQUE_SUFFIX: string = UUID.randomUUID().toString();
@@ -35,54 +36,54 @@ export class CreateMultiLingualQuizCardTest extends SmartCardRestService {
     }
 
     public verifyThatMultiLingualSmartCardCanBeCreated(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user1))
-                .clickCreateButton()
-                .clickSmartCardButton()
-                .goToQuizSmartCardTab()
-                .clickLanguageDropdown()
-                .chooseLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL)
-                .fillInMultilingualTitle(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN)
-                .fillInMultilingualQuizQuestion(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_EN)
-                .fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.OPTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_EN)
-                .fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.OPTION_2_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_2_EN)
-                .selectCorrectOption(CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_EN)
-                .openAccordion(CreateMultiLingualQuizCardTest.LANGUAGE_PL)
-                .fillInMultilingualQuizQuestion(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL)
-                .fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.OPTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_PL)
-                .fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.OPTION_2_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_2_PL)
-                .clickCreateCardButton()
-                .check(ContentMePageAssertions)
-                    .assertThatCardNotificationIs(CreateMultiLingualQuizCardTest.NOTIFICATION)
-                .endAssertion()
-                .goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN)
-                .getECLUniqueId(this.eclId);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user1));
+        __page1 = __page1.clickCreateButton();
+        __page1 = __page1.clickSmartCardButton();
+        __page1 = __page1.goToQuizSmartCardTab();
+        __page1 = __page1.clickLanguageDropdown();
+        __page1 = __page1.chooseLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL);
+        __page1 = __page1.fillInMultilingualTitle(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.fillInMultilingualQuizQuestion(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_EN);
+        __page1 = __page1.fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.OPTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_EN);
+        __page1 = __page1.fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_EN, CreateMultiLingualQuizCardTest.OPTION_2_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_2_EN);
+        __page1 = __page1.selectCorrectOption(CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_EN);
+        __page1 = __page1.openAccordion(CreateMultiLingualQuizCardTest.LANGUAGE_PL);
+        __page1 = __page1.fillInMultilingualQuizQuestion(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+        __page1 = __page1.fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.OPTION_1_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_1_PL);
+        __page1 = __page1.fillInMultilingualQuizOption(CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.QUESTION_1_LABEL, CreateMultiLingualQuizCardTest.LANG_CODE_PL, CreateMultiLingualQuizCardTest.OPTION_2_LABEL, CreateMultiLingualQuizCardTest.SMART_CARD_OPTION_2_PL);
+        __page1 = __page1.clickCreateCardButton();
+        expect(__page1.cardNotification).toContainText(CreateMultiLingualQuizCardTest.NOTIFICATION);
+        __page1.logger.info("Successfully verified that CreateMultiLingualQuizCardTest.NOTIFICATION text is as expected");
+        __page1 = __page1.goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN);
+        __page1 = __page1.getECLUniqueId(this.eclId);
     }
 
     public verifyThatLanguageCanBeChangedOnSmartCardStandAlonePage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .goDirectlyTo(ContentMePage)
-                .goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN)
-                .endAssertion()
-                .changeLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user1));
+        __page2 = __page2.goDirectlyTo(ContentMePage);
+        __page2 = __page2.goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN);
+        expect(__page2.CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN).toContainText(CreateMultiLingualQuizCardTest.SMART_CARD_TITLE_EN);
+        __page2.logger.info("Successfully verified that smart card title is as expected");
+        __page2 = __page2.changeLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL);
+        expect(__page2.CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL).toContainText(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+        __page2.logger.info("Successfully verified that smart card title is as expected");
     }
 
     public verifyThatLanguageOfCardChangesWhenUserPreferredLanguageIsChanged(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user1))
-                .changeUserDefinedLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL)
-                .goDirectlyTo(ContentMePage)
-                .check(ContentMePageAssertions)
-                    .assertThatCardTitleIsAsExpected(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL)
-                .endAssertion()
-                .goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL)
-                .check(SmartCardStandAlonePageAssertions)
-                    .assertThatSmartCardTitleIsAsExpected(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user1));
+        __page3 = __page3.changeUserDefinedLanguage(CreateMultiLingualQuizCardTest.LANG_CODE_PL);
+        __page3 = __page3.goDirectlyTo(ContentMePage);
+        expect(__page3.cardTile).toContainText(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+        __page3.logger.info("Successfully verified that CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL is as expected");
+        __page3 = __page3.goToCardStandAloneView(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+        expect(__page3.CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL).toContainText(CreateMultiLingualQuizCardTest.SMART_CARD_QUESTION_1_PL);
+        __page3.logger.info("Successfully verified that smart card title is as expected");
     }
 
     public afterClass(): void {

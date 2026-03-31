@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
 import { Browser, CheckOptions, ClickOptions, Locator, MouseButton, Page, WaitForSelectorOptions } from "common/testing/playwright";

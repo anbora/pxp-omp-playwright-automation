@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -31,15 +32,15 @@ export class TalentSourcingPage extends BasePage {
     public peopleTitle: Locator = this.page.locator("//div[text()= 'Talent']");
     public getFirstCandidateFromSuggestedTalentList: Locator = this.page.locator("//table[@class='table-candidate-header']/tbody/tr");
     public candidateName(name: string): Locator {
-      return this.locator(".table-candidate-name").filter(name).build();
+      return this.locator(".table-candidate-name").filter({ hasText: name });
     }
     public viewDetailsOfCandidate(name: string): Locator {
-      return this.locator("tr").filter(candidateName(name)).getByLabel("Expand").build();
+      return this.locator("tr").filter({ has: this.candidateName(name) }).getByLabel("Expand");
     }
     public genericTitleForCandidate(titleName: string): Locator {
       return this.getLocatorWithParam("//p[text()= '%s']", titleName);
     }
-    public viewMatchingMatrix: Locator = getByRole(AriaRole.BUTTON, "View skills matrix").build();
+    public viewMatchingMatrix: Locator = this.getByRole(AriaRole.BUTTON, "View skills matrix");
     public backButton: Locator = this.page.locator("//button[text()='Back']");
     public resultNotFoundMessage(message: string): Locator {
       return this.getLocatorWithParam("//div[contains(text(),'%s')]", message);

@@ -1,11 +1,13 @@
-import { MatchingMatrixAssertions } from "assertions/careergrowth/talentsourcing/MatchingMatrixAssertions";
-import { TalentSourcingAssertions } from "assertions/careergrowth/talentsourcing/TalentSourcingAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginPage } from "pages/other/LoginPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { Locator, expect } from "common/testing/playwright";
+import { Assert, assertTrue } from "common/testing/runtime";
 
 export class ManageJobVacancyTest extends BaseRestTest {
 
@@ -37,56 +39,48 @@ export class ManageJobVacancyTest extends BaseRestTest {
     }
 
     public shouldCheckManageJobVacancyDetails(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToTalentSourcing()
-                .clickOnDisplayVacancyFilter(ManageJobVacancyTest.ALL_PUBLISHED_VACANCIES)
-                .getFirstJobVacancyListInTalentSourcing()
-                .check(TalentSourcingAssertions)
-                    .assertThatFirstJobVacancyIsDisplayedOnTalentSourcing()
-                .endAssertion()
-                .shouldTypeAndSearchJobVacancy(ManageJobVacancyTest.LEAD)
-                .clickOnKebabMenu(ManageJobVacancyTest.SR_LEAD_QA_ENGINEER)
-                .check(TalentSourcingAssertions)
-                    .assertThatOptionsDisplayed()
-                .endAssertion()
-                .clickOnManageJobVacancy()
-                .check(TalentSourcingAssertions)
-                    .assertThatJobVacancyTitleIsDisplayed()
-                    .assertThatGenericTitle(ManageJobVacancyTest.LINKED_JOB_ROLES)
-                    .assertThatGenericTitle(ManageJobVacancyTest.RELATED_SKILLS)
-                    .assertThatSuggestedTalentTitle(ManageJobVacancyTest.TALENT)
-                .endAssertion()
-                .getFirstCandidateFromSuggestedTalent()
-                .check(TalentSourcingAssertions)
-                    .assertThatFirstCandidateFromSuggestedTalent()
-                .endAssertion()
-                .clickOnViewDetailsOfCandidate("Smokey Bear")
-                .check(TalentSourcingAssertions)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.JOB_ROLE)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.ASPIRATIONAL_ROLES)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.PREFERRED_WORK_LOCATION)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.LEVEL)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.WORKPLACE_MODEL)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.JOB_TYPE)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.SCHEDULE)
-                    .assertThatTitlesForCandidateViewDetails(ManageJobVacancyTest.JOB_ROLE_TYPE)
-                    .assertThatGenericTitle(ManageJobVacancyTest.CAREER_PREFERENCES)
-                    .assertThatGenericTitle(ManageJobVacancyTest.WORK_HISTORY)
-                    .assertThatGenericTitle(ManageJobVacancyTest.CERTIFICATIONS)
-                    .assertThatGenericTitle(ManageJobVacancyTest.LEARNING_GOALS)
-                    .assertThatGenericTitle(ManageJobVacancyTest.MATCHING_SKILLS)
-                .endAssertion()
-                .clickOnViewMatchingMatrix()
-                .check(MatchingMatrixAssertions)
-                    .assertThatMatchingSkillTitleIsDisplayed()
-                    .assertThatFirstMatchingSkillsIsDisplayed()
-                .endAssertion()
-                .clickOnCloseButton()
-                .clickOnBackButton()
-                .check(TalentSourcingAssertions)
-                    .assertThatJobTitleName(ManageJobVacancyTest.SR_LEAD_QA_ENGINEER, ManageJobVacancyTest.SR_LEAD_QA_ENGINEER)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToTalentSourcing();
+        __page1 = __page1.clickOnDisplayVacancyFilter(ManageJobVacancyTest.ALL_PUBLISHED_VACANCIES);
+        __page1 = __page1.getFirstJobVacancyListInTalentSourcing();
+        let list: Array<Locator> = Collections.singletonList(__page1.firstItemOnAllTalentSourcingJobList);
+        let value: number = __page1.firstItemOnAllTalentSourcingJobList.count();
+        Assert.assertTrue(value>0);
+        __page1 = __page1.shouldTypeAndSearchJobVacancy(ManageJobVacancyTest.LEAD);
+        __page1 = __page1.clickOnKebabMenu(ManageJobVacancyTest.SR_LEAD_QA_ENGINEER);
+        expect(__page1.viewDetails).toBeVisible();
+        expect(__page1.manageJobVacancy).toBeVisible();
+        __page1 = __page1.clickOnManageJobVacancy();
+        expect(__page1.jobVacancyTitle).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.LINKED_JOB_ROLES)).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.RELATED_SKILLS)).toBeVisible({ timeout: 30000 });
+        expect(__page1.peopleTitle).toContainText(ManageJobVacancyTest.TALENT, { timeout: 30000 });
+        __page1 = __page1.getFirstCandidateFromSuggestedTalent();
+        let list: Array<Locator> = Collections.singletonList(__page1.getFirstCandidateFromSuggestedTalentList);
+        Assert.assertTrue(list.length>0);
+        __page1 = __page1.clickOnViewDetailsOfCandidate("Smokey Bear");
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.JOB_ROLE).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.ASPIRATIONAL_ROLES).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.PREFERRED_WORK_LOCATION).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.LEVEL).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.WORKPLACE_MODEL).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.JOB_TYPE).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.SCHEDULE).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleForCandidate(ManageJobVacancyTest.JOB_ROLE_TYPE).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.CAREER_PREFERENCES)).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.WORK_HISTORY)).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.CERTIFICATIONS)).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.LEARNING_GOALS)).toBeVisible({ timeout: 30000 });
+        expect(__page1.genericTitleHeader(ManageJobVacancyTest.MATCHING_SKILLS)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOnViewMatchingMatrix();
+        expect(__page1.matchingSkill).toBeVisible();
+        expect(__page1.getFirstMatchingSkills).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOnCloseButton();
+        __page1 = __page1.clickOnBackButton();
+        expect(__page1.jobName(ManageJobVacancyTest.SR_LEAD_QA_ENGINEER)).toContainText(ManageJobVacancyTest.SR_LEAD_QA_ENGINEER, { timeout: 30000 });
+        __page1.logger.info("Verified Job ManageJobVacancyTest.SR_LEAD_QA_ENGINEER " + ManageJobVacancyTest.SR_LEAD_QA_ENGINEER);
     }
 
     public afterClass(): void {

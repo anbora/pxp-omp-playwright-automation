@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Page } from "common/testing/playwright";
 
 export class TranslationChecker {

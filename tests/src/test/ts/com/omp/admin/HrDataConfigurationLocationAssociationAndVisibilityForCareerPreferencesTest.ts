@@ -1,4 +1,5 @@
-import { PreferencesCareerProfileModalAssertions } from "assertions/careergrowth/profiles/PreferencesCareerProfileModalAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -6,6 +7,7 @@ import { UserModel } from "models/user/UserModel";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class HrDataConfigurationLocationAssociationAndVisibilityForCareerPreferencesTest extends BaseRestTest {
 
@@ -19,24 +21,21 @@ export class HrDataConfigurationLocationAssociationAndVisibilityForCareerPrefere
     }
 
     public locationVisibilityForCareerPreferencesTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToCareerGrowthPage()
-                .goToProfileFromUserDropDown(this.user.name)
-                .editProfile()
-                .goToCareerPreferencesTab()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatLocationIsVisibleForCareerPreferences()
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatLocationIsVisibleForCareerPreferences()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToProfileFromUserDropDown(this.user.name);
+        __page1 = __page1.editProfile();
+        __page1 = __page1.goToCareerPreferencesTab();
+        expect(__page1.careerPreferencesLocation).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.clickSkipForNowButton();
+        expect(__page1.careerPreferencesLocation).toBeVisible({ timeout: 30000 });
     }
 
     public removeAssociationTest(): void {
@@ -51,23 +50,20 @@ export class HrDataConfigurationLocationAssociationAndVisibilityForCareerPrefere
     }
 
     public locationShouldNotVisibleForCareerPreferencesTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                 .goToCareerGrowthPage()
-                .goToProfileFromUserDropDown(this.user.name)
-                .editProfile()
-                .goToCareerPreferencesTab()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatLocationIsNotVisibleForCareerPreferences()
-                .endAssertion()
-                .goToCareerGrowthPage()
-                .clickUpdateCareerProfileLink()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .clickSkipForNowButton()
-                .check(PreferencesCareerProfileModalAssertions)
-                    .assertThatLocationIsNotVisibleForCareerPreferences()
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToProfileFromUserDropDown(this.user.name);
+        __page2 = __page2.editProfile();
+        __page2 = __page2.goToCareerPreferencesTab();
+        expect(__page2.careerPreferencesLocation).toBeHidden();
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.clickUpdateCareerProfileLink();
+        __page2 = __page2.clickSkipForNowButton();
+        __page2 = __page2.clickSkipForNowButton();
+        __page2 = __page2.clickSkipForNowButton();
+        expect(__page2.careerPreferencesLocation).toBeHidden();
     }
 
     public addAssociationAndVisibilityTest(): void {

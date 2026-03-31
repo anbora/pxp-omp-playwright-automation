@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { MentorshipDiscoveryPage } from "pages/careergrowth/mentorship/MentorshipDiscoveryPage";
+import { expect } from "common/testing/playwright";
 
 export class MentorshipDiscoveryAssertions extends BaseAssertion<MentorshipDiscoveryPage> {
 
@@ -10,154 +11,154 @@ export class MentorshipDiscoveryAssertions extends BaseAssertion<MentorshipDisco
     private showMoreDepartments: string = "6";
 
     public assertMentorNameIsDisplayedInResults(mentorName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardMentorName(mentorName).first()).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardMentorName(mentorName).first()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorNameIsNotDisplayedInResults(mentorName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardMentorName(mentorName)).isHidden();
+        expect(this.page.mentorCardMentorName(mentorName)).toBeHidden();
         return this;
     }
 
     public assertMentorActionIsDisplayed(actionName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardDropDownAction(actionName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardDropDownAction(actionName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorPositionIsDisplayed(mentorName: string, positionName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardPositionMetaData(mentorName, positionName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardPositionMetaData(mentorName, positionName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorSkillIsDisplayed(mentorName: string, skillName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardSkillsMetaData(mentorName, skillName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardSkillsMetaData(mentorName, skillName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertRequestMentorshipButtonIsDisplayed(mentorName: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorCardRequestMentorshipButton(mentorName)).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorCardRequestMentorshipButton(mentorName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertExpectedSearchResultsCount(expectedResultsCount: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.searchResultsText(expectedResultsCount)).isVisible(this.isVisibleOptions);
+        expect(this.page.searchResultsText(expectedResultsCount)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMyMentorshipsButtonIsDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.myMentorshipsButton).isVisible(this.isVisibleOptions);
+        expect(this.page.myMentorshipsButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorDiscoveryPageLoadsAllFields(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.allMentorsHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.filtersButton()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.searchInput()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.searchButtonElement()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.sortByDropDown()).isVisible(this.isVisibleOptions);
+        expect(this.page.allMentorsHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.filtersButton()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.searchInput()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.searchButtonElement()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.sortByDropDown()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertBecomeAMentorButtonisDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.becomeAMentorButton).isVisible(this.isVisibleOptions);
+        expect(this.page.becomeAMentorButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertViewMyMentorProfileButtonisDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.viewMyMentorProfileButton).isVisible(this.isVisibleOptions);
+        expect(this.page.viewMyMentorProfileButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertFilterModalLoadsAllFields(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.allFiltersheader).isVisible(this.isVisibleOptions);
+        expect(this.page.allFiltersheader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertAllMentorsHeaderIsDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.allMentorsHeader).isVisible(this.isVisibleOptions);
+        expect(this.page.allMentorsHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertBecomeAMentorButtonIsNotDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.becomeAMentorButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.becomeAMentorButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertViewMyMentorProfileButtonisNotDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.viewMyMentorProfileButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.viewMyMentorProfileButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertRequestMentorshipModalIsDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat((this.page.mentorRequestMentorshipModal)).isVisible(this.isVisibleOptions);
+        expect((this.page.mentorRequestMentorshipModal)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertMentorCardApplicationStatusIsDisplayed(status: string): MentorshipDiscoveryAssertions {
-        this.assertThat((this.page.mentorCardApplicationStatus(status))).isVisible(this.isVisibleOptions);
+        expect((this.page.mentorCardApplicationStatus(status))).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatFilterTitlesAreDisplayed(filterTitle: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.filterTitle(filterTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.filterTitle(filterTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatFilterTitlesSecondAreDisplayed(filterTitleSecond: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.filterTitleSecond(filterTitleSecond)).isVisible(this.isVisibleOptions);
+        expect(this.page.filterTitleSecond(filterTitleSecond)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatSearchFieldsDefaultTextIsDisplayed(searchFieldText: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.searchFields(searchFieldText)).isVisible(this.isVisibleOptions);
+        expect(this.page.searchFields(searchFieldText)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatTimeZonesAndLanguagesInputFieldsAreDisplayed(timeZoneAndLanguagesField: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.timeZonesAndLanguagesFilterInput(timeZoneAndLanguagesField)).isVisible(this.isVisibleOptions);
+        expect(this.page.timeZonesAndLanguagesFilterInput(timeZoneAndLanguagesField)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationsAndDepartmentInputFieldsAreDisplayed(locationAndDepartmentField: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.locationsAndDepartmentFilterInput(locationAndDepartmentField)).isVisible(this.isVisibleOptions);
+        expect(this.page.locationsAndDepartmentFilterInput(locationAndDepartmentField)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatShowMoreFieldIsDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.showMore(showMoreTimeZones)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.showMore(showMoreLanguages)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.showMore(showMoreLocations)).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.showMore(showMoreDepartments)).isVisible(this.isVisibleOptions);
+        expect(this.page.showMore(showMoreTimeZones)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.showMore(showMoreLanguages)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.showMore(showMoreLocations)).toBeVisible(this.isVisibleOptions);
+        expect(this.page.showMore(showMoreDepartments)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatAppliedFiltersAreVisible(filterValue: string): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.filterPanel).containsText(filterValue, this.containsTextOptions);
+        expect(this.page.filterPanel).toContainText(filterValue, this.containsTextOptions);
         return this;
     }
 
     public assertCreatedMentorProfileTextIsDisplayed(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.createdMentorProfileText()).isVisible(this.isVisibleOptions);
+        expect(this.page.createdMentorProfileText()).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsVisibleForMentorFilters(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorFilterLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorFilterLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleForMentorFilters(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorFilterLocation).isHidden();
+        expect(this.page.mentorFilterLocation).toBeHidden();
         return this;
     }
 
     public assertThatLocationIsVisibleForMentorProfile(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorProfileLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.mentorProfileLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleForMentorProfile(): MentorshipDiscoveryAssertions {
-        this.assertThat(this.page.mentorProfileLocation).isHidden();
+        expect(this.page.mentorProfileLocation).toBeHidden();
         return this;
     }
 }

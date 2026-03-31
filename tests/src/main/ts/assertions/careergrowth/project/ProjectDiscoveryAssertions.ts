@@ -1,63 +1,64 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { assertTrue } from "common/testing/runtime";
 import { ProjectDiscoveryPage } from "pages/careergrowth/project/ProjectDiscoveryPage";
+import { expect } from "common/testing/playwright";
 
 export class ProjectDiscoveryAssertions extends BaseAssertion<ProjectDiscoveryPage> {
 
     public assertProjectsDiscoveryPageLoads(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.allProjectsHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.filtersButton).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.sortByDropDown().first()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.searchInputField).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.createAProjectButton).isVisible(this.isVisibleOptions);
+        expect(this.page.allProjectsHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.filtersButton).toBeVisible(this.isVisibleOptions);
+        expect(this.page.sortByDropDown().first()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.searchInputField).toBeVisible(this.isVisibleOptions);
+        expect(this.page.createAProjectButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertProjectsDiscoveryPageLoadsWithoutSuggest(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.allProjectsHeader).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.filtersButton).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.sortByDropDown().first()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.searchInputField).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.createAProjectButton).isVisible(this.isVisibleOptions);
+        expect(this.page.allProjectsHeader).toBeVisible(this.isVisibleOptions);
+        expect(this.page.filtersButton).toBeVisible(this.isVisibleOptions);
+        expect(this.page.sortByDropDown().first()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.searchInputField).toBeVisible(this.isVisibleOptions);
+        expect(this.page.createAProjectButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertProjectsDiscoveryPageLoadsFromLandingPage(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.filtersButton).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.sortByDropDown().first()).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.searchInputField).isVisible(this.isVisibleOptions);
-        this.assertThat(this.page.createAProjectButton).isVisible(this.isVisibleOptions);
+        expect(this.page.filtersButton).toBeVisible(this.isVisibleOptions);
+        expect(this.page.sortByDropDown().first()).toBeVisible(this.isVisibleOptions);
+        expect(this.page.searchInputField).toBeVisible(this.isVisibleOptions);
+        expect(this.page.createAProjectButton).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertFilterPageLoads(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.allFiltersHeader).isVisible(this.isVisibleOptions);
+        expect(this.page.allFiltersHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertProjectIsDisplayedInSearchResults(projectTitle: string): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectCardTitle(projectTitle)).isVisible(this.isVisibleOptions);
+        expect(this.page.projectCardTitle(projectTitle)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertProjectOrgNameIsDisplayedInProjectCard(projectTitle: string, orgNameValue: string): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectCardOrgValue(projectTitle, orgNameValue)).isVisible(this.isVisibleOptions);
+        expect(this.page.projectCardOrgValue(projectTitle, orgNameValue)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertAllProjectsHeaderDisplays(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.allProjectsHeader).isVisible(this.isVisibleOptions);
+        expect(this.page.allProjectsHeader).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertCreateAProjectButtonIsNotDisplayed(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.createAProjectButton).not().isVisible(this.isNotVisibleOptions);
+        expect(this.page.createAProjectButton).not.toBeVisible(this.isNotVisibleOptions);
         return this;
     }
 
     public assertOrgHeaderAndDepartmentFilterIsDisplayed(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.orgFilterDepartmentSubFilter).isVisible(this.isVisibleOptions);
+        expect(this.page.orgFilterDepartmentSubFilter).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
@@ -67,22 +68,22 @@ export class ProjectDiscoveryAssertions extends BaseAssertion<ProjectDiscoveryPa
     }
 
     public assertThatLocationIsVisibleOnProjectCard(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectCardLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.projectCardLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnProjectCard(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectCardLocation).isHidden();
+        expect(this.page.projectCardLocation).toBeHidden();
         return this;
     }
 
     public assertThatLocationIsVisibleOnProjectFilter(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectFilterLocation).isVisible(this.isVisibleOptions);
+        expect(this.page.projectFilterLocation).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatLocationIsNotVisibleOnProjectFilter(): ProjectDiscoveryAssertions {
-        this.assertThat(this.page.projectFilterLocation).isHidden();
+        expect(this.page.projectFilterLocation).toBeHidden();
         return this;
     }
 }

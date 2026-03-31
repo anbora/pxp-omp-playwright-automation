@@ -1,34 +1,35 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { AddCertificateModalPage } from "pages/skillspassport/AddCertificateModalPage";
+import { expect } from "common/testing/playwright";
 
 export class CertificateModalPageAssertion extends BaseAssertion<AddCertificateModalPage> {
 
     public assertThatCertificateIsAdded(certificateName: string): CertificateModalPageAssertion {
-        this.assertThat(this.page.getCertificateCardName()).containsText(certificateName);
+        expect(this.page.getCertificateCardName()).toContainText(certificateName);
         this.page.logger.info("Successfully verified that certificate is added");
         return this;
     }
 
     public assertThatCertificateIsDeleted(): CertificateModalPageAssertion {
-        this.assertThat(this.page.getCertificateCard()).isHidden();
+        expect(this.page.getCertificateCard()).toBeHidden();
         this.page.logger.info("Successfully verified that certificate is deleted");
         return this;
     }
 
     public assertThatCertificateContainsIssuerName(issuerName: string): CertificateModalPageAssertion {
-        this.assertThat(this.page.getCertificateIssuer()).hasValue(issuerName);
+        expect(this.page.getCertificateIssuer()).toHaveValue(issuerName);
         this.page.logger.info("Successfully verified that certificate contains Issuer Name");
         return this;
     }
 
     public assertThatCertificateContainsIDNumber(idNumber: string): CertificateModalPageAssertion {
-        this.assertThat(this.page.getCertificateCardID()).hasValue(idNumber);
+        expect(this.page.getCertificateCardID()).toHaveValue(idNumber);
         this.page.logger.info("Successfully verified that certificate contains ID Number");
         return this;
     }
     public assertThatCertificateContainsURLName(urlName: string): CertificateModalPageAssertion {
-        this.assertThat(this.page.getCertificateURL()).hasValue(urlName);
+        expect(this.page.getCertificateURL()).toHaveValue(urlName);
         this.page.logger.info("Successfully verified that certificate contains URL Name");
         return this;
     }

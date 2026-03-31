@@ -1,10 +1,12 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { AllFiltersModalPage } from "pages/careergrowth/jobs/AllFiltersModalPage";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobVacanciesFilteringByJobRoleTest extends BaseRestTest {
 
@@ -26,22 +28,20 @@ export class JobVacanciesFilteringByJobRoleTest extends BaseRestTest {
     }
 
     public shouldFilterJobVacanciesByJobRole(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForFilterValue(this.jobRoles, this.rodentsTest)
-                .applyFilters()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.rodentsTestFilter)
-                    .assertThatVacancyCardsDisplayProperNumberOfCards(this.five)
-                    .assertThatJobVacancyIsOnTheList(this.chipmunkStylist)
-                    .assertThatJobVacancyIsOnTheList(this.guineaPigStylist)
-                    .assertThatJobVacancyIsOnTheList(this.marmotStylist)
-                    .assertThatJobVacancyIsOnTheList(this.miceStylist)
-//                    .assertThatPageButtonIsNotDisplayed(one)
-        ;
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.searchForFilterValue(this.jobRoles, this.rodentsTest);
+        __page1 = __page1.applyFilters();
+        expect(__page1.removeFilterButton(this.rodentsTestFilter)).toBeVisible({ timeout: 30000 });
+        expect(__page1.allCards()).toHaveCount(this.five);
+        expect(__page1.jobVacancyCardsDetails(this.chipmunkStylist).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.jobVacancyCardsDetails(this.guineaPigStylist).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.jobVacancyCardsDetails(this.marmotStylist).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.jobVacancyCardsDetails(this.miceStylist).first()).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

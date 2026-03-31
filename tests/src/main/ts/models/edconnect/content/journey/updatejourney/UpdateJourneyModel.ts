@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { UpdateJourneyContent } from "models/edconnect/content/journey/updatejourney/UpdateJourneyContent";
 

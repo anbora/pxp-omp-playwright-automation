@@ -1,5 +1,5 @@
-import { RoleListAssertions } from "assertions/careergrowth/careergrowth/RoleListAssertions";
-import { RoleDetailsAssertions } from "assertions/careergrowth/roles/RoleDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -9,6 +9,7 @@ import { AddWorkHistoryToCareerProfileScenario } from "scenarios/jobs/AddWorkHis
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCareerPreferencesForUser";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobVacancyAvailableTest extends BaseRestTest {
 
@@ -24,31 +25,24 @@ export class JobVacancyAvailableTest extends BaseRestTest {
     }
 
     public shouldCheckOpenJobVacancyIconForRole(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddBasicCareerPreferencesForUser())
-                .goToCareerGrowthPage()
-                .goToRolesPageViaCard()
-                .typeSearchValue(this.unusuals)
-                .check(RoleListAssertions)
-                    .assertThatSimilarJobVacancyAvailableIconIsDisplayedForRole(this.unusuals)
-                .endAssertion()
-                .goToFirstRoleCard()
-                .check(RoleDetailsAssertions)
-                    .assertThatThereIsAtLeastOneOpenJobVacancy()
-                .endAssertion()
-                .clickBackButton()
-                .clearSearchKeywordCriteria()
-                .sortListBy(this.newest)
-                .getFirstCardOnAllList(this.roleContainer)
-                .check(RoleListAssertions)
-                    .assertThatSimilarJobVacancyAvailableIconIsNotDisplayedForRole(this.roleContainer.getValue())
-                .endAssertion()
-                .goToFirstRoleCard()
-                .check(RoleDetailsAssertions)
-                    .assertThatThereIsNoOpenJobVacanciesForRole()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToRolesPageViaCard();
+        __page1 = __page1.typeSearchValue(this.unusuals);
+        expect(__page1.similarJobVacancyForRoleIcon(this.unusuals)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.goToFirstRoleCard();
+        expect(__page1.jobsOnCarousel.first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickBackButton();
+        __page1 = __page1.clearSearchKeywordCriteria();
+        __page1 = __page1.sortListBy(this.newest);
+        __page1 = __page1.getFirstCardOnAllList(this.roleContainer);
+        expect(__page1.similarJobVacancyForRoleIcon(this.roleContainer.getValue())).toBeHidden();
+        __page1 = __page1.goToFirstRoleCard();
+        expect(__page1.noDataLabel.first()).toContainText("There are currently no similar Job Vacancies!", { timeout: 30000 });
     }
 
     public deleteUser(): void {

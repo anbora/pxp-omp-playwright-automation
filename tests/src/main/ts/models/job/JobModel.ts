@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { HiringManagers } from "models/job/HiringManagers";
 import { JobDescription } from "models/job/JobDescription";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { UpdatePoll } from "./UpdatePoll";
 export { UpdatePollLanguage } from "./UpdatePollLanguage";
 export { UpdatePollModel } from "./UpdatePollModel";

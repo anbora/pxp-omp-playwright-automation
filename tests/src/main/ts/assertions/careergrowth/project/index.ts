@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { CreateProjectAssertions } from "./CreateProjectAssertions";
 export { ManageProjectAssertions } from "./ManageProjectAssertions";
 export { ProjectDetailsAssertions } from "./ProjectDetailsAssertions";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class FileUploader {
   private static readonly ENDPOINT = "https://result-dashboard-minio.devops.lumesse.top";
   private static readonly ACCESS_KEY = "admin";

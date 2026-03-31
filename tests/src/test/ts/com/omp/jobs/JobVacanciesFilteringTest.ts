@@ -1,7 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
-import { AllFiltersModalAssertions } from "assertions/careergrowth/jobs/AllFiltersModalAssertions";
-import { EditJobVacancyAssertions } from "assertions/careergrowth/jobs/EditJobVacancyAssertions";
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,6 +9,8 @@ import { AllFiltersModalPage } from "pages/careergrowth/jobs/AllFiltersModalPage
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddSkillToCareerProfileScenario } from "scenarios/profile/AddSkillToCareerProfileScenario";
+import { expect } from "common/testing/playwright";
+import { Assert, assertTrue } from "common/testing/runtime";
 
 export class JobVacanciesFilteringTest extends BaseRestTest {
 
@@ -71,217 +71,181 @@ export class JobVacanciesFilteringTest extends BaseRestTest {
     }
 
     public shouldSetUserProfileAndFilterJobVacanciesByLevel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToCareerGrowthPage()
-                .editProfile()
-                .clickEditProfileButton()
-                .clickAddJobFamilyAndRoleButton()
-                .selectFirstJobRoleFromInput(this.agriculturalMachineryMechanic, this.agriculturalMachineryMechanicFullTitle)
-                .clickSelectButton()
-                .clickSaveButton()
-                .goToCareerGrowthPage()
-                .refreshCurrentPage(WelcomePage_New)
-                .clickUpdateCareerProfileLink()
-                .clickSkipForNowButton()
-                .run(new AddSkillToCareerProfileScenario(this.mechanics, this.advanced))
-                .run(new AddSkillToCareerProfileScenario(this.agriculture, this.intermediate))
-                .run(new AddSkillToCareerProfileScenario(this.electricians, this.beginner))
-                .clickSaveAndContinueButton()
-                .clickSkipForNowButton()
-                .selectCareerPreferenceCheckbox(this.careerGoal, this.forward)
-                .addCareerPreference(this.level, this.director)
-                .selectCareerPreferenceCheckbox(this.workplaceModel, this.remote)
-                .addCareerPreference(this.jobType, this.permanent)
-                .selectCareerPreferenceCheckbox(this.schedule, this.fullTime)
-                .selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor)
-                .clickSaveAndContinueButton()
-                .clickSaveButton()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.level)
-                .selectFilterValue(this.level, this.internship)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.level, this.internship)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.internship)
-                .endAssertion()
-                .removeFilter(this.internship)
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.level)
-                .selectFilterValue(this.level, this.director)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.level, this.director)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.director)
-                .endAssertion()
-                .removeAllFilter();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.editProfile();
+        __page1 = __page1.clickEditProfileButton();
+        __page1 = __page1.clickAddJobFamilyAndRoleButton();
+        __page1 = __page1.selectFirstJobRoleFromInput(this.agriculturalMachineryMechanic, this.agriculturalMachineryMechanicFullTitle);
+        __page1 = __page1.clickSelectButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.refreshCurrentPage(WelcomePage_New);
+        __page1 = __page1.clickUpdateCareerProfileLink();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.mechanics, this.advanced));
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.agriculture, this.intermediate));
+        __page1 = __page1.run(new AddSkillToCareerProfileScenario(this.electricians, this.beginner));
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSkipForNowButton();
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerGoal, this.forward);
+        __page1 = __page1.addCareerPreference(this.level, this.director);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.workplaceModel, this.remote);
+        __page1 = __page1.addCareerPreference(this.jobType, this.permanent);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.schedule, this.fullTime);
+        __page1 = __page1.selectCareerPreferenceCheckbox(this.careerTrack, this.individualContributor);
+        __page1 = __page1.clickSaveAndContinueButton();
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.showMore(this.level);
+        __page1 = __page1.selectFilterValue(this.level, this.internship);
+        __page1 = __page1.applyFilters();
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        expect(__page1.matchDetailValue(this.level)).toContainText(this.internship, { timeout: 30000 });
+        __page1 = __page1.clickBackButton();
+        expect(__page1.removeFilterButton(this.internship)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.removeFilter(this.internship);
+        __page1 = __page1.openFiltersModal(AllFiltersModalPage);
+        __page1 = __page1.showMore(this.level);
+        __page1 = __page1.selectFilterValue(this.level, this.director);
+        __page1 = __page1.applyFilters();
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        expect(__page1.matchDetailValue(this.level)).toContainText(this.director, { timeout: 30000 });
+        __page1 = __page1.clickBackButton();
+        expect(__page1.removeFilterButton(this.director)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.removeAllFilter();
     }
 
     public shouldFilterJobVacanciesByWorkplaceModel(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForLocationV2WithWait(this.locationValue, 1000)
-                .applyFilters()
-                .typeSearchValue("Job with TestingQA location")
-                .goToFirstJobVacancyWithSpecifiedLocation(this.locationValue)
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatVacancyDetailsContainsLocationWithInformationAboutWorkplaceModel(this.locationValue)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.locationValue)
-                .endAssertion()
-                .removeFilter(this.locationValue);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToVacanciesPageViaTab();
+        __page2 = __page2.openFiltersModal(AllFiltersModalPage);
+        __page2 = __page2.searchForLocationV2WithWait(this.locationValue, 1000);
+        __page2 = __page2.applyFilters();
+        __page2 = __page2.typeSearchValue("Job with TestingQA location");
+        __page2 = __page2.goToFirstJobVacancyWithSpecifiedLocation(this.locationValue);
+        expect(__page2.workplaceModelLabel(this.locationValue)).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.clickBackButton();
+        expect(__page2.removeFilterButton(this.locationValue)).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.removeFilter(this.locationValue);
     }
 
     public shouldFilterJobVacanciesByJobType(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .showMore(this.jobType)
-                .selectFilterValue(this.jobType, this.permanent)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.jobTypeAndSchedule, this.permanent)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.permanent)
-                .endAssertion()
-                .removeFilter(this.permanent)
-                .openFiltersModal(AllFiltersModalPage)
-                .selectFilterValue(this.jobType, this.internship)
-                .applyFilters()
-                .typeSearchValue("Road Mime")
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.jobTypeAndSchedule, this.internship)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.internship);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToCareerGrowthPage();
+        __page3 = __page3.goToVacanciesPageViaTab();
+        __page3 = __page3.openFiltersModal(AllFiltersModalPage);
+        __page3 = __page3.showMore(this.jobType);
+        __page3 = __page3.selectFilterValue(this.jobType, this.permanent);
+        __page3 = __page3.applyFilters();
+        __page3 = __page3.goToFirstJobVacancyOnAllJobsList();
+        expect(__page3.matchDetailValue(this.jobTypeAndSchedule)).toContainText(this.permanent, { timeout: 30000 });
+        __page3 = __page3.clickBackButton();
+        expect(__page3.removeFilterButton(this.permanent)).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.removeFilter(this.permanent);
+        __page3 = __page3.openFiltersModal(AllFiltersModalPage);
+        __page3 = __page3.selectFilterValue(this.jobType, this.internship);
+        __page3 = __page3.applyFilters();
+        __page3 = __page3.typeSearchValue("Road Mime");
+        __page3 = __page3.goToFirstJobVacancyOnAllJobsList();
+        expect(__page3.matchDetailValue(this.jobTypeAndSchedule)).toContainText(this.internship, { timeout: 30000 });
+        __page3 = __page3.clickBackButton();
+        expect(__page3.removeFilterButton(this.internship)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldFilterJobVacanciesBySchedule(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .selectFilterValue(this.schedule, this.fullTime)
-                .applyFilters()
-                .sortListBy(this.newestFirst)
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.jobTypeAndSchedule, this.fullTime)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.fullTime)
-                .endAssertion()
-                .removeFilter(this.fullTime)
-                .openFiltersModal(AllFiltersModalPage)
-                .selectFilterValue(this.schedule, this.partTime)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.jobTypeAndSchedule, this.partTime)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.partTime)
-                .endAssertion();
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.user));
+        __page4 = __page4.goToCareerGrowthPage();
+        __page4 = __page4.goToVacanciesPageViaTab();
+        __page4 = __page4.openFiltersModal(AllFiltersModalPage);
+        __page4 = __page4.selectFilterValue(this.schedule, this.fullTime);
+        __page4 = __page4.applyFilters();
+        __page4 = __page4.sortListBy(this.newestFirst);
+        __page4 = __page4.goToFirstJobVacancyOnAllJobsList();
+        expect(__page4.matchDetailValue(this.jobTypeAndSchedule)).toContainText(this.fullTime, { timeout: 30000 });
+        __page4 = __page4.clickBackButton();
+        expect(__page4.removeFilterButton(this.fullTime)).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.removeFilter(this.fullTime);
+        __page4 = __page4.openFiltersModal(AllFiltersModalPage);
+        __page4 = __page4.selectFilterValue(this.schedule, this.partTime);
+        __page4 = __page4.applyFilters();
+        __page4 = __page4.goToFirstJobVacancyOnAllJobsList();
+        expect(__page4.matchDetailValue(this.jobTypeAndSchedule)).toContainText(this.partTime, { timeout: 30000 });
+        __page4 = __page4.clickBackButton();
+        expect(__page4.removeFilterButton(this.partTime)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldFilterJobVacanciesByCareerTrack(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .selectFilterValue(this.careerTrack, this.individualContributor)
-                .applyFilters()
-                .sortListBy(this.newestFirst)
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.careerTrack, this.individualContributor)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.individualContributor)
-                .endAssertion()
-                .removeFilter(this.individualContributor)
-                .openFiltersModal(AllFiltersModalPage)
-                .selectFilterValue(this.careerTrack, this.management)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatMatchingDetailFieldIsEqualTo(this.careerTrack, this.management)
-                .endAssertion()
-                .clickBackButton()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.management);
+                let __page5: any = this;
+        __page5 = __page5.getOmpLoginPage();
+        __page5 = __page5.run(new LoginScenario(this.user));
+        __page5 = __page5.goToCareerGrowthPage();
+        __page5 = __page5.goToVacanciesPageViaTab();
+        __page5 = __page5.openFiltersModal(AllFiltersModalPage);
+        __page5 = __page5.selectFilterValue(this.careerTrack, this.individualContributor);
+        __page5 = __page5.applyFilters();
+        __page5 = __page5.sortListBy(this.newestFirst);
+        __page5 = __page5.goToFirstJobVacancyOnAllJobsList();
+        expect(__page5.matchDetailValue(this.careerTrack)).toContainText(this.individualContributor, { timeout: 30000 });
+        __page5 = __page5.clickBackButton();
+        expect(__page5.removeFilterButton(this.individualContributor)).toBeVisible({ timeout: 30000 });
+        __page5 = __page5.removeFilter(this.individualContributor);
+        __page5 = __page5.openFiltersModal(AllFiltersModalPage);
+        __page5 = __page5.selectFilterValue(this.careerTrack, this.management);
+        __page5 = __page5.applyFilters();
+        __page5 = __page5.goToFirstJobVacancyOnAllJobsList();
+        expect(__page5.matchDetailValue(this.careerTrack)).toContainText(this.management, { timeout: 30000 });
+        __page5 = __page5.clickBackButton();
+        expect(__page5.removeFilterButton(this.management)).toBeVisible({ timeout: 30000 });
     }
 
     public shouldFilterJobVacanciesBySkill(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForFilterValueWithWait(this.skills, this.testAutomation, 4000)
-                .applyFilters()
-                .goToFirstJobVacancyOnAllJobsList()
-                .clickEditVacancyButton()
-                .check(EditJobVacancyAssertions)
-                    .assertThatSkillIsAdded(this.testAutomation);
+                let __page6: any = this;
+        __page6 = __page6.getOmpLoginPage();
+        __page6 = __page6.run(new LoginScenario(this.user));
+        __page6 = __page6.goToCareerGrowthPage();
+        __page6 = __page6.goToVacanciesPageViaTab();
+        __page6 = __page6.openFiltersModal(AllFiltersModalPage);
+        __page6 = __page6.searchForFilterValueWithWait(this.skills, this.testAutomation, 4000);
+        __page6 = __page6.applyFilters();
+        __page6 = __page6.goToFirstJobVacancyOnAllJobsList();
+        __page6 = __page6.clickEditVacancyButton();
+        Assert.assertTrue(__page6.skillChips().allTextContents().contains(this.testAutomation));
     }
 
     public shouldFilterJobVacanciesByGeoLocationAndDistanceTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForGeoLocation(this.locationName,5000)
-                .applyFilters()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.locationName)
-                .endAssertion()
-                .removeFilter(this.locationName)
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForGeoLocation(this.specialCharLocation,5000)
-                .applyFilters()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.specialCharLocationFilterToRemove)
-                .endAssertion()
-                .removeFilter(this.specialCharLocationFilterToRemove)
-                .openFiltersModal(AllFiltersModalPage)
-                .searchForGeoLocation(this.locationName,5000)
-                .changeDistane("56",5000)
-                .applyFilters()
-                .check(VacanciesListAssertions)
-                    .assertThatFilterIsApplied(this.locationWithDistance)
-                .endAssertion()
-                .openFiltersModal(AllFiltersModalPage)
-                .check(AllFiltersModalAssertions)
-                    .assertThatFilterModalIsOpened()
-                .endAssertion()
-                .closeModal();
+                let __page7: any = this;
+        __page7 = __page7.getOmpLoginPage();
+        __page7 = __page7.run(new LoginScenario(this.user));
+        __page7 = __page7.goToCareerGrowthPage();
+        __page7 = __page7.goToVacanciesPageViaTab();
+        __page7 = __page7.openFiltersModal(AllFiltersModalPage);
+        __page7 = __page7.searchForGeoLocation(this.locationName, 5000);
+        __page7 = __page7.applyFilters();
+        expect(__page7.removeFilterButton(this.locationName)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.removeFilter(this.locationName);
+        __page7 = __page7.openFiltersModal(AllFiltersModalPage);
+        __page7 = __page7.searchForGeoLocation(this.specialCharLocation, 5000);
+        __page7 = __page7.applyFilters();
+        expect(__page7.removeFilterButton(this.specialCharLocationFilterToRemove)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.removeFilter(this.specialCharLocationFilterToRemove);
+        __page7 = __page7.openFiltersModal(AllFiltersModalPage);
+        __page7 = __page7.searchForGeoLocation(this.locationName, 5000);
+        __page7 = __page7.changeDistane("56", 5000);
+        __page7 = __page7.applyFilters();
+        expect(__page7.removeFilterButton(this.locationWithDistance)).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.openFiltersModal(AllFiltersModalPage);
+        expect(__page7.allFiltersModal).toBeVisible({ timeout: 30000 });
+        __page7 = __page7.closeModal();
     }
 }

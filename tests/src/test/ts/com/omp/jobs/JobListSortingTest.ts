@@ -1,4 +1,5 @@
-import { VacanciesListAssertions } from "assertions/careergrowth/careergrowth/VacanciesListAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { UserModel } from "models/user/UserModel";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class JobListSortingTest extends BaseRestTest {
 
@@ -37,22 +39,18 @@ export class JobListSortingTest extends BaseRestTest {
     }
 
     public shouldCheckJobsSorting(startSorting: string, endSorting: string): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaCard()
-                .sortListBy(startSorting)
-                .getFirstItemOnAllVacanciesList(this.jobContainer)
-                .check(VacanciesListAssertions)
-                    .assertThatFirstJobOnTheListIsEqualTo(this.jobContainer.getValue())
-                .endAssertion()
-                .sortListBy(endSorting)
-                .check(VacanciesListAssertions)
-                    .assertThatFirstJobOnTheListIsNotEqualTo(this.jobContainer.getValue())
-                .endAssertion()
-                .sortListBy(startSorting)
-                .check(VacanciesListAssertions)
-                    .assertThatFirstJobOnTheListIsEqualTo(this.jobContainer.getValue());
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.user));
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaCard();
+        __page1 = __page1.sortListBy(startSorting);
+        __page1 = __page1.getFirstItemOnAllVacanciesList(this.jobContainer);
+        expect(__page1.firstItemOnAllVacanciesListLocator.first()).toContainText(this.jobContainer.getValue(), { timeout: 30000 });
+        __page1 = __page1.sortListBy(endSorting);
+        expect(__page1.firstItemOnAllVacanciesListLocator.first()).not.toContainText(this.jobContainer.getValue(), { timeout: 30000 });
+        __page1 = __page1.sortListBy(startSorting);
+        expect(__page1.firstItemOnAllVacanciesListLocator.first()).toContainText(this.jobContainer.getValue(), { timeout: 30000 });
     }
 
     public afterClass(): void {

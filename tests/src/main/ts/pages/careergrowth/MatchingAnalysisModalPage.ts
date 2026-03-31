@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { PageHandler } from "common/PageHandler";
 import { Logger } from "common/testing/logger";
@@ -12,7 +13,7 @@ import { SkillsCareerProfileModalPage } from "pages/careergrowth/profiles/Skills
 export class MatchingAnalysisModalPage extends BasePage {
 
     public matchModalHeader: Locator = this.page.locator("//div[@class='ed-dialog-modal-header']/child::h1");
-    public matchModalDescription: Locator = locator("//h3[@class='tm__match-modal--description']/child::span").build();
+    public matchModalDescription: Locator = this.locator("//h3[@class='tm__match-modal--description']/child::span");
     public matchModalTab(tabName: string): Locator {
       return this.getLocatorWithParam("//label[@class='title'][text()='%s']/parent::button", tabName);
     }
@@ -50,7 +51,7 @@ export class MatchingAnalysisModalPage extends BasePage {
     public experienceCheckStatusIcon: Locator = this.page.locator("//label[text()='Experience']/preceding-sibling::div[@class='progress-tab-icon primary-color icon-check']");
     public numberOfPossessedSkills: Locator = this.page.locator("//label[text()='Skills']/parent::button/label[@class='desc']");
     public addSkillsToPassportButton: Locator = this.page.locator("//div[@class='tm__match-modal-nodata-container']/child::button[contains(@class,'ed-btn ed-btn-primary')][text()='Add skills to passport']");
-    public updateYourSkillsButton: Locator = getByRole(AriaRole.BUTTON, "Update your skills").build();
+    public updateYourSkillsButton: Locator = this.getByRole(AriaRole.BUTTON, "Update your skills");
     public addPreferencesButton: Locator = this.page.locator("//div[@class='tm__match-modal-nodata-container']/child::button[contains(@class,'ed-btn ed-btn-primary')][text()='Add preferences']");
     public addExperienceButton: Locator = this.page.locator("//div[@class='tm__match-modal-nodata-container']/child::button[contains(@class,'ed-btn ed-btn-primary')][text()='Add experience']");
     public searchAspirationalJobRoleButton: Locator = this.page.locator("//div[@class='tm__match-modal-nodata-container']/child::button[contains(@class,'ed-btn ed-btn-primary')][text()='Search aspirational Job Role']");

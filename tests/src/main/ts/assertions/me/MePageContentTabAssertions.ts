@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { ContentMePage } from "pages/me/ContentMePage";
+import { expect } from "common/testing/playwright";
 
 export class MePageContentTabAssertions extends BaseAssertion<ContentMePage> {
 
     public assertThatCardNameInContentTabIsVisible(cardName: string): MePageContentTabAssertions {
-        this.assertThat(this.page.firstCreatedCard(cardName)).isVisible(this.isVisibleOptions);
+        expect(this.page.firstCreatedCard(cardName)).toBeVisible(this.isVisibleOptions);
         return this;
     }
 
     public assertThatCardNameInContentTabIsNotVisible(): MePageContentTabAssertions {
-        this.assertThat(this.page.sharedByMeEmpty.first()).containsText("There are no available cards.", this.containsTextOptions);
+        expect(this.page.sharedByMeEmpty.first()).toContainText("There are no available cards.", this.containsTextOptions);
         return this;
     }
 }

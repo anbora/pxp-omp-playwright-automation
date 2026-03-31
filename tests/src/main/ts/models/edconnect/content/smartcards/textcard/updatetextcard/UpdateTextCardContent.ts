@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose, JsonProperty, SerializedName } from "common/testing/json";
 import { UpdateTextCardLanguage } from "models/edconnect/content/smartcards/textcard/updatetextcard/UpdateTextCardLanguage";
 import { UpdateTextCardPrice } from "models/edconnect/content/smartcards/textcard/updatetextcard/UpdateTextCardPrice";

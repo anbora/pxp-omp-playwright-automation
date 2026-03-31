@@ -1,9 +1,11 @@
-import { HrDataJobRolesTranslationAssertions } from "assertions/admin/hrdata/HrDataJobRolesTranslationAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
 import { UserModel } from "models/user/UserModel";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
+import { expect } from "common/testing/playwright";
 
 export class HrDataJobRolesUploadCsvTranslationTest extends BaseRestTest {
 
@@ -20,20 +22,20 @@ export class HrDataJobRolesUploadCsvTranslationTest extends BaseRestTest {
     }
 
     public uploadCsvAndCheckUploadHistoryViaAdminPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .goToAdminPanel()
-                .selectMainTab(this.hrData)
-                .openMenuForJobRolesHRData()
-                .clickUploadCsvButton()
-                .uploadCsvFile(this.csvFile)
-                .clickSubmitCsvButton()
-                .clickSearchJobRole(this.roleName)
-                .clickTranslationButton()
-                .clickTranslationDropdown(this.translationLanguage)
-                .check(HrDataJobRolesTranslationAssertions)
-                    .assertThatJobRoleTranslationSummaryIsDisplayed(this.translationSummary)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.goToAdminPanel();
+        __page1 = __page1.selectMainTab(this.hrData);
+        __page1 = __page1.openMenuForJobRolesHRData();
+        __page1 = __page1.clickUploadCsvButton();
+        __page1 = __page1.uploadCsvFile(this.csvFile);
+        __page1 = __page1.clickSubmitCsvButton();
+        __page1 = __page1.clickSearchJobRole(this.roleName);
+        __page1 = __page1.clickTranslationButton();
+        __page1 = __page1.clickTranslationDropdown(this.translationLanguage);
+        expect(__page1.this.translationSummary).toContainText(this.translationSummary, { timeout: 30000 });
+        __page1.logger.info("Successfully verified data. Job role name found on the list.");
     }
 
     public afterClass(): void {

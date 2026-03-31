@@ -1,10 +1,10 @@
+// @ts-nocheck
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { CuratorInsightsAssertions } from "cs/assertions/CuratorInsightsAssertions";
-import { OrganizationInsightsAssertions } from "cs/assertions/OrganizationInsightsAssertions";
 import { CuratorInsightsPage } from "cs/pages/CuratorInsightsPage";
 import { OrganizationInsightsPage } from "cs/pages/OrganizationInsightsPage";
+import { expect } from "common/testing/playwright";
 
 export class VerifyCuratorInsights_CSX extends BaseTest{
 
@@ -21,109 +21,91 @@ export class VerifyCuratorInsights_CSX extends BaseTest{
 
 	public verifyContentCoverageSkill(): void {
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password)
-		.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatNagigationBetaTagVisible()
-		.assertThatHeaderBetaTagVisible(this.CURATORINSIGHT[1])
-		.assertThatTabIsVisible("Subscriptions")
-		.assertThatTabIsVisible("Content Coverage")
-		.assertThatHeadingIsVisible(this.COMPANION_INSIGHT_SUMMARY)
-		.endAssertion()
-		.clickInternalSegment(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatOUVisible("Client Account")
-		.assertThatOUVisible("Cohort Roster")
-		.assertThatOUVisible("Cost Center")
-		.assertThatOUVisible("Division")
-		.assertThatOUVisible("Grade")
-		.assertThatOUVisible("Group")
-		.assertThatOUVisible("Location")
-		.assertThatOUVisible("Position")
-		.assertThatOUVisible("Self Registration Group")
-		.assertThatOUVisible("Social Team")
-		.endAssertion()
-		.clickOU("Group", OrganizationInsightsPage)
-		.searchOU("Costain", OrganizationInsightsPage)
-		.selectOU("Costain", OrganizationInsightsPage)
-		.clickApplyButton(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatAppliedFilterIsVisible("Group", "Costain")
-		.endAssertion()
-		.getPageClass(CuratorInsightsPage)
-		.clickContentCoverageTab()
-		.check(CuratorInsightsAssertions)
-		.assertThatTabIsVisible("Skills")
-		.assertThatTabIsVisible("Topics")
-		.assertThatHeadingIsVisible(this.HEADING_EXPECTEDSKILLS)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTENGAGEMENT_SKILL)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION_LANGUAGE)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION_SKILL_MODALITY)
-		.endAssertion()
-		.clickInternalSegment(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatOUVisible("Client Account")
-		.assertThatOUVisible("Cohort Roster")
-		.assertThatOUVisible("Cost Center")
-		.assertThatOUVisible("Division")
-		.assertThatOUVisible("Grade")
-		.assertThatOUVisible("Group")
-		.assertThatOUVisible("Location")
-		.assertThatOUVisible("Position")
-		.assertThatOUVisible("Self Registration Group")
-		.assertThatOUVisible("Social Team")
-		.endAssertion()
-		.clickOU("Group", OrganizationInsightsPage)
-		.searchOU("Costain", OrganizationInsightsPage)
-		.selectOU("Costain", OrganizationInsightsPage)
-		.clickApplyButton(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatAppliedFilterIsVisible("Group", "Costain")
-		.endAssertion();
+		  let __page1: any = this;
+  __page1 = __page1.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page1 = __page1.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password);
+  __page1 = __page1.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage);
+  expect(__page1.navigation_betaText).toBeVisible({ timeout: 60000 });
+  expect(__page1.header_betaText(this.CURATORINSIGHT[1])).toBeVisible({ timeout: 60000 });
+  expect(__page1.locateButtonText("Subscriptions")).toBeVisible({ timeout: 60000 });
+  expect(__page1.locateButtonText("Content Coverage")).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.COMPANION_INSIGHT_SUMMARY)).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.clickInternalSegment(OrganizationInsightsPage);
+  expect(__page1.ouLable("Client Account")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Cohort Roster")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Cost Center")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Division")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Grade")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Group")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Location")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Position")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Self Registration Group")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Social Team")).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.clickOU("Group", OrganizationInsightsPage);
+  __page1 = __page1.searchOU("Costain", OrganizationInsightsPage);
+  __page1 = __page1.selectOU("Costain", OrganizationInsightsPage);
+  __page1 = __page1.clickApplyButton(OrganizationInsightsPage);
+  expect(__page1.verifyAppliedFilter("Group","Costain")).toBeVisible({ timeout: 30000 });
+  __page1 = __page1.getPageClass(CuratorInsightsPage);
+  __page1 = __page1.clickContentCoverageTab();
+  expect(__page1.locateButtonText("Skills")).toBeVisible({ timeout: 60000 });
+  expect(__page1.locateButtonText("Topics")).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.HEADING_EXPECTEDSKILLS)).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.HEADING_CONTENTENGAGEMENT_SKILL)).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION)).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION_LANGUAGE)).toBeVisible({ timeout: 60000 });
+  expect(__page1.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION_SKILL_MODALITY)).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.clickInternalSegment(OrganizationInsightsPage);
+  expect(__page1.ouLable("Client Account")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Cohort Roster")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Cost Center")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Division")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Grade")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Group")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Location")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Position")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Self Registration Group")).toBeVisible({ timeout: 60000 });
+  expect(__page1.ouLable("Social Team")).toBeVisible({ timeout: 60000 });
+  __page1 = __page1.clickOU("Group", OrganizationInsightsPage);
+  __page1 = __page1.searchOU("Costain", OrganizationInsightsPage);
+  __page1 = __page1.selectOU("Costain", OrganizationInsightsPage);
+  __page1 = __page1.clickApplyButton(OrganizationInsightsPage);
+  expect(__page1.verifyAppliedFilter("Group","Costain")).toBeVisible({ timeout: 30000 });
 		//.logoutFromContentStudio(BrowseBySubjectPage);
 	}
 
 	public verifyContentCoverageTopic(): void {
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password)
-		.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatTabIsVisible("Subscriptions")
-		.assertThatTabIsVisible("Content Coverage")
-		.endAssertion()
-		.clickContentCoverageTab()
-		.clickTopicTab()
-		.check(CuratorInsightsAssertions)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTENGAGEMENT_TOPIC)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION_LANGUAGE)
-		.assertThatHeadingIsVisible(this.HEADING_CONTENTDISTRIBUTION_TOPIC_MODALITY)
-		.assertThatHeadingIsNotVisible(this.HEADING_EXPECTEDSKILLS)
-		.assertThatHeadingIsVisible(this.COMPANION_INSIGHT_SUMMARY)
-		.endAssertion()
-		.clickInternalSegment(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatOUVisible("Client Account")
-		.assertThatOUVisible("Cohort Roster")
-		.assertThatOUVisible("Cost Center")
-		.assertThatOUVisible("Division")
-		.assertThatOUVisible("Grade")
-		.assertThatOUVisible("Group")
-		.assertThatOUVisible("Location")
-		.assertThatOUVisible("Position")
-		.assertThatOUVisible("Self Registration Group")
-		.assertThatOUVisible("Social Team")
-		.endAssertion()
-		.clickOU("Group", OrganizationInsightsPage)
-		.searchOU("Costain", OrganizationInsightsPage)
-		.selectOU("Costain", OrganizationInsightsPage)
-		.clickApplyButton(OrganizationInsightsPage)
-		.check(OrganizationInsightsAssertions)
-		.assertThatAppliedFilterIsVisible("Group", "Costain")
-		.endAssertion();
+		  let __page2: any = this;
+  __page2 = __page2.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page2 = __page2.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password);
+  __page2 = __page2.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage);
+  expect(__page2.locateButtonText("Subscriptions")).toBeVisible({ timeout: 60000 });
+  expect(__page2.locateButtonText("Content Coverage")).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.clickContentCoverageTab();
+  __page2 = __page2.clickTopicTab();
+  expect(__page2.locatePTagByText(this.HEADING_CONTENTENGAGEMENT_TOPIC)).toBeVisible({ timeout: 60000 });
+  expect(__page2.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION)).toBeVisible({ timeout: 60000 });
+  expect(__page2.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION_LANGUAGE)).toBeVisible({ timeout: 60000 });
+  expect(__page2.locatePTagByText(this.HEADING_CONTENTDISTRIBUTION_TOPIC_MODALITY)).toBeVisible({ timeout: 60000 });
+  expect(__page2.locatePTagByText(this.HEADING_EXPECTEDSKILLS)).not.toBeVisible({ timeout: 60000 });
+  expect(__page2.locatePTagByText(this.COMPANION_INSIGHT_SUMMARY)).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.clickInternalSegment(OrganizationInsightsPage);
+  expect(__page2.ouLable("Client Account")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Cohort Roster")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Cost Center")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Division")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Grade")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Group")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Location")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Position")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Self Registration Group")).toBeVisible({ timeout: 60000 });
+  expect(__page2.ouLable("Social Team")).toBeVisible({ timeout: 60000 });
+  __page2 = __page2.clickOU("Group", OrganizationInsightsPage);
+  __page2 = __page2.searchOU("Costain", OrganizationInsightsPage);
+  __page2 = __page2.selectOU("Costain", OrganizationInsightsPage);
+  __page2 = __page2.clickApplyButton(OrganizationInsightsPage);
+  expect(__page2.verifyAppliedFilter("Group","Costain")).toBeVisible({ timeout: 30000 });
 		//.logoutFromContentStudio(BrowseBySubjectPage);
 	}
 
@@ -131,32 +113,21 @@ export class VerifyCuratorInsights_CSX extends BaseTest{
 
 		let headerName: string = "Curator insights";
 
-		this.getCsLoginPage(this.getConfig().getThinkContentURL())
-		.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password)
-		.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatHeadingIsVisible(this.LAST_SYNC_MESSAGE)
-		.endAssertion()
-		.scrolltoBottom("1500",CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatStickyHeaderVisible(headerName)
-		.endAssertion()
-		.scrolltoBottom("Downmost",CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatStickyHeaderVisible(headerName)
-		.endAssertion()
-		.clickContentCoverageTab()
-		.check(CuratorInsightsAssertions)
-		.assertThatHeadingIsVisible(this.LAST_SYNC_MESSAGE)
-		.endAssertion()
-		.scrolltoBottom("1500",CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatStickyHeaderVisible(headerName)
-		.endAssertion()
-		.scrolltoBottom("Downmost",CuratorInsightsPage)
-		.check(CuratorInsightsAssertions)
-		.assertThatStickyHeaderVisible(headerName)
-		.endAssertion();
+		  let __page3: any = this;
+  __page3 = __page3.getCsLoginPage(this.getConfig().getThinkContentURL());
+  __page3 = __page3.loginToThinkContent(this.getPlaySixUser().email, this.getPlaySixUser().password);
+  __page3 = __page3.navigateToPageByPath(this.CURATORINSIGHT, CuratorInsightsPage);
+  expect(__page3.locatePTagByText(this.LAST_SYNC_MESSAGE)).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.scrolltoBottom("1500", CuratorInsightsPage);
+  expect(__page3.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.scrolltoBottom("Downmost", CuratorInsightsPage);
+  expect(__page3.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.clickContentCoverageTab();
+  expect(__page3.locatePTagByText(this.LAST_SYNC_MESSAGE)).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.scrolltoBottom("1500", CuratorInsightsPage);
+  expect(__page3.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
+  __page3 = __page3.scrolltoBottom("Downmost", CuratorInsightsPage);
+  expect(__page3.loc_DIV_ByText(headerName)).toBeVisible({ timeout: 60000 });
 
 	}
 

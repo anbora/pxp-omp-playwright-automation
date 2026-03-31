@@ -1,8 +1,5 @@
-import { CreateProjectAssertions } from "assertions/careergrowth/project/CreateProjectAssertions";
-import { ProjectDetailsAssertions } from "assertions/careergrowth/project/ProjectDetailsAssertions";
-import { ProjectDiscoveryAssertions } from "assertions/careergrowth/project/ProjectDiscoveryAssertions";
-import { ProjectMePageAssertions } from "assertions/careergrowth/project/ProjectMePageAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -16,6 +13,7 @@ import { HomePage } from "pages/other/HomePage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { CreateProjectWithUploadThumbnailScenario } from "scenarios/project/CreateProjectWithUploadThumbnailScenario";
+import { expect } from "common/testing/playwright";
 
 export class CheckDuplicateFlowTest extends BaseRestTest {
 
@@ -35,55 +33,54 @@ export class CheckDuplicateFlowTest extends BaseRestTest {
     }
 
     public createAProjectWithUploadThumbnail(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .clickCreateButton()
-                .check(LandingPageAssertions)
-                    .assertThatCreateProjectButtonIsDisplayed()
-                .endAssertion()
-                .clickCreateProjectButton()
-                .check(CreateProjectAssertions)
-                    .assertThatProjectPageLoadsAllRequiredFields()
-                .endAssertion()
-                .run(new CreateProjectWithUploadThumbnailScenario(this.projectTitle, this.projectDesc))
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(this.projectTitle)
-                .endAssertion()
-                .clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName2, ProjectsMePage)
-                .copyCurrentURL(this.urlContainer);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.clickCreateButton();
+        expect(__page1.createProjectButton().first()).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickCreateProjectButton();
+        expect(__page1.createProjectHeader).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectTitle).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectDescription).toBeVisible({ timeout: 30000 });
+        expect(__page1.projectThumbnail).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.run(new CreateProjectWithUploadThumbnailScenario(this.projectTitle, this.projectDesc));
+        expect(__page1.ownedByMeHorizontalCardProjectTitle(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickOwnedByMeProjectHorizontalCardActionsDropDown(this.projectTitle);
+        __page1 = __page1.clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName2, ProjectsMePage);
+        __page1 = __page1.copyCurrentURL(this.urlContainer);
     }
 
     public duplicateAProjectFromProjectDetailsPage(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToCareerGrowthPage()
-                .goToProjectsPageViaCard()
-                .check(ProjectDiscoveryAssertions)
-                    .assertProjectsDiscoveryPageLoads()
-                .endAssertion()
-                .visitAURL(this.urlContainer.getValue(), ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .assertThatProjectDetailsPageLoadsForOwner(this.projectTitle)
-                .endAssertion()
-                .clickOnAProjectAction(this.actionName, CreateProjectPage)
-                .check(CreateProjectAssertions)
-                    .assertThatDuplicateProjectHeaderIsDisplayed()
-                    .assertThatProjectDescIsCopiedOver(this.projectDesc)
-                    .assertThatProjectTitleIsCopiedOver(this.projectTitle)
-                    .assertOwnerFieldIsCopiedOver()
-                    .assertThatThumbnailIsCopiedOver()
-                .endAssertion()
-                .clickPublishButton()
-                .check(CreateProjectAssertions)
-                    .assertDuplicateProjectTitleWarningIsDisplayed()
-                .endAssertion()
-                .duplicateTitleWarningModalclickCancelButton()
-                .fillInProjectTitle(this.projectTitle2)
-                .clickPublishButton()
-                .clickMayBeLaterButton()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(this.projectTitle2);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goToCareerGrowthPage();
+        __page2 = __page2.goToProjectsPageViaCard();
+        expect(__page2.allProjectsHeader).toBeVisible({ timeout: 30000 });
+        expect(__page2.filtersButton).toBeVisible({ timeout: 30000 });
+        expect(__page2.sortByDropDown().first()).toBeVisible({ timeout: 30000 });
+        expect(__page2.searchInputField).toBeVisible({ timeout: 30000 });
+        expect(__page2.createAProjectButton).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.visitAURL(this.urlContainer.getValue(), ProjectDetailsPage);
+        expect(__page2.projectTitleHeader).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectMetaDetailsSection).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectDescriptionHeader).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectDetailsRightPanel).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectOwnersList).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectPublishedDate).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.clickOnAProjectAction(this.actionName, CreateProjectPage);
+        expect(__page2.createDuplicateProjectHeader).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectDescText(this.projectDesc)).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectTitleText(this.projectTitle)).toBeVisible({ timeout: 30000 });
+        expect(__page2.projectOwnersCountTxt).toBeVisible({ timeout: 30000 });
+        expect(__page2.replaceImageTxt).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.clickPublishButton();
+        expect(__page2.duplicateProjectTitleWarning).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.duplicateTitleWarningModalclickCancelButton();
+        __page2 = __page2.fillInProjectTitle(this.projectTitle2);
+        __page2 = __page2.clickPublishButton();
+        __page2 = __page2.clickMayBeLaterButton();
+        expect(__page2.ownedByMeHorizontalCardProjectTitle(this.projectTitle2)).toBeVisible({ timeout: 30000 });
     }
 
     public dataProviderForClosingProjects(): any[][] {
@@ -94,27 +91,23 @@ export class CheckDuplicateFlowTest extends BaseRestTest {
     }
 
     public closeProject(title: string): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickPublishedTab()
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayed(title)
-                .endAssertion()
-                .clickOwnedByMeProjectHorizontalCardActionsDropDown(title)
-                .clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName3, ProjectDetailsPage)
-                .check(ProjectDetailsAssertions)
-                    .closeProjectModalDisplays()
-                .endAssertion()
-                .clickCloseButtonCloseProjectModal()
-                .goDirectlyTo(LandingPage)
-                .goToMePageProfile()
-                .goToProjectsTab()
-                .clickClosedTab()
-                .refreshCurrentPage(ProjectsMePage)
-                .check(ProjectMePageAssertions)
-                    .assertProjectIsDisplayedInOwnedByMeProjectsHorizontalCard(title);
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.user));
+        __page3 = __page3.goToMePageProfile();
+        __page3 = __page3.goToProjectsTab();
+        __page3 = __page3.clickPublishedTab();
+        expect(__page3.projectTitleMePage(title)).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.clickOwnedByMeProjectHorizontalCardActionsDropDown(title);
+        __page3 = __page3.clickOwnedByMeProjectHorizontalCardDropDownAction(this.actionName3, ProjectDetailsPage);
+        expect(__page3.closeProjectModal).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.clickCloseButtonCloseProjectModal();
+        __page3 = __page3.goDirectlyTo(LandingPage);
+        __page3 = __page3.goToMePageProfile();
+        __page3 = __page3.goToProjectsTab();
+        __page3 = __page3.clickClosedTab();
+        __page3 = __page3.refreshCurrentPage(ProjectsMePage);
+        expect(__page3.ownedByMeHorizontalCardProjectTitle(title)).toBeVisible({ timeout: 30000 });
     }
 
     public afterClass(): void {

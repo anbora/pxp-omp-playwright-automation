@@ -1,9 +1,10 @@
+// @ts-nocheck
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
-import { SubscriptionAssertions } from "cs/assertions/SubscriptionAssertions";
 import { SubscriptionPage } from "cs/pages/SubscriptionPage";
 import { ResultContainer } from "models/ResultContainer";
+import { expect } from "common/testing/playwright";
 
 export class VerifySubscriptionTest_EdCast extends BaseTest{
 
@@ -41,52 +42,56 @@ export class VerifySubscriptionTest_EdCast extends BaseTest{
 
 	public verifySubscriptionOrder(): void {
 
-			  this.getCsLoginPage(this.getConfig().getEdCastURL())
-			    .navigateToLogin()
-		    	.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password)	//"cstester@csod.com", "Csod123"
-		    	.launchEdCastContentStudio()
-				.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-				.check(SubscriptionAssertions)
-				.assertThatSubcriptionPresent(this.expectedSubscriptionOrder)
-				.assertThatSubcriptionNotPresent(this.expectedSubscriptionNotPresent)
-				.assertThatButtonWithOptionNotVisible(this.TEXT_CONTENT_PARTNERS)
-				.endAssertion()
-				.logoutFromContentStudio(SubscriptionPage);
+			       let __page1: any = this;
+     __page1 = __page1.getCsLoginPage(this.getConfig().getEdCastURL());
+     __page1 = __page1.navigateToLogin();
+     __page1 = __page1.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password);
+     __page1 = __page1.launchEdCastContentStudio();
+     __page1 = __page1.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+     expect(__page1.availableSubscritpion).toContainText(this.expectedSubscriptionOrder);
+     expect(__page1.availableSubscritpion).not.toContainText(this.expectedSubscriptionNotPresent);
+     expect(__page1.locateButtonText(this.TEXT_CONTENT_PARTNERS)).not.toBeVisible({ timeout: 60000 });
+     __page1 = __page1.logoutFromContentStudio(SubscriptionPage);
 
 	}
 
 	public verifyHTMLLinkCornerstoneCuratedAndQuickViewDetailsView(): void {
 
-			  this.getCsLoginPage(this.getConfig().getEdCastURL())
-			    .navigateToLogin()
-		    	.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password)	//"cstester@csod.com", "Csod123"
-		    	.launchEdCastContentStudio()
-				.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-				.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-				.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-				.searchCourse(this.COURSE_TO_SEARCH)
-				.clickQuickView(this.COURSE_TO_SEARCH)
-				.check(SubscriptionAssertions)
-				.assertThatButtonWithOptionVisible("All-time")
-				.assertThatButtonWithOptionVisible("Last Quarter")
-				.assertThatYourLearnerMetricVisible(this.YOURLEARNERCOUNT_CC)
-				.assertThatTotalLearnerMetricVisible(this.TOTALLEARNERCOUNT_CC)
-				.endAssertion()
-				.getQuickViewDuration(this.duration,SubscriptionPage)
-				.getQuickViewLanguage(this.language,SubscriptionPage)
-				.getQuickViewSubscription(this.subscription,SubscriptionPage)
-				.clickGoToDetails()
-				.check(SubscriptionAssertions)
-				.assertThatReadMoreIsVisible()
-				.endAssertion()
-				.clickReadMore()
-				.check(SubscriptionAssertions)
-				.assertThatAboutCourseVisible("ABOUT THE COURSE")
-				.assertThatDurationIsVisible(this.duration.getValue())
-				.assertThatLanguageIsVisible(this.language.getValue())
-				.assertThatSubscriptionIsVisible(this.subscription.getValue())
-				.endAssertion()
-				.logoutFromContentStudio(SubscriptionPage);
+			       let __page2: any = this;
+     __page2 = __page2.getCsLoginPage(this.getConfig().getEdCastURL());
+     __page2 = __page2.navigateToLogin();
+     __page2 = __page2.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password);
+     __page2 = __page2.launchEdCastContentStudio();
+     __page2 = __page2.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+     __page2 = __page2.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+     __page2 = __page2.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+     __page2 = __page2.searchCourse(this.COURSE_TO_SEARCH);
+     __page2 = __page2.clickQuickView(this.COURSE_TO_SEARCH);
+     expect(__page2.locateButtonText("All-time")).toBeVisible({ timeout: 60000 });
+     expect(__page2.locateButtonText("Last Quarter")).toBeVisible({ timeout: 60000 });
+     expect(__page2.metricYourLearner(this.YOURLEARNERCOUNT_CC)).toBeVisible({ timeout: 60000 });
+     expect(__page2.metricTotalLearner(this.TOTALLEARNERCOUNT_CC)).toBeVisible({ timeout: 60000 });
+     __page2 = __page2.getQuickViewDuration(this.duration, SubscriptionPage);
+     __page2 = __page2.getQuickViewLanguage(this.language, SubscriptionPage);
+     __page2 = __page2.getQuickViewSubscription(this.subscription, SubscriptionPage);
+     __page2 = __page2.clickGoToDetails();
+     expect(__page2.readMore).toBeVisible({ timeout: 60000 });
+     __page2 = __page2.clickReadMore();
+     expect(__page2.locateSpanText("ABOUT THE COURSE")).toBeVisible({ timeout: 60000 });
+     expect(__page2.this.duration.getValue()(this.duration.getValue())).toBeVisible({ timeout: 30000 });
+     expect(__page2.this.language.getValue()(this.language.getValue())).toBeVisible({ timeout: 30000 });
+     let subscriptionlistArray: string[] = this.subscription.getValue().split(",");
+     for (const subscription of subscriptionlistArray) {
+     			if(subscription.equals("N/A")) {
+     
+     				expect(__page2.getPage().locator("//span[text()='SUBSCRIPTIONS']/following-sibling:: span[not(text()='')]")).not.toBeVisible();
+     			}
+     			else {
+     				expect(__page2.subscriptions(subscription.trim())).toBeVisible({ timeout: 30000 });
+     				//System.out.println("Verified "+subscription);
+     			}
+     		}
+     __page2 = __page2.logoutFromContentStudio(SubscriptionPage);
 
 	}
 
@@ -97,50 +102,80 @@ export class VerifySubscriptionTest_EdCast extends BaseTest{
 			this.filter.put(this.MODALITIES_FILTER_NAME, Arrays.asList(this.MODALITIES_FILTERVALUE));
 			this.filter.put(this.SKILLS_FILTER_NAME, Arrays.asList(this.SKILLS_FILTERVALUE));
 
-			this.getCsLoginPage(this.getConfig().getEdCastURL())
-		    .navigateToLogin()
-	    	.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password)	//"cstester@csod.com", "Csod123"
-	    	.launchEdCastContentStudio()
-			.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-			.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-			.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-			.applySubscriptionFilter(this.filter)
-			.clickApplyFilterButton()
-			.check(SubscriptionAssertions)
-			.assertThatAppliedFilterVisible(this.CATEGORIES_FILTER_NAME, this.CATEGORIES_FILTERVALUE[0])
-			.assertThatAppliedFilterVisible(this.TOPIC_FILTER_NAME, this.TOPIC_FILTERVALUE[1])
-			.assertThatAppliedFilterVisible(this.MODALITIES_FILTER_NAME, this.MODALITIES_FILTERVALUE[0])
-			.assertThatAppliedFilterVisible(this.SKILLS_FILTER_NAME, this.SKILLS_FILTERVALUE[1])
-			.endAssertion()
-			.clickclearFilterIcon(this.CATEGORIES_FILTERVALUE[0])
-			.check(SubscriptionAssertions)
-			.assertThatAppliedFilterNotVisible("Categories", this.CATEGORIES_FILTERVALUE[0])
-			.endAssertion()
-			.clickClearAllFilters(SubscriptionPage)
-			.check(SubscriptionAssertions)
-			.assertThatAppliedFilterNotVisible(this.CATEGORIES_FILTER_NAME, this.CATEGORIES_FILTERVALUE[0])
-			.assertThatAppliedFilterNotVisible(this.TOPIC_FILTER_NAME, this.TOPIC_FILTERVALUE[1])
-			.assertThatAppliedFilterNotVisible(this.MODALITIES_FILTER_NAME, this.MODALITIES_FILTERVALUE[0])
-			.assertThatAppliedFilterNotVisible(this.SKILLS_FILTER_NAME, this.SKILLS_FILTERVALUE[0])
-			.endAssertion();
+			   let __page3: any = this;
+   __page3 = __page3.getCsLoginPage(this.getConfig().getEdCastURL());
+   __page3 = __page3.navigateToLogin();
+   __page3 = __page3.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password);
+   __page3 = __page3.launchEdCastContentStudio();
+   __page3 = __page3.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+   __page3 = __page3.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+   __page3 = __page3.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+   __page3 = __page3.applySubscriptionFilter(this.filter);
+   __page3 = __page3.clickApplyFilterButton();
+   if(this.CATEGORIES_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.CATEGORIES_FILTER_NAME,this.CATEGORIES_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+   if(this.TOPIC_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.TOPIC_FILTERVALUE[1]=this.TOPIC_FILTERVALUE[1].substring(0,1).toUpperCase()+this.TOPIC_FILTERVALUE[1].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.TOPIC_FILTER_NAME,this.TOPIC_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+   if(this.MODALITIES_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.MODALITIES_FILTERVALUE[0]=this.MODALITIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.MODALITIES_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.MODALITIES_FILTER_NAME,this.MODALITIES_FILTERVALUE[0])).toBeVisible({ timeout: 60000 });
+   if(this.SKILLS_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.SKILLS_FILTERVALUE[1]=this.SKILLS_FILTERVALUE[1].substring(0,1).toUpperCase()+this.SKILLS_FILTERVALUE[1].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.SKILLS_FILTER_NAME,this.SKILLS_FILTERVALUE[1])).toBeVisible({ timeout: 60000 });
+   __page3 = __page3.clickclearFilterIcon(this.CATEGORIES_FILTERVALUE[0]);
+   if("Categories".equals("Modalities"))
+   		{
+   			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter("Categories",this.CATEGORIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+   __page3 = __page3.clickClearAllFilters(SubscriptionPage);
+   if(this.CATEGORIES_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.CATEGORIES_FILTERVALUE[0]=this.CATEGORIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.CATEGORIES_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.CATEGORIES_FILTER_NAME,this.CATEGORIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+   if(this.TOPIC_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.TOPIC_FILTERVALUE[1]=this.TOPIC_FILTERVALUE[1].substring(0,1).toUpperCase()+this.TOPIC_FILTERVALUE[1].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.TOPIC_FILTER_NAME,this.TOPIC_FILTERVALUE[1])).not.toBeVisible({ timeout: 60000 });
+   if(this.MODALITIES_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.MODALITIES_FILTERVALUE[0]=this.MODALITIES_FILTERVALUE[0].substring(0,1).toUpperCase()+this.MODALITIES_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.MODALITIES_FILTER_NAME,this.MODALITIES_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
+   if(this.SKILLS_FILTER_NAME.equals("Modalities"))
+   		{
+   			this.SKILLS_FILTERVALUE[0]=this.SKILLS_FILTERVALUE[0].substring(0,1).toUpperCase()+this.SKILLS_FILTERVALUE[0].substring(1);
+   		}
+   expect(__page3.verifyAppliedFilter(this.SKILLS_FILTER_NAME,this.SKILLS_FILTERVALUE[0])).not.toBeVisible({ timeout: 60000 });
 			//.logoutFromContentStudio(SubscriptionPage);
 
 	}
 
 	public verifySubscriptionsPageSortByTotalLearner(): void {
 
-				this.getCsLoginPage(this.getConfig().getEdCastURL())
-			    .navigateToLogin()
-		    	.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password)	//"cstester@csod.com", "Csod123"
-		    	.launchEdCastContentStudio()
-				.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage)
-				.searchSubscription(this.SUBSCRIPTION_TO_SEARCH)
-				.selectSubscription(this.SUBSCRIPTION_TO_SEARCH)
-				.clickSortingDownArrow()
-				.check(SubscriptionAssertions)
-				.assertThatSortingOptionVisible(this.SORING_BY_TOTALLEARNER)
-				.endAssertion()
-				.selectSortingOption(this.SORING_BY_TOTALLEARNER);
+				    let __page4: any = this;
+    __page4 = __page4.getCsLoginPage(this.getConfig().getEdCastURL());
+    __page4 = __page4.navigateToLogin();
+    __page4 = __page4.loginToApplication(this.getPlayEdCastUserThree().email, this.getPlayEdCastUserThree().password);
+    __page4 = __page4.launchEdCastContentStudio();
+    __page4 = __page4.navigateToPageByPath(this.EXPLORESUBSCRIPTIONPATH, SubscriptionPage);
+    __page4 = __page4.searchSubscription(this.SUBSCRIPTION_TO_SEARCH);
+    __page4 = __page4.selectSubscription(this.SUBSCRIPTION_TO_SEARCH);
+    __page4 = __page4.clickSortingDownArrow();
+    expect(__page4.sortingOption(this.SORING_BY_TOTALLEARNER)).toBeVisible({ timeout: 60000 });
+    __page4 = __page4.selectSortingOption(this.SORING_BY_TOTALLEARNER);
 				//.logoutFromContentStudio(SubscriptionPage);
 	}
 

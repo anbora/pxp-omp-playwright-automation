@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BasePage } from "common/BasePage";
 import { BaseScenario } from "common/BaseScenario";
 import { WelcomePage_New } from "pages/careergrowth/careergrowth/WelcomePage_New";

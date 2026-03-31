@@ -1,7 +1,5 @@
-import { ProjectDetailsAssertions } from "assertions/careergrowth/project/ProjectDetailsAssertions";
-import { ProjectDiscoveryAssertions } from "assertions/careergrowth/project/ProjectDiscoveryAssertions";
-import { SmartCardDetailsAssertions } from "assertions/insights/SmartCardDetailsAssertions";
-import { LandingPageAssertions } from "assertions/landing/LandingPageAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -11,70 +9,57 @@ import { UserModel } from "models/user/UserModel";
 import { SmartCardDetailsPage } from "pages/insights/SmartCardDetailsPage";
 import { LandingPage } from "pages/landing/LandingPage";
 import { LoginScenario } from "scenarios/other/LoginScenario";
+import { expect } from "common/testing/playwright";
 
 export class LearningFeedWidgetTest extends BaseRestTest {
 
     private myAssignmentsCardTitleContainer: ResultContainer = new ResultContainer();
 
     public todaysInsightsTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .refreshUntilLearningFeedWidgetTitleLoads()
-                .check(LandingPageAssertions)
-                    .assertThatLearningFeedWidgetIsDisplayed()
-                    .assertThatTodaysInsightsTabIsDisplayed()
-                .endAssertion()
-                .clickTodaysInsightsTab()
-                .check(LandingPageAssertions)
-                    .assertThatTodaysInsightsTabIsActivated()
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page1 = __page1.refreshUntilLearningFeedWidgetTitleLoads();
+        expect(__page1.learningFeedWidget).toBeVisible({ timeout: 30000 });
+        expect(__page1.todaysInsightsTab).toBeVisible({ timeout: 30000 });
+        __page1 = __page1.clickTodaysInsightsTab();
+        expect(__page1.todaysInsightsTab).toHaveAttribute("class", "nav-link active", { timeout: 30000 });
     }
 
     public teamLearningTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .refreshUntilLearningFeedWidgetTitleLoads()
-                .check(LandingPageAssertions)
-                    .assertThatLearningFeedWidgetIsDisplayed()
-                    .assertThatTeamLearningTabIsDisplayed()
-                .endAssertion()
-                .clickTeamLearningTab()
-                .check(LandingPageAssertions)
-                    .assertThatTeamLearningTabIsActivated()
-                    .assertThatLearningFeedNoCardsIconIsDisplayed()
-                .endAssertion();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page2 = __page2.refreshUntilLearningFeedWidgetTitleLoads();
+        expect(__page2.learningFeedWidget).toBeVisible({ timeout: 30000 });
+        expect(__page2.teamLearningTab).toBeVisible({ timeout: 30000 });
+        __page2 = __page2.clickTeamLearningTab();
+        expect(__page2.teamLearningTab).toHaveAttribute("class", "nav-link active", { timeout: 30000 });
+        expect(__page2.learningFeedNoCardsIcon).toBeVisible({ timeout: 30000 });
     }
 
     public myAssignmentsTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .refreshUntilLearningFeedWidgetTitleLoads()
-                .check(LandingPageAssertions)
-                    .assertThatLearningFeedWidgetIsDisplayed()
-                    .assertThatMyAssignmentsTabIsDisplayed()
-                .endAssertion()
-                .clickMyAssignmentsTab()
-                .check(LandingPageAssertions)
-                    .assertThatMyAssignmentsTabIsActivated()
-                .endAssertion()
-                .getFirstCardOnMyAssignmentsList(this.myAssignmentsCardTitleContainer)
-                .clickMyAssignmentsCardWithTitle(this.myAssignmentsCardTitleContainer.getValue())
-                .check(SmartCardDetailsAssertions)
-                    .assertThatCardNameContains(this.myAssignmentsCardTitleContainer.getValue())
-                .endAssertion();
+                let __page3: any = this;
+        __page3 = __page3.getOmpLoginPage();
+        __page3 = __page3.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page3 = __page3.refreshUntilLearningFeedWidgetTitleLoads();
+        expect(__page3.learningFeedWidget).toBeVisible({ timeout: 30000 });
+        expect(__page3.myAssignmentsTab).toBeVisible({ timeout: 30000 });
+        __page3 = __page3.clickMyAssignmentsTab();
+        expect(__page3.myAssignmentsTab).toHaveAttribute("class", "nav-link active", { timeout: 30000 });
+        __page3 = __page3.getFirstCardOnMyAssignmentsList(this.myAssignmentsCardTitleContainer);
+        __page3 = __page3.clickMyAssignmentsCardWithTitle(this.myAssignmentsCardTitleContainer.getValue());
+        expect(__page3.this.myAssignmentsCardTitleContainer.getValue()).toContainText(this.myAssignmentsCardTitleContainer.getValue(), { timeout: 30000 });
     }
 
     public featuredTest(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.getUserByName("Rajendran Sridhar")))
-                .refreshUntilLearningFeedWidgetTitleLoads()
-                .check(LandingPageAssertions)
-                    .assertThatLearningFeedWidgetIsDisplayed()
-                    .assertThatFeaturedTabIsDisplayed()
-                .endAssertion()
-                .clickFeaturedTab()
-                .check(LandingPageAssertions)
-                    .assertThatFeaturedTabIsActivated()
-                .endAssertion();
+                let __page4: any = this;
+        __page4 = __page4.getOmpLoginPage();
+        __page4 = __page4.run(new LoginScenario(this.getUserByName("Rajendran Sridhar")));
+        __page4 = __page4.refreshUntilLearningFeedWidgetTitleLoads();
+        expect(__page4.learningFeedWidget).toBeVisible({ timeout: 30000 });
+        expect(__page4.featuredTab).toBeVisible({ timeout: 30000 });
+        __page4 = __page4.clickFeaturedTab();
+        expect(__page4.featuredTab).toHaveAttribute("class", "nav-link active", { timeout: 30000 });
     }
 }

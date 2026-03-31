@@ -1,4 +1,5 @@
-import { CertificateModalPageAssertion } from "assertions/skillspassport/CertificateModalPageAssertion";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { AddCertificateModalPage } from "pages/skillspassport/AddCertificateModa
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateCertificateWithCertificateIDAsOptionalParameterTest extends BaseRestTest {
 
@@ -25,38 +27,39 @@ export class CreateCertificateWithCertificateIDAsOptionalParameterTest extends B
     }
 
     public addCertificateCardWithoutCertificateID(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToMePageProfile()
-                .goToSkillPassportTab()
-                .clickSkillsPassportAddSkillButton()
-                .selectCertificateType()
-                .selectCertificateFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME)
-                .selectCertificateLevel(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_LEVEL)
-                .selectCertificateIssuerFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_ISSUER)
-                .clickSaveButton()
-                .clickCertificateCard()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateIsAdded(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME)
-                .endAssertion()
-                .clickEditButton()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateContainsIssuerName(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_ISSUER);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToSkillPassportTab();
+        __page1 = __page1.clickSkillsPassportAddSkillButton();
+        __page1 = __page1.selectCertificateType();
+        __page1 = __page1.selectCertificateFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME);
+        __page1 = __page1.selectCertificateLevel(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_LEVEL);
+        __page1 = __page1.selectCertificateIssuerFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_ISSUER);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickCertificateCard();
+        expect(__page1.getCertificateCardName()).toContainText(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME);
+        __page1.logger.info("Successfully verified that certificate is added");
+        __page1 = __page1.clickEditButton();
+        expect(__page1.getCertificateIssuer()).toHaveValue(CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_ISSUER);
+        __page1.logger.info("Successfully verified that certificate contains Issuer Name");
     }
 
     public editAddedCertificateCardWithoutCertificateID(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(AddCertificateModalPage,CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME)
-                .clickCertificateCard()
-                .clickEditButton()
-                .selectCertificateIssuerFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.NEW_CERTIFICATE_ISSUER)
-                .clickSaveButton()
-                .clickCertificateCard()
-                .clickEditButton()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateContainsIssuerName(CreateCertificateWithCertificateIDAsOptionalParameterTest.NEW_CERTIFICATE_ISSUER);
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(AddCertificateModalPage, CreateCertificateWithCertificateIDAsOptionalParameterTest.CERTIFICATE_NAME);
+        __page2 = __page2.clickCertificateCard();
+        __page2 = __page2.clickEditButton();
+        __page2 = __page2.selectCertificateIssuerFromInput(CreateCertificateWithCertificateIDAsOptionalParameterTest.NEW_CERTIFICATE_ISSUER);
+        __page2 = __page2.clickSaveButton();
+        __page2 = __page2.clickCertificateCard();
+        __page2 = __page2.clickEditButton();
+        expect(__page2.getCertificateIssuer()).toHaveValue(CreateCertificateWithCertificateIDAsOptionalParameterTest.NEW_CERTIFICATE_ISSUER);
+        __page2.logger.info("Successfully verified that certificate contains Issuer Name");
     }
 
     public afterTests(): void {

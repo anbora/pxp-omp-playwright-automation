@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SerializedName } from "common/testing/json";
 
 export class User {

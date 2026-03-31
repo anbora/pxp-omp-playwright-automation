@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseTest } from "common/BaseTest";
 import { CreateCollectionPage } from "cs/pages/CreateCollectionPage";
 import { ManageObjectivesPage } from "cs/pages/ManageObjectivesPage";

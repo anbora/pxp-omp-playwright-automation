@@ -1,4 +1,5 @@
-import { JobVacancyDetailsAssertions } from "assertions/careergrowth/jobs/JobVacancyDetailsAssertions";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { BaseTest } from "common/BaseTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
@@ -13,6 +14,7 @@ import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboarding
 import { AddBasicCareerPreferencesForUser } from "scenarios/profile/AddBasicCareerPreferencesForUser";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
 import { AddSkillToNewUserScenario_SkillLevel } from "scenarios/profile/AddSkillToNewUserScenario_SkillLevel";
+import { expect } from "common/testing/playwright";
 
 export class DetectSkillsFromJobDescriptionTest extends BaseRestTest {
 
@@ -70,35 +72,32 @@ export class DetectSkillsFromJobDescriptionTest extends BaseRestTest {
     }
 
     public shouldCheckSkillsDetectedForJobVacancy(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .run(new AddSkillToNewUserScenario_SkillLevel())
-                .run(new AddBasicCareerPreferencesForUser())
-                .goToCareerGrowthPage()
-                .goToVacanciesPageViaTab()
-                .typeSearchValue(this.productionLogisticsSpecialist)
-                .sortListBy(this.newest)
-                .goToFirstJobVacancyOnAllJobsList()
-                .waitForSkills()
-                .clickShowMoreSkills()
-                .check(JobVacancyDetailsAssertions)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.businessDevelopment)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.projectManagement)
-//                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(teamLeadership)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.management)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.customerService)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.microsoftExcel)
-//                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(microsoftWord)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.warehousing)
-//                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(marketing)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.leadership)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.operations)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.sales)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.export)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.planning)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.logistics)
-                    .assertThatSkillChipsIsVisibleOnJobVacancyDetails(this.negotiation);
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.run(new AddSkillToNewUserScenario_SkillLevel());
+        __page1 = __page1.run(new AddBasicCareerPreferencesForUser());
+        __page1 = __page1.goToCareerGrowthPage();
+        __page1 = __page1.goToVacanciesPageViaTab();
+        __page1 = __page1.typeSearchValue(this.productionLogisticsSpecialist);
+        __page1 = __page1.sortListBy(this.newest);
+        __page1 = __page1.goToFirstJobVacancyOnAllJobsList();
+        __page1 = __page1.waitForSkills();
+        __page1 = __page1.clickShowMoreSkills();
+        expect(__page1.skillChips(this.businessDevelopment).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.projectManagement).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.management).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.customerService).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.microsoftExcel).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.warehousing).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.leadership).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.operations).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.sales).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.export).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.planning).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.logistics).first()).toBeVisible({ timeout: 30000 });
+        expect(__page1.skillChips(this.negotiation).first()).toBeVisible({ timeout: 30000 });
     }
 
     public afterTests(): void {

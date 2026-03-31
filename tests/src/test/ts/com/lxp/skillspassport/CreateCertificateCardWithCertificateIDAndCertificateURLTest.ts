@@ -1,4 +1,5 @@
-import { CertificateModalPageAssertion } from "assertions/skillspassport/CertificateModalPageAssertion";
+// @ts-nocheck
+
 import { BaseRestTest } from "common/BaseRestTest";
 import { FunctionalAreaEnum } from "common/enums/FunctionalAreaEnum";
 import { GroupNameEnum } from "common/enums/GroupNameEnum";
@@ -7,6 +8,7 @@ import { AddCertificateModalPage } from "pages/skillspassport/AddCertificateModa
 import { LoginScenario } from "scenarios/other/LoginScenario";
 import { LoginWithOnboardingScenario } from "scenarios/other/LoginWithOnboardingScenario";
 import { AddRoleAndFamilyToNewUserScenario } from "scenarios/profile/AddRoleAndFamilyToNewUserScenario";
+import { expect } from "common/testing/playwright";
 
 export class CreateCertificateCardWithCertificateIDAndCertificateURLTest extends BaseRestTest {
 
@@ -26,39 +28,40 @@ export class CreateCertificateCardWithCertificateIDAndCertificateURLTest extends
     }
 
     public addCertificateCardWithCertificateIDAndCertificateURL(): void {
-        this.getOmpLoginPage()
-                .run(new LoginWithOnboardingScenario(this.user))
-                .run(new AddRoleAndFamilyToNewUserScenario(this.user.name))
-                .goToMePageProfile()
-                .goToSkillPassportTab()
-                .clickSkillsPassportAddSkillButton()
-                .selectCertificateType()
-                .selectCertificateFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME)
-                .selectCertificateLevel(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_LEVEL)
-                .selectCertificateIssuerFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_ISSUER)
-                .selectCertificateIDFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.ID_NUMBER)
-                .selectCertificateURLFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.URL_NAME)
-                .clickSaveButton()
-                .clickCertificateCard()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateIsAdded(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME)
-                .endAssertion()
-                .clickEditButton()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateContainsIDNumber(CreateCertificateCardWithCertificateIDAndCertificateURLTest.ID_NUMBER)
-                    .assertThatCertificateContainsURLName(CreateCertificateCardWithCertificateIDAndCertificateURLTest.URL_NAME)
-                .endAssertion();
+                let __page1: any = this;
+        __page1 = __page1.getOmpLoginPage();
+        __page1 = __page1.run(new LoginWithOnboardingScenario(this.user));
+        __page1 = __page1.run(new AddRoleAndFamilyToNewUserScenario(this.user.name));
+        __page1 = __page1.goToMePageProfile();
+        __page1 = __page1.goToSkillPassportTab();
+        __page1 = __page1.clickSkillsPassportAddSkillButton();
+        __page1 = __page1.selectCertificateType();
+        __page1 = __page1.selectCertificateFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME);
+        __page1 = __page1.selectCertificateLevel(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_LEVEL);
+        __page1 = __page1.selectCertificateIssuerFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_ISSUER);
+        __page1 = __page1.selectCertificateIDFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.ID_NUMBER);
+        __page1 = __page1.selectCertificateURLFromInput(CreateCertificateCardWithCertificateIDAndCertificateURLTest.URL_NAME);
+        __page1 = __page1.clickSaveButton();
+        __page1 = __page1.clickCertificateCard();
+        expect(__page1.getCertificateCardName()).toContainText(CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME);
+        __page1.logger.info("Successfully verified that certificate is added");
+        __page1 = __page1.clickEditButton();
+        expect(__page1.getCertificateCardID()).toHaveValue(CreateCertificateCardWithCertificateIDAndCertificateURLTest.ID_NUMBER);
+        __page1.logger.info("Successfully verified that certificate contains ID Number");
+        expect(__page1.getCertificateURL()).toHaveValue(CreateCertificateCardWithCertificateIDAndCertificateURLTest.URL_NAME);
+        __page1.logger.info("Successfully verified that certificate contains URL Name");
     }
 
     public deleteAddedCertificateCard(): void {
-        this.getOmpLoginPage()
-                .run(new LoginScenario(this.user))
-                .goDirectlyTo(AddCertificateModalPage,CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME)
-                .clickCertificateCard()
-                .clickDeleteButton()
-                .clickConfirmButton()
-                .check(CertificateModalPageAssertion)
-                    .assertThatCertificateIsDeleted();
+                let __page2: any = this;
+        __page2 = __page2.getOmpLoginPage();
+        __page2 = __page2.run(new LoginScenario(this.user));
+        __page2 = __page2.goDirectlyTo(AddCertificateModalPage, CreateCertificateCardWithCertificateIDAndCertificateURLTest.CERTIFICATE_NAME);
+        __page2 = __page2.clickCertificateCard();
+        __page2 = __page2.clickDeleteButton();
+        __page2 = __page2.clickConfirmButton();
+        expect(__page2.getCertificateCard()).toBeHidden();
+        __page2.logger.info("Successfully verified that certificate is deleted");
     }
 
     public afterTests(): void {

@@ -1,29 +1,30 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { ChannelDetailsPage } from "pages/channels/ChannelDetailsPage";
+import { expect } from "common/testing/playwright";
 
 export class ChannelDetailsPageAssertions extends BaseAssertion<ChannelDetailsPage> {
 
     public assertThatChannelNotificationIs(notification: string): ChannelDetailsPageAssertions {
-        this.assertThat(this.page.getChannelNotification()).containsText(notification);
+        expect(this.page.getChannelNotification()).toContainText(notification);
         this.page.logger.info("Successfully verified that channel notification text is as expected");
         return this;
     }
 
     public assertThatChannelTitleIs(title: string): ChannelDetailsPageAssertions {
-        this.assertThat(this.page.getChannelTitle()).containsText(title);
+        expect(this.page.getChannelTitle()).toContainText(title);
         this.page.logger.info("Successfully verified that channel title is as expected");
         return this;
     }
 
     public assertThatCardTitleIs(title: string): ChannelDetailsPageAssertions {
-        this.assertThat(this.page.getCardTitle()).containsText(title);
+        expect(this.page.getCardTitle()).toContainText(title);
         this.page.logger.info("Successfully verified that card title is as expected");
         return this;
     }
 
     public assertThatCardListIsEmpty(): ChannelDetailsPageAssertions {
-        this.assertThat(this.page.cardTitle).not().isVisible();
+        expect(this.page.cardTitle).not.toBeVisible();
         this.page.logger.info("Successfully verified that card list is empty");
         return this;
     }

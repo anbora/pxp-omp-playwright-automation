@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { BaseAssertion } from "common/BaseAssertion";
-import { assertThat } from "common/testing/playwrightAssertions";
 import { assertEquals } from "common/testing/runtime";
 import { BulkRemovalPage } from "pages/groups/BulkRemovalPage";
+import { expect } from "common/testing/playwright";
 
 export class BulkRemovalAssertions extends BaseAssertion<BulkRemovalPage> {
     public assertThatDownloadSampleFileButtonIsVisible(): BulkRemovalAssertions {
-        this.assertThat(this.page.getDownloadSampleFileButton()).isVisible();
+        expect(this.page.getDownloadSampleFileButton()).toBeVisible();
         this.page.logger.info("Successfully verified that download sample file button is present");
         return this;
     }

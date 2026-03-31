@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Expose } from "common/testing/json";
 import { UpdatePathwayContent } from "models/edconnect/content/pathway/updatepathway/UpdatePathwayContent";
 

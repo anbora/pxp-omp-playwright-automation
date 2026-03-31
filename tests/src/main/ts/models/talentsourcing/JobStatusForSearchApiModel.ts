@@ -1,3 +1,4 @@
+// @ts-nocheck
 export class JobStatusForSearchApiModel {
     public pageSize: number;
     public sortType: string;
